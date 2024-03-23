@@ -1,0 +1,13 @@
+<div class="container">
+  <div class="col" style="text-align: center">
+    <h1>{{ titulo }}</h1>
+  </div>
+
+  <br /><br />
+
+  <app-coche-hijo-c
+    *ngFor="let coche of coches; let i = index"
+    [cocheDeLista]="coche"
+    [indice]="i"
+  ></app-coche-hijo-c>
+</div>

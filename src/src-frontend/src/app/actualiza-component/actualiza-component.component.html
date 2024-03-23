@@ -1,0 +1,65 @@
+<h1 style="text-align: center">Actualizar datos</h1>
+
+<div class="container">
+  <form class="form-group row">
+    <div class="form-group col-md-3">
+      <label for="marca">Marca:</label>
+      <input
+        type="text"
+        name="marca"
+        id="marca"
+        placeholder="Marca"
+        class="form-control"
+        [(ngModel)]="cuadroMarca"
+      />
+    </div>
+    <div class="form-group col-md-3">
+      <label for="modelo">Modelo:</label>
+      <input
+        type="text"
+        name="modelo"
+        id="modelo"
+        placeholder="Modelo"
+        class="form-control"
+        [(ngModel)]="cuadroModelo"
+      />
+    </div>
+    <div class="form-group col-md-3">
+      <label for="anyo">Año:</label>
+      <input
+        type="text"
+        name="anyo"
+        id="anyo"
+        placeholder="Año"
+        class="form-control"
+        [(ngModel)]="cuadroAnyo"
+      />
+    </div>
+    <div class="form-group col-md-3">
+      <label for="caballos">Caballos:</label>
+      <input
+        type="text"
+        name="caballos"
+        id="caballos"
+        placeholder="Caballos"
+        class="form-control"
+        [(ngModel)]="cuadroCaballos"
+      />
+    </div>
+
+    <div class="col">
+      <button
+        type="submit"
+        class="btn btn-primary"
+        (click)="actualizaCoche()"
+        style="margin-top: 20px; margin-right: 40px"
+      >
+        Acción
+      </button>
+    </div>
+  </form>
+</div>
+
+<div style="text-align: center">
+  <button class="btn btn-secondary" (click)="volverHome()">Ir a Inicio</button>
+</div>
