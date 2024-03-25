@@ -151,7 +151,7 @@ public class CocheControlador {
 	 * se encuentra la imagen.
 	 */
 	@PreAuthorize("hasRole('ADMIN')")
-	@PutMapping("/{imagenId}")
+	@PutMapping("/imagen/{imagenId}")
 	public ResponseEntity<Imagen> updateImagen(@PathVariable Long imagenId, @RequestBody Imagen nuevaImagen) {
 		return imagenServicio.updateImagen(imagenId, nuevaImagen);
 	}
@@ -164,7 +164,7 @@ public class CocheControlador {
 	 * @Parameter id de la imagen que se quiere borrar
 	 */
 	@PreAuthorize("hasRole('ADMIN')")
-	@DeleteMapping("/{imagenId}")
+	@DeleteMapping("/imagen/{imagenId}")
 	public ResponseEntity<String> deleteImagen(@PathVariable Long imagenId) {
 		return imagenServicio.deleteImagen(imagenId);
 	}

@@ -6,9 +6,12 @@ import java.util.List;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
@@ -63,6 +66,10 @@ public class Coche {
 	@Column(name = "descripcion", nullable = false)
 	private String descripcion;
 
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "usuario_id", referencedColumnName = "id", nullable = false)
+	private Usuario usuario;
+
 	@OneToMany(mappedBy = "coche", cascade = CascadeType.ALL)
 	private List<Imagen> imagenes = new ArrayList<>();
 
@@ -74,12 +81,13 @@ public class Coche {
 			@NotBlank(message = "El modelo no puede estar en blanco") String modelo,
 			@NotNull(message = "El año no puede ser nulo") Integer anyo,
 			@NotNull(message = "La potencia no puede ser nula") Integer potencia,
-			@NotNull(message = "El kilómetraje no pueden ser nulo") Integer kilometraje,
-			@NotNull(message = "El peso no pueden ser nulo") Integer peso,
-			@NotNull(message = "El combustible no pueden ser nulo") String combustible,
-			@NotNull(message = "El color no pueden ser nulo") String color,
-			@NotNull(message = "El precio no pueden ser nulo") Integer precio,
-			@NotNull(message = "La descripcion no pueden estar vacío") String descripcion) {
+			@NotNull(message = "El kilometraje no puede ser nulo") Integer kilometraje,
+			@NotNull(message = "El peso no puede ser nulo") Integer peso,
+			@NotNull(message = "El combustible no puede ser nulo") String combustible,
+			@NotNull(message = "El color no puede ser nulo") String color,
+			@NotNull(message = "El precio no puede ser nulo") Integer precio,
+			@NotNull(message = "La descripción no puede estar vacía") String descripcion, Usuario usuario,
+			List<Imagen> imagenes) {
 		this.id = id;
 		this.marca = marca;
 		this.modelo = modelo;
@@ -91,6 +99,8 @@ public class Coche {
 		this.color = color;
 		this.precio = precio;
 		this.descripcion = descripcion;
+		this.usuario = usuario;
+		this.imagenes = imagenes;
 	}
 
 	public Long getId() {
@@ -181,13 +191,29 @@ public class Coche {
 		this.precio = precio;
 	}
 
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
+	public List<Imagen> getImagenes() {
+		return imagenes;
+	}
+
+	public void setImagenes(List<Imagen> imagenes) {
+		this.imagenes = imagenes;
+	}
+
 	@Override
 	public String toString() {
 		return "Coche [getId()=" + getId() + ", getMarca()=" + getMarca() + ", getModelo()=" + getModelo()
 				+ ", getAnyo()=" + getAnyo() + ", getPotencia()=" + getPotencia() + ", getKilometraje()="
 				+ getKilometraje() + ", getPeso()=" + getPeso() + ", getCombustible()=" + getCombustible()
 				+ ", getColor()=" + getColor() + ", getDescripcion()=" + getDescripcion() + ", getPrecio()="
-				+ getPrecio() + "]";
+				+ getPrecio() + ", getUsuario()=" + getUsuario() + ", getImagenes()=" + getImagenes() + "]";
 	}
 
 }

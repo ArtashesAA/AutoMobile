@@ -7,6 +7,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -32,6 +33,9 @@ public class Usuario implements UserDetails {
 
 	@Column(name = "role", nullable = false, columnDefinition = "VARCHAR(255) DEFAULT 'USER'")
 	private String role;
+
+	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
+	private List<Coche> coches = new ArrayList<>();
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
