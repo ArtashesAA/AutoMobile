@@ -12,12 +12,6 @@ import { LoginService } from './login/login.service';
 export class AppComponent {
   title = 'AutoMobile';
   constructor(private loginService: LoginService) {}
-  ngOnInit(): void {
-    firebase.initializeApp({
-      apiKey: 'AIzaSyAKFg3dJOriEX6oeICUOq4LRp1OlJm9I_c',
-      authDomain: 'app-coches-dbe72.firebaseapp.com',
-    });
-  }
 
   estaLogueado() {
     return this.loginService.estaLogueado();

@@ -6,10 +6,12 @@ describe('ErrorPersonalizadoComponent', () => {
   let component: ErrorPersonalizadoComponent;
   let fixture: ComponentFixture<ErrorPersonalizadoComponent>;
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      declarations: [ErrorPersonalizadoComponent]
-    });
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [ErrorPersonalizadoComponent]
+    })
+    .compileComponents();
+    
     fixture = TestBed.createComponent(ErrorPersonalizadoComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

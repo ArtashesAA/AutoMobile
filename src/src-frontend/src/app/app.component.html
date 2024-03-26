@@ -1,4 +1,4 @@
-<!-- A grey horizontal navbar that becomes vertical on small screens -->
+<!DOCTYPE html>
 <nav class="navbar navbar-expand-sm bg-light">
   <!-- Links -->
   <ul class="navbar-nav">
@@ -11,11 +11,11 @@
     <li class="nav-item">
       <a class="nav-link" href="/crear">Crear</a>
     </li>
-    <li class="nav-item" class="user" *ngIf="!estaLogueado()">
-      <a class="nav-link" routerLink="/login">Login</a>
+    <li class="nav-item" class="user">
+      <a class="nav-link" routerlink="/login">Login</a>
     </li>
-    <li class="nav-item" class="user" *ngIf="estaLogueado()">
-      <a class="nav-link" (click)="logout()" style="cursor: pointer">Logout</a>
+    <li class="nav-item" class="user">
+      <a class="nav-link" style="cursor: pointer">Logout</a>
     </li>
   </ul>
 </nav>

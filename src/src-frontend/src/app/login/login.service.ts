@@ -1,55 +1,44 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import firebase from 'firebase/compat/app';
 
-import 'firebase/compat/auth';
-import { CookieService } from 'ngx-cookie-service';
-
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class LoginService {
-  constructor(private router: Router, private cookies: CookieService) {}
+  constructor(private router: Router, private httpClient: HttpClient) {}
 
-  token: string;
+  token!: string;
 
   login(email: string, password: string): Promise<void> {
     return new Promise<void>((resolve, reject) => {
-      firebase
-        .auth()
-        .signInWithEmailAndPassword(email, password)
-        .then((response) => {
-          firebase
-            .auth()
-            .currentUser?.getIdToken()
-            .then((token) => {
-              this.token = token;
-              this.cookies.set('token', this.token);
-              this.router.navigate(['/']);
-              resolve();
-            });
-        })
-        .catch((error) => {
-          reject(error);
-        });
+      this.httpClient
+        .post<any>('http://localhost:8080/api/v1/auth/', { email, password })
+        .subscribe(
+          (response) => {
+            this.token = response.token;
+            localStorage.setItem('token', this.token);
+            this.router.navigate(['/']);
+            resolve();
+          },
+          (error) => {
+            reject(error);
+          }
+        );
     });
   }
 
   getIdToken() {
-    return this.cookies.get('token');
+    return localStorage.getItem('token');
   }
 
   estaLogueado() {
-    return this.cookies.get('token');
+    return !!localStorage.getItem('token');
   }
 
   logout() {
-    firebase
-      .auth()
-      .signOut()
-      .then(() => {
-        this.token = '';
-        this.cookies.set('token', this.token);
-        this.router.navigate(['/']);
-        window.location.reload();
-      });
+    localStorage.removeItem('token');
+    this.router.navigate(['/']);
+    window.location.reload();
   }
 }

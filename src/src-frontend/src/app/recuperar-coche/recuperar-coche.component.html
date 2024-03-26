@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<h2>{{ coche.marca }} {{ coche.modelo }}</h2>
+Año:{{ coche.anyo }} <br />
+Potencia: {{ coche.potencia }} <br />
+Kilometraje: {{ coche.kilometraje }} <br />
+Peso: {{ coche.peso }} <br />
+Combustible: {{ coche.combustible }} <br />
+Color: {{ coche.color }} <br />
+Precio: {{ coche.precio }} <br />
+Descripcion: {{ coche.descripcion }} <br />
+
+<br /><br />
+
+<div style="text-align: center">
+  <button
+    class="btn btn-secondary"
+    (click)="volverCatalogo()"
+    style="margin: 0px auto"
+  >
+    Volver
+  </button>
+</div>

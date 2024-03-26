@@ -20,7 +20,7 @@ public class Favorito {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
-	private Integer id;
+	private Long id;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "usuario_id", referencedColumnName = "id", nullable = false)
@@ -38,7 +38,7 @@ public class Favorito {
 
 	}
 
-	public Favorito(Integer id, Usuario usuario, Coche coche,
+	public Favorito(Long id, Usuario usuario, Coche coche,
 			@NotNull(message = "La fecha no puede estar nula") Date fecha) {
 		this.id = id;
 		this.usuario = usuario;
@@ -46,11 +46,11 @@ public class Favorito {
 		this.fecha = fecha;
 	}
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

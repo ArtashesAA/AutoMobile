@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <div class="coche-info-container border rounded p-4">
+        <div>
+          <h4>{{ cocheDeLista.marca }} {{ cocheDeLista.modelo }}</h4>
+          Año:{{ cocheDeLista.anyo }} <br />
+          Potencia:{{ cocheDeLista.potencia }}<br />
+          Kilometraje:{{ cocheDeLista.kilometraje }}<br />
+          Peso:{{ cocheDeLista.peso }}<br />
+          Combustible:{{ cocheDeLista.combustible }}<br />
+          Color:{{ cocheDeLista.color }}<br />
+          Precio:{{ cocheDeLista.precio }}<br />
+          Descripción:{{ cocheDeLista.descripcion }}<br />
+          <button
+            class="btn btn-primary"
+            [routerLink]="['/ver', indice]"
+            style="margin-right: 40px"
+          >
+            Ver
+          </button>
+          <button
+            class="btn btn-secondary"
+            [routerLink]="['/actualiza', indice]"
+            [queryParams]="{ accion: '1' }"
+            *ngIf="estaLogueado()"
+          >
+            Actualizar
+          </button>
+          &nbsp;&nbsp;
+          <button
+            class="btn btn-danger"
+            [routerLink]="['/actualiza', indice]"
+            [queryParams]="{ accion: '2' }"
+            *ngIf="estaLogueado()"
+          >
+            Eliminar
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <br />
+  </div>
+</div>
