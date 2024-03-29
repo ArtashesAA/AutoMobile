@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.v1.automobile.entidad.Coche;
 import com.v1.automobile.entidad.CocheDTO;
+import com.v1.automobile.entidad.CocheRequest;
 import com.v1.automobile.entidad.Imagen;
 import com.v1.automobile.entidad.ImagenDTO;
 import com.v1.automobile.entidad.Usuario;
@@ -32,6 +33,9 @@ public class CocheServicio {
 
 	@Autowired
 	private ImagenRepositorio imagenRepositorio;
+	
+	@Autowired
+	private ImagenServicio imagenServicio;
 
 	@Autowired
 	private FavoritoRepositorio favoritoRepositorio;
@@ -52,43 +56,48 @@ public class CocheServicio {
 		}
 	}
 
-	@Transactional
-	public ResponseEntity<String> addCoche(CocheDTO cocheDTO, Integer usuarioId) {
-		try {
+	public ResponseEntity<String> addCoche(CocheRequest cocheRequest) {
+	    try {
 			// Crea un nuevo coche
 			Coche coche = new Coche();
-			coche.setMarca(cocheDTO.getMarca());
-			coche.setModelo(cocheDTO.getModelo());
-			coche.setAnyo(cocheDTO.getAnyo());
-			coche.setPotencia(cocheDTO.getPotencia());
-			coche.setKilometraje(cocheDTO.getKilometraje());
-			coche.setPeso(cocheDTO.getPeso());
-			coche.setCombustible(cocheDTO.getCombustible());
-			coche.setColor(cocheDTO.getColor());
-			coche.setPrecio(cocheDTO.getPrecio());
-			coche.setDescripcion(cocheDTO.getDescripcion());
+			coche.setMarca(cocheRequest.getMarca());
+			coche.setModelo(cocheRequest.getModelo());
+			coche.setAnyo(cocheRequest.getAnyo());
+			coche.setPotencia(cocheRequest.getPotencia());
+			coche.setKilometraje(cocheRequest.getKilometraje());
+			coche.setPeso(cocheRequest.getPeso());
+			coche.setCombustible(cocheRequest.getCombustible());
+			coche.setColor(cocheRequest.getColor());
+			coche.setPrecio(cocheRequest.getPrecio());
+			coche.setDescripcion(cocheRequest.getDescripcion());
 
-			Usuario usuario = new Usuario();
-	        usuario.setId(usuarioId);
-	        coche.setUsuario(usuario);
-			
-			// Guarda el coche
-			Coche savedCoche = cocheRepositorio.save(coche);
+	        // Obtiene el usuario asociado al coche
+	        Optional<Usuario> optionalUsuario = usuarioRepositorio.findById(cocheRequest.getUsuario_id());
+	        if (optionalUsuario.isPresent()) {
+	            coche.setUsuario(optionalUsuario.get());
+	        } else {
+	            return new ResponseEntity<>("Usuario no encontrado", HttpStatus.NOT_FOUND);
+	        }
 
-			// Guarda las imagenes asociadas
-			List<ImagenDTO> imagenes = cocheDTO.getImagenes();
-			for (ImagenDTO imagenDTO : imagenes) {
-				Imagen imagen = new Imagen();
-				imagen.setCoche(savedCoche);
-				imagen.setImagen_url(imagenDTO.getImagen_url());
-				imagenRepositorio.save(imagen);
-			}
+	        // Guarda el coche
+	        Coche savedCoche = cocheRepositorio.save(coche);
 
-			return new ResponseEntity<>("Coche creado correctamente", HttpStatus.CREATED);
-		} catch (Exception e) {
-			return new ResponseEntity<>("Error al crear el coche", HttpStatus.INTERNAL_SERVER_ERROR);
-		}
+	        // Guarda las imágenes asociadas
+	        List<ImagenDTO> imagenes = cocheRequest.getImagenes();
+	        for (ImagenDTO imagenDTO : imagenes) {
+	        	 ResponseEntity<String> response = imagenServicio.addImagen(savedCoche.getId(), imagenDTO.getImagen_url());
+	        	    if (response.getStatusCode() != HttpStatus.OK) {
+	        	        // Si ocurre algún error al agregar la imagen, devolver la respuesta con el mensaje de error
+	        	        return new ResponseEntity<>(response.getBody(), response.getStatusCode());
+	        	    }
+	        }
+
+	        return new ResponseEntity<>("Coche creado correctamente", HttpStatus.CREATED);
+	    } catch (Exception e) {
+	        return new ResponseEntity<>("Error al crear el coche", HttpStatus.INTERNAL_SERVER_ERROR);
+	    }
 	}
+
 
 	public ResponseEntity<String> updateCoche(Long id, Coche nuevoCoche) {
 		Coche cocheExistente = cocheRepositorio.findById(id).orElse(null);

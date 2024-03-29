@@ -18,22 +18,23 @@ public class Imagen {
 	@Column(name = "id")
 	private Long id;
 
-	@ManyToOne
-	@JoinColumn(name = "coche_id", nullable = false)
-	private Coche coche;
-
 	@NotNull(message = "La imagen no puede estar vacío")
 	@Column(name = "imagen_url", nullable = false)
 	private String imagen_url;
+
+	@ManyToOne
+	@JoinColumn(name = "coche_id", nullable = false)
+	private Coche coche;
 
 	public Imagen() {
 
 	}
 
-	public Imagen(Long id, Coche coche, @NotNull(message = "La imagen no puede estar vacío") String imagen_url) {
+	public Imagen(Long id, @NotNull(message = "La imagen no puede estar vacío") String imagen_url, Coche coche) {
 		this.id = id;
-		this.coche = coche;
 		this.imagen_url = imagen_url;
+		this.coche = coche;
+
 	}
 
 	public Long getId() {
