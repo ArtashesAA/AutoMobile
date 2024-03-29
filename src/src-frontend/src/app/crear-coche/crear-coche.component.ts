@@ -5,15 +5,19 @@ import {
   Validators,
   FormsModule,
 } from '@angular/forms';
-import { Coche } from '../coche.model';
+import { Coche } from '../entidad/coche.model';
 import { ServicioCocheService } from '../servicio-coche/servicio-coche.service';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { Imagen } from '../entidad/imagen.model';
+import { Usuario } from '../entidad/usuario.model';
+import { DataServices } from '../DataServices';
 
 @Component({
   selector: 'app-crear-coche',
   standalone: true,
   imports: [CommonModule, FormsModule],
+  providers: [ServicioCocheService, DataServices],
   templateUrl: './crear-coche.component.html',
   styleUrl: './crear-coche.component.css',
 })
@@ -36,6 +40,8 @@ export class CrearCocheComponent implements OnInit {
       color: ['', Validators.required],
       precio: [null, [Validators.required, Validators.min(0)]],
       descripcion: ['', Validators.required],
+      usuario: [null, Validators.required],
+      imagenes: [[], Validators.required],
     });
   }
 
@@ -66,7 +72,9 @@ export class CrearCocheComponent implements OnInit {
         this.miFormulario.value.combustible,
         this.miFormulario.value.color,
         this.miFormulario.value.precio,
-        this.miFormulario.value.descripcion
+        this.miFormulario.value.descripcion,
+        this.miFormulario.value.usuario,
+        this.miFormulario.value.imagenes
       );
 
       this.miServicio.agregarCocheServicio(miCoche);
@@ -88,7 +96,9 @@ export class CrearCocheComponent implements OnInit {
       this.cuadroCombustible.trim() !== '' &&
       this.cuadroColor.trim() !== '' &&
       this.cuadroPrecio > 0 &&
-      this.cuadroDescripcion.trim() !== ''
+      this.cuadroDescripcion.trim() !== '' &&
+      this.cuadroUsuario !== null &&
+      this.cuadroImagenes.length > 0
     );
   }
 
@@ -102,4 +112,6 @@ export class CrearCocheComponent implements OnInit {
   cuadroColor: string = '';
   cuadroPrecio: number = 0;
   cuadroDescripcion: string = '';
+  cuadroUsuario!: Usuario;
+  cuadroImagenes: Imagen[] = [];
 }

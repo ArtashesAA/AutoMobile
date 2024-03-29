@@ -1,6 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Coche } from './coche.model';
+import { Coche } from './entidad/coche.model';
 import { LoginService } from './login/login.service';
 
 @Injectable()
@@ -10,40 +10,48 @@ export class DataServices {
     private loginService: LoginService
   ) {}
 
-  guardarCoches(coches: Coche[]) {
-    this.httpClient.put('http://localhost:8080/api/v1/coche', coches).subscribe(
-      (response) => console.log('Se han guardado los coches: ' + response),
+  cargarCoches() {
+    return this.httpClient.get('http://localhost:8080/api/v1/public/coche');
+  }
 
-      (error) => console.log('Error: ' + error)
+  cargarCochePorId(id: number) {
+    return this.httpClient.get(
+      'http://localhost:8080/api/v1/public/coche/' + id
     );
+  }
+
+  guardarCoches(coches: Coche[]) {
+    const token = this.loginService.getIdToken();
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    });
+
+    return this.httpClient.put('http://localhost:8080/api/v1/coche', coches, {
+      headers,
+    });
   }
 
   actualizarCoche(indice: number, coche: Coche) {
-    let url = 'http://localhost:8080/api/v1/coche/' + indice + '.json';
+    const token = this.loginService.getIdToken();
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    });
 
-    this.httpClient.put(url, coche).subscribe(
-      (response) =>
-        console.log('Se ha modificado correctamente el coche: ' + response),
+    let url = 'http://localhost:8080/api/v1/coche/' + indice;
 
-      (error) => console.log('Error: ' + error)
-    );
+    return this.httpClient.put(url, coche, { headers });
   }
 
   eliminarCoche(indice: number) {
-    let url = 'http://localhost:8080/api/v1/coche/' + indice + '.json';
-
-    this.httpClient.delete(url).subscribe(
-      (response) =>
-        console.log('Se ha eliminado correctamente el empleado: ' + response),
-
-      (error) => console.log('Error: ' + error)
-    );
-  }
-
-  cargarCoches() {
     const token = this.loginService.getIdToken();
-    return this.httpClient.get(
-      'http://localhost:8080/api/v1/coche/datos.json?auth=' + token
-    );
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
+
+    let url = 'http://localhost:8080/api/v1/coche/' + indice;
+
+    return this.httpClient.delete(url, { headers });
   }
 }

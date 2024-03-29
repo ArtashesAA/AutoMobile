@@ -24,16 +24,16 @@ public class Imagen {
 
 	@NotNull(message = "La imagen no puede estar vacío")
 	@Column(name = "imagen_url", nullable = false)
-	private String imageUrl;
+	private String imagen_url;
 
 	public Imagen() {
 
 	}
 
-	public Imagen(Long id, Coche coche, @NotNull(message = "La imagen no puede estar vacío") String imageUrl) {
+	public Imagen(Long id, Coche coche, @NotNull(message = "La imagen no puede estar vacío") String imagen_url) {
 		this.id = id;
 		this.coche = coche;
-		this.imageUrl = imageUrl;
+		this.imagen_url = imagen_url;
 	}
 
 	public Long getId() {
@@ -52,17 +52,18 @@ public class Imagen {
 		this.coche = coche;
 	}
 
-	public String getImageUrl() {
-		return imageUrl;
+	public String getImagen_url() {
+		return imagen_url;
 	}
 
-	public void setImageUrl(String imageUrl) {
-		this.imageUrl = imageUrl;
+	public void setImagen_url(String imagen_url) {
+		this.imagen_url = imagen_url;
 	}
 
 	@Override
 	public String toString() {
-		return "Imagen [getId()=" + getId() + ", getCoche()=" + getCoche() + ", getImageUrl()=" + getImageUrl() + "]";
+		return "Imagen [getId()=" + getId() + ", getCoche()=" + getCoche() + ", getImagen_url()=" + getImagen_url()
+				+ "]";
 	}
 
 }

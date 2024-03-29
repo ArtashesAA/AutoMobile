@@ -23,6 +23,10 @@ public class Usuario implements UserDetails {
 	@Column(name = "id")
 	private Integer id;
 
+	@NotBlank(message = "El nombre de usuario no puede estar en blanco")
+	@Column(name = "nombre_usuario", nullable = false, unique = true, columnDefinition = "VARCHAR(255)")
+	private String nombre_usuario;
+
 	@NotBlank(message = "El email no puede estar en blanco")
 	@Column(name = "email", nullable = false, unique = true, columnDefinition = "VARCHAR(255)")
 	private String email;
@@ -104,4 +108,21 @@ public class Usuario implements UserDetails {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+	public List<Coche> getCoches() {
+		return coches;
+	}
+
+	public void setCoches(List<Coche> coches) {
+		this.coches = coches;
+	}
+
+	public String getNombre_usuario() {
+		return nombre_usuario;
+	}
+
+	public void setNombre_usuario(String nombre_usuario) {
+		this.nombre_usuario = nombre_usuario;
+	}
+
 }

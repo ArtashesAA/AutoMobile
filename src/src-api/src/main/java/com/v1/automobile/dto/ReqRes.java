@@ -131,12 +131,12 @@ public class ReqRes {
 		this.coches = coches;
 	}
 
-	public Usuario getOurUsers() {
+	public Usuario getUsuarios() {
 		return usuarios;
 	}
 
-	public void setOurUsers(Usuario ourUsers) {
-		this.usuarios = ourUsers;
+	public void setUsuarios(Usuario usuarios) {
+		this.usuarios = usuarios;
 	}
 
 }

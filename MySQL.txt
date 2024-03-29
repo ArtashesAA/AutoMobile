@@ -1,0 +1,78 @@
+create database autoMobile;
+USE autoMobile;
+
+CREATE TABLE usuario (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    role VARCHAR(255) NOT NULL DEFAULT 'USER'
+);
+
+CREATE TABLE coche (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    marca VARCHAR(255) NOT NULL,
+    modelo VARCHAR(255) NOT NULL,
+    anyo INT NOT NULL,
+    potencia INT NOT NULL,
+    kilometraje INT NOT NULL,
+    peso INT NOT NULL,
+    combustible VARCHAR(255) NOT NULL,
+    color VARCHAR(255) NOT NULL,
+    precio INT NOT NULL,
+    descripcion TEXT NOT null,
+    usuario_id INT not NULL,
+    FOREIGN KEY (usuario_id) REFERENCES usuario(id)
+);
+
+CREATE TABLE imagen (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    coche_id BIGINT not NULL,
+    imagen_url VARCHAR(255) NOT NULL,
+    FOREIGN KEY (coche_id) REFERENCES coche(id)
+);
+
+-- TABLA RESEÑAS ??
+
+CREATE TABLE favorito (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    coche_id BIGINT not NULL,
+    usuario_id INT not NULL,
+    fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (coche_id) REFERENCES coche(id),
+    FOREIGN KEY (usuario_id) REFERENCES usuario(id)
+);
+
+-- Insertar datos
+
+insert into usuario (email, password,role) values 
+('admin@gmail.com','$2a$10$pENpVxdWgNRl0pMLrU3B4u3a1T8ilQSy.YpEfkwSsNMO7hGEYhgka','ADMIN'),
+('usuario@gmail.com','$2a$10$CEqJR9Krk3nclTFtodLeKO99kaGIbW8kKXFT2kgcjN.fkL0ba0x.C','USER'),
+('aabb@gmail.com','$2a$10$CEqJR9Krk3nclTFtodLeKO99kaGIbW8kKXFT2kgcjN.fkL0ba0x.C','USER'),
+('ccdd@gmail.com','$2a$10$CEqJR9Krk3nclTFtodLeKO99kaGIbW8kKXFT2kgcjN.fkL0ba0x.C','USER');
+    
+-- admin@gmail.com:admin; usuario@gmail.com:contraseña123;
+
+INSERT INTO coche (marca, modelo, anyo, potencia, kilometraje, peso, combustible, color, precio, descripcion, usuario_id) VALUES 
+    ('Toyota', 'Corolla', 2020, 150, 20000, 1200, 'Gasolina', 'Rojo', 20000, 'Excelente estado, único dueño', 3),
+    ('Ford', 'Focus', 2018, 120, 35000, 1300, 'Diesel', 'Azul', 18000, 'Buen estado general, revisiones al día', 3),
+    ('Volkswagen', 'Golf', 2019, 140, 25000, 1250, 'Gasolina', 'Blanco', 22000, 'Pocos kilómetros, como nuevo', 2),
+    ('BMW', 'Serie 3', 2017, 180, 40000, 1400, 'Gasolina', 'Negro', 25000, 'Lujo y potencia combinados', 2),
+    ('Audi', 'A4', 2016, 150, 45000, 1350, 'Diesel', 'Gris', 20000, 'Confort y elegancia', 4);
+
+INSERT INTO imagen (coche_id, imagen_url) VALUES 
+    (1, 'https://prod.pictures.autoscout24.net/listing-images/8ff579a9-b17f-4a74-a370-22acbf3fe24b_8d802e02-0872-41e7-81f2-09ebe824cba7.jpg/720x540.webp'),
+    (1, 'https://prod.pictures.autoscout24.net/listing-images/8ff579a9-b17f-4a74-a370-22acbf3fe24b_3fbf8620-b687-4d06-ba00-8c0210a7ad9d.jpg/720x540.webp'),
+    (2, 'https://prod.pictures.autoscout24.net/listing-images/e9dcbdf6-2d0e-4342-8d35-37482b8c9ac8_baf7abcf-31d0-4bb6-b530-b16f85e85376.jpg/720x540.webp'),
+    (3, 'https://prod.pictures.autoscout24.net/listing-images/37fdae17-b4bf-4d5f-bc0f-c376e3a401d7_6a03c725-3974-456b-a387-30245b467135.jpg/720x540.webp'),
+    (3, 'https://prod.pictures.autoscout24.net/listing-images/37fdae17-b4bf-4d5f-bc0f-c376e3a401d7_f717884d-1561-4e2e-8d31-b185a5aabed7.jpg/720x540.webp');
+   
+INSERT INTO favorito (coche_id, usuario_id) VALUES 
+    (1, 2), 
+    (2, 2), 
+    (2, 3), 
+    (3, 2), 
+    (4, 3), 
+    (5, 4);
+
+
+

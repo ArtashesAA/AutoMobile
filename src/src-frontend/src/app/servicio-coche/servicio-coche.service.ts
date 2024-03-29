@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Coche } from '../coche.model';
+import { Coche } from '../entidad/coche.model';
 import { ServicioGeneralService } from '../servicio-general/servicio-general.service';
 import { DataServices } from '../DataServices';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -11,6 +12,10 @@ export class ServicioCocheService {
     private servicioGeneral: ServicioGeneralService,
     private dataService: DataServices
   ) {}
+
+  getCoche(id: number): Observable<any> {
+    return this.dataService.cargarCochePorId(id);
+  }
 
   setCoches(misCoches: Coche[]) {
     this.coches = misCoches;

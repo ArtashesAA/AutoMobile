@@ -1,3 +1,6 @@
+import { Imagen } from './imagen.model';
+import { Usuario } from './usuario.model';
+
 export class Coche {
   constructor(
     marca: string,
@@ -9,7 +12,9 @@ export class Coche {
     combustible: string,
     color: string,
     precio: number,
-    descripcion: string
+    descripcion: string,
+    usuario: Usuario,
+    imagenes: Imagen[]
   ) {
     this.marca = marca;
     this.modelo = modelo;
@@ -21,6 +26,8 @@ export class Coche {
     this.color = color;
     this.precio = precio;
     this.descripcion = descripcion;
+    this.usuario = usuario;
+    this.imagenes = imagenes;
   }
 
   marca: string = '';
@@ -33,4 +40,6 @@ export class Coche {
   color: string = '';
   precio: number = 0;
   descripcion: string = '';
+  usuario: Usuario;
+  imagenes: Imagen[] = [];
 }

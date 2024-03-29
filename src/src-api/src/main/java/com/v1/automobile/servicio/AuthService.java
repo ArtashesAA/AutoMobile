@@ -28,6 +28,7 @@ public class AuthService {
 		ReqRes resp = new ReqRes();
 		try {
 			Usuario usuarios = new Usuario();
+			usuarios.setNombre_usuario(registrationRequest.getName());
 			usuarios.setEmail(registrationRequest.getEmail());
 			usuarios.setPassword(passwordEncoder.encode(registrationRequest.getPassword()));
 
@@ -35,7 +36,7 @@ public class AuthService {
 			usuarios.setRole("USER");
 			Usuario usuarioResult = usuarioRepositorio.save(usuarios);
 			if (usuarioResult != null && usuarioResult.getId() > 0) {
-				resp.setOurUsers(usuarioResult);
+				resp.setUsuarios(usuarioResult);
 				resp.setMessage("User Saved Successfully");
 				resp.setStatusCode(200);
 			}

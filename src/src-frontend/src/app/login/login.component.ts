@@ -11,21 +11,23 @@ import { HttpClientModule } from '@angular/common/http';
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })
-export class LoginComponent implements OnInit {
-  constructor(private loginService: LoginService) {}
-
-  ngOnInit(): void {}
-
+export class LoginComponent {
+  //Variables
+  email: string = '';
+  password: string = '';
+  token: string = '';
+  cochesResponse: any;
   errorMessage: string = '';
 
-  login(form: NgForm) {
-    const email = form.value.email;
-    const password = form.value.password;
+  constructor(private loginService: LoginService) {}
 
-    this.loginService.login(email, password).catch((error) => {
-      console.error('Login error:', error);
-
-      this.errorMessage = 'Usuario o contraseña incorrectos';
+  //Realiza el login llamando al método login del servicio de autenticación
+  login() {
+    this.loginService.login(this.email, this.password).subscribe((response) => {
+      this.token = response.token;
+      console.log(this.token);
+      // Almacena el token en localStorage después de obtenerlo
+      this.loginService.guardarToken(this.token);
     });
   }
 }

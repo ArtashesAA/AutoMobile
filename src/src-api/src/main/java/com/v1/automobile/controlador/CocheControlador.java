@@ -15,12 +15,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.v1.automobile.entidad.Coche;
+import com.v1.automobile.entidad.CocheDTO;
 import com.v1.automobile.entidad.Imagen;
+import com.v1.automobile.entidad.ImagenDTO;
 import com.v1.automobile.servicio.CocheServicio;
 import com.v1.automobile.servicio.ImagenServicio;
 
 @RestController
-@RequestMapping("/api/v1/coche")
+@RequestMapping("/api/v1")
 public class CocheControlador {
 
 	@Autowired
@@ -34,10 +36,10 @@ public class CocheControlador {
 	 * 
 	 * @return recupera todos los coches
 	 */
-	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-	@GetMapping
-	public ResponseEntity<List<Coche>> getAllCoches() {
-		return cocheServicio.getAllCoches();
+	@GetMapping("/public/coche")
+	public ResponseEntity<List<CocheDTO>> getAllCoches() {
+		List<CocheDTO> coches = cocheServicio.getAllCoches();
+		return ResponseEntity.ok(coches);
 	}
 
 	/*
@@ -47,9 +49,8 @@ public class CocheControlador {
 	 * 
 	 * @return recupera el coche por id
 	 */
-	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-	@GetMapping("/{id}")
-	public ResponseEntity<Coche> getCocheById(@PathVariable Long id) {
+	@GetMapping("/public/coche/{id}")
+	public ResponseEntity<CocheDTO> getCocheById(@PathVariable Long id) {
 		return cocheServicio.getCocheById(id);
 	}
 
@@ -61,9 +62,10 @@ public class CocheControlador {
 	 * @return guarda el coche pasado por parámetro
 	 */
 	@PreAuthorize("hasRole('ADMIN')")
-	@PostMapping
-	public ResponseEntity<Coche> addCoche(@RequestBody Coche coche) {
-		return cocheServicio.addCoche(coche);
+	@PostMapping("/coche")
+	public ResponseEntity<String> addCoche(@RequestBody CocheDTO cocheDTO) {
+		Integer usuarioId = cocheDTO.getUsuario().getId();
+		return cocheServicio.addCoche(cocheDTO, usuarioId);
 	}
 
 	/*
@@ -77,8 +79,8 @@ public class CocheControlador {
 	 * @return actualiza el coche pasado por parámetro
 	 */
 	@PreAuthorize("hasRole('ADMIN')")
-	@PutMapping("/{id}")
-	public ResponseEntity<Coche> updateCoche(@PathVariable Long id, @RequestBody Coche nuevoCoche) {
+	@PutMapping("/coche/{id}")
+	public ResponseEntity<String> updateCoche(@PathVariable Long id, @RequestBody Coche nuevoCoche) {
 		return cocheServicio.updateCoche(id, nuevoCoche);
 	}
 
@@ -88,7 +90,7 @@ public class CocheControlador {
 	 * @Parameter id del coche que se quiere borrar
 	 */
 	@PreAuthorize("hasRole('ADMIN')")
-	@DeleteMapping("/{id}")
+	@DeleteMapping("/coche/{id}")
 	public ResponseEntity<String> deleteCoche(@PathVariable Long id) {
 		return cocheServicio.deleteCoche(id);
 	}
@@ -96,32 +98,26 @@ public class CocheControlador {
 //-------------------------------------------------- Imagenes ---------------------------------------------------------
 
 	/*
-	 * Obtiene todas las imágenes asociadas a un coche por su ID. Puede acceder
-	 * cualquier rol.
-	 *
-	 * @param id ID del coche del cual se quieren obtener las imágenes.
+	 * Recupera todos las imagenes. Puede acceder cualquier rol
 	 * 
-	 * @return ResponseEntity con la lista de imágenes o un mensaje de error si no
-	 * se encuentran imágenes.
+	 * @return recupera todas las imagenes
 	 */
-	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-	@GetMapping("/imagen/{id}")
-	public ResponseEntity<List<Imagen>> getAllImagenesByCocheId(@PathVariable Long cocheId) {
-		return imagenServicio.getImagenesByCocheId(cocheId);
+	@GetMapping("/public/imagen")
+	public ResponseEntity<List<ImagenDTO>> getAllImagenes() {
+		List<ImagenDTO> imagenes = imagenServicio.getAllImagenes();
+		return ResponseEntity.ok(imagenes);
 	}
 
 	/*
-	 * Obtiene una imagen específica por su ID.
+	 * Recupera una imagen por id. Puede acceder cualquier rol
 	 * 
-	 * @param imagenId ID de la imagen que se desea obtener.
+	 * @Parameter id de imagen que se va a buscar
 	 * 
-	 * @return ResponseEntity con la imagen solicitada o un mensaje de error si no
-	 * se encuentra la imagen.
+	 * @return recupera la imagen por id
 	 */
-	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-	@GetMapping("/{id}/imagen/{imagenId}")
-	public ResponseEntity<Imagen> getImagenByCocheIdAndImagenId(@PathVariable Long imagenId) {
-		return imagenServicio.getImagenById(imagenId);
+	@GetMapping("/public/imagen/{id}")
+	public ResponseEntity<ImagenDTO> getImagenById(@PathVariable Long id) {
+		return imagenServicio.getImagenById(id);
 	}
 
 	/*
@@ -152,7 +148,7 @@ public class CocheControlador {
 	 */
 	@PreAuthorize("hasRole('ADMIN')")
 	@PutMapping("/imagen/{imagenId}")
-	public ResponseEntity<Imagen> updateImagen(@PathVariable Long imagenId, @RequestBody Imagen nuevaImagen) {
+	public ResponseEntity<String> updateImagen(@PathVariable Long imagenId, @RequestBody Imagen nuevaImagen) {
 		return imagenServicio.updateImagen(imagenId, nuevaImagen);
 	}
 

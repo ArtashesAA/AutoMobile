@@ -2,6 +2,7 @@ package com.v1.automobile.servicio;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -9,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.v1.automobile.entidad.Imagen;
+import com.v1.automobile.entidad.ImagenDTO;
 import com.v1.automobile.repositorio.ImagenRepositorio;
 
 @Service
@@ -16,17 +18,19 @@ public class ImagenServicio {
 	@Autowired
 	private ImagenRepositorio imagenRepositorio;
 
-	public ResponseEntity<List<Imagen>> getAllImagenes() {
+	public List<ImagenDTO> getAllImagenes() {
 		List<Imagen> imagenes = imagenRepositorio.findAll();
-		return new ResponseEntity<>(imagenes, HttpStatus.OK);
+		return imagenes.stream().map(this::convertToDto).collect(Collectors.toList());
 	}
 
-	public ResponseEntity<Imagen> getImagenById(Long id) {
-		Imagen imagen = imagenRepositorio.findById(id).orElse(null);
-		if (imagen != null) {
-			return new ResponseEntity<>(imagen, HttpStatus.OK);
+	public ResponseEntity<ImagenDTO> getImagenById(Long id) {
+		Optional<Imagen> imagenOptional = imagenRepositorio.findById(id);
+		if (imagenOptional.isPresent()) {
+			Imagen imagen = imagenOptional.get();
+			ImagenDTO imagenDTO = convertToDto(imagen);
+			return ResponseEntity.ok(imagenDTO);
 		} else {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			return ResponseEntity.notFound().build();
 		}
 	}
 
@@ -44,20 +48,20 @@ public class ImagenServicio {
 		return new ResponseEntity<>(nuevaImagen, HttpStatus.CREATED);
 	}
 
-	public ResponseEntity<Imagen> updateImagen(Long imagenId, Imagen nuevaImagen) {
+	public ResponseEntity<String> updateImagen(Long imagenId, Imagen nuevaImagen) {
 		Optional<Imagen> optionalImagen = imagenRepositorio.findById(imagenId);
 
 		if (optionalImagen.isPresent()) {
 			Imagen imagenExistente = optionalImagen.get();
 			// Actualizar solo los campos que sean modificables
-			if (nuevaImagen.getImageUrl() != null) {
-				imagenExistente.setImageUrl(nuevaImagen.getImageUrl());
+			if (nuevaImagen.getImagen_url() != null) {
+				imagenExistente.setImagen_url(nuevaImagen.getImagen_url());
 			}
 
-			Imagen imagenActualizada = imagenRepositorio.save(imagenExistente);
-			return new ResponseEntity<>(imagenActualizada, HttpStatus.OK);
+			imagenRepositorio.save(imagenExistente);
+			return ResponseEntity.ok().body("Imagen con ID " + imagenId + " actualizado correctamente");
 		} else {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			return ResponseEntity.notFound().build();
 		}
 	}
 
@@ -69,4 +73,11 @@ public class ImagenServicio {
 			return new ResponseEntity<>("Error al borrar la imagen con ID " + id, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
+
+	private ImagenDTO convertToDto(Imagen imagen) {
+		ImagenDTO imagenDTO = new ImagenDTO();
+		imagenDTO.setImagen_url(imagen.getImagen_url());
+		return imagenDTO;
+	}
+
 }

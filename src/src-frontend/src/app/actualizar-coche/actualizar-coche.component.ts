@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { Router } from '@angular/router';
-import { Coche } from '../coche.model';
+import { Coche } from '../entidad/coche.model';
 import { ServicioCocheService } from '../servicio-coche/servicio-coche.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';

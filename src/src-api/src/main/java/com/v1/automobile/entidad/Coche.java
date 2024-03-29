@@ -66,7 +66,7 @@ public class Coche {
 	@Column(name = "descripcion", nullable = false)
 	private String descripcion;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "usuario_id", referencedColumnName = "id", nullable = false)
 	private Usuario usuario;
 
@@ -205,15 +205,6 @@ public class Coche {
 
 	public void setImagenes(List<Imagen> imagenes) {
 		this.imagenes = imagenes;
-	}
-
-	@Override
-	public String toString() {
-		return "Coche [getId()=" + getId() + ", getMarca()=" + getMarca() + ", getModelo()=" + getModelo()
-				+ ", getAnyo()=" + getAnyo() + ", getPotencia()=" + getPotencia() + ", getKilometraje()="
-				+ getKilometraje() + ", getPeso()=" + getPeso() + ", getCombustible()=" + getCombustible()
-				+ ", getColor()=" + getColor() + ", getDescripcion()=" + getDescripcion() + ", getPrecio()="
-				+ getPrecio() + ", getUsuario()=" + getUsuario() + ", getImagenes()=" + getImagenes() + "]";
 	}
 
 }

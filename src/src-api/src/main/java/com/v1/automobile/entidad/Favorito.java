@@ -22,11 +22,11 @@ public class Favorito {
 	@Column(name = "id")
 	private Long id;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "usuario_id", referencedColumnName = "id", nullable = false)
 	private Usuario usuario;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "coche_id", referencedColumnName = "id", nullable = false)
 	private Coche coche;
 

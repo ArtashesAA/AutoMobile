@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<header
+  class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom"
+  zn_id="27"
+>
+  <div class="col-md-3 mb-2 mb-md-0" zn_id="28">
+    <a
+      href="/"
+      class="d-inline-flex link-body-emphasis text-decoration-none"
+      zn_id="31"
+    >
+      <svg
+        class="bi"
+        width="40"
+        height="32"
+        role="img"
+        aria-label="Bootstrap"
+        zn_id="32"
+      >
+        <use xlink:href="#bootstrap" zn_id="33"></use>
+      </svg>
+    </a>
+  </div>
+
+  <ul
+    class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0"
+    zn_id="29"
+  >
+    <li><a href="#" class="nav-link px-2 link-secondary">Inicio</a></li>
+    <li><a href="/catalogo" class="nav-link px-2">Coches</a></li>
+    <li><a href="/crear" class="nav-link px-2">Publicar</a></li>
+  </ul>
+
+  <div class="col-md-3 text-end" zn_id="30">
+    <button
+      type="button"
+      class="btn btn-outline-primary me-2"
+      zn_id="37"
+      [routerLink]="'/login'"
+    >
+      Login
+    </button>
+    <button
+      type="button"
+      class="btn btn-primary"
+      zn_id="38"
+      [routerLink]="'/register'"
+    >
+      Sign-up
+    </button>
+  </div>
+</header>
