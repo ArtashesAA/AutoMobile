@@ -3,9 +3,10 @@ USE autoMobile;
 
 CREATE TABLE usuario (
     id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre_usuario VARCHAR(255) NOT NULL UNIQUE,
     email VARCHAR(255) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
-    role VARCHAR(255) NOT NULL DEFAULT 'USER'
+    role VARCHAR(255) DEFAULT 'USER'
 );
 
 CREATE TABLE coche (
@@ -44,11 +45,11 @@ CREATE TABLE favorito (
 
 -- Insertar datos
 
-insert into usuario (email, password,role) values 
-('admin@gmail.com','$2a$10$pENpVxdWgNRl0pMLrU3B4u3a1T8ilQSy.YpEfkwSsNMO7hGEYhgka','ADMIN'),
-('usuario@gmail.com','$2a$10$CEqJR9Krk3nclTFtodLeKO99kaGIbW8kKXFT2kgcjN.fkL0ba0x.C','USER'),
-('aabb@gmail.com','$2a$10$CEqJR9Krk3nclTFtodLeKO99kaGIbW8kKXFT2kgcjN.fkL0ba0x.C','USER'),
-('ccdd@gmail.com','$2a$10$CEqJR9Krk3nclTFtodLeKO99kaGIbW8kKXFT2kgcjN.fkL0ba0x.C','USER');
+insert into usuario (email,nombre_usuario, password,role) values 
+('admin@gmail.com', 'admin', '$2a$10$pENpVxdWgNRl0pMLrU3B4u3a1T8ilQSy.YpEfkwSsNMO7hGEYhgka','ADMIN'),
+('usuario@gmail.com', 'usuario', '$2a$10$CEqJR9Krk3nclTFtodLeKO99kaGIbW8kKXFT2kgcjN.fkL0ba0x.C','USER'),
+('aabb@gmail.com', 'aabb', '$2a$10$CEqJR9Krk3nclTFtodLeKO99kaGIbW8kKXFT2kgcjN.fkL0ba0x.C','USER'),
+('ccdd@gmail.com', 'ccdd', '$2a$10$CEqJR9Krk3nclTFtodLeKO99kaGIbW8kKXFT2kgcjN.fkL0ba0x.C','USER');
     
 -- admin@gmail.com:admin; usuario@gmail.com:contraseña123;
 

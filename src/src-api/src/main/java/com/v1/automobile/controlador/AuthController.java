@@ -26,7 +26,7 @@ public class AuthController {
 	 * @return ResponseEntity con la respuesta de autenticación
 	 */
 	@PostMapping("/signup")
-	public ResponseEntity<ReqRes> signUp(@RequestBody ReqRes signUpRequest) {
+	public ResponseEntity<ResponseEntity<String>> signUp(@RequestBody ReqRes signUpRequest) {
 		System.out.println("Registrado correctamente");
 		return ResponseEntity.ok(authService.signUp(signUpRequest));
 	}

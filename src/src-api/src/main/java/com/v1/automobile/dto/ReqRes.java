@@ -20,7 +20,7 @@ public class ReqRes {
 	private String token;
 	private String refreshToken;
 	private String expirationTime;
-	private String name;
+	private String nombre_usuario;
 	private String email;
 	private String role;
 	private String password;
@@ -31,13 +31,14 @@ public class ReqRes {
 
 	}
 
-	public ReqRes(String email, String password) {
+	public ReqRes(String nombre_usuario, String email, String password) {
+		this.nombre_usuario = nombre_usuario;
 		this.email = email;
 		this.password = password;
 	}
 
-	public ReqRes(String name, String password, String message, String token) {
-		this.name = name;
+	public ReqRes(String nombre_usuario, String password, String message, String token) {
+		this.nombre_usuario = nombre_usuario;
 		this.password = password;
 		this.message = message;
 		this.token = token;
@@ -91,12 +92,12 @@ public class ReqRes {
 		this.expirationTime = expirationTime;
 	}
 
-	public String getName() {
-		return name;
+	public String getNombre_usuario() {
+		return nombre_usuario;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setNombre_usuario(String nombre_usuario) {
+		this.nombre_usuario = nombre_usuario;
 	}
 
 	public String getEmail() {

@@ -9,12 +9,17 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.v1.automobile.entidad.Coche;
 import com.v1.automobile.entidad.Imagen;
 import com.v1.automobile.entidad.ImagenDTO;
+import com.v1.automobile.repositorio.CocheRepositorio;
 import com.v1.automobile.repositorio.ImagenRepositorio;
 
 @Service
 public class ImagenServicio {
+	@Autowired
+	private CocheRepositorio cocheRepositorio;
+	
 	@Autowired
 	private ImagenRepositorio imagenRepositorio;
 
@@ -43,9 +48,26 @@ public class ImagenServicio {
 		}
 	}
 
-	public ResponseEntity<Imagen> addImagen(Imagen imagen) {
-		Imagen nuevaImagen = imagenRepositorio.save(imagen);
-		return new ResponseEntity<>(nuevaImagen, HttpStatus.CREATED);
+	public ResponseEntity<String> addImagen(Long coche_id, String imagen_url) {
+	    // Verificar si el coche con el ID proporcionado existe
+	    Coche coche = cocheRepositorio.findById(coche_id).orElse(null);
+	    if (coche == null) {
+	        return new ResponseEntity<>("Coche no encontrado", HttpStatus.NOT_FOUND);
+	    }
+	    
+	    // Crear una nueva instancia de Imagen y asociarla al coche
+	    Imagen imagen = new Imagen();
+	    imagen.setCoche(coche);
+	    imagen.setImagen_url(imagen_url);
+	    
+	    // Guardar la imagen en la base de datos
+	    imagen = imagenRepositorio.save(imagen);
+	    
+	    // Obtener el ID de la imagen creada
+	    Long imagenId = imagen.getId();
+	    
+	    // Respuesta indicando que la imagen se ha creado correctamente
+	    return ResponseEntity.ok().body("Imagen con ID " + imagenId + " creado correctamente");
 	}
 
 	public ResponseEntity<String> updateImagen(Long imagenId, Imagen nuevaImagen) {

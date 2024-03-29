@@ -21,8 +21,7 @@ garantice seguridad.
 - RF01 - El usuario podrá registrarse.
 - RF02 - El usuario podrá iniciar sesión.
 - RF03 - El usuario podrá hacer cambios en su perfil.
-- RF04 - Habrá un pequeño formulario en la pantalla de inicio para hacer la búsqueda
-  del coche deseado.
+- RF04 - Habrá un pequeño formulario para hacer la búsqueda del coche deseado.
 - RF05 - Se podrá ver los coches publicados.
 - RF06 - Se podrá filtrar la búsqueda de los coches.
 - RF07 - Se podrá ordenar la búsqueda de los coches.
@@ -31,7 +30,7 @@ garantice seguridad.
 - RF10 - Se podrá publicar coches.
 - RF11 - Se podrá editar coches publicados.
 - RF12 - Habrá una sección de noticias e información.
-- RF13 - Panel de Administración: Los administradores tendrán acceso a un panel de
+- RF13 - Administración: Los administradores tendrán acceso a un panel de
   control desde el cual pueden gestionar todos los aspectos de la plataforma.
 - RF14 - Gestión de Usuarios: Los administradores pueden ver y administrar la lista de
   usuarios.

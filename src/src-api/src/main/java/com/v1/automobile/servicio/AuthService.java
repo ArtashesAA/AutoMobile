@@ -1,6 +1,8 @@
 package com.v1.automobile.servicio;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -24,11 +26,10 @@ public class AuthService {
 	@Autowired
 	private AuthenticationManager authenticationManager;
 
-	public ReqRes signUp(ReqRes registrationRequest) {
-		ReqRes resp = new ReqRes();
+	public ResponseEntity<String> signUp(ReqRes registrationRequest) {
 		try {
 			Usuario usuarios = new Usuario();
-			usuarios.setNombre_usuario(registrationRequest.getName());
+			usuarios.setNombre_usuario(registrationRequest.getNombre_usuario());
 			usuarios.setEmail(registrationRequest.getEmail());
 			usuarios.setPassword(passwordEncoder.encode(registrationRequest.getPassword()));
 
@@ -36,15 +37,15 @@ public class AuthService {
 			usuarios.setRole("USER");
 			Usuario usuarioResult = usuarioRepositorio.save(usuarios);
 			if (usuarioResult != null && usuarioResult.getId() > 0) {
-				resp.setUsuarios(usuarioResult);
-				resp.setMessage("User Saved Successfully");
-				resp.setStatusCode(200);
+				String mensaje = "Usuario " + usuarioResult.getNombre_usuario() + " ha sido registrado correctamente";
+	            return new ResponseEntity<>(mensaje, HttpStatus.CREATED);
 			}
 		} catch (Exception e) {
-			resp.setStatusCode(500);
-			resp.setError(e.getMessage());
+			String mensajeError = "Error al registrar usuario: " + e.getMessage();
+	        return new ResponseEntity<>(mensajeError, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		return resp;
+		String mensajeError = "Error al registrar usuario";
+	    return new ResponseEntity<>(mensajeError, HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
 	public ReqRes signIn(ReqRes signinRequest) {
