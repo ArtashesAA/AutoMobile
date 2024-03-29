@@ -3,7 +3,6 @@ package com.v1.automobile.controlador;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -16,26 +15,31 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.v1.automobile.entidad.Coche;
-import com.v1.automobile.repositorio.CocheRepositorio;
-
+import com.v1.automobile.entidad.CocheDTO;
+import com.v1.automobile.entidad.Imagen;
+import com.v1.automobile.entidad.ImagenDTO;
+import com.v1.automobile.servicio.CocheServicio;
+import com.v1.automobile.servicio.ImagenServicio;
 
 @RestController
-@RequestMapping("/api/v1/coche")
+@RequestMapping("/api/v1")
 public class CocheControlador {
 
 	@Autowired
-	private CocheRepositorio cocheRepositorio;
+	private CocheServicio cocheServicio;
+
+	@Autowired
+	private ImagenServicio imagenServicio;
 
 	/*
 	 * Recupera todos los coches. Puede acceder cualquier rol
 	 * 
 	 * @return recupera todos los coches
 	 */
-	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-	@GetMapping
-	public ResponseEntity<List<Coche>> getAllCoches() {
-		List<Coche> coches = cocheRepositorio.findAll();
-		return new ResponseEntity<>(coches, HttpStatus.OK);
+	@GetMapping("/public/coche")
+	public ResponseEntity<List<CocheDTO>> getAllCoches() {
+		List<CocheDTO> coches = cocheServicio.getAllCoches();
+		return ResponseEntity.ok(coches);
 	}
 
 	/*
@@ -45,15 +49,9 @@ public class CocheControlador {
 	 * 
 	 * @return recupera el coche por id
 	 */
-	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-	@GetMapping("/{id}")
-	public ResponseEntity<Coche> getCocheById(@PathVariable Long id) {
-		Coche coche = cocheRepositorio.findById(id).orElse(null);
-		if (coche != null) {
-			return new ResponseEntity<>(coche, HttpStatus.OK);
-		} else {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
+	@GetMapping("/public/coche/{id}")
+	public ResponseEntity<CocheDTO> getCocheById(@PathVariable Long id) {
+		return cocheServicio.getCocheById(id);
 	}
 
 	/*
@@ -64,10 +62,10 @@ public class CocheControlador {
 	 * @return guarda el coche pasado por parámetro
 	 */
 	@PreAuthorize("hasRole('ADMIN')")
-	@PostMapping
-	public ResponseEntity<Coche> addCoche(@RequestBody Coche coche) {
-		Coche nuevoCoche = cocheRepositorio.save(coche);
-		return new ResponseEntity<>(nuevoCoche, HttpStatus.CREATED);
+	@PostMapping("/coche")
+	public ResponseEntity<String> addCoche(@RequestBody CocheDTO cocheDTO) {
+		Integer usuarioId = cocheDTO.getUsuario().getId();
+		return cocheServicio.addCoche(cocheDTO, usuarioId);
 	}
 
 	/*
@@ -81,24 +79,9 @@ public class CocheControlador {
 	 * @return actualiza el coche pasado por parámetro
 	 */
 	@PreAuthorize("hasRole('ADMIN')")
-	@PutMapping("/{id}")
-	public ResponseEntity<Coche> updateCoche(@PathVariable Long id, @RequestBody Coche nuevoCoche) {
-		Coche cocheExistente = cocheRepositorio.findById(id).orElse(null);
-		if (cocheExistente != null) {
-			cocheExistente.setMarca(nuevoCoche.getMarca());
-			cocheExistente.setModelo(nuevoCoche.getModelo());
-			cocheExistente.setAnyo(nuevoCoche.getAnyo());
-			cocheExistente.setKilometraje(nuevoCoche.getKilometraje());
-			cocheExistente.setPeso(nuevoCoche.getPeso());
-			cocheExistente.setColor(nuevoCoche.getColor());
-			cocheExistente.setPrecio(nuevoCoche.getPrecio());
-			cocheExistente.setDescripcion(nuevoCoche.getDescripcion());
-
-			Coche cocheActualizado = cocheRepositorio.save(cocheExistente);
-			return new ResponseEntity<>(cocheActualizado, HttpStatus.OK);
-		} else {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
+	@PutMapping("/coche/{id}")
+	public ResponseEntity<String> updateCoche(@PathVariable Long id, @RequestBody Coche nuevoCoche) {
+		return cocheServicio.updateCoche(id, nuevoCoche);
 	}
 
 	/*
@@ -107,14 +90,79 @@ public class CocheControlador {
 	 * @Parameter id del coche que se quiere borrar
 	 */
 	@PreAuthorize("hasRole('ADMIN')")
-	@DeleteMapping("/{id}")
+	@DeleteMapping("/coche/{id}")
 	public ResponseEntity<String> deleteCoche(@PathVariable Long id) {
-		try {
-			cocheRepositorio.deleteById(id);
-			return new ResponseEntity<>("Coche con ID " + id + " borrado correctamente", HttpStatus.OK);
-		} catch (Exception e) {
-			return new ResponseEntity<>("Error al borrar el coche con ID " + id, HttpStatus.INTERNAL_SERVER_ERROR);
-		}
+		return cocheServicio.deleteCoche(id);
+	}
+
+//-------------------------------------------------- Imagenes ---------------------------------------------------------
+
+	/*
+	 * Recupera todos las imagenes. Puede acceder cualquier rol
+	 * 
+	 * @return recupera todas las imagenes
+	 */
+	@GetMapping("/public/imagen")
+	public ResponseEntity<List<ImagenDTO>> getAllImagenes() {
+		List<ImagenDTO> imagenes = imagenServicio.getAllImagenes();
+		return ResponseEntity.ok(imagenes);
+	}
+
+	/*
+	 * Recupera una imagen por id. Puede acceder cualquier rol
+	 * 
+	 * @Parameter id de imagen que se va a buscar
+	 * 
+	 * @return recupera la imagen por id
+	 */
+	@GetMapping("/public/imagen/{id}")
+	public ResponseEntity<ImagenDTO> getImagenById(@PathVariable Long id) {
+		return imagenServicio.getImagenById(id);
+	}
+
+	/*
+	 * Añade una imagen a un coche. Puede acceder solo el admin
+	 * 
+	 * @Parameter imagen que se va a añadir
+	 * 
+	 * @return añade la imagen al coche pasado por parámetro
+	 */
+	@PreAuthorize("hasRole('ADMIN')")
+	@PostMapping("/imagen")
+	public ResponseEntity<Imagen> addImagen(@RequestBody Imagen imagen) {
+		return imagenServicio.addImagen(imagen);
+	}
+
+	/*
+	 * Actualiza una imagen asociada a un coche por su ID. Puede acceder solo el
+	 * admin.
+	 *
+	 * @param cocheId ID del coche al que está asociada la imagen.
+	 * 
+	 * @param imagenId ID de la imagen que se desea actualizar.
+	 * 
+	 * @param nuevaImagen Nuevos datos de la imagen a actualizar.
+	 * 
+	 * @return ResponseEntity con la imagen actualizada o un mensaje de error si no
+	 * se encuentra la imagen.
+	 */
+	@PreAuthorize("hasRole('ADMIN')")
+	@PutMapping("/imagen/{imagenId}")
+	public ResponseEntity<String> updateImagen(@PathVariable Long imagenId, @RequestBody Imagen nuevaImagen) {
+		return imagenServicio.updateImagen(imagenId, nuevaImagen);
+	}
+
+	/*
+	 * Borra una imagen de un coche. Puede acceder solo el admin
+	 * 
+	 * @Parameter id del coche al que pertenece la imagen
+	 * 
+	 * @Parameter id de la imagen que se quiere borrar
+	 */
+	@PreAuthorize("hasRole('ADMIN')")
+	@DeleteMapping("/imagen/{imagenId}")
+	public ResponseEntity<String> deleteImagen(@PathVariable Long imagenId) {
+		return imagenServicio.deleteImagen(imagenId);
 	}
 
 }

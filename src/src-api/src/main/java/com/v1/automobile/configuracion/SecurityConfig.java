@@ -32,7 +32,7 @@ public class SecurityConfig {
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
 		httpSecurity.csrf(AbstractHttpConfigurer::disable).cors(Customizer.withDefaults())
-				.authorizeHttpRequests(request -> request.requestMatchers("/api/v1/auth/**", "/public/**").permitAll()
+				.authorizeHttpRequests(request -> request.requestMatchers("/api/v1/auth/**", "/api/v1/public/**").permitAll()
 						.requestMatchers("/admin/**").hasAnyAuthority("ADMIN").requestMatchers("/user/**")
 						.hasAnyAuthority("USER").requestMatchers("/adminuser/**").hasAnyAuthority("USER", "ADMIN")
 						.anyRequest().authenticated())

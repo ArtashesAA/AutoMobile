@@ -1,0 +1,27 @@
+.coche-info-container {
+  border: 1px solid #ccc;
+  padding: 20px;
+}
+
+.coche-header {
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 10px;
+}
+
+.coche-imagen {
+  max-width: 300px;
+  height: auto;
+  margin-right: 5%;
+}
+
+.coche-details p {
+  margin-bottom: 5px;
+}
+
+.coche-description {
+  font-size: 14px;
+}
+
+.coche-actions button {
+  font-size: 14px;
+}

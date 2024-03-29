@@ -1,0 +1,64 @@
+<!DOCTYPE html> <br /><br />
+<div id="container" style="width: 600px; height: 400px; margin: auto">
+  <form class="form-group row" (ngSubmit)="login()">
+    <!-- Email -->
+    <label class="form-label" for="form2Example1">Email</label>
+    <div class="form-outline mb-4">
+      <input
+        type="email"
+        name="email"
+        placeholder="Email"
+        class="form-control"
+        [(ngModel)]="email"
+      />
+    </div>
+
+    <!-- Password  -->
+    <label class="form-label" for="form2Example2">Contraseña</label>
+    <div class="form-outline mb-4">
+      <input
+        type="password"
+        name="password"
+        placeholder="Contraseña"
+        class="form-control"
+        [(ngModel)]="password"
+      />
+    </div>
+
+    <div class="row mb-4">
+      <div class="col d-flex justify-content-center">
+        <!-- Checkbox -->
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            value=""
+            id="form2Example31"
+            checked
+          />
+          <label class="form-check-label" for="form2Example31">
+            Recordarme
+          </label>
+        </div>
+      </div>
+
+      <div class="col">
+        <a href="**">Olvidaste la contraseña?</a>
+      </div>
+    </div>
+
+    <!-- Submit -->
+    <button type="submit" class="btn btn-primary btn-block mb-4">
+      Iniciar sesión
+    </button>
+
+    <div *ngIf="errorMessage" class="alert alert-danger text-center">
+      {{ errorMessage }}
+    </div>
+
+    <!-- Registro -->
+    <div class="text-center">
+      <p>No estas registrado? <a href="/registro">Registrate</a></p>
+    </div>
+  </form>
+</div>
