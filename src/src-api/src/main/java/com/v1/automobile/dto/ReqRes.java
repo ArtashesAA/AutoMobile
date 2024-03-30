@@ -21,6 +21,7 @@ public class ReqRes {
 	private String refreshToken;
 	private String expirationTime;
 	private String nombre_usuario;
+	private String imagen_usuario;
 	private String email;
 	private String role;
 	private String password;
@@ -98,6 +99,14 @@ public class ReqRes {
 
 	public void setNombre_usuario(String nombre_usuario) {
 		this.nombre_usuario = nombre_usuario;
+	}
+
+	public String getImagen_usuario() {
+		return imagen_usuario;
+	}
+
+	public void setImagen_usuario(String imagen_usuario) {
+		this.imagen_usuario = imagen_usuario;
 	}
 
 	public String getEmail() {

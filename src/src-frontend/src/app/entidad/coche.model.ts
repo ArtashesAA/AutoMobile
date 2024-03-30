@@ -3,6 +3,7 @@ import { Usuario } from './usuario.model';
 
 export class Coche {
   constructor(
+    id: number,
     marca: string,
     modelo: string,
     anyo: number,
@@ -16,6 +17,7 @@ export class Coche {
     usuario: Usuario,
     imagenes: Imagen[]
   ) {
+    this.id = id;
     this.marca = marca;
     this.modelo = modelo;
     this.anyo = anyo;
@@ -30,6 +32,7 @@ export class Coche {
     this.imagenes = imagenes;
   }
 
+  id: number = 0;
   marca: string = '';
   modelo: string = '';
   anyo: number = 0;

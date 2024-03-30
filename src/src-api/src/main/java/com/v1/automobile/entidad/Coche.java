@@ -34,6 +34,10 @@ public class Coche {
 	@Column(name = "modelo", nullable = false)
 	private String modelo;
 
+	@NotNull(message = "El precio no puede ser nulo")
+	@Column(name = "precio", nullable = false)
+	private Integer precio;
+
 	@NotNull(message = "El año no puede ser nulo")
 	@Column(name = "anyo", nullable = false)
 	private Integer anyo;
@@ -46,23 +50,63 @@ public class Coche {
 	@Column(name = "kilometraje", nullable = false)
 	private Integer kilometraje;
 
+	@NotBlank(message = "El combustible no puede estar en blanco")
+	@Column(name = "combustible", nullable = false)
+	private String combustible;
+
+	@NotBlank(message = "El consumo no puede estar en blanco")
+	@Column(name = "consumo", nullable = false)
+	private String consumo;
+
+	@NotBlank(message = "El tipo de cambio no puede estar en blanco")
+	@Column(name = "tipo_cambio", nullable = false)
+	private String tipoCambio;
+
+	@NotBlank(message = "La categoría no puede estar en blanco")
+	@Column(name = "categoria", nullable = false)
+	private String categoria;
+
+	@NotBlank(message = "El tipo de vehículo no puede estar en blanco")
+	@Column(name = "tipo_vehiculo", nullable = false)
+	private String tipoVehiculo;
+
+	@NotBlank(message = "La tracción no puede estar en blanco")
+	@Column(name = "traccion", nullable = false)
+	private String traccion;
+
+	@NotNull(message = "El número de plazas no puede ser nulo")
+	@Column(name = "plazas", nullable = false)
+	private Integer plazas;
+
+	@NotNull(message = "El número de puertas no puede ser nulo")
+	@Column(name = "puertas", nullable = false)
+	private Integer puertas;
+
+	@NotBlank(message = "La garantía no puede estar en blanco")
+	@Column(name = "garantia", nullable = false)
+	private String garantia;
+
 	@NotNull(message = "El peso no puede ser nulo")
 	@Column(name = "peso", nullable = false)
 	private Integer peso;
 
-	@NotNull(message = "El combustible no puede ser nulo")
-	@Column(name = "combustible", nullable = false)
-	private String combustible;
-
-	@NotNull(message = "El color no puede ser nulo")
+	@NotBlank(message = "El color no puede estar en blanco")
 	@Column(name = "color", nullable = false)
 	private String color;
 
-	@NotNull(message = "El precio no puede ser nulo")
-	@Column(name = "precio", nullable = false)
-	private Integer precio;
+	@NotNull(message = "El número de marchas no puede ser nulo")
+	@Column(name = "numero_marchas", nullable = false)
+	private Integer numeroMarchas;
 
-	@NotNull(message = "La descripción no puede estar vacía")
+	@NotNull(message = "El número de cilindros no puede ser nulo")
+	@Column(name = "numero_cilindros", nullable = false)
+	private Integer numeroCilindros;
+
+	@NotBlank(message = "La ciudad no puede estar en blanco")
+	@Column(name = "ciudad", nullable = false)
+	private String ciudad;
+
+	@NotBlank(message = "La descripción no puede estar en blanco")
 	@Column(name = "descripcion", nullable = false)
 	private String descripcion;
 
@@ -79,25 +123,47 @@ public class Coche {
 
 	public Coche(Long id, @NotBlank(message = "La marca no puede estar en blanco") String marca,
 			@NotBlank(message = "El modelo no puede estar en blanco") String modelo,
+			@NotNull(message = "El precio no puede ser nulo") Integer precio,
 			@NotNull(message = "El año no puede ser nulo") Integer anyo,
 			@NotNull(message = "La potencia no puede ser nula") Integer potencia,
 			@NotNull(message = "El kilometraje no puede ser nulo") Integer kilometraje,
+			@NotBlank(message = "El combustible no puede estar en blanco") String combustible,
+			@NotBlank(message = "El consumo no puede estar en blanco") String consumo,
+			@NotBlank(message = "El tipo de cambio no puede estar en blanco") String tipoCambio,
+			@NotBlank(message = "La categoría no puede estar en blanco") String categoria,
+			@NotBlank(message = "El tipo de vehículo no puede estar en blanco") String tipoVehiculo,
+			@NotBlank(message = "La tracción no puede estar en blanco") String traccion,
+			@NotNull(message = "El número de plazas no puede ser nulo") Integer plazas,
+			@NotNull(message = "El número de puertas no puede ser nulo") Integer puertas,
+			@NotBlank(message = "La garantía no puede estar en blanco") String garantia,
 			@NotNull(message = "El peso no puede ser nulo") Integer peso,
-			@NotNull(message = "El combustible no puede ser nulo") String combustible,
-			@NotNull(message = "El color no puede ser nulo") String color,
-			@NotNull(message = "El precio no puede ser nulo") Integer precio,
-			@NotNull(message = "La descripción no puede estar vacía") String descripcion, Usuario usuario,
+			@NotBlank(message = "El color no puede estar en blanco") String color,
+			@NotNull(message = "El número de marchas no puede ser nulo") Integer numeroMarchas,
+			@NotNull(message = "El número de cilindros no puede ser nulo") Integer numeroCilindros,
+			@NotBlank(message = "La ciudad no puede estar en blanco") String ciudad,
+			@NotBlank(message = "La descripción no puede estar en blanco") String descripcion, Usuario usuario,
 			List<Imagen> imagenes) {
 		this.id = id;
 		this.marca = marca;
 		this.modelo = modelo;
+		this.precio = precio;
 		this.anyo = anyo;
 		this.potencia = potencia;
 		this.kilometraje = kilometraje;
-		this.peso = peso;
 		this.combustible = combustible;
+		this.consumo = consumo;
+		this.tipoCambio = tipoCambio;
+		this.categoria = categoria;
+		this.tipoVehiculo = tipoVehiculo;
+		this.traccion = traccion;
+		this.plazas = plazas;
+		this.puertas = puertas;
+		this.garantia = garantia;
+		this.peso = peso;
 		this.color = color;
-		this.precio = precio;
+		this.numeroMarchas = numeroMarchas;
+		this.numeroCilindros = numeroCilindros;
+		this.ciudad = ciudad;
 		this.descripcion = descripcion;
 		this.usuario = usuario;
 		this.imagenes = imagenes;
@@ -127,6 +193,14 @@ public class Coche {
 		this.modelo = modelo;
 	}
 
+	public Integer getPrecio() {
+		return precio;
+	}
+
+	public void setPrecio(Integer precio) {
+		this.precio = precio;
+	}
+
 	public Integer getAnyo() {
 		return anyo;
 	}
@@ -151,20 +225,84 @@ public class Coche {
 		this.kilometraje = kilometraje;
 	}
 
-	public Integer getPeso() {
-		return peso;
-	}
-
-	public void setPeso(Integer peso) {
-		this.peso = peso;
-	}
-
 	public String getCombustible() {
 		return combustible;
 	}
 
 	public void setCombustible(String combustible) {
 		this.combustible = combustible;
+	}
+
+	public String getConsumo() {
+		return consumo;
+	}
+
+	public void setConsumo(String consumo) {
+		this.consumo = consumo;
+	}
+
+	public String getTipoCambio() {
+		return tipoCambio;
+	}
+
+	public void setTipoCambio(String tipoCambio) {
+		this.tipoCambio = tipoCambio;
+	}
+
+	public String getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(String categoria) {
+		this.categoria = categoria;
+	}
+
+	public String getTipoVehiculo() {
+		return tipoVehiculo;
+	}
+
+	public void setTipoVehiculo(String tipoVehiculo) {
+		this.tipoVehiculo = tipoVehiculo;
+	}
+
+	public String getTraccion() {
+		return traccion;
+	}
+
+	public void setTraccion(String traccion) {
+		this.traccion = traccion;
+	}
+
+	public Integer getPlazas() {
+		return plazas;
+	}
+
+	public void setPlazas(Integer plazas) {
+		this.plazas = plazas;
+	}
+
+	public Integer getPuertas() {
+		return puertas;
+	}
+
+	public void setPuertas(Integer puertas) {
+		this.puertas = puertas;
+	}
+
+	public String getGarantia() {
+		return garantia;
+	}
+
+	public void setGarantia(String garantia) {
+		this.garantia = garantia;
+	}
+
+	public Integer getPeso() {
+		return peso;
+	}
+
+	public void setPeso(Integer peso) {
+		this.peso = peso;
 	}
 
 	public String getColor() {
@@ -175,20 +313,36 @@ public class Coche {
 		this.color = color;
 	}
 
+	public Integer getNumeroMarchas() {
+		return numeroMarchas;
+	}
+
+	public void setNumeroMarchas(Integer numeroMarchas) {
+		this.numeroMarchas = numeroMarchas;
+	}
+
+	public Integer getNumeroCilindros() {
+		return numeroCilindros;
+	}
+
+	public void setNumeroCilindros(Integer numeroCilindros) {
+		this.numeroCilindros = numeroCilindros;
+	}
+
+	public String getCiudad() {
+		return ciudad;
+	}
+
+	public void setCiudad(String ciudad) {
+		this.ciudad = ciudad;
+	}
+
 	public String getDescripcion() {
 		return descripcion;
 	}
 
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
-	}
-
-	public Integer getPrecio() {
-		return precio;
-	}
-
-	public void setPrecio(Integer precio) {
-		this.precio = precio;
 	}
 
 	public Usuario getUsuario() {
@@ -205,6 +359,20 @@ public class Coche {
 
 	public void setImagenes(List<Imagen> imagenes) {
 		this.imagenes = imagenes;
+	}
+
+	@Override
+	public String toString() {
+		return "Coche [getId()=" + getId() + ", getMarca()=" + getMarca() + ", getModelo()=" + getModelo()
+				+ ", getPrecio()=" + getPrecio() + ", getAnyo()=" + getAnyo() + ", getPotencia()=" + getPotencia()
+				+ ", getKilometraje()=" + getKilometraje() + ", getCombustible()=" + getCombustible()
+				+ ", getConsumo()=" + getConsumo() + ", getTipoCambio()=" + getTipoCambio() + ", getCategoria()="
+				+ getCategoria() + ", getTipoVehiculo()=" + getTipoVehiculo() + ", getTraccion()=" + getTraccion()
+				+ ", getPlazas()=" + getPlazas() + ", getPuertas()=" + getPuertas() + ", getGarantia()=" + getGarantia()
+				+ ", getPeso()=" + getPeso() + ", getColor()=" + getColor() + ", getNumeroMarchas()="
+				+ getNumeroMarchas() + ", getNumeroCilindros()=" + getNumeroCilindros() + ", getCiudad()=" + getCiudad()
+				+ ", getDescripcion()=" + getDescripcion() + ", getUsuario()=" + getUsuario() + ", getImagenes()="
+				+ getImagenes() + "]";
 	}
 
 }

@@ -4,48 +4,59 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CocheDTO {
-
 	private String marca;
-
 	private String modelo;
-
-	private Integer anyo;
-
-	private Integer potencia;
-
-	private Integer kilometraje;
-
-	private Integer peso;
-
-	private String combustible;
-
-	private String color;
-
 	private Integer precio;
-
+	private Integer anyo;
+	private Integer potencia;
+	private Integer kilometraje;
+	private String combustible;
+	private String consumo;
+	private String tipoCambio;
+	private String categoria;
+	private String tipoVehiculo;
+	private String traccion;
+	private Integer plazas;
+	private Integer puertas;
+	private String garantia;
+	private Integer peso;
+	private String color;
+	private Integer numeroMarchas;
+	private Integer numeroCilindros;
+	private String ciudad;
 	private String descripcion;
-
 	private UsuarioDTO usuario;
-
 	private List<ImagenDTO> imagenes = new ArrayList<>();
 
 	public CocheDTO() {
 
 	}
 
-	public CocheDTO(String marca, String modelo, Integer anyo, Integer potencia, Integer kilometraje, Integer peso,
-			String combustible, String color, Integer precio, String descripcion, UsuarioDTO usuario,
+	public CocheDTO(String marca, String modelo, Integer precio, Integer anyo, Integer potencia, Integer kilometraje,
+			String combustible, String consumo, String tipoCambio, String categoria, String tipoVehiculo,
+			String traccion, Integer plazas, Integer puertas, String garantia, Integer peso, String color,
+			Integer numeroMarchas, Integer numeroCilindros, String ciudad, String descripcion, UsuarioDTO usuario,
 			List<ImagenDTO> imagenes) {
-
 		this.marca = marca;
 		this.modelo = modelo;
+		this.precio = precio;
 		this.anyo = anyo;
 		this.potencia = potencia;
 		this.kilometraje = kilometraje;
-		this.peso = peso;
 		this.combustible = combustible;
+		this.consumo = consumo;
+		this.tipoCambio = tipoCambio;
+		this.categoria = categoria;
+		this.tipoVehiculo = tipoVehiculo;
+		this.traccion = traccion;
+		this.plazas = plazas;
+		this.puertas = puertas;
+		this.garantia = garantia;
+		this.peso = peso;
 		this.color = color;
-		this.precio = precio;
+		this.numeroMarchas = numeroMarchas;
+		this.numeroCilindros = numeroCilindros;
+		this.ciudad = ciudad;
 		this.descripcion = descripcion;
 		this.usuario = usuario;
 		this.imagenes = imagenes;
@@ -65,6 +76,14 @@ public class CocheDTO {
 
 	public void setModelo(String modelo) {
 		this.modelo = modelo;
+	}
+
+	public Integer getPrecio() {
+		return precio;
+	}
+
+	public void setPrecio(Integer precio) {
+		this.precio = precio;
 	}
 
 	public Integer getAnyo() {
@@ -91,20 +110,84 @@ public class CocheDTO {
 		this.kilometraje = kilometraje;
 	}
 
-	public Integer getPeso() {
-		return peso;
-	}
-
-	public void setPeso(Integer peso) {
-		this.peso = peso;
-	}
-
 	public String getCombustible() {
 		return combustible;
 	}
 
 	public void setCombustible(String combustible) {
 		this.combustible = combustible;
+	}
+
+	public String getConsumo() {
+		return consumo;
+	}
+
+	public void setConsumo(String consumo) {
+		this.consumo = consumo;
+	}
+
+	public String getTipoCambio() {
+		return tipoCambio;
+	}
+
+	public void setTipoCambio(String tipoCambio) {
+		this.tipoCambio = tipoCambio;
+	}
+
+	public String getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(String categoria) {
+		this.categoria = categoria;
+	}
+
+	public String getTipoVehiculo() {
+		return tipoVehiculo;
+	}
+
+	public void setTipoVehiculo(String tipoVehiculo) {
+		this.tipoVehiculo = tipoVehiculo;
+	}
+
+	public String getTraccion() {
+		return traccion;
+	}
+
+	public void setTraccion(String traccion) {
+		this.traccion = traccion;
+	}
+
+	public Integer getPlazas() {
+		return plazas;
+	}
+
+	public void setPlazas(Integer plazas) {
+		this.plazas = plazas;
+	}
+
+	public Integer getPuertas() {
+		return puertas;
+	}
+
+	public void setPuertas(Integer puertas) {
+		this.puertas = puertas;
+	}
+
+	public String getGarantia() {
+		return garantia;
+	}
+
+	public void setGarantia(String garantia) {
+		this.garantia = garantia;
+	}
+
+	public Integer getPeso() {
+		return peso;
+	}
+
+	public void setPeso(Integer peso) {
+		this.peso = peso;
 	}
 
 	public String getColor() {
@@ -115,12 +198,28 @@ public class CocheDTO {
 		this.color = color;
 	}
 
-	public Integer getPrecio() {
-		return precio;
+	public Integer getNumeroMarchas() {
+		return numeroMarchas;
 	}
 
-	public void setPrecio(Integer precio) {
-		this.precio = precio;
+	public void setNumeroMarchas(Integer numeroMarchas) {
+		this.numeroMarchas = numeroMarchas;
+	}
+
+	public Integer getNumeroCilindros() {
+		return numeroCilindros;
+	}
+
+	public void setNumeroCilindros(Integer numeroCilindros) {
+		this.numeroCilindros = numeroCilindros;
+	}
+
+	public String getCiudad() {
+		return ciudad;
+	}
+
+	public void setCiudad(String ciudad) {
+		this.ciudad = ciudad;
 	}
 
 	public String getDescripcion() {
@@ -131,14 +230,6 @@ public class CocheDTO {
 		this.descripcion = descripcion;
 	}
 
-	public List<ImagenDTO> getImagenes() {
-		return imagenes;
-	}
-
-	public void setImagenes(List<ImagenDTO> imagenes) {
-		this.imagenes = imagenes;
-	}
-
 	public UsuarioDTO getUsuario() {
 		return usuario;
 	}
@@ -147,13 +238,26 @@ public class CocheDTO {
 		this.usuario = usuario;
 	}
 
+	public List<ImagenDTO> getImagenes() {
+		return imagenes;
+	}
+
+	public void setImagenes(List<ImagenDTO> imagenes) {
+		this.imagenes = imagenes;
+	}
+
 	@Override
 	public String toString() {
-		return "CocheDTO [getMarca()=" + getMarca() + ", getModelo()=" + getModelo() + ", getAnyo()=" + getAnyo()
-				+ ", getPotencia()=" + getPotencia() + ", getKilometraje()=" + getKilometraje() + ", getPeso()="
-				+ getPeso() + ", getCombustible()=" + getCombustible() + ", getColor()=" + getColor() + ", getPrecio()="
-				+ getPrecio() + ", getDescripcion()=" + getDescripcion() + ", getImagenes()=" + getImagenes()
-				+ ", getUsuario()=" + getUsuario() + "]";
+		return "CocheDTO [getMarca()=" + getMarca() + ", getModelo()=" + getModelo() + ", getPrecio()=" + getPrecio()
+				+ ", getAnyo()=" + getAnyo() + ", getPotencia()=" + getPotencia() + ", getKilometraje()="
+				+ getKilometraje() + ", getCombustible()=" + getCombustible() + ", getConsumo()=" + getConsumo()
+				+ ", getTipoCambio()=" + getTipoCambio() + ", getCategoria()=" + getCategoria() + ", getTipoVehiculo()="
+				+ getTipoVehiculo() + ", getTraccion()=" + getTraccion() + ", getPlazas()=" + getPlazas()
+				+ ", getPuertas()=" + getPuertas() + ", getGarantia()=" + getGarantia() + ", getPeso()=" + getPeso()
+				+ ", getColor()=" + getColor() + ", getNumeroMarchas()=" + getNumeroMarchas()
+				+ ", getNumeroCilindros()=" + getNumeroCilindros() + ", getCiudad()=" + getCiudad()
+				+ ", getDescripcion()=" + getDescripcion() + ", getUsuario()=" + getUsuario() + ", getImagenes()="
+				+ getImagenes() + "]";
 	}
 
 }

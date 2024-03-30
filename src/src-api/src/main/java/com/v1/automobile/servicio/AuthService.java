@@ -31,6 +31,7 @@ public class AuthService {
 			Usuario usuarios = new Usuario();
 			usuarios.setNombre_usuario(registrationRequest.getNombre_usuario());
 			usuarios.setEmail(registrationRequest.getEmail());
+			usuarios.setImagen_usuario(registrationRequest.getImagen_usuario());
 			usuarios.setPassword(passwordEncoder.encode(registrationRequest.getPassword()));
 
 			// Por defecto se registra como usuario normal
@@ -38,14 +39,14 @@ public class AuthService {
 			Usuario usuarioResult = usuarioRepositorio.save(usuarios);
 			if (usuarioResult != null && usuarioResult.getId() > 0) {
 				String mensaje = "Usuario " + usuarioResult.getNombre_usuario() + " ha sido registrado correctamente";
-	            return new ResponseEntity<>(mensaje, HttpStatus.CREATED);
+				return new ResponseEntity<>(mensaje, HttpStatus.CREATED);
 			}
 		} catch (Exception e) {
 			String mensajeError = "Error al registrar usuario: " + e.getMessage();
-	        return new ResponseEntity<>(mensajeError, HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(mensajeError, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		String mensajeError = "Error al registrar usuario";
-	    return new ResponseEntity<>(mensajeError, HttpStatus.INTERNAL_SERVER_ERROR);
+		return new ResponseEntity<>(mensajeError, HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
 	public ReqRes signIn(ReqRes signinRequest) {
