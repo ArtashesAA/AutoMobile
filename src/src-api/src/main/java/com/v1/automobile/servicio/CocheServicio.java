@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.v1.automobile.entidad.Coche;
 import com.v1.automobile.entidad.CocheDTO;
 import com.v1.automobile.entidad.CocheRequest;
+import com.v1.automobile.entidad.Favorito;
 import com.v1.automobile.entidad.Imagen;
 import com.v1.automobile.entidad.ImagenDTO;
 import com.v1.automobile.entidad.Usuario;
@@ -121,16 +122,33 @@ public class CocheServicio {
 		}
 	}
 
-	public ResponseEntity<String> deleteCoche(Long id) {
+	public ResponseEntity<String> deleteCoche(Long cocheId) {
 		try {
-			favoritoRepositorio.deleteByCocheId(id);
-			imagenRepositorio.deleteByCocheId(id);
-			cocheRepositorio.deleteById(id);
+	        // Verificar si el coche con el ID proporcionado existe
+	        Optional<Coche> optionalCoche = cocheRepositorio.findById(cocheId);
+	        if (!optionalCoche.isPresent()) {
+	            return new ResponseEntity<>("Coche no encontrado", HttpStatus.NOT_FOUND);
+	        }
 
-			return new ResponseEntity<>("Coche con ID " + id + " borrado correctamente", HttpStatus.OK);
-		} catch (Exception e) {
-			return new ResponseEntity<>("Error al borrar el coche con ID " + id, HttpStatus.INTERNAL_SERVER_ERROR);
-		}
+	        // Eliminar las imágenes asociadas al coche
+	        List<Imagen> imagenes = imagenRepositorio.findByCocheId(cocheId);
+	        for (Imagen imagen : imagenes) {
+	            imagenRepositorio.delete(imagen);
+	        }
+
+	        // Eliminar los favoritos asociados al coche
+	        List<Favorito> favoritos = favoritoRepositorio.findByCocheId(cocheId);
+	        for (Favorito favorito : favoritos) {
+	            favoritoRepositorio.delete(favorito);
+	        }
+
+	        // Eliminar el coche
+	        cocheRepositorio.deleteById(cocheId);
+
+	        return new ResponseEntity<>("Coche eliminado correctamente", HttpStatus.OK);
+	    } catch (Exception e) {
+	        return new ResponseEntity<>("Error al eliminar el coche", HttpStatus.INTERNAL_SERVER_ERROR);
+	    }
 	}
 
 	@Transactional

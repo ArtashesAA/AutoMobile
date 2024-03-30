@@ -40,7 +40,7 @@ public class ImagenServicio {
 	}
 
 	public ResponseEntity<List<Imagen>> getImagenesByCocheId(Long cocheId) {
-		List<Imagen> imagenes = imagenRepositorio.getImagenesByCocheId(cocheId);
+		List<Imagen> imagenes = imagenRepositorio.findByCocheId(cocheId);
 		if (!imagenes.isEmpty()) {
 			return new ResponseEntity<>(imagenes, HttpStatus.OK);
 		} else {
