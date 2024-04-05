@@ -66,7 +66,7 @@ public class CocheControlador {
 	@PreAuthorize("hasRole('ADMIN')")
 	@PostMapping("/coche")
 	public ResponseEntity<String> addCoche(@RequestBody CocheRequest request) {
-        return cocheServicio.addCoche(request);
+		return cocheServicio.addCoche(request);
 	}
 
 	/*
@@ -131,8 +131,8 @@ public class CocheControlador {
 	@PreAuthorize("hasRole('ADMIN')")
 	@PostMapping("/imagen")
 	public ResponseEntity<String> addImagen(@RequestBody ImagenRequest request) {
-        return imagenServicio.addImagen(request.getCoche_id(), request.getImagen_url());
-    }
+		return imagenServicio.addImagen(request.getCoche_id(), request.getImagen_url());
+	}
 
 	/*
 	 * Actualiza una imagen asociada a un coche por su ID. Puede acceder solo el

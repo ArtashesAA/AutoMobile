@@ -1,52 +1,47 @@
 package com.v1.automobile.entidad;
 
 import java.sql.Date;
-import java.util.List;
-
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "noticia")
 public class Noticia {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    @Column(name = "fecha", nullable = false)
-    private Date fecha;
+	@Column(name = "fecha", nullable = false)
+	private Date fecha;
 
-    @Column(name = "titulo", nullable = false)
-    private String titulo;
+	@Column(name = "titulo", nullable = false)
+	private String titulo;
 
-    @Column(name = "contenido", nullable = false)
-    private String contenido;
+	@Column(name = "contenido", nullable = false)
+	private String contenido;
 
-    @Column(name = "url_video")
-    private String urlVideo;
+	@Column(name = "url_imagen")
+	private String url_imagen;
 
-    @OneToMany(mappedBy = "noticia", cascade = CascadeType.ALL)
-    private List<ContenidoNoticia> contenidoNoticiaList;
-    
-    public Noticia() {
-    	
-    }
+	@Column(name = "url_video")
+	private String url_video;
 
-	public Noticia(Long id, Date fecha, String titulo, String contenido, String urlVideo,
-			List<ContenidoNoticia> contenidoNoticiaList) {
+	public Noticia() {
+
+	}
+
+	public Noticia(Long id, Date fecha, String titulo, String contenido, String url_imagen, String url_video) {
 		this.id = id;
 		this.fecha = fecha;
 		this.titulo = titulo;
 		this.contenido = contenido;
-		this.urlVideo = urlVideo;
-		this.contenidoNoticiaList = contenidoNoticiaList;
+		this.url_imagen = url_imagen;
+		this.url_video = url_video;
 	}
 
 	public Long getId() {
@@ -81,26 +76,27 @@ public class Noticia {
 		this.contenido = contenido;
 	}
 
-	public String getUrlVideo() {
-		return urlVideo;
+	public String getUrl_imagen() {
+		return url_imagen;
 	}
 
-	public void setUrlVideo(String urlVideo) {
-		this.urlVideo = urlVideo;
+	public void setUrl_imagen(String url_imagen) {
+		this.url_imagen = url_imagen;
 	}
 
-	public List<ContenidoNoticia> getContenidoNoticiaList() {
-		return contenidoNoticiaList;
+	public String getUrl_video() {
+		return url_video;
 	}
 
-	public void setContenidoNoticiaList(List<ContenidoNoticia> contenidoNoticiaList) {
-		this.contenidoNoticiaList = contenidoNoticiaList;
+	public void setUrl_video(String url_video) {
+		this.url_video = url_video;
 	}
 
 	@Override
 	public String toString() {
 		return "Noticia [getId()=" + getId() + ", getFecha()=" + getFecha() + ", getTitulo()=" + getTitulo()
-				+ ", getContenido()=" + getContenido() + ", getUrlVideo()=" + getUrlVideo()
-				+ ", getContenidoNoticiaList()=" + getContenidoNoticiaList() + "]";
+				+ ", getContenido()=" + getContenido() + ", getUrl_imagen()=" + getUrl_imagen() + ", getUrl_video()="
+				+ getUrl_video() + "]";
 	}
+
 }

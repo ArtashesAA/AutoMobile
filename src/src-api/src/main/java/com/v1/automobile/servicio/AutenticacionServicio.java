@@ -15,7 +15,7 @@ import com.v1.automobile.repositorio.UsuarioRepositorio;
 import java.util.HashMap;
 
 @Service
-public class AuthService {
+public class AutenticacionServicio {
 
 	@Autowired
 	private UsuarioRepositorio usuarioRepositorio;
@@ -71,19 +71,28 @@ public class AuthService {
 		return response;
 	}
 
-	public ReqRes refreshToken(ReqRes refreshTokenReqiest) {
-		ReqRes response = new ReqRes();
-		String ourEmail = jwtUtils.extractUsername(refreshTokenReqiest.getToken());
-		Usuario users = usuarioRepositorio.findByEmail(ourEmail).orElseThrow();
-		if (jwtUtils.isTokenValid(refreshTokenReqiest.getToken(), users)) {
-			var jwt = jwtUtils.generateToken(users);
-			response.setStatusCode(200);
-			response.setToken(jwt);
-			response.setRefreshToken(refreshTokenReqiest.getToken());
-			response.setExpirationTime("24Hr");
-			response.setMessage("Successfully Refreshed Token");
-		}
-		response.setStatusCode(500);
-		return response;
+	public ReqRes refreshToken(ReqRes refreshTokenRequest) {
+	    ReqRes response = new ReqRes();
+	    try {
+	        String userEmail = jwtUtils.extractUsername(refreshTokenRequest.getToken());
+	        Usuario user = usuarioRepositorio.findByEmail(userEmail).orElseThrow();
+
+	        if (jwtUtils.isTokenValid(refreshTokenRequest.getToken(), user)) {
+	            String newToken = jwtUtils.generateToken(user);
+	            response.setStatusCode(200);
+	            response.setToken(newToken);
+	            response.setRefreshToken(refreshTokenRequest.getToken());
+	            response.setExpirationTime("24Hr");
+	            response.setMessage("Successfully Refreshed Token");
+	        } else {
+	            response.setStatusCode(500);
+	            response.setMessage("Token is not valid");
+	        }
+	    } catch (Exception e) {
+	        response.setStatusCode(500);
+	        response.setMessage("Error refreshing token: " + e.getMessage());
+	    }
+	    return response;
 	}
+
 }

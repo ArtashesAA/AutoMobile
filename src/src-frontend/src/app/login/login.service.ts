@@ -11,7 +11,7 @@ export class LoginService {
 
   //Url de API
   private url_login = 'http://localhost:8080/api/v1/auth/signin';
-  private url_register = 'http://localhost:8080/api/v1/auth/signin';
+  private url_register = 'http://localhost:8080/api/v1/auth/signup';
 
   //Token
   private tokenKey = 'userToken';

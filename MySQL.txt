@@ -48,17 +48,9 @@ CREATE TABLE noticia (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     titulo VARCHAR(255) NOT NULL,
-    contenido VARCHAR(255) NOT NULL,
-    url_video VARCHAR(255)
-);
-
-CREATE TABLE contenido_noticia (
-    id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    contenido VARCHAR(255) NOT NULL,
+    contenido TEXT NOT NULL,
     imagen VARCHAR(255),
-    url_video VARCHAR(255),
-    noticia_id BIGINT not NULL,
-    FOREIGN KEY (noticia_id) REFERENCES noticia(id)
+    url_video VARCHAR(255)
 );
 
 CREATE TABLE favorito (
@@ -216,20 +208,12 @@ INSERT INTO imagen (coche_id, imagen_url) VALUES
     (14, 'https://imagenes.km77.com/fotos/bbtcontent/clippingnew/KM7KPH20210823_0007/full.jpg'),
     (15, 'https://www.shop4tesla.com/cdn/shop/articles/tesla-schiff-tracking-erste-tesla-model-3-highland-auf-dem-weg-nach-europa-757243.jpg?v=1695900242');
    
-INSERT INTO noticia (titulo, contenido, url_video) VALUES
-	('Presentación del nuevo modelo de la marca BMW', 'La marca BMW ha presentado su último modelo de coche en un evento exclusivo para prensa y aficionados.', 'https://www.youtube.com/watch?v=MQN7JYHx-RA'),
-	('Top 10 de coches más vendidos del año', 'Un análisis revela los 10 coches más vendidos del año hasta la fecha, con sorpresas en el ranking.', NULL),
-	('Consejos para mantener tu coche en buen estado', 'Expertos en mecánica automotriz comparten consejos útiles para mantener tu coche en óptimas condiciones.', NULL),
-	('Prueba de manejo del nuevo coche eléctrico', 'Un equipo de periodistas ha tenido la oportunidad de probar en exclusiva el nuevo coche eléctrico de una marca líder en el mercado.', 'https://www.youtube.com/watch?v=video2'),
-	('Tendencias en diseño de coches para el próximo año', 'Diseñadores de coches revelan las tendencias más importantes en el diseño de vehículos para el próximo año.', NULL);
-
-INSERT INTO contenido_noticia (contenido, imagen, url_video, noticia_id) VALUES
-	('La marca X ha presentado su último modelo de coche en un evento exclusivo para prensa y aficionados.', 'https://example.com/image1.jpg', NULL, 1),
-	('Los analistas revelan los 10 coches más vendidos del año hasta la fecha, con sorpresas en el ranking.', NULL, NULL, 2),
-	('Expertos en mecánica automotriz comparten consejos útiles para mantener tu coche en óptimas condiciones.', 'https://example.com/image2.jpg', NULL, 3),
-	('Un equipo de periodistas ha tenido la oportunidad de probar en exclusiva el nuevo coche eléctrico de una marca líder en el mercado.', NULL, 'https://www.youtube.com/watch?v=video2', 4),
-	('Diseñadores de coches revelan las tendencias más importantes en el diseño de vehículos para el próximo año.', NULL, NULL, 5);
-
+INSERT INTO noticia (titulo, contenido, imagen, url_video) VALUES
+	('Presentación del nuevo modelo de la marca BMW', 'La marca BMW ha presentado su último modelo de coche en un evento exclusivo para prensa y aficionados.', '', 'https://www.youtube.com/watch?v=MQN7JYHx-RA'),
+	('Top 10 de coches más vendidos del año', 'Un análisis revela los 10 coches más vendidos del año hasta la fecha, con sorpresas en el ranking.', '', NULL),
+	('Consejos para mantener tu coche en buen estado', 'Expertos en mecánica automotriz comparten consejos útiles para mantener tu coche en óptimas condiciones.', '', NULL),
+	('Prueba de manejo del nuevo coche eléctrico', 'Un equipo de periodistas ha tenido la oportunidad de probar en exclusiva el nuevo coche eléctrico de una marca líder en el mercado.', '', 'https://www.youtube.com/watch?v=video2'),
+	('Tendencias en diseño de coches para el próximo año', 'Diseñadores de coches revelan las tendencias más importantes en el diseño de vehículos para el próximo año.', '', NULL);
     
 INSERT INTO favorito (coche_id, usuario_id) VALUES 
     (1, 2), 

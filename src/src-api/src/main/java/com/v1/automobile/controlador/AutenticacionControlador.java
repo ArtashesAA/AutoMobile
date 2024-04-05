@@ -8,15 +8,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.v1.automobile.dto.ReqRes;
-import com.v1.automobile.servicio.AuthService;
+import com.v1.automobile.servicio.AutenticacionServicio;
 
 
 @RestController
 @RequestMapping("/api/v1/auth")
-public class AuthController {
+public class AutenticacionControlador {
 
 	@Autowired
-	private AuthService authService;
+	private AutenticacionServicio authService;
 
 	/*
 	 * Maneja la solicitud de registro
