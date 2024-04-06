@@ -17,7 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import com.v1.automobile.servicio.UsuarioService;
+import com.v1.automobile.servicio.UsuarioServicio;
 
 
 @Configuration
@@ -25,7 +25,7 @@ import com.v1.automobile.servicio.UsuarioService;
 public class SecurityConfig {
 
 	@Autowired
-	private UsuarioService ourUserDetailsService;
+	private UsuarioServicio usuarioServicio;
 	@Autowired
 	private JWTAuthFIlter jwtAuthFIlter;
 
@@ -45,7 +45,7 @@ public class SecurityConfig {
 	@Bean
 	public AuthenticationProvider authenticationProvider() {
 		DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
-		daoAuthenticationProvider.setUserDetailsService(ourUserDetailsService);
+		daoAuthenticationProvider.setUserDetailsService(usuarioServicio);
 		daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
 		return daoAuthenticationProvider;
 	}

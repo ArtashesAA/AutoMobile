@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Coche } from '../entidad/coche.model';
-import { LoginService } from '../login/login.service';
+import { LoginService } from '../login/servicio/login.service';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 

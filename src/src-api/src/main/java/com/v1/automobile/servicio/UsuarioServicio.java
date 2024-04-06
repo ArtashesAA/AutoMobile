@@ -5,10 +5,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
 import com.v1.automobile.repositorio.UsuarioRepositorio;
 
 @Service
-public class UsuarioService implements UserDetailsService {
+public class UsuarioServicio implements UserDetailsService {
 
 	@Autowired
 	private UsuarioRepositorio usuarioRepositorio;

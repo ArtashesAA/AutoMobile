@@ -31,6 +31,9 @@ public class Usuario implements UserDetails {
 	@Column(name = "email", nullable = false, unique = true, columnDefinition = "VARCHAR(255)")
 	private String email;
 
+	@Column(name = "imagen_usuario", columnDefinition = "VARCHAR(255)")
+	private String imagen_usuario;
+
 	@NotBlank(message = "La contraseña no puede estar en blanco")
 	@Column(name = "password", nullable = false, columnDefinition = "VARCHAR(255)")
 	private String password;
@@ -123,6 +126,14 @@ public class Usuario implements UserDetails {
 
 	public void setNombre_usuario(String nombre_usuario) {
 		this.nombre_usuario = nombre_usuario;
+	}
+
+	public String getImagen_usuario() {
+		return imagen_usuario;
+	}
+
+	public void setImagen_usuario(String imagen_usuario) {
+		this.imagen_usuario = imagen_usuario;
 	}
 
 }

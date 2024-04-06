@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.v1.automobile.entidad.Coche;
 import com.v1.automobile.entidad.Imagen;
-import com.v1.automobile.entidad.ImagenDTO;
+import com.v1.automobile.entidad.dto.ImagenDTO;
 import com.v1.automobile.repositorio.CocheRepositorio;
 import com.v1.automobile.repositorio.ImagenRepositorio;
 
@@ -40,7 +40,7 @@ public class ImagenServicio {
 	}
 
 	public ResponseEntity<List<Imagen>> getImagenesByCocheId(Long cocheId) {
-		List<Imagen> imagenes = imagenRepositorio.getImagenesByCocheId(cocheId);
+		List<Imagen> imagenes = imagenRepositorio.findByCocheId(cocheId);
 		if (!imagenes.isEmpty()) {
 			return new ResponseEntity<>(imagenes, HttpStatus.OK);
 		} else {

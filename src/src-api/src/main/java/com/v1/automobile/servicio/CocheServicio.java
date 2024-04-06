@@ -11,12 +11,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.v1.automobile.entidad.Coche;
-import com.v1.automobile.entidad.CocheDTO;
-import com.v1.automobile.entidad.CocheRequest;
+import com.v1.automobile.entidad.Favorito;
 import com.v1.automobile.entidad.Imagen;
-import com.v1.automobile.entidad.ImagenDTO;
 import com.v1.automobile.entidad.Usuario;
-import com.v1.automobile.entidad.UsuarioDTO;
+import com.v1.automobile.entidad.dto.CocheDTO;
+import com.v1.automobile.entidad.dto.ImagenDTO;
+import com.v1.automobile.entidad.dto.UsuarioDTO;
+import com.v1.automobile.entidad.request.CocheRequest;
 import com.v1.automobile.repositorio.CocheRepositorio;
 import com.v1.automobile.repositorio.FavoritoRepositorio;
 import com.v1.automobile.repositorio.ImagenRepositorio;
@@ -33,7 +34,7 @@ public class CocheServicio {
 
 	@Autowired
 	private ImagenRepositorio imagenRepositorio;
-	
+
 	@Autowired
 	private ImagenServicio imagenServicio;
 
@@ -57,7 +58,7 @@ public class CocheServicio {
 	}
 
 	public ResponseEntity<String> addCoche(CocheRequest cocheRequest) {
-	    try {
+		try {
 			// Crea un nuevo coche
 			Coche coche = new Coche();
 			coche.setMarca(cocheRequest.getMarca());
@@ -70,34 +71,45 @@ public class CocheServicio {
 			coche.setColor(cocheRequest.getColor());
 			coche.setPrecio(cocheRequest.getPrecio());
 			coche.setDescripcion(cocheRequest.getDescripcion());
+			coche.setTipoCambio(cocheRequest.getTipoCambio());
+			coche.setConsumo(cocheRequest.getConsumo());
+			coche.setCategoria(cocheRequest.getCategoria());
+			coche.setTipoVehiculo(cocheRequest.getTipoVehiculo());
+			coche.setTraccion(cocheRequest.getTraccion());
+			coche.setPlazas(cocheRequest.getPlazas());
+			coche.setPuertas(cocheRequest.getPuertas());
+			coche.setGarantia(cocheRequest.getGarantia());
+			coche.setNumeroMarchas(cocheRequest.getNumeroMarchas());
+			coche.setNumeroCilindros(cocheRequest.getNumeroCilindros());
+			coche.setCiudad(cocheRequest.getCiudad());
 
-	        // Obtiene el usuario asociado al coche
-	        Optional<Usuario> optionalUsuario = usuarioRepositorio.findById(cocheRequest.getUsuario_id());
-	        if (optionalUsuario.isPresent()) {
-	            coche.setUsuario(optionalUsuario.get());
-	        } else {
-	            return new ResponseEntity<>("Usuario no encontrado", HttpStatus.NOT_FOUND);
-	        }
+			// Obtiene el usuario asociado al coche
+			Optional<Usuario> optionalUsuario = usuarioRepositorio.findById(cocheRequest.getUsuario_id());
+			if (optionalUsuario.isPresent()) {
+				coche.setUsuario(optionalUsuario.get());
+			} else {
+				return new ResponseEntity<>("Usuario no encontrado", HttpStatus.NOT_FOUND);
+			}
 
-	        // Guarda el coche
-	        Coche savedCoche = cocheRepositorio.save(coche);
+			// Guarda el coche
+			Coche savedCoche = cocheRepositorio.save(coche);
 
-	        // Guarda las imágenes asociadas
-	        List<ImagenDTO> imagenes = cocheRequest.getImagenes();
-	        for (ImagenDTO imagenDTO : imagenes) {
-	        	 ResponseEntity<String> response = imagenServicio.addImagen(savedCoche.getId(), imagenDTO.getImagen_url());
-	        	    if (response.getStatusCode() != HttpStatus.OK) {
-	        	        // Si ocurre algún error al agregar la imagen, devolver la respuesta con el mensaje de error
-	        	        return new ResponseEntity<>(response.getBody(), response.getStatusCode());
-	        	    }
-	        }
+			// Guarda las imágenes asociadas
+			List<ImagenDTO> imagenes = cocheRequest.getImagenes();
+			for (ImagenDTO imagenDTO : imagenes) {
+				ResponseEntity<String> response = imagenServicio.addImagen(savedCoche.getId(),
+						imagenDTO.getImagen_url());
+				if (response.getStatusCode() != HttpStatus.OK) {
+					// Mensaje de error
+					return new ResponseEntity<>(response.getBody(), response.getStatusCode());
+				}
+			}
 
-	        return new ResponseEntity<>("Coche creado correctamente", HttpStatus.CREATED);
-	    } catch (Exception e) {
-	        return new ResponseEntity<>("Error al crear el coche", HttpStatus.INTERNAL_SERVER_ERROR);
-	    }
+			return new ResponseEntity<>("Coche creado correctamente", HttpStatus.CREATED);
+		} catch (Exception e) {
+			return new ResponseEntity<>("Error al crear el coche", HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
-
 
 	public ResponseEntity<String> updateCoche(Long id, Coche nuevoCoche) {
 		Coche cocheExistente = cocheRepositorio.findById(id).orElse(null);
@@ -111,6 +123,19 @@ public class CocheServicio {
 			cocheExistente.setColor(nuevoCoche.getColor());
 			cocheExistente.setPrecio(nuevoCoche.getPrecio());
 			cocheExistente.setDescripcion(nuevoCoche.getDescripcion());
+			cocheExistente.setPotencia(nuevoCoche.getPotencia());
+			cocheExistente.setCombustible(nuevoCoche.getCombustible());
+			cocheExistente.setConsumo(nuevoCoche.getConsumo());
+			cocheExistente.setTipoCambio(nuevoCoche.getTipoCambio());
+			cocheExistente.setCategoria(nuevoCoche.getCategoria());
+			cocheExistente.setTipoVehiculo(nuevoCoche.getTipoVehiculo());
+			cocheExistente.setTraccion(nuevoCoche.getTraccion());
+			cocheExistente.setPlazas(nuevoCoche.getPlazas());
+			cocheExistente.setPuertas(nuevoCoche.getPuertas());
+			cocheExistente.setGarantia(nuevoCoche.getGarantia());
+			cocheExistente.setNumeroMarchas(nuevoCoche.getNumeroMarchas());
+			cocheExistente.setNumeroCilindros(nuevoCoche.getNumeroCilindros());
+			cocheExistente.setCiudad(nuevoCoche.getCiudad());
 
 			// Guardar el coche actualizado
 			cocheRepositorio.save(cocheExistente);
@@ -121,15 +146,32 @@ public class CocheServicio {
 		}
 	}
 
-	public ResponseEntity<String> deleteCoche(Long id) {
+	public ResponseEntity<String> deleteCoche(Long cocheId) {
 		try {
-			favoritoRepositorio.deleteByCocheId(id);
-			imagenRepositorio.deleteByCocheId(id);
-			cocheRepositorio.deleteById(id);
+			// Verificar si el coche con el ID proporcionado existe
+			Optional<Coche> optionalCoche = cocheRepositorio.findById(cocheId);
+			if (!optionalCoche.isPresent()) {
+				return new ResponseEntity<>("Coche no encontrado", HttpStatus.NOT_FOUND);
+			}
 
-			return new ResponseEntity<>("Coche con ID " + id + " borrado correctamente", HttpStatus.OK);
+			// Eliminar las imágenes asociadas al coche
+			List<Imagen> imagenes = imagenRepositorio.findByCocheId(cocheId);
+			for (Imagen imagen : imagenes) {
+				imagenRepositorio.delete(imagen);
+			}
+
+			// Eliminar los favoritos asociados al coche
+			List<Favorito> favoritos = favoritoRepositorio.findByCocheId(cocheId);
+			for (Favorito favorito : favoritos) {
+				favoritoRepositorio.delete(favorito);
+			}
+
+			// Eliminar el coche
+			cocheRepositorio.deleteById(cocheId);
+
+			return new ResponseEntity<>("Coche eliminado correctamente", HttpStatus.OK);
 		} catch (Exception e) {
-			return new ResponseEntity<>("Error al borrar el coche con ID " + id, HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>("Error al eliminar el coche", HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
@@ -143,7 +185,7 @@ public class CocheServicio {
 
 	private CocheDTO convertToDto(Coche coche) {
 		CocheDTO dto = new CocheDTO();
-		
+
 		dto.setMarca(coche.getMarca());
 		dto.setModelo(coche.getModelo());
 		dto.setAnyo(coche.getAnyo());
@@ -154,16 +196,26 @@ public class CocheServicio {
 		dto.setColor(coche.getColor());
 		dto.setPrecio(coche.getPrecio());
 		dto.setDescripcion(coche.getDescripcion());
+		dto.setConsumo(coche.getConsumo());
+		dto.setTipoCambio(coche.getTipoCambio());
+		dto.setCategoria(coche.getCategoria());
+		dto.setTipoVehiculo(coche.getTipoVehiculo());
+		dto.setTraccion(coche.getTraccion());
+		dto.setPlazas(coche.getPlazas());
+		dto.setPuertas(coche.getPuertas());
+		dto.setGarantia(coche.getGarantia());
+		dto.setNumeroMarchas(coche.getNumeroMarchas());
+		dto.setNumeroCilindros(coche.getNumeroCilindros());
+		dto.setCiudad(coche.getCiudad());
 
-		// Set the UsuarioDTO without including CocheDTO to avoid recursion
 		if (coche.getUsuario() != null) {
 			Usuario usuario = coche.getUsuario();
 			UsuarioDTO usuarioDTO = new UsuarioDTO();
 			usuarioDTO.setNombre_usuario(usuario.getNombre_usuario());
+			usuarioDTO.setImagen_usuario(usuario.getImagen_usuario());
 			dto.setUsuario(usuarioDTO);
 		}
 
-		// Set the ImagenDTO list without including CocheDTO to avoid recursion
 		List<Imagen> imagenes = coche.getImagenes();
 		if (imagenes != null) {
 			List<ImagenDTO> imagenesDTO = imagenes.stream().map(this::convertImagenToDto).collect(Collectors.toList());

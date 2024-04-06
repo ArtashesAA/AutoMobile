@@ -1,13 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { LoginService } from './login.service';
+import { LoginService } from './servicio/login.service';
 import { FormsModule, NgForm } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
   standalone: true,
   imports: [CommonModule, FormsModule, HttpClientModule],
+  providers: [],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })
@@ -19,15 +21,12 @@ export class LoginComponent {
   cochesResponse: any;
   errorMessage: string = '';
 
-  constructor(private loginService: LoginService) {}
+  constructor(public loginService: LoginService, private router: Router) {}
 
-  //Realiza el login llamando al método login del servicio de autenticación
-  login() {
+  login(): void {
     this.loginService.login(this.email, this.password).subscribe((response) => {
-      this.token = response.token;
-      console.log(this.token);
-      // Almacena el token en localStorage después de obtenerlo
-      this.loginService.guardarToken(this.token);
+      const token = response.token;
+      this.loginService.guardarToken(token);
     });
   }
 }

@@ -15,11 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.v1.automobile.entidad.Coche;
-import com.v1.automobile.entidad.CocheDTO;
-import com.v1.automobile.entidad.CocheRequest;
 import com.v1.automobile.entidad.Imagen;
-import com.v1.automobile.entidad.ImagenDTO;
-import com.v1.automobile.entidad.ImagenRequest;
+import com.v1.automobile.entidad.dto.CocheDTO;
+import com.v1.automobile.entidad.dto.ImagenDTO;
+import com.v1.automobile.entidad.request.CocheRequest;
+import com.v1.automobile.entidad.request.ImagenRequest;
 import com.v1.automobile.servicio.CocheServicio;
 import com.v1.automobile.servicio.ImagenServicio;
 
@@ -66,7 +66,7 @@ public class CocheControlador {
 	@PreAuthorize("hasRole('ADMIN')")
 	@PostMapping("/coche")
 	public ResponseEntity<String> addCoche(@RequestBody CocheRequest request) {
-        return cocheServicio.addCoche(request);
+		return cocheServicio.addCoche(request);
 	}
 
 	/*
@@ -131,8 +131,8 @@ public class CocheControlador {
 	@PreAuthorize("hasRole('ADMIN')")
 	@PostMapping("/imagen")
 	public ResponseEntity<String> addImagen(@RequestBody ImagenRequest request) {
-        return imagenServicio.addImagen(request.getCoche_id(), request.getImagen_url());
-    }
+		return imagenServicio.addImagen(request.getCoche_id(), request.getImagen_url());
+	}
 
 	/*
 	 * Actualiza una imagen asociada a un coche por su ID. Puede acceder solo el

@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Coche } from '../entidad/coche.model';
 import { ServicioGeneralService } from '../servicio-general/servicio-general.service';
-import { DataServices } from '../DataServices';
+import { DataServices } from '../servicio-general/DataServices';
 import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ServicioCocheService {
+  coches: Coche[] = [];
+
   constructor(
     private servicioGeneral: ServicioGeneralService,
     private dataService: DataServices
@@ -24,8 +26,6 @@ export class ServicioCocheService {
   obtenerCoches() {
     return this.dataService.cargarCoches();
   }
-
-  coches: Coche[] = [];
 
   agregarCocheServicio(coche: Coche) {
     this.servicioGeneral.muestraMensaje(

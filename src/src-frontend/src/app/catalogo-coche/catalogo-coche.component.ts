@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ServicioCocheService } from '../servicio-coche/servicio-coche.service';
 import { Coche } from '../entidad/coche.model';
 import { CocheHijoComponent } from '../coche-hijo/coche-hijo.component';
-import { DataServices } from '../DataServices';
+import { DataServices } from '../servicio-general/DataServices';
 import { CommonModule } from '@angular/common';
 
 @Component({

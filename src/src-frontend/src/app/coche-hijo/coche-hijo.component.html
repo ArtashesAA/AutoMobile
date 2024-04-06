@@ -42,11 +42,13 @@
         </div>
         <div class="coche-actions mt-3">
           <button
+            *ngIf="cochedelista && cochedelista.id"
             class="btn btn-secondary mr-3"
-            [routerLink]="['/ver', indice]"
+            [routerLink]="['/ver', cochedelista.id]"
           >
             Ver
           </button>
+
           <button
             class="btn btn-secondary"
             [routerLink]="['/actualiza', indice]"

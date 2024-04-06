@@ -1,20 +1,20 @@
 # AutoMobile
 
+## Ejecución
+
+Para ejecutar el proyecto, se debe seguir los siguientes pasos:
+
+- Levantar la base de datos MySQL. El archivo del script: MySQL.txt.
+- Ejecutar la api de Spring en Spring Tool Suite: src/src-api.
+- Ejecutar el proyecto Angular: src-frontend.
+
 ## Descripción
 
-La página web de compra-venta de coches ofrece a los usuarios una plataforma completa y
-confiable para explorar una amplia variedad de vehículos disponibles para la venta, así
-como acceder a información valiosa sobre el mundo automotriz. Los usuarios pueden
-navegar por los listados de coches publicados por otros usuarios sin necesidad de
-registrarse, pero para disfrutar de funciones adicionales como publicar anuncios o guardar
-coches favoritos, se requiere un registro.
+La página web de compra-venta de coches ofrece a los usuarios una plataforma completa y confiable para explorar una amplia variedad de vehículos disponibles para la venta, así como acceder a información valiosa sobre el mundo automotriz. Los usuarios pueden navegar por los listados de coches publicados por otros usuarios sin necesidad de registrarse, pero para disfrutar de funciones adicionales como publicar anuncios o guardar coches favoritos, se requiere un registro.
 
 ## Motivación
 
-La falta de páginas serias y confiables en el mercado de compra-venta de coches me ha
-llevado a desarrollar esta idea. Como entusiasta del mundo automotriz, deseo una
-plataforma que no solo ofrezca una amplia variedad de vehículos, sino que también
-garantice seguridad.
+La falta de páginas serias y confiables en el mercado de compra-venta de coches me ha llevado a desarrollar esta idea. Como entusiasta del mundo automotriz, deseo una plataforma que no solo ofrezca una amplia variedad de vehículos, sino que también garantice seguridad.
 
 ## Funciones
 
@@ -30,22 +30,18 @@ garantice seguridad.
 - RF10 - Se podrá publicar coches.
 - RF11 - Se podrá editar coches publicados.
 - RF12 - Habrá una sección de noticias e información.
-- RF13 - Administración: Los administradores tendrán acceso a un panel de
-  control desde el cual pueden gestionar todos los aspectos de la plataforma.
-- RF14 - Gestión de Usuarios: Los administradores pueden ver y administrar la lista de
-  usuarios.
+- RF13 - Administración: Los administradores tendrán acceso a un panel de control desde el cual pueden gestionar todos los aspectos de la plataforma.
+- RF14 - Gestión de Usuarios: Los administradores pueden ver y administrar la lista de usuarios.
 - RF15 - Gestión de Contenido: Los administradores pueden supervisar y gestionar
   los anuncios publicados por los usuarios para garantizar que cumplan con las
-  directrices de la plataforma y no contengan contenido inapropiado o fraudulento.
+  directrices de la plataforma y no contengan contenido inapropiado fraudulento.
 
 ## Stack tecnológico
 
 ### Back-End:
 
-Para el back-end se va a utilizar Spring Framework combinado con la base
-de datos de MySQL.
+Para el back-end se va a utilizar Spring Framework combinado con la base de datos de MySQL.
 
 ### Front-End:
 
-Para el front-end se va a utilizar el framework Angular (HTML, CSS y
-TypeScript).
+Para el front-end se va a utilizar el framework Angular (HTML, CSS y TypeScript).

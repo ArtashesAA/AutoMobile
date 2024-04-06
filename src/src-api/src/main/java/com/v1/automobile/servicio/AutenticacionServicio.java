@@ -15,7 +15,7 @@ import com.v1.automobile.repositorio.UsuarioRepositorio;
 import java.util.HashMap;
 
 @Service
-public class AuthService {
+public class AutenticacionServicio {
 
 	@Autowired
 	private UsuarioRepositorio usuarioRepositorio;
@@ -31,6 +31,7 @@ public class AuthService {
 			Usuario usuarios = new Usuario();
 			usuarios.setNombre_usuario(registrationRequest.getNombre_usuario());
 			usuarios.setEmail(registrationRequest.getEmail());
+			usuarios.setImagen_usuario(registrationRequest.getImagen_usuario());
 			usuarios.setPassword(passwordEncoder.encode(registrationRequest.getPassword()));
 
 			// Por defecto se registra como usuario normal
@@ -38,14 +39,14 @@ public class AuthService {
 			Usuario usuarioResult = usuarioRepositorio.save(usuarios);
 			if (usuarioResult != null && usuarioResult.getId() > 0) {
 				String mensaje = "Usuario " + usuarioResult.getNombre_usuario() + " ha sido registrado correctamente";
-	            return new ResponseEntity<>(mensaje, HttpStatus.CREATED);
+				return new ResponseEntity<>(mensaje, HttpStatus.CREATED);
 			}
 		} catch (Exception e) {
 			String mensajeError = "Error al registrar usuario: " + e.getMessage();
-	        return new ResponseEntity<>(mensajeError, HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(mensajeError, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		String mensajeError = "Error al registrar usuario";
-	    return new ResponseEntity<>(mensajeError, HttpStatus.INTERNAL_SERVER_ERROR);
+		return new ResponseEntity<>(mensajeError, HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
 	public ReqRes signIn(ReqRes signinRequest) {
@@ -70,19 +71,54 @@ public class AuthService {
 		return response;
 	}
 
-	public ReqRes refreshToken(ReqRes refreshTokenReqiest) {
+	public ReqRes refreshToken(ReqRes refreshTokenRequest) {
 		ReqRes response = new ReqRes();
-		String ourEmail = jwtUtils.extractUsername(refreshTokenReqiest.getToken());
-		Usuario users = usuarioRepositorio.findByEmail(ourEmail).orElseThrow();
-		if (jwtUtils.isTokenValid(refreshTokenReqiest.getToken(), users)) {
-			var jwt = jwtUtils.generateToken(users);
-			response.setStatusCode(200);
-			response.setToken(jwt);
-			response.setRefreshToken(refreshTokenReqiest.getToken());
-			response.setExpirationTime("24Hr");
-			response.setMessage("Successfully Refreshed Token");
+		try {
+			String userEmail = jwtUtils.extractUsername(refreshTokenRequest.getToken());
+			Usuario user = usuarioRepositorio.findByEmail(userEmail).orElseThrow();
+
+			if (jwtUtils.isTokenValid(refreshTokenRequest.getToken(), user)) {
+				String newToken = jwtUtils.generateToken(user);
+				response.setStatusCode(200);
+				response.setToken(newToken);
+				response.setRefreshToken(refreshTokenRequest.getToken());
+				response.setExpirationTime("24Hr");
+				response.setMessage("Successfully Refreshed Token");
+			} else {
+				response.setStatusCode(500);
+				response.setMessage("Token is not valid");
+			}
+		} catch (Exception e) {
+			response.setStatusCode(500);
+			response.setMessage("Error refreshing token: " + e.getMessage());
 		}
-		response.setStatusCode(500);
 		return response;
 	}
+
+	// Método para realizar el cierre de sesión
+	public ResponseEntity<String> logout(String token) {
+        try {
+            // Extraer el nombre de usuario desde el token
+            String userEmail = jwtUtils.extractUsername(token);
+
+            // Verificar si el token es inválido (ya sea por expiración o por ser inválido en la lista)
+            if (jwtUtils.isTokenInvalid(token)) {
+                return ResponseEntity.badRequest().body("El token de sesión ya está invalidado");
+            }
+
+            // Si el token es válido y pertenece a un usuario existente
+            if (jwtUtils.isTokenValid(token, usuarioRepositorio.findByEmail(userEmail).orElse(null))) {
+                // Invalidar el token (agregarlo a la lista de tokens inválidos)
+                jwtUtils.invalidateToken(token);
+
+                // Podrías realizar otras operaciones de cierre de sesión aquí si es necesario
+
+                return ResponseEntity.ok("Sesión cerrada correctamente");
+            } else {
+                return ResponseEntity.badRequest().body("Token inválido o no asociado a un usuario");
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al cerrar sesión: " + e.getMessage());
+        }
+    }
 }

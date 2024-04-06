@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Coche } from '../entidad/coche.model';
 import { ActivatedRoute } from '@angular/router';
-import { DataServices } from '../DataServices';
+import { DataServices } from '../servicio-general/DataServices';
 import { CommonModule } from '@angular/common';
 import { ServicioCocheService } from '../servicio-coche/servicio-coche.service';
 

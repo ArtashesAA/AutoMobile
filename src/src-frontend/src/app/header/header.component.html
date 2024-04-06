@@ -28,25 +28,29 @@
   >
     <li><a href="#" class="nav-link px-2 link-secondary">Inicio</a></li>
     <li><a href="/catalogo" class="nav-link px-2">Coches</a></li>
-    <li><a href="/crear" class="nav-link px-2">Publicar</a></li>
+    <li><a href="/noticias" class="nav-link px-2">Explorar</a></li>
+    <li><a href="/crear" class="nav-link px-2">Vender</a></li>
   </ul>
 
   <div class="col-md-3 text-end" zn_id="30">
-    <button
-      type="button"
-      class="btn btn-outline-primary me-2"
-      zn_id="37"
-      [routerLink]="'/login'"
-    >
-      Login
-    </button>
-    <button
-      type="button"
-      class="btn btn-primary"
-      zn_id="38"
-      [routerLink]="'/register'"
-    >
-      Sign-up
-    </button>
+    <ng-container *ngIf="estaLogueado; else loginButtons">
+      <!-- Mostrar botón de Logout si está logueado -->
+      <button type="button" class="btn btn-primary me-2" (click)="logout()">
+        Logout
+      </button>
+    </ng-container>
+    <ng-template #loginButtons>
+      <!-- Mostrar botones de Login y Sign-up si no está logueado -->
+      <button
+        type="button"
+        class="btn btn-outline-primary me-2"
+        [routerLink]="'/login'"
+      >
+        Login
+      </button>
+      <button type="button" class="btn btn-primary" [routerLink]="'/register'">
+        Sign-up
+      </button>
+    </ng-template>
   </div>
 </header>

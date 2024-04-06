@@ -9,8 +9,6 @@ import com.v1.automobile.entidad.Imagen;
 
 @Repository
 public interface ImagenRepositorio extends JpaRepository<Imagen, Long> {
+	List<Imagen> findByCocheId(Long cocheId);
 
-	List<Imagen> getImagenesByCocheId(Long cocheId);
-
-	void deleteByCocheId(Long cocheId);
 }
