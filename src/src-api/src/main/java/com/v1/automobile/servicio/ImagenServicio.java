@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.v1.automobile.entidad.Coche;
 import com.v1.automobile.entidad.Imagen;
-import com.v1.automobile.entidad.ImagenDTO;
+import com.v1.automobile.entidad.dto.ImagenDTO;
 import com.v1.automobile.repositorio.CocheRepositorio;
 import com.v1.automobile.repositorio.ImagenRepositorio;
 

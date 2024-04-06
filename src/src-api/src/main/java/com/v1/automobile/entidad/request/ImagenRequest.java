@@ -1,4 +1,4 @@
-package com.v1.automobile.entidad;
+package com.v1.automobile.entidad.request;
 
 public class ImagenRequest {
 	private Long coche_id;

@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { Noticia } from '../entidad/noticia.model';
-import { LoginService } from '../login/login.service';
+import { LoginService } from '../login/servicio/login.service';
 
 @Component({
   selector: 'app-noticia-hijo',

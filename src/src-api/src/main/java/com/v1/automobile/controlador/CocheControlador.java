@@ -15,11 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.v1.automobile.entidad.Coche;
-import com.v1.automobile.entidad.CocheDTO;
-import com.v1.automobile.entidad.CocheRequest;
 import com.v1.automobile.entidad.Imagen;
-import com.v1.automobile.entidad.ImagenDTO;
-import com.v1.automobile.entidad.ImagenRequest;
+import com.v1.automobile.entidad.dto.CocheDTO;
+import com.v1.automobile.entidad.dto.ImagenDTO;
+import com.v1.automobile.entidad.request.CocheRequest;
+import com.v1.automobile.entidad.request.ImagenRequest;
 import com.v1.automobile.servicio.CocheServicio;
 import com.v1.automobile.servicio.ImagenServicio;
 

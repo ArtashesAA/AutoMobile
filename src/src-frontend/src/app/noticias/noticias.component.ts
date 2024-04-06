@@ -3,7 +3,7 @@ import { Noticia } from '../entidad/noticia.model';
 import { ServicioNoticiaService } from '../servicio-noticia/servicio-noticia.service';
 import { NoticiaHijoComponent } from '../noticia-hijo/noticia-hijo.component';
 import { CommonModule } from '@angular/common';
-import { DataServices } from '../DataServices';
+import { DataServices } from '../servicio-general/DataServices';
 
 @Component({
   selector: 'app-noticias',
@@ -15,17 +15,23 @@ import { DataServices } from '../DataServices';
 })
 export class NoticiasComponent {
   titulo = 'Novedades';
-
   noticias: Noticia[] = [];
 
-  constructor(private miServicio: ServicioNoticiaService) {}
+  constructor(private dataService: DataServices) {}
 
   ngOnInit(): void {
-    this.miServicio.obtenerNoticias().subscribe((misNoticias) => {
-      console.log(misNoticias);
-      this.noticias = Object.values(misNoticias);
+    this.cargarNoticias();
+  }
 
-      this.miServicio.setNoticias(this.noticias);
-    });
+  cargarNoticias(): void {
+    this.dataService.cargarNoticias().subscribe(
+      (response) => {
+        this.noticias = response;
+        console.log('Noticias cargadas:', this.noticias);
+      },
+      (error) => {
+        console.error('Error al cargar noticias:', error);
+      }
+    );
   }
 }

@@ -1,4 +1,4 @@
-package com.v1.automobile.entidad;
+package com.v1.automobile.entidad.dto;
 
 import java.util.ArrayList;
 import java.util.List;

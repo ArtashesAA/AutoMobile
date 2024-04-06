@@ -1,7 +1,9 @@
-package com.v1.automobile.entidad;
+package com.v1.automobile.entidad.request;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import com.v1.automobile.entidad.dto.ImagenDTO;
 
 public class CocheRequest {
 	private Long id;

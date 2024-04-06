@@ -11,7 +11,7 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { Imagen } from '../entidad/imagen.model';
 import { Usuario } from '../entidad/usuario.model';
-import { DataServices } from '../DataServices';
+import { DataServices } from '../servicio-general/DataServices';
 
 @Component({
   selector: 'app-crear-coche',

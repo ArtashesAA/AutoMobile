@@ -1,11 +1,14 @@
 import { Injectable } from '@angular/core';
-import { DataServices } from '../DataServices';
+import { DataServices } from '../servicio-general/DataServices';
 import { ServicioGeneralService } from '../servicio-general/servicio-general.service';
+import { Noticia } from '../entidad/noticia.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ServicioNoticiaService {
+  noticias: Noticia[] = [];
+
   constructor(
     private servicioGeneral: ServicioGeneralService,
     private dataService: DataServices
@@ -15,7 +18,7 @@ export class ServicioNoticiaService {
     return this.dataService.cargarNoticiaPorId(id);
   }
 
-  setNoticias(misNoticias: any) {
+  setNoticias(misNoticias: Noticia[]) {
     this.noticias = misNoticias;
   }
 
@@ -23,9 +26,7 @@ export class ServicioNoticiaService {
     return this.dataService.cargarNoticias();
   }
 
-  noticias: any[] = [];
-
-  agregarNoticiaServicio(noticia: any) {
+  agregarNoticiaServicio(noticia: Noticia) {
     this.servicioGeneral.muestraMensaje(
       'Noticia que se va a agregar: ' + '\n' + noticia.titulo
     );
@@ -37,12 +38,12 @@ export class ServicioNoticiaService {
     }
   }
 
-  actualizarNoticia(indice: number, noticia: any) {
+  actualizarNoticia(indice: number, noticia: Noticia) {
     let noticiaModificada = this.noticias[indice];
 
     noticiaModificada.titulo = noticia.titulo;
-    noticiaModificada.descripcion = noticia.descripcion;
-    noticiaModificada.fecha = noticia.fecha;
+    noticiaModificada.contenido = noticia.contenido;
+    noticiaModificada.imagen = noticia.imagen;
 
     this.dataService.actualizarNoticia(indice, noticia);
   }

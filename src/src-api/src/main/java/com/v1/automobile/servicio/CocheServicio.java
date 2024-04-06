@@ -11,13 +11,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.v1.automobile.entidad.Coche;
-import com.v1.automobile.entidad.CocheDTO;
-import com.v1.automobile.entidad.CocheRequest;
 import com.v1.automobile.entidad.Favorito;
 import com.v1.automobile.entidad.Imagen;
-import com.v1.automobile.entidad.ImagenDTO;
 import com.v1.automobile.entidad.Usuario;
-import com.v1.automobile.entidad.UsuarioDTO;
+import com.v1.automobile.entidad.dto.CocheDTO;
+import com.v1.automobile.entidad.dto.ImagenDTO;
+import com.v1.automobile.entidad.dto.UsuarioDTO;
+import com.v1.automobile.entidad.request.CocheRequest;
 import com.v1.automobile.repositorio.CocheRepositorio;
 import com.v1.automobile.repositorio.FavoritoRepositorio;
 import com.v1.automobile.repositorio.ImagenRepositorio;

@@ -49,7 +49,7 @@ CREATE TABLE noticia (
     fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     titulo VARCHAR(255) NOT NULL,
     contenido TEXT NOT NULL,
-    imagen VARCHAR(255),
+    url_imagen VARCHAR(255),
     url_video VARCHAR(255)
 );
 
@@ -146,21 +146,21 @@ INSERT INTO usuario (nombre_usuario, email, imagen_usuario, password, role) valu
 
 INSERT INTO coche (marca, modelo, precio, anyo, potencia, kilometraje, combustible, consumo, tipo_cambio, categoria, tipo_vehiculo, traccion, plazas, puertas, garantia, peso, color, numero_marchas, numero_cilindros, ciudad, descripcion, usuario_id)
 VALUES
-('Toyota', 'Corolla', 20000, 2018, 120, 50000, 'Gasolina', '7.5L/100km', 'Manual', 'Compacto', 'Sedán', 'Delantera', 5, 4, '1 año', 1200, 'Rojo', 6, 4, '4', 'Coche compacto muy popular con bajo consumo de combustible.', 1),
-('Ford', 'F-150', 35000, 2019, 300, 30000, 'Gasolina', '10.0L/100km', 'Automático', 'Camioneta', 'Pickup', 'Trasera', 5, 4, '2 años', 2500, 'Negro', 8, 6, '8', 'Camioneta robusta y potente, ideal para trabajos pesados.', 2),
-('Honda', 'Civic', 18000, 2017, 140, 40000, 'Gasolina', '6.5L/100km', 'Manual', 'Compacto', 'Hatchback', 'Delantera', 5, 4, '1 año', 1100, 'Azul', 6, 4, '4', 'Coche compacto con diseño deportivo y excelente economía de combustible.', 3),
+('Toyota', 'Corolla', 20000, 2018, 120, 50000, 'Gasolina', '7.5L/100km', 'Manual', 'Compacto', 'Sedán', 'Delantera', 5, 4, '1 año', 1200, 'Blanco', 6, 4, '4', 'Coche compacto muy popular con bajo consumo de combustible.', 1),
+('Ford', 'F-150', 35000, 2019, 300, 30000, 'Gasolina', '10.0L/100km', 'Automático', 'Camioneta', 'Pickup', 'Trasera', 5, 4, '2 años', 2500, 'Gris', 8, 6, '8', 'Camioneta robusta y potente, ideal para trabajos pesados.', 2),
+('Honda', 'Civic', 18000, 2017, 140, 40000, 'Gasolina', '6.5L/100km', 'Manual', 'Compacto', 'Hatchback', 'Delantera', 5, 4, '1 año', 1100, 'Gris', 6, 4, '4', 'Coche compacto con diseño deportivo y excelente economía de combustible.', 3),
 ('BMW', 'X5', 50000, 2020, 250, 20000, 'Diésel', '8.0L/100km', 'Automático', 'SUV', 'SUV', 'Total', 5, 4, '3 años', 2200, 'Blanco', 8, 6, '8', 'SUV de lujo con alto rendimiento y comodidad.', 4),
-('Volkswagen', 'Golf', 22000, 2019, 150, 35000, 'Gasolina', '7.0L/100km', 'Automático', 'Compacto', 'Hatchback', 'Delantera', 5, 4, '2 años', 1200, 'Gris', 7, 4, '4', 'Coche compacto versátil y confiable.', 5),
-('Mercedes-Benz', 'E-Class', 40000, 2021, 200, 15000, 'Gasolina', '8.5L/100km', 'Automático', 'Sedán', 'Sedán', 'Trasera', 5, 4, '2 años', 1800, 'Plata', 9, 6, '8', 'Sedán de lujo con un rendimiento excepcional y tecnología avanzada.', 6),
+('Volkswagen', 'Golf', 22000, 2019, 150, 35000, 'Gasolina', '7.0L/100km', 'Automático', 'Compacto', 'Hatchback', 'Delantera', 5, 4, '2 años', 1200, 'Blanco', 7, 4, '4', 'Coche compacto versátil y confiable.', 5),
+('Mercedes-Benz', 'E-Class', 40000, 2021, 200, 15000, 'Gasolina', '8.5L/100km', 'Automático', 'Sedán', 'Sedán', 'Trasera', 5, 4, '2 años', 1800, 'Rojo', 9, 6, '8', 'Sedán de lujo con un rendimiento excepcional y tecnología avanzada.', 6),
 ('Audi', 'A4', 30000, 2020, 180, 25000, 'Diésel', '6.5L/100km', 'Automático', 'Sedán', 'Sedán', 'Delantera', 5, 4, '2 años', 1600, 'Negro', 7, 4, '6', 'Sedán elegante con tecnología de vanguardia y excelente eficiencia de combustible.', 7),
 ('Chevrolet', 'Silverado', 40000, 2020, 320, 20000, 'Gasolina', '12.0L/100km', 'Automático', 'Camioneta', 'Pickup', 'Trasera', 5, 4, '2 años', 2400, 'Azul', 8, 8, '8', 'Camioneta robusta y poderosa para todo tipo de trabajo.', 8),
-('Hyundai', 'Elantra', 21000, 2019, 140, 30000, 'Gasolina', '6.0L/100km', 'Automático', 'Compacto', 'Sedán', 'Delantera', 5, 4, '2 años', 1300, 'Blanco', 7, 4, '4', 'Sedán compacto con estilo moderno y rendimiento confiable.', 9),
-('Toyota', 'Rav4', 32000, 2020, 180, 18000, 'Híbrido', '5.5L/100km', 'Automático', 'SUV', 'SUV', 'Total', 5, 4, '3 años', 1500, 'Verde', 7, 4, '6', 'SUV espacioso y eficiente en combustible con tecnología híbrida avanzada.', 10),
-('Nissan', 'Sentra', 23000, 2019, 140, 25000, 'Gasolina', '6.2L/100km', 'Automático', 'Compacto', 'Sedán', 'Delantera', 5, 4, '1 año', 1250, 'Gris', 7, 4, '4', 'Sedán compacto con características avanzadas y excelente economía de combustible.', 11),
+('Hyundai', 'Elantra', 21000, 2019, 140, 30000, 'Gasolina', '6.0L/100km', 'Automático', 'Compacto', 'Sedán', 'Delantera', 5, 4, '2 años', 1300, 'Plata', 7, 4, '4', 'Sedán compacto con estilo moderno y rendimiento confiable.', 9),
+('Toyota', 'Rav4', 32000, 2020, 180, 18000, 'Híbrido', '5.5L/100km', 'Automático', 'SUV', 'SUV', 'Total', 5, 4, '3 años', 1500, 'Negro', 7, 4, '6', 'SUV espacioso y eficiente en combustible con tecnología híbrida avanzada.', 10),
+('Nissan', 'Sentra', 23000, 2019, 140, 25000, 'Gasolina', '6.2L/100km', 'Automático', 'Compacto', 'Sedán', 'Delantera', 5, 4, '1 año', 1250, 'Blanco', 7, 4, '4', 'Sedán compacto con características avanzadas y excelente economía de combustible.', 11),
 ('Ford', 'Focus', 25000, 2020, 160, 20000, 'Gasolina', '6.8L/100km', 'Automático', 'Compacto', 'Hatchback', 'Delantera', 5, 4, '2 años', 1200, 'Rojo', 6, 4, '4', 'Coche compacto ágil y divertido con tecnología innovadora.', 12),
-('Chevrolet', 'Malibu', 28000, 2018, 180, 30000, 'Gasolina', '7.0L/100km', 'Automático', 'Sedán', 'Sedán', 'Delantera', 5, 4, '2 años', 1400, 'Negro', 7, 4, '6', 'Sedán elegante con características avanzadas y gran economía de combustible.', 13),
-('Kia', 'Sorento', 35000, 2021, 220, 15000, 'Gasolina', '8.5L/100km', 'Automático', 'SUV', 'SUV', 'Total', 5, 4, '3 años', 1900, 'Azul', 8, 6, '6', 'SUV espacioso y lujoso con características avanzadas y comodidad.', 14),
-('Tesla', 'Model 3', 45000, 2021, 220, 10000, 'Eléctrico', '0.0L/100km', 'Automático', 'Compacto', 'Sedán', 'Trasera', 5, 4, '4 años', 1700, 'Blanco', 7, 4, '0', 'Coche eléctrico con excelente autonomía y tecnología innovadora.', 15),
+('Chevrolet', 'Malibu', 28000, 2018, 180, 30000, 'Gasolina', '7.0L/100km', 'Automático', 'Sedán', 'Sedán', 'Delantera', 5, 4, '2 años', 1400, 'Bronce', 7, 4, '6', 'Sedán elegante con características avanzadas y gran economía de combustible.', 13),
+('Kia', 'Sorento', 35000, 2021, 220, 15000, 'Gasolina', '8.5L/100km', 'Automático', 'SUV', 'SUV', 'Total', 5, 4, '3 años', 1900, 'Negro', 8, 6, '6', 'SUV espacioso y lujoso con características avanzadas y comodidad.', 14),
+('Tesla', 'Model 3', 45000, 2021, 220, 10000, 'Eléctrico', '0.0L/100km', 'Automático', 'Compacto', 'Sedán', 'Trasera', 5, 4, '4 años', 1700, 'Rojo', 7, 4, '0', 'Coche eléctrico con excelente autonomía y tecnología innovadora.', 15),
 ('Subaru', 'Outback', 40000, 2020, 260, 20000, 'Gasolina', '8.2L/100km', 'Automático', 'SUV', 'SUV', 'Total', 5, 4, '2 años', 1800, 'Gris', 8, 6, '6', 'SUV espacioso y versátil con tracción en las cuatro ruedas.', 16),
 ('Jeep', 'Wrangler', 38000, 2020, 280, 15000, 'Gasolina', '9.5L/100km', 'Manual', 'SUV', 'SUV', 'Total', 4, 2, '2 años', 2000, 'Verde', 6, 4, '6', 'SUV robusto y todoterreno con capacidad off-road excepcional.', 17),
 ('Mazda', 'CX-5', 30000, 2021, 190, 12000, 'Gasolina', '7.8L/100km', 'Automático', 'SUV', 'SUV', 'Total', 5, 4, '3 años', 1600, 'Rojo', 7, 4, '6', 'SUV elegante y deportivo con rendimiento dinámico y comodidad.', 18),
@@ -208,8 +208,8 @@ INSERT INTO imagen (coche_id, imagen_url) VALUES
     (14, 'https://imagenes.km77.com/fotos/bbtcontent/clippingnew/KM7KPH20210823_0007/full.jpg'),
     (15, 'https://www.shop4tesla.com/cdn/shop/articles/tesla-schiff-tracking-erste-tesla-model-3-highland-auf-dem-weg-nach-europa-757243.jpg?v=1695900242');
    
-INSERT INTO noticia (titulo, contenido, imagen, url_video) VALUES
-	('Presentación del nuevo modelo de la marca BMW', 'La marca BMW ha presentado su último modelo de coche en un evento exclusivo para prensa y aficionados.', '', 'https://www.youtube.com/watch?v=MQN7JYHx-RA'),
+INSERT INTO noticia (titulo, contenido, url_imagen, url_video) VALUES
+	('Presentación del nuevo modelo de la marca BMW', 'La marca BMW ha presentado su último modelo de coche en un evento exclusivo para prensa y aficionados.', 'https://images.prismic.io/carwow/9acac9a7-30cc-4bbf-bc1f-490a179ead62_LHD+BMW+i5+2024+Exterior-10.jpg', 'https://www.youtube.com/watch?v=2DgMcDu3Hco'),
 	('Top 10 de coches más vendidos del año', 'Un análisis revela los 10 coches más vendidos del año hasta la fecha, con sorpresas en el ranking.', '', NULL),
 	('Consejos para mantener tu coche en buen estado', 'Expertos en mecánica automotriz comparten consejos útiles para mantener tu coche en óptimas condiciones.', '', NULL),
 	('Prueba de manejo del nuevo coche eléctrico', 'Un equipo de periodistas ha tenido la oportunidad de probar en exclusiva el nuevo coche eléctrico de una marca líder en el mercado.', '', 'https://www.youtube.com/watch?v=video2'),

@@ -72,27 +72,53 @@ public class AutenticacionServicio {
 	}
 
 	public ReqRes refreshToken(ReqRes refreshTokenRequest) {
-	    ReqRes response = new ReqRes();
-	    try {
-	        String userEmail = jwtUtils.extractUsername(refreshTokenRequest.getToken());
-	        Usuario user = usuarioRepositorio.findByEmail(userEmail).orElseThrow();
+		ReqRes response = new ReqRes();
+		try {
+			String userEmail = jwtUtils.extractUsername(refreshTokenRequest.getToken());
+			Usuario user = usuarioRepositorio.findByEmail(userEmail).orElseThrow();
 
-	        if (jwtUtils.isTokenValid(refreshTokenRequest.getToken(), user)) {
-	            String newToken = jwtUtils.generateToken(user);
-	            response.setStatusCode(200);
-	            response.setToken(newToken);
-	            response.setRefreshToken(refreshTokenRequest.getToken());
-	            response.setExpirationTime("24Hr");
-	            response.setMessage("Successfully Refreshed Token");
-	        } else {
-	            response.setStatusCode(500);
-	            response.setMessage("Token is not valid");
-	        }
-	    } catch (Exception e) {
-	        response.setStatusCode(500);
-	        response.setMessage("Error refreshing token: " + e.getMessage());
-	    }
-	    return response;
+			if (jwtUtils.isTokenValid(refreshTokenRequest.getToken(), user)) {
+				String newToken = jwtUtils.generateToken(user);
+				response.setStatusCode(200);
+				response.setToken(newToken);
+				response.setRefreshToken(refreshTokenRequest.getToken());
+				response.setExpirationTime("24Hr");
+				response.setMessage("Successfully Refreshed Token");
+			} else {
+				response.setStatusCode(500);
+				response.setMessage("Token is not valid");
+			}
+		} catch (Exception e) {
+			response.setStatusCode(500);
+			response.setMessage("Error refreshing token: " + e.getMessage());
+		}
+		return response;
 	}
 
+	// Método para realizar el cierre de sesión
+	public ResponseEntity<String> logout(String token) {
+        try {
+            // Extraer el nombre de usuario desde el token
+            String userEmail = jwtUtils.extractUsername(token);
+
+            // Verificar si el token es inválido (ya sea por expiración o por ser inválido en la lista)
+            if (jwtUtils.isTokenInvalid(token)) {
+                return ResponseEntity.badRequest().body("El token de sesión ya está invalidado");
+            }
+
+            // Si el token es válido y pertenece a un usuario existente
+            if (jwtUtils.isTokenValid(token, usuarioRepositorio.findByEmail(userEmail).orElse(null))) {
+                // Invalidar el token (agregarlo a la lista de tokens inválidos)
+                jwtUtils.invalidateToken(token);
+
+                // Podrías realizar otras operaciones de cierre de sesión aquí si es necesario
+
+                return ResponseEntity.ok("Sesión cerrada correctamente");
+            } else {
+                return ResponseEntity.badRequest().body("Token inválido o no asociado a un usuario");
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al cerrar sesión: " + e.getMessage());
+        }
+    }
 }

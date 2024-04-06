@@ -10,13 +10,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.v1.automobile.dto.ReqRes;
 import com.v1.automobile.servicio.AutenticacionServicio;
 
-
 @RestController
 @RequestMapping("/api/v1/auth")
 public class AutenticacionControlador {
 
 	@Autowired
-	private AutenticacionServicio authService;
+	private AutenticacionServicio authServicio;
 
 	/*
 	 * Maneja la solicitud de registro
@@ -28,7 +27,7 @@ public class AutenticacionControlador {
 	@PostMapping("/signup")
 	public ResponseEntity<ResponseEntity<String>> signUp(@RequestBody ReqRes signUpRequest) {
 		System.out.println("Registrado correctamente");
-		return ResponseEntity.ok(authService.signUp(signUpRequest));
+		return ResponseEntity.ok(authServicio.signUp(signUpRequest));
 	}
 
 	/*
@@ -40,7 +39,7 @@ public class AutenticacionControlador {
 	 */
 	@PostMapping("/signin")
 	public ResponseEntity<ReqRes> signIn(@RequestBody ReqRes signInRequest) {
-		return ResponseEntity.ok(authService.signIn(signInRequest));
+		return ResponseEntity.ok(authServicio.signIn(signInRequest));
 	}
 
 	/*
@@ -52,6 +51,22 @@ public class AutenticacionControlador {
 	 */
 	@PostMapping("/refresh")
 	public ResponseEntity<ReqRes> refreshToken(@RequestBody ReqRes refreshTokenRequest) {
-		return ResponseEntity.ok(authService.refreshToken(refreshTokenRequest));
+		return ResponseEntity.ok(authServicio.refreshToken(refreshTokenRequest));
 	}
+
+	/*
+	 * Maneja la solicitud de cierre de sesión
+	 * 
+	 * @param request Objeto con la información necesaria para cerrar sesión.
+	 * 
+	 * @return ResponseEntity con la respuesta del cierre de sesión
+	 */
+	@PostMapping("/logout")
+	public ResponseEntity<String> logout(@RequestBody ReqRes request) {
+	    String token = request.getToken();
+	    ResponseEntity<String> response = authServicio.logout(token);
+	    return response;
+	}
+
+
 }
