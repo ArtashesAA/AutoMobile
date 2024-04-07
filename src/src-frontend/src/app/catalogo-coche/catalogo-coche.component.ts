@@ -25,7 +25,7 @@ export class CatalogoCocheComponent {
       console.log(misCoches);
       this.coches = Object.values(misCoches);
 
-      this.miServicio.setCoches(this.coches);
+      this.miServicio.guardarCoches(this.coches);
     });
   }
 }

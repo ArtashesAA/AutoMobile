@@ -4,6 +4,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.v1.automobile.entidad.Usuario;
@@ -33,6 +35,7 @@ public class UsuarioControlador {
 		return new ResponseEntity<>(usuarios, HttpStatus.OK);
 	}
 
+	@PreAuthorize("hasRole('ADMIN')")
 	@GetMapping("/{id}")
 	public ResponseEntity<Usuario> obtenerUsuarioPorId(@PathVariable Integer id) {
 		Usuario usuario = usuarioRepositorio.findById(id).orElse(null);
@@ -42,7 +45,20 @@ public class UsuarioControlador {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
+	
+	@PreAuthorize("hasRole('ADMIN')")
+	@GetMapping("/nombre")
+	public ResponseEntity<String> obtenerNombrePorEmail(@RequestParam String email){
+		Usuario usuario = usuarioRepositorio.findByEmail(email).orElse(null);
+		String nombre_usuario = usuario.getNombre_usuario();
+		if(nombre_usuario !=null) {
+			return new ResponseEntity<>(nombre_usuario, HttpStatus.OK);
+		}else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+	}
 
+	@PreAuthorize("hasRole('ADMIN')")
 	@PostMapping
 	public ResponseEntity<Usuario> crearUsuario(@RequestBody Usuario usuario) {
 		Usuario usuarioCreado = usuario;
@@ -51,6 +67,7 @@ public class UsuarioControlador {
 		return new ResponseEntity<>(usuarioCreado, HttpStatus.CREATED);
 	}
 
+	@PreAuthorize("hasRole('ADMIN')")
 	@PutMapping("/{id}")
 	public ResponseEntity<Usuario> actualizarUsuario(@PathVariable Integer id,
 			@RequestBody Usuario usuarioActualizado) {
@@ -71,6 +88,7 @@ public class UsuarioControlador {
 		}
 	}
 
+	@PreAuthorize("hasRole('ADMIN')")
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> eliminarUsuario(@PathVariable Integer id) {
 		if (!usuarioRepositorio.existsById(id)) {

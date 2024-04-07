@@ -32,7 +32,7 @@ export class Coche {
     this.imagenes = imagenes;
   }
 
-  id: number = 0;
+  id: number = 1;
   marca: string = '';
   modelo: string = '';
   anyo: number = 0;

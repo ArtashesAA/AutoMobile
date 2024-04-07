@@ -15,16 +15,16 @@ export class ServicioCocheService {
     private dataService: DataServices
   ) {}
 
-  getCoche(id: number): Observable<any> {
+  obtenerCochePorId(id: number): Observable<Coche> {
     return this.dataService.cargarCochePorId(id);
-  }
-
-  setCoches(misCoches: Coche[]) {
-    this.coches = misCoches;
   }
 
   obtenerCoches() {
     return this.dataService.cargarCoches();
+  }
+
+  guardarCoches(misCoches: Coche[]) {
+    this.coches = misCoches;
   }
 
   agregarCocheServicio(coche: Coche) {
@@ -62,10 +62,5 @@ export class ServicioCocheService {
     this.dataService.eliminarCoche(indice);
 
     if (this.coches != null) this.dataService.guardarCoches(this.coches);
-  }
-
-  encontrarCoche(indice: number) {
-    let coche: Coche = this.coches[indice];
-    return coche;
   }
 }

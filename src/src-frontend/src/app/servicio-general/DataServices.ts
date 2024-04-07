@@ -1,17 +1,12 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Coche } from '../entidad/coche.model';
-import { LoginService } from '../login/servicio/login.service';
 import { Usuario } from '../entidad/usuario.model';
 import { Observable, throwError, catchError } from 'rxjs';
-import { Noticia } from '../entidad/noticia.model';
 
 @Injectable()
 export class DataServices {
-  constructor(
-    private httpClient: HttpClient,
-    private loginService: LoginService
-  ) {}
+  constructor(private httpClient: HttpClient) {}
 
   private tokenKey = 'userToken';
 
@@ -31,9 +26,13 @@ export class DataServices {
     return this.httpClient.get('http://localhost:8080/api/v1/public/coche');
   }
 
-  cargarCochePorId(id: number) {
-    return this.httpClient.get(
-      'http://localhost:8080/api/v1/public/coche/' + id
+  cargarCochePorId(id: number): Observable<Coche> {
+    const url = `http://localhost:8080/api/v1/public/coche/${id}`;
+    return this.httpClient.get<Coche>(url).pipe(
+      catchError((error) => {
+        console.error('Error al cargar el coche:', error);
+        return throwError('Error al cargar el coche');
+      })
     );
   }
 

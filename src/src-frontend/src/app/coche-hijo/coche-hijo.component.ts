@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Coche } from '../entidad/coche.model';
 import { LoginService } from '../login/servicio/login.service';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -13,9 +13,9 @@ import { CommonModule } from '@angular/common';
 })
 export class CocheHijoComponent {
   @Input() cochedelista!: Coche;
-  @Input() indice!: number;
+  @Input() id!: number;
 
-  constructor(private loginService: LoginService) {}
+  constructor(private loginService: LoginService, private router: Router) {}
 
   ngOnInit(): void {}
 

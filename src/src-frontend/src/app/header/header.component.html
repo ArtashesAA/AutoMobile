@@ -27,13 +27,15 @@
     zn_id="29"
   >
     <li><a href="#" class="nav-link px-2 link-secondary">Inicio</a></li>
-    <li><a href="/catalogo" class="nav-link px-2">Coches</a></li>
+    <li><a href="/catalogo" class="nav-link px-2">Catálogo</a></li>
     <li><a href="/noticias" class="nav-link px-2">Explorar</a></li>
     <li><a href="/crear" class="nav-link px-2">Vender</a></li>
   </ul>
 
   <div class="col-md-3 text-end" zn_id="30">
     <ng-container *ngIf="estaLogueado; else loginButtons">
+      <!-- Perfil -->
+      <span class="me-2">{{ nombreUsuario }}</span>
       <!-- Mostrar botón de Logout si está logueado -->
       <button type="button" class="btn btn-primary me-2" (click)="logout()">
         Logout
