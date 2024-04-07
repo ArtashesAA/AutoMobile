@@ -9,7 +9,7 @@
 }
 
 .coche-imagen {
-  max-width: 300px;
+  width: 300px;
   height: auto;
   margin-right: 5%;
 }
@@ -24,4 +24,5 @@
 
 .coche-actions button {
   font-size: 14px;
+  margin-right: 10px;
 }

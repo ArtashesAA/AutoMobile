@@ -12,6 +12,7 @@ import { CommonModule } from '@angular/common';
 })
 export class HeaderComponent implements OnInit {
   estaLogueado: boolean = false;
+  nombreUsuario: Text | undefined;
 
   constructor(private loginService: LoginService, private router: Router) {}
 

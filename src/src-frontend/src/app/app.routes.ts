@@ -4,10 +4,10 @@ import { ErrorPersonalizadoComponent } from './error-personalizado/error-persona
 import { LoginComponent } from './login/login.component';
 import { CatalogoCocheComponent } from './catalogo-coche/catalogo-coche.component';
 import { RegistroComponent } from './registro/registro.component';
-import { VerCocheComponent } from './ver-coche/ver-coche.component';
 import { CrearCocheComponent } from './crear-coche/crear-coche.component';
 import { NoticiasComponent } from './noticias/noticias.component';
 import { guardianGuard } from './guardian/guardian.guard';
+import { VerCocheComponent } from './ver-coche/ver-coche.component';
 
 export const routes: Routes = [
   { path: '', component: InicioComponent },
@@ -20,12 +20,12 @@ export const routes: Routes = [
     component: NoticiasComponent,
     canActivate: [guardianGuard],
   },
-  { path: 'ver/:id', component: VerCocheComponent },
   {
     path: 'crear',
     component: CrearCocheComponent,
     canActivate: [guardianGuard],
   },
+  { path: 'ver/:id', component: VerCocheComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegistroComponent },
   { path: '**', component: ErrorPersonalizadoComponent },

@@ -4,7 +4,7 @@
 
 Para ejecutar el proyecto, se debe seguir los siguientes pasos:
 
-- Levantar la base de datos MySQL. El archivo del script: MySQL.txt.
+- Levantar la base de datos MySQL. El archivo del script: docs/MySQL.txt.
 - Ejecutar la api de Spring en Spring Tool Suite: src/src-api.
 - Ejecutar el proyecto Angular: src-frontend.
 
