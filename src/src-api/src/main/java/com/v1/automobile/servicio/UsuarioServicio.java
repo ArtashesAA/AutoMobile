@@ -1,5 +1,6 @@
 package com.v1.automobile.servicio;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -18,5 +19,6 @@ public class UsuarioServicio implements UserDetailsService {
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		return usuarioRepositorio.findByEmail(username).orElseThrow();
 	}
+
 
 }

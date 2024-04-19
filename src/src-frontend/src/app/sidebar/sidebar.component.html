@@ -1,0 +1,35 @@
+<div class="sidebar">
+  <h3>Filtros de Búsqueda</h3>
+
+  <form (ngSubmit)="aplicarFiltros()">
+    <!-- Marca -->
+    <label>Marca:</label>
+    <input type="text" class="form-control" [(ngModel)]="marca" name="marca" />
+
+    <!-- Modelo -->
+    <label>Modelo:</label>
+    <input
+      type="text"
+      class="form-control"
+      [(ngModel)]="modelo"
+      name="modelo"
+    />
+
+    <!-- Precio -->
+    <label>Precio máximo:</label>
+    <input
+      type="number"
+      class="form-control"
+      [(ngModel)]="precio"
+      name="precio"
+    />
+
+    <!-- Año -->
+    <label>Año:</label>
+    <input type="number" class="form-control" [(ngModel)]="anyo" name="anyo" />
+
+    <!-- Otros filtros ... -->
+
+    <button type="submit" class="btn btn-primary mt-3">Aplicar Filtros</button>
+  </form>
+</div>

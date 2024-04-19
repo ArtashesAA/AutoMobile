@@ -1,4 +1,69 @@
-img {
-  width: 800px;
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.coche-info-container {
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.coche-header h4 {
+  color: #333;
+}
+
+.coche-image img {
+  max-width: 100%;
   height: auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.coche-details {
+  margin-top: 20px;
+}
+
+.coche-price h2 {
+  color: red;
+}
+
+.coche-specs p {
+  line-height: 1.6;
+}
+
+.coche-description p {
+  line-height: 1.6;
+}
+
+.coche-actions {
+  margin-top: 20px;
+}
+
+.coche-actions button {
+  font-size: 16px;
+  padding: 10px 20px;
+  border-radius: 4px;
+  margin-right: 20px;
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+  color: #fff;
+  border: none;
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  color: #fff;
+  border: none;
+}
+
+/* Media Query para hacer responsive */
+@media (max-width: 600px) {
+  .coche-info-container {
+    padding: 15px;
+  }
 }

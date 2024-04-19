@@ -35,7 +35,9 @@
   <div class="col-md-3 text-end" zn_id="30">
     <ng-container *ngIf="estaLogueado; else loginButtons">
       <!-- Perfil -->
-      <span class="me-2">{{ nombreUsuario }}</span>
+      <a class="perfil" [routerLink]="'/perfil'"
+        ><span class="me-2">{{ usuario?.nombre_usuario }}</span></a
+      >
       <!-- Mostrar botón de Logout si está logueado -->
       <button type="button" class="btn btn-primary me-2" (click)="logout()">
         Logout

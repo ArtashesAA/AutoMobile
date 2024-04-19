@@ -1,26 +1,29 @@
 <!DOCTYPE html>
 <div class="container">
-  <div *ngIf="coche" class="coche-info-container border rounded p-4">
-    <div class="coche-header d-flex justify-content-between align-items-center">
+  <div *ngIf="coche" class="coche-info-container">
+    <div class="coche-header">
       <h4>{{ coche.marca }} {{ coche.modelo }}</h4>
-      <div class="d-flex align-items-center">
-        <!-- Icono de favorito -->
-        <i class="far fa-heart mr-3"></i>
-        <!-- Icono de compartir -->
-        <i class="fas fa-share-alt"></i>
-      </div>
     </div>
-    <div class="coche-content d-flex align-items-center">
-      <!-- Imagen del coche -->
+
+    <!-- Imagen del coche -->
+    <div class="coche-image">
       <img
         *ngIf="coche.imagenes.length > 0"
         [src]="coche.imagenes[0].imagen_url"
         alt="Imagen de coche"
         class="coche-imagen"
       />
-      <div class="coche-details ml-4">
-        <!-- Detalles del coche -->
-        <p><strong>Precio:</strong> {{ coche.precio }}</p>
+    </div>
+
+    <!-- Detalles del coche -->
+    <div class="coche-details">
+      <!-- Precio en grande -->
+      <div class="coche-price text-left">
+        <h2>{{ coche.precio }}</h2>
+      </div>
+
+      <!-- Otros detalles -->
+      <div class="coche-specs">
         <p><strong>Año:</strong> {{ coche.anyo }}</p>
         <p><strong>Potencia:</strong> {{ coche.potencia }}</p>
         <p><strong>Kilometraje:</strong> {{ coche.kilometraje }}</p>
@@ -29,14 +32,30 @@
         <p><strong>Color:</strong> {{ coche.color }}</p>
       </div>
     </div>
+
+    <!-- Descripción del coche -->
     <div class="coche-description mt-3">
-      <!-- Descripción del coche -->
       <p>{{ coche.descripcion }}</p>
     </div>
+
     <!-- Botones de acción -->
     <div class="coche-actions mt-3">
-      <button class="btn btn-secondary mr-3">Editar</button>
-      <button class="btn btn-danger">Eliminar</button>
+      <button
+        class="btn btn-secondary mr-3"
+        [routerLink]="['/actualiza', id]"
+        [queryParams]="{ accion: '1' }"
+        *ngIf="estaLogueado()"
+      >
+        Editar
+      </button>
+      <button
+        class="btn btn-danger"
+        [routerLink]="['/actualiza', id]"
+        [queryParams]="{ accion: '2' }"
+        *ngIf="estaLogueado()"
+      >
+        Eliminar
+      </button>
     </div>
   </div>
 </div>

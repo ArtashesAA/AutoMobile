@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { DataServices } from '../servicio-general/DataServices';
 import { ServicioGeneralService } from '../servicio-general/servicio-general.service';
 import { Usuario } from '../entidad/usuario.model';
+import { AutenticacionService } from '../AutenticacionService/autenticacion.service';
 
 @Injectable({
   providedIn: 'root',
@@ -11,11 +12,16 @@ export class ServicioUsuarioService {
 
   constructor(
     private servicioGeneral: ServicioGeneralService,
-    private dataService: DataServices
+    private dataService: DataServices,
+    private servicioAutenticacion: AutenticacionService
   ) {}
 
   getUsuarioPorId(id: number) {
     return this.dataService.cargarUsuarioPorId(id);
+  }
+
+  getUsuarioActual() {
+    return this.servicioAutenticacion.cargarUsuarioActual();
   }
 
   setUsuarios(misUsuarios: Usuario[]) {

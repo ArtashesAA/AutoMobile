@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, throwError } from 'rxjs';
+import { Observable, catchError, tap, throwError } from 'rxjs';
+import { Usuario } from '../entidad/usuario.model';
 
 @Injectable({
   providedIn: 'root',
@@ -8,7 +9,7 @@ import { Observable, throwError } from 'rxjs';
 export class AutenticacionService {
   //Url de API
   private url = 'http://localhost:8080/api/v1/auth/signin';
-  private urlCoche = 'http://localhost:8080/api/v1/coche';
+  private urlUsuarioActual = 'http://localhost:8080/api/v1/usuario/actual';
 
   //Token
   private tokenKey = 'userToken';
@@ -18,28 +19,56 @@ export class AutenticacionService {
   //Método que realiza el login con email y contraseña (POST)
   login(email: string, password: string): Observable<any> {
     const body = { email, password };
-
-    return this.http.post(this.url, body);
+    return this.http.post<any>(this.url, body).pipe(
+      tap((response) => {
+        if (response && response.token) {
+          // Guardar el token en localStorage
+          this.guardarToken(response.token);
+        }
+      }),
+      catchError((error) => {
+        return throwError('Error en la autenticación: ' + error.message);
+      })
+    );
   }
 
   guardarToken(token: string): void {
     localStorage.setItem(this.tokenKey, token);
   }
 
-  //Método para enviar el token al servidor
-  enviarToken(): Observable<any> {
-    const token = localStorage.getItem(this.tokenKey);
+  obtenerToken(): string | null {
+    return localStorage.getItem(this.tokenKey);
+  }
 
+  eliminarToken(): void {
+    localStorage.removeItem(this.tokenKey);
+  }
+
+  cargarUsuarioActual(): Observable<Usuario> {
+    const headers = this.getHeaders();
+
+    return this.http.get<Usuario>(this.urlUsuarioActual, { headers }).pipe(
+      catchError((error) => {
+        console.error('Error al cargar el usuario:', error);
+        return throwError('Error al cargar el usuario: ' + error.message);
+      })
+    );
+  }
+
+  estaAutenticado(): boolean {
+    return !!this.obtenerToken();
+  }
+
+  private getHeaders(): HttpHeaders {
+    const token = this.obtenerToken();
     if (token) {
-      const headers = new HttpHeaders({
+      return new HttpHeaders({
         Authorization: `Bearer ${token}`,
         'Content-Type': 'application/json',
       });
-
-      return this.http.get(this.urlCoche, { headers });
-    } else {
-      //Cambiar next-error-complete
-      return throwError('Token no encontrado en localStorage');
     }
+    return new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
   }
 }

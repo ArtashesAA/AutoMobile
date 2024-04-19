@@ -8,10 +8,10 @@ import { Observable, throwError, catchError } from 'rxjs';
 export class DataServices {
   constructor(private httpClient: HttpClient) {}
 
-  private tokenKey = 'userToken';
+  private token = 'userToken';
 
   private getHeaders(): HttpHeaders {
-    const token = localStorage.getItem(this.tokenKey);
+    const token = localStorage.getItem(this.token);
     if (token) {
       return new HttpHeaders({
         Authorization: `Bearer ${token}`,
@@ -50,9 +50,23 @@ export class DataServices {
       );
   }
 
-  actualizarCoche(indice: number, coche: Coche): Observable<any> {
+  crearCoche(coche: Coche): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+
+    return this.httpClient
+      .post('http://localhost:8080/api/v1/coche', coche, { headers })
+      .pipe(
+        catchError((error) => {
+          return throwError('Error al crear el coche: ' + error.message);
+        })
+      );
+  }
+
+  actualizarCoche(id: number, coche: Coche): Observable<any> {
     const headers = this.getHeaders();
-    const url = `http://localhost:8080/api/v1/coche/${indice}`;
+    const url = `http://localhost:8080/api/v1/coche/${id}`;
 
     return this.httpClient
       .put(url, coche, {
@@ -65,9 +79,9 @@ export class DataServices {
       );
   }
 
-  eliminarCoche(indice: number): Observable<any> {
+  eliminarCoche(id: number): Observable<any> {
     const headers = this.getHeaders();
-    const url = `http://localhost:8080/api/v1/coche/${indice}`;
+    const url = `http://localhost:8080/api/v1/coche/${id}`;
 
     return this.httpClient
       .delete(url, {
@@ -129,9 +143,9 @@ export class DataServices {
     );
   }
 
-  eliminarNoticia(indice: number): Observable<any> {
+  eliminarNoticia(id: number): Observable<any> {
     const headers = this.getHeaders();
-    const url = `http://localhost:8080/api/v1/noticia/${indice}`;
+    const url = `http://localhost:8080/api/v1/noticia/${id}`;
 
     return this.httpClient.delete(url, { headers }).pipe(
       catchError((error) => {
@@ -184,9 +198,9 @@ export class DataServices {
       );
   }
 
-  actualizarUsuario(indice: number, usuario: Usuario): Observable<any> {
+  actualizarUsuario(id: number, usuario: Usuario): Observable<any> {
     const headers = this.getHeaders();
-    const url = `http://localhost:8080/api/v1/usuario/${indice}`;
+    const url = `http://localhost:8080/api/v1/usuario/${id}`;
 
     return this.httpClient
       .put(url, usuario, {
@@ -199,9 +213,9 @@ export class DataServices {
       );
   }
 
-  eliminarUsuario(indice: number): Observable<any> {
+  eliminarUsuario(id: number): Observable<any> {
     const headers = this.getHeaders();
-    const url = `http://localhost:8080/api/v1/usuario/${indice}`;
+    const url = `http://localhost:8080/api/v1/usuario/${id}`;
 
     return this.httpClient
       .delete(url, {

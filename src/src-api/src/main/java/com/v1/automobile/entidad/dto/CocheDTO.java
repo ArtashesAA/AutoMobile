@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CocheDTO {
+	private Long id;
 	private String marca;
 	private String modelo;
 	private Integer precio;
@@ -32,11 +33,12 @@ public class CocheDTO {
 
 	}
 
-	public CocheDTO(String marca, String modelo, Integer precio, Integer anyo, Integer potencia, Integer kilometraje,
-			String combustible, String consumo, String tipoCambio, String categoria, String tipoVehiculo,
-			String traccion, Integer plazas, Integer puertas, String garantia, Integer peso, String color,
-			Integer numeroMarchas, Integer numeroCilindros, String ciudad, String descripcion, UsuarioDTO usuario,
-			List<ImagenDTO> imagenes) {
+	public CocheDTO(Long id, String marca, String modelo, Integer precio, Integer anyo, Integer potencia,
+			Integer kilometraje, String combustible, String consumo, String tipoCambio, String categoria,
+			String tipoVehiculo, String traccion, Integer plazas, Integer puertas, String garantia, Integer peso,
+			String color, Integer numeroMarchas, Integer numeroCilindros, String ciudad, String descripcion,
+			UsuarioDTO usuario, List<ImagenDTO> imagenes) {
+		this.id = id;
 		this.marca = marca;
 		this.modelo = modelo;
 		this.precio = precio;
@@ -60,6 +62,14 @@ public class CocheDTO {
 		this.descripcion = descripcion;
 		this.usuario = usuario;
 		this.imagenes = imagenes;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getMarca() {
@@ -248,14 +258,14 @@ public class CocheDTO {
 
 	@Override
 	public String toString() {
-		return "CocheDTO [getMarca()=" + getMarca() + ", getModelo()=" + getModelo() + ", getPrecio()=" + getPrecio()
-				+ ", getAnyo()=" + getAnyo() + ", getPotencia()=" + getPotencia() + ", getKilometraje()="
-				+ getKilometraje() + ", getCombustible()=" + getCombustible() + ", getConsumo()=" + getConsumo()
-				+ ", getTipoCambio()=" + getTipoCambio() + ", getCategoria()=" + getCategoria() + ", getTipoVehiculo()="
-				+ getTipoVehiculo() + ", getTraccion()=" + getTraccion() + ", getPlazas()=" + getPlazas()
-				+ ", getPuertas()=" + getPuertas() + ", getGarantia()=" + getGarantia() + ", getPeso()=" + getPeso()
-				+ ", getColor()=" + getColor() + ", getNumeroMarchas()=" + getNumeroMarchas()
-				+ ", getNumeroCilindros()=" + getNumeroCilindros() + ", getCiudad()=" + getCiudad()
+		return "CocheDTO [getId()=" + getId() + ", getMarca()=" + getMarca() + ", getModelo()=" + getModelo()
+				+ ", getPrecio()=" + getPrecio() + ", getAnyo()=" + getAnyo() + ", getPotencia()=" + getPotencia()
+				+ ", getKilometraje()=" + getKilometraje() + ", getCombustible()=" + getCombustible()
+				+ ", getConsumo()=" + getConsumo() + ", getTipoCambio()=" + getTipoCambio() + ", getCategoria()="
+				+ getCategoria() + ", getTipoVehiculo()=" + getTipoVehiculo() + ", getTraccion()=" + getTraccion()
+				+ ", getPlazas()=" + getPlazas() + ", getPuertas()=" + getPuertas() + ", getGarantia()=" + getGarantia()
+				+ ", getPeso()=" + getPeso() + ", getColor()=" + getColor() + ", getNumeroMarchas()="
+				+ getNumeroMarchas() + ", getNumeroCilindros()=" + getNumeroCilindros() + ", getCiudad()=" + getCiudad()
 				+ ", getDescripcion()=" + getDescripcion() + ", getUsuario()=" + getUsuario() + ", getImagenes()="
 				+ getImagenes() + "]";
 	}

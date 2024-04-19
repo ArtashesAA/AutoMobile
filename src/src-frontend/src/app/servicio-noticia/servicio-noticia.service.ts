@@ -14,7 +14,7 @@ export class ServicioNoticiaService {
     private dataService: DataServices
   ) {}
 
-  getNoticia(id: number) {
+  obtenerNoticiaPorId(id: number) {
     return this.dataService.cargarNoticiaPorId(id);
   }
 
@@ -41,9 +41,13 @@ export class ServicioNoticiaService {
   actualizarNoticia(indice: number, noticia: Noticia) {
     let noticiaModificada = this.noticias[indice];
 
+    noticiaModificada.id = noticia.id;
+    noticiaModificada.fecha = noticia.fecha;
     noticiaModificada.titulo = noticia.titulo;
     noticiaModificada.contenido = noticia.contenido;
-    noticiaModificada.imagen = noticia.imagen;
+    noticiaModificada.url_imagen = noticia.url_imagen;
+    noticiaModificada.url_video = noticia.url_video;
+    noticiaModificada.usuario = noticia.usuario;
 
     this.dataService.actualizarNoticia(indice, noticia);
   }

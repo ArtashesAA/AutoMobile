@@ -1,0 +1,65 @@
+<div class="container">
+  <div class="row">
+    <!-- Sidebar -->
+    <div class="col-md-3">
+      <div class="sidebar">
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a class="nav-link" (click)="mostrarSeccionPerfil()">Perfil</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" (click)="mostrarSeccionGestionUsuarios()"
+              >Gestión de Usuarios</a
+            >
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Contenido dinámico para Perfil o Gestión de Usuarios -->
+    <div *ngIf="mostrarPerfil">
+      <!-- Contenido del Perfil de Usuario -->
+      <div class="col-md-9">
+        <div *ngIf="usuario" class="perfil-container">
+          <h2>Perfil de Usuario</h2>
+          <div class="usuario-info">
+            <p>
+              <strong>Nombre de Usuario:</strong> {{ usuario.nombre_usuario }}
+            </p>
+            <p><strong>Email:</strong> {{ usuario.email }}</p>
+            <p><strong>Contraseña:</strong> {{ usuario.password }}</p>
+            <p><strong>Tipo de usuario:</strong> {{ usuario.role }}</p>
+            <img
+              [src]="usuario.imagen_usuario"
+              alt="Imagen de Usuario"
+              class="avatar"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="mostrarGestionUsuarios">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nombre de Usuario</th>
+              <th>Email</th>
+              <th>Rol</th>
+              <th>Imagen</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let usuario of usuarios">
+              <app-usuario
+                [usuario]="usuario"
+                (eliminarUsuario)="eliminarUsuario($event)"
+              ></app-usuario>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

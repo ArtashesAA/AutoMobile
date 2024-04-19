@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,10 +15,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.v1.automobile.entidad.Usuario;
+import com.v1.automobile.entidad.dto.UsuarioActualDTO;
+import com.v1.automobile.entidad.dto.UsuarioDTO;
 import com.v1.automobile.repositorio.UsuarioRepositorio;
 
 @RestController
@@ -45,17 +48,22 @@ public class UsuarioControlador {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
-	
-	@PreAuthorize("hasRole('ADMIN')")
-	@GetMapping("/nombre")
-	public ResponseEntity<String> obtenerNombrePorEmail(@RequestParam String email){
-		Usuario usuario = usuarioRepositorio.findByEmail(email).orElse(null);
-		String nombre_usuario = usuario.getNombre_usuario();
-		if(nombre_usuario !=null) {
-			return new ResponseEntity<>(nombre_usuario, HttpStatus.OK);
-		}else {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+	@GetMapping("/actual")
+	public ResponseEntity<UsuarioActualDTO> obtenerUsuarioActual() {
+		// Obtener la autenticación actual del contexto de seguridad
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		if (authentication != null && authentication.isAuthenticated()) {
+			String username = authentication.getName();
+			Usuario usuario = usuarioRepositorio.findByEmail(username).orElse(null);
+			if (usuario != null) {
+				// Crear un UsuarioActualDTO con los datos requeridos
+				UsuarioActualDTO usuarioDTO = new UsuarioActualDTO(usuario.getId(), usuario.getNombre_usuario(),
+						usuario.getEmail(), usuario.getImagen_usuario(), usuario.getPassword(), usuario.getRole());
+				return new ResponseEntity<>(usuarioDTO, HttpStatus.OK);
+			}
 		}
+		return new ResponseEntity<>(HttpStatus.UNAUTHORIZED); // Usuario no autenticado o no encontrado
 	}
 
 	@PreAuthorize("hasRole('ADMIN')")

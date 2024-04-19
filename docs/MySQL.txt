@@ -6,7 +6,7 @@ CREATE TABLE usuario (
     nombre_usuario VARCHAR(255) NOT NULL UNIQUE,
     email VARCHAR(255) NOT NULL UNIQUE,
     imagen_usuario VARCHAR(255),
-    password VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT null default 'USER',
     role VARCHAR(255) DEFAULT 'USER'
 );
 
@@ -70,7 +70,7 @@ INSERT INTO usuario (nombre_usuario, email, imagen_usuario, password, role) valu
 ('john_doe', 'john.doe@gmail.com', 'https://static.wikia.nocookie.net/yakitori/images/c/c3/John_Doe.jpg/revision/latest?cb=20230602193722&path-prefix=es', '$2a$10$CEqJR9Krk3nclTFtodLeKO99kaGIbW8kKXFT2kgcjN.fkL0ba0x.C', 'USER'),
 ('emma_smith', 'emma.smith@gmail.com', 'https://example.com/emma_smith.jpg', '$2a$10$CEqJR9Krk3nclTFtodLeKO99kaGIbW8kKXFT2kgcjN.fkL0ba0x.C', 'USER'),
 ('michael_williams', 'michael.williams@gmail.com', 'https://example.com/michael_williams.jpg', '$2a$10$CEqJR9Krk3nclTFtodLeKO99kaGIbW8kKXFT2kgcjN.fkL0ba0x.C', 'USER'),
-('sarah_jones', 'sarah.jones@gmail.com', 'https://example.com/sarah_jones.jpg', '$2a$10$CEqJR9Krk3nclTFtodLeKO99kaGIbW8kKXFT2kgcjN.fkL0ba0x.C', ''),
+('sarah_jones', 'sarah.jones@gmail.com', 'https://example.com/sarah_jones.jpg', '$2a$10$CEqJR9Krk3nclTFtodLeKO99kaGIbW8kKXFT2kgcjN.fkL0ba0x.C', 'USER'),
 ('alice_walker', 'alice.walker@gmail.com', 'https://example.com/alice_walker.jpg', '$2a$10$pENpVxdWgNRl0pMLrU3B4u3a1T8ilQSy.YpEfkwSsNMO7hGEYhgka', 'USER'),
 ('david_martin', 'david.martin@gmail.com', 'https://example.com/david_martin.jpg', '$2a$10$pENpVxdWgNRl0pMLrU3B4u3a1T8ilQSy.YpEfkwSsNMO7hGEYhgka', 'USER'),
 ('olivia_smith', 'olivia.smith@gmail.com', 'https://example.com/olivia_smith.jpg', '$2a$10$pENpVxdWgNRl0pMLrU3B4u3a1T8ilQSy.YpEfkwSsNMO7hGEYhgka', 'USER'),
@@ -212,10 +212,10 @@ INSERT INTO imagen (coche_id, imagen_url) VALUES
    
 INSERT INTO noticia (titulo, contenido, url_imagen, url_video, id_usuario) VALUES
 	('Presentación del nuevo modelo de la marca BMW', 'La marca BMW ha presentado su último modelo de coche en un evento exclusivo para prensa y aficionados.', 'https://images.prismic.io/carwow/9acac9a7-30cc-4bbf-bc1f-490a179ead62_LHD+BMW+i5+2024+Exterior-10.jpg', 'https://www.youtube.com/watch?v=2DgMcDu3Hco', 1),
-	('Top 10 de coches más vendidos del año', 'Un análisis revela los 10 coches más vendidos del año hasta la fecha, con sorpresas en el ranking.', '', NULL, 1),
-	('Consejos para mantener tu coche en buen estado', 'Expertos en mecánica automotriz comparten consejos útiles para mantener tu coche en óptimas condiciones.', '', NULL, 1),
-	('Prueba de manejo del nuevo coche eléctrico', 'Un equipo de periodistas ha tenido la oportunidad de probar en exclusiva el nuevo coche eléctrico de una marca líder en el mercado.', '', 'https://www.youtube.com/watch?v=video2', 1),
-	('Tendencias en diseño de coches para el próximo año', 'Diseñadores de coches revelan las tendencias más importantes en el diseño de vehículos para el próximo año.', '', NULL, 1);
+	('Top 10 de coches más vendidos del año', 'Un análisis revela los 10 coches más vendidos del año hasta la fecha, con sorpresas en el ranking.', 'https://cdn.autobild.es/sites/navi.axelspringer.es/public/bdc/dc/fotos/hl-34fr-hv-20-2.jpg?tf=3840x', NULL, 1),
+	('Consejos para mantener tu coche en buen estado', 'Expertos en mecánica automotriz comparten consejos útiles para mantener tu coche en óptimas condiciones.', 'https://cdn.topgear.es/sites/navi.axelspringer.es/public/media/image/2022/10/imagen-motor-diesel-2848179.jpg?tf=3840x', NULL, 1),
+	('Prueba de manejo del nuevo coche eléctrico', 'Un equipo de periodistas ha tenido la oportunidad de probar en exclusiva el nuevo coche eléctrico de una marca líder en el mercado.', 'https://cdn.autobild.es/sites/navi.axelspringer.es/public/media/image/2022/03/ioniq-5-2642493.jpg?tf=3840x', 'https://www.youtube.com/watch?v=video2', 1),
+	('Tendencias en diseño de coches para el próximo año', 'Diseñadores de coches revelan las tendencias más importantes en el diseño de vehículos para el próximo año.', 'https://img.remediosdigitales.com/f6cc36/mercedes-benz-vision-avtr-concept-03/1366_2000.jpg', NULL, 1);
     
 INSERT INTO favorito (coche_id, usuario_id) VALUES 
     (1, 2), 

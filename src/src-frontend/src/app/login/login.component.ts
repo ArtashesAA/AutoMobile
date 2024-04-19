@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { LoginService } from './servicio/login.service';
-import { FormsModule, NgForm } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { AutenticacionService } from '../AutenticacionService/autenticacion.service';
 
 @Component({
   selector: 'app-login',
@@ -17,16 +19,26 @@ export class LoginComponent {
   //Variables
   email: string = '';
   password: string = '';
-  token: string = '';
-  cochesResponse: any;
   errorMessage: string = '';
 
-  constructor(public loginService: LoginService, private router: Router) {}
+  constructor(
+    private servicioAutenticacion: AutenticacionService,
+    private router: Router,
+    public servicioLogin: LoginService
+  ) {}
 
-  login(): void {
-    this.loginService.login(this.email, this.password).subscribe((response) => {
-      const token = response.token;
-      this.loginService.guardarToken(token);
-    });
+  onSubmit(): void {
+    this.servicioAutenticacion.login(this.email, this.password).subscribe(
+      (response) => {
+        console.log('Login successful.');
+        // Optionally, perform additional actions upon successful login
+        this.router.navigate(['/perfil']);
+      },
+      (error) => {
+        console.error('Error during login:', error);
+        this.errorMessage =
+          'Error en la autenticación. Verifique sus credenciales.';
+      }
+    );
   }
 }

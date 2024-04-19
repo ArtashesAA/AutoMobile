@@ -13,9 +13,8 @@ import { CommonModule } from '@angular/common';
 })
 export class CocheHijoComponent {
   @Input() cochedelista!: Coche;
-  @Input() id!: number;
 
-  constructor(private loginService: LoginService, private router: Router) {}
+  constructor(private loginService: LoginService) {}
 
   ngOnInit(): void {}
 
