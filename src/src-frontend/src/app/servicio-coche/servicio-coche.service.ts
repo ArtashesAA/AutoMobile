@@ -15,18 +15,22 @@ export class ServicioCocheService {
     private dataService: DataServices
   ) {}
 
+  // Recibe un coche por id
   obtenerCochePorId(id: number): Observable<Coche> {
     return this.dataService.cargarCochePorId(id);
   }
 
+  // Recibe todos los coches de la base de datos
   obtenerCoches() {
     return this.dataService.cargarCoches();
   }
 
+  // Guarda los coches
   guardarCoches(misCoches: Coche[]) {
     this.coches = misCoches;
   }
 
+  // Crea un coche nuevo
   crearCoche(coche: Coche) {
     this.servicioGeneral.muestraMensaje(
       'Coche que se va a agregar: ' + '\n' + coche.marca + ' ' + coche.modelo
@@ -39,6 +43,7 @@ export class ServicioCocheService {
     }
   }
 
+  // Actualiza un coche por id y los datos del nuevo coche
   actualizarCoche(id: number, coche: Coche) {
     let cocheModificado = this.coches[id];
 
@@ -69,11 +74,14 @@ export class ServicioCocheService {
     this.dataService.actualizarCoche(id, coche);
   }
 
+  // Elimina un coche por id
   eliminarCoche(id: number) {
     this.servicioGeneral.muestraMensaje('Coche eliminado');
     this.coches.splice(id, 1);
+    // Elimina el coche
     this.dataService.eliminarCoche(id);
 
+    // Por último guarda los coches
     if (this.coches != null) this.dataService.guardarCoches(this.coches);
   }
 }

@@ -3,14 +3,14 @@ import { LoginService } from './servicio/login.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { Observable } from 'rxjs';
-import { AutenticacionService } from '../AutenticacionService/autenticacion.service';
+import { AutenticacionService } from '../servicio-autenticacion/autenticacion.service';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, FormsModule, HttpClientModule],
+  imports: [CommonModule, FormsModule, HttpClientModule, RouterModule],
   providers: [],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
@@ -28,13 +28,15 @@ export class LoginComponent {
   ) {}
 
   onSubmit(): void {
+    // Hace login con email-contraseña al enviar el formulario de login
     this.servicioAutenticacion.login(this.email, this.password).subscribe(
       (response) => {
+        // Si se consigue, devuelve que se ha logueado
         console.log('Login successful.');
-        // Optionally, perform additional actions upon successful login
-        this.router.navigate(['/perfil']);
+        window.location.reload();
       },
       (error) => {
+        // Sino devuelve el mensaje de error
         console.error('Error during login:', error);
         this.errorMessage =
           'Error en la autenticación. Verifique sus credenciales.';

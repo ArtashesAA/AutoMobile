@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <header
   class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom"
   zn_id="27"
@@ -26,10 +25,12 @@
     class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0"
     zn_id="29"
   >
-    <li><a href="#" class="nav-link px-2 link-secondary">Inicio</a></li>
-    <li><a href="/catalogo" class="nav-link px-2">Catálogo</a></li>
-    <li><a href="/noticias" class="nav-link px-2">Explorar</a></li>
-    <li><a href="/crear" class="nav-link px-2">Vender</a></li>
+    <li>
+      <a [routerLink]="'/'" class="nav-link px-2">Inicio</a>
+    </li>
+    <li><a [routerLink]="'/catalogo'" class="nav-link px-2">Catálogo</a></li>
+    <li><a [routerLink]="'/explorar'" class="nav-link px-2">Explorar</a></li>
+    <li><a [routerLink]="'/vender'" class="nav-link px-2">Vender</a></li>
   </ul>
 
   <div class="col-md-3 text-end" zn_id="30">
@@ -50,10 +51,14 @@
         class="btn btn-outline-primary me-2"
         [routerLink]="'/login'"
       >
-        Login
+        Iniciar Sesión
       </button>
-      <button type="button" class="btn btn-primary" [routerLink]="'/register'">
-        Sign-up
+      <button
+        type="button"
+        class="btn btn-primary"
+        [routerLink]="'/registrarse'"
+      >
+        Registrarse
       </button>
     </ng-template>
   </div>

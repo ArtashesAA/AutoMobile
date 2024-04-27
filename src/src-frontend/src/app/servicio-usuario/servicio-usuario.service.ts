@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { DataServices } from '../servicio-general/DataServices';
 import { ServicioGeneralService } from '../servicio-general/servicio-general.service';
 import { Usuario } from '../entidad/usuario.model';
-import { AutenticacionService } from '../AutenticacionService/autenticacion.service';
+import { AutenticacionService } from '../servicio-autenticacion/autenticacion.service';
 
 @Injectable({
   providedIn: 'root',

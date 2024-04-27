@@ -1,0 +1,72 @@
+<div class="container">
+  <div class="row">
+    <h2 class="titulo">Gestión de Usuarios</h2>
+    <!-- Sidebar -->
+    <div class="col-md-2">
+      <div class="sidebar">
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="'/perfil'">Perfil</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="'/gestionUsuarios'"
+              >Gestión de Usuarios</a
+            >
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Contenido de Gestión de Usuarios -->
+    <div class="col-md-9">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Imagen</th>
+            <th>Nombre de Usuario</th>
+            <th>Email</th>
+            <th>Rol</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let usuario of usuarios">
+            <td>{{ usuario.id }}</td>
+            <td>
+              <img
+                [src]="
+                  usuario.imagen_usuario
+                    ? usuario.imagen_usuario
+                    : 'https://images.freeimages.com/fic/images/icons/2526/bloggers/256/admin.png'
+                "
+                alt="Imagen de Usuario"
+                class="avatar"
+              />
+            </td>
+            <td>{{ usuario.nombre_usuario }}</td>
+            <td>{{ usuario.email }}</td>
+            <td>
+              <span *ngIf="usuario.role === 'ADMIN'">Administrador</span>
+              <span *ngIf="usuario.role === 'USER'">Usuario</span>
+            </td>
+            <td>
+              <button
+                (click)="eliminarUsuario(usuario.id)"
+                class="btn btn-warning"
+              >
+                Editar</button
+              ><br />
+              <button
+                (click)="eliminarUsuario(usuario.id)"
+                class="btn btn-danger"
+              >
+                Eliminar
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

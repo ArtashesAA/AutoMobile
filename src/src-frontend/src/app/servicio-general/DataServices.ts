@@ -1,8 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Coche } from '../entidad/coche.model';
-import { Usuario } from '../entidad/usuario.model';
 import { Observable, throwError, catchError } from 'rxjs';
+import { Usuario } from '../entidad/usuario.model';
 
 @Injectable()
 export class DataServices {
@@ -160,7 +160,7 @@ export class DataServices {
     const headers = this.getHeaders();
 
     return this.httpClient
-      .get<Usuario[]>('http://localhost:8080/api/v1/usuario', {
+      .get<any[]>('http://localhost:8080/api/v1/usuario', {
         headers,
       })
       .pipe(

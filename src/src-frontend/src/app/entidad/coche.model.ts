@@ -24,7 +24,7 @@ export class Coche {
   numero_cilindros: number;
   ciudad: string;
   descripcion: string;
-  usuario: Usuario;
+  usuario?: Usuario;
   imagenes: Imagen[];
 
   constructor(

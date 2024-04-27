@@ -19,7 +19,7 @@ import { FiltroService } from '../servicio-filtro/filtro.service';
 export class CatalogoCocheComponent implements OnInit, OnDestroy {
   titulo = 'Catálogo de Coches';
   coches: Coche[] = [];
-  filtrosSubscription: Subscription | undefined = undefined; // Inicialización como undefined
+  filtrosSubscription: Subscription | undefined = undefined;
 
   constructor(
     private miServicio: ServicioCocheService,
@@ -35,9 +35,7 @@ export class CatalogoCocheComponent implements OnInit, OnDestroy {
 
     this.filtrosSubscription = this.filtrosService.filtrosAplicados$.subscribe(
       (filtros) => {
-        // Lógica para aplicar filtros y actualizar la lista de coches
         console.log('Filtros aplicados:', filtros);
-        // Llama al servicio o realiza las operaciones necesarias aquí
       }
     );
   }

@@ -1,6 +1,8 @@
 package com.v1.automobile.controlador;
 
 import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,9 +35,20 @@ public class UsuarioControlador {
 	private PasswordEncoder passwordEncoder;
 
 	@GetMapping
-	public ResponseEntity<List<Usuario>> obtenerTodosUsuarios() {
+	public ResponseEntity<List<UsuarioActualDTO>> obtenerTodosUsuarios() {
 		List<Usuario> usuarios = usuarioRepositorio.findAll();
-		return new ResponseEntity<>(usuarios, HttpStatus.OK);
+		List<UsuarioActualDTO> usuariosDTO = usuarios.stream().map(usuario -> {
+			UsuarioActualDTO dto = new UsuarioActualDTO();
+			dto.setId(usuario.getId());
+			dto.setNombre_usuario(usuario.getNombre_usuario());
+			dto.setEmail(usuario.getEmail());
+			dto.setImagen_usuario(usuario.getImagen_usuario());
+			dto.setPassword(usuario.getPassword());
+			dto.setRole(usuario.getRole());
+			return dto;
+		}).collect(Collectors.toList());
+
+		return new ResponseEntity<>(usuariosDTO, HttpStatus.OK);
 	}
 
 	@PreAuthorize("hasRole('ADMIN')")
