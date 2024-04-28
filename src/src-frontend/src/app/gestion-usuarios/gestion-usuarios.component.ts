@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Usuario } from '../entidad/usuario.model';
 import { ServicioUsuarioService } from '../servicio-usuario/servicio-usuario.service';
 import { CommonModule } from '@angular/common';
@@ -17,6 +17,8 @@ import { AutenticacionService } from '../servicio-autenticacion/autenticacion.se
 export class GestionUsuariosComponent {
   usuarios: Usuario[] = [];
   estaLogueado: boolean = false;
+
+  @Input() usuario!: Usuario;
 
   constructor(
     private servicioAutenticacion: AutenticacionService,
@@ -40,15 +42,5 @@ export class GestionUsuariosComponent {
         console.error('Error al obtener usuarios:', error);
       }
     );
-  }
-
-  eliminarUsuario(id: number): void {
-    this.servicioUsuario.eliminarUsuario(id);
-  }
-
-  editarUsuario(event: { id: number; usuario: Usuario }): void {
-    const id = event.id;
-    const usuario = event.usuario;
-    this.servicioUsuario.actualizarUsuario(id, usuario);
   }
 }

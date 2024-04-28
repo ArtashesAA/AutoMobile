@@ -12,6 +12,7 @@ import { ActualizarCocheComponent } from './actualizar-coche/actualizar-coche.co
 import { PerfilComponent } from './perfil/perfil.component';
 import { VerNoticiaComponent } from './ver-noticia/ver-noticia.component';
 import { GestionUsuariosComponent } from './gestion-usuarios/gestion-usuarios.component';
+import { ActualizarUsuarioComponent } from './actualizar-usuario/actualizar-usuario.component';
 export const routes: Routes = [
   { path: '', component: InicioComponent },
   {
@@ -29,6 +30,7 @@ export const routes: Routes = [
     canActivate: [guardianGuard],
   },
   { path: 'actualiza/:id', component: ActualizarCocheComponent },
+  { path: 'actualizaUsuario/:id', component: ActualizarUsuarioComponent },
   { path: 'verCoche/:id', component: VerCocheComponent },
   { path: 'verNoticia/:id', component: VerNoticiaComponent },
   { path: 'login', component: LoginComponent },

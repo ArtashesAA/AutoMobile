@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.v1.automobile.entidad.Usuario;
 import com.v1.automobile.entidad.dto.UsuarioActualDTO;
-import com.v1.automobile.entidad.dto.UsuarioDTO;
+import com.v1.automobile.entidad.dto.UsuarioCreacion;
 import com.v1.automobile.repositorio.UsuarioRepositorio;
 
 @RestController
@@ -79,16 +79,20 @@ public class UsuarioControlador {
 		return new ResponseEntity<>(HttpStatus.UNAUTHORIZED); // Usuario no autenticado o no encontrado
 	}
 
-	@PreAuthorize("hasRole('ADMIN')")
 	@PostMapping
-	public ResponseEntity<Usuario> crearUsuario(@RequestBody Usuario usuario) {
-		Usuario usuarioCreado = usuario;
+	public ResponseEntity<Usuario> crearUsuario(@RequestBody UsuarioCreacion usuario) {
+		Usuario usuarioCreado = new Usuario();
+		usuarioCreado.setId(usuario.getId());
+		usuarioCreado.setNombre_usuario(usuario.getNombre_usuario());
+		usuarioCreado.setEmail(usuario.getEmail());
 		usuarioCreado.setPassword(passwordEncoder.encode(usuario.getPassword()));
+		usuarioCreado.setImagen_usuario(usuario.getImagen_usuario());
+		usuarioCreado.setRole("USER");
 		usuarioRepositorio.save(usuarioCreado);
 		return new ResponseEntity<>(usuarioCreado, HttpStatus.CREATED);
 	}
 
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasAnyRole('ADMIN', 'USER')")
 	@PutMapping("/{id}")
 	public ResponseEntity<Usuario> actualizarUsuario(@PathVariable Integer id,
 			@RequestBody Usuario usuarioActualizado) {
@@ -101,7 +105,7 @@ public class UsuarioControlador {
 			if (!usuarioActualizado.getPassword().isEmpty()) {
 				usuarioExistente.setPassword(passwordEncoder.encode(usuarioActualizado.getPassword()));
 			}
-			usuarioExistente.setRole(usuarioActualizado.getRole());
+
 			usuarioRepositorio.save(usuarioExistente);
 			return new ResponseEntity<>(usuarioActualizado, HttpStatus.OK);
 		} else {

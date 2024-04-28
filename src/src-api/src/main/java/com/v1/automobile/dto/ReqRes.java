@@ -1,7 +1,5 @@
 package com.v1.automobile.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.v1.automobile.entidad.Coche;
 import com.v1.automobile.entidad.Usuario;
 
@@ -9,9 +7,10 @@ import lombok.Data;
 
 import java.util.List;
 
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+
 @Data
-@JsonIgnoreProperties(ignoreUnknown = true)
-@JsonInclude(JsonInclude.Include.NON_NULL)
+@EnableWebSecurity
 public class ReqRes {
 
 	private int statusCode;

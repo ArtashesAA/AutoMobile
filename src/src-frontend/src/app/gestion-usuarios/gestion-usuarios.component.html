@@ -4,14 +4,18 @@
     <!-- Sidebar -->
     <div class="col-md-2">
       <div class="sidebar">
-        <ul class="nav flex-column">
+        <ul class="nav nav-pills flex-column mb-auto">
           <li class="nav-item">
-            <a class="nav-link" [routerLink]="'/perfil'">Perfil</a>
+            <a [routerLink]="'/perfil'" class="nav-link link-dark"> Perfil </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" [routerLink]="'/gestionUsuarios'"
-              >Gestión de Usuarios</a
+          <li>
+            <a
+              [routerLink]="'/gestionUsuarios'"
+              class="nav-link active"
+              aria-current="page"
             >
+              Gestión de Usuarios
+            </a>
           </li>
         </ul>
       </div>
@@ -52,13 +56,15 @@
             </td>
             <td>
               <button
-                (click)="eliminarUsuario(usuario.id)"
+                [routerLink]="['/actualizaUsuario', usuario.id]"
+                [queryParams]="{ accion: '1' }"
                 class="btn btn-warning"
               >
                 Editar</button
               ><br />
               <button
-                (click)="eliminarUsuario(usuario.id)"
+                [routerLink]="['/actualizaUsuario', usuario.id]"
+                [queryParams]="{ accion: '1' }"
                 class="btn btn-danger"
               >
                 Eliminar

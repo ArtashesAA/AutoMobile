@@ -1,265 +1,262 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Actualizar datos</title>
-  </head>
-  <body>
-    <h1 style="text-align: center">Actualizar datos</h1>
+<head>
+  <title>Actualizar datos</title>
+</head>
+<body>
+  <h1 style="text-align: center">Actualizar datos</h1>
 
-    <div class="container">
-      <form class="form-group row">
-        <div class="form-group col-md-3">
-          <label for="marca">Marca:</label>
-          <input
-            type="text"
-            name="marca"
-            id="marca"
-            placeholder="Marca"
-            class="form-control"
-            [(ngModel)]="cuadroMarca"
-          />
-        </div>
-        <div class="form-group col-md-3">
-          <label for="modelo">Modelo:</label>
-          <input
-            type="text"
-            name="modelo"
-            id="modelo"
-            placeholder="Modelo"
-            class="form-control"
-            [(ngModel)]="cuadroModelo"
-          />
-        </div>
-        <div class="form-group col-md-3">
-          <label for="precio">Precio:</label>
-          <input
-            type="text"
-            name="precio"
-            id="precio"
-            placeholder="Precio"
-            class="form-control"
-            [(ngModel)]="cuadroPrecio"
-          />
-        </div>
-        <div class="form-group col-md-3">
-          <label for="anyo">Año:</label>
-          <input
-            type="text"
-            name="anyo"
-            id="anyo"
-            placeholder="Año"
-            class="form-control"
-            [(ngModel)]="cuadroAnyo"
-          />
-        </div>
-        <div class="form-group col-md-3">
-          <label for="potencia">Potencia:</label>
-          <input
-            type="text"
-            name="potencia"
-            id="potencia"
-            placeholder="Potencia"
-            class="form-control"
-            [(ngModel)]="cuadroPotencia"
-          />
-        </div>
-        <div class="form-group col-md-3">
-          <label for="kilometraje">Kilometraje:</label>
-          <input
-            type="text"
-            name="kilometraje"
-            id="kilometraje"
-            placeholder="Kilometraje"
-            class="form-control"
-            [(ngModel)]="cuadroKilometraje"
-          />
-        </div>
-        <div class="form-group col-md-3">
-          <label for="combustible">Combustible:</label>
-          <input
-            type="text"
-            name="combustible"
-            id="combustible"
-            placeholder="Combustible"
-            class="form-control"
-            [(ngModel)]="cuadroCombustible"
-          />
-        </div>
-        <div class="form-group col-md-3">
-          <label for="consumo">Consumo:</label>
-          <input
-            type="text"
-            name="consumo"
-            id="consumo"
-            placeholder="Consumo"
-            class="form-control"
-            [(ngModel)]="cuadroConsumo"
-          />
-        </div>
-        <div class="form-group col-md-3">
-          <label for="tipoCambio">Tipo de cambio:</label>
-          <input
-            type="text"
-            name="tipoCambio"
-            id="tipoCambio"
-            placeholder="Tipo de cambio"
-            class="form-control"
-            [(ngModel)]="cuadroTipo_cambio"
-          />
-        </div>
-        <div class="form-group col-md-3">
-          <label for="categoria">Categoria:</label>
-          <input
-            type="text"
-            name="categoria"
-            id="categoria"
-            placeholder="Categoria"
-            class="form-control"
-            [(ngModel)]="cuadroCategoria"
-          />
-        </div>
-        <div class="form-group col-md-3">
-          <label for="tipoVehiculo">Tipo de vehículo:</label>
-          <input
-            type="text"
-            name="tipoVehiculo"
-            id="tipoVehiculo"
-            placeholder="Tipo de vehículo"
-            class="form-control"
-            [(ngModel)]="cuadroTipo_vehiculo"
-          />
-        </div>
-        <div class="form-group col-md-3">
-          <label for="traccion">Tracción:</label>
-          <input
-            type="text"
-            name="traccion"
-            id="traccion"
-            placeholder="Tracción"
-            class="form-control"
-            [(ngModel)]="cuadroTraccion"
-          />
-        </div>
-        <div class="form-group col-md-3">
-          <label for="plazas">Plazas:</label>
-          <input
-            type="number"
-            name="plazas"
-            id="plazas"
-            placeholder="Plazas"
-            class="form-control"
-            [(ngModel)]="cuadroPlazas"
-          />
-        </div>
-        <div class="form-group col-md-3">
-          <label for="puertas">Puertas:</label>
-          <input
-            type="number"
-            name="puertas"
-            id="puertas"
-            placeholder="Puertas"
-            class="form-control"
-            [(ngModel)]="cuadroPuertas"
-          />
-        </div>
-        <div class="form-group col-md-3">
-          <label for="garantia">Garantía:</label>
-          <input
-            type="text"
-            name="garantia"
-            id="garantia"
-            placeholder="Garantía"
-            class="form-control"
-            [(ngModel)]="cuadroGarantia"
-          />
-        </div>
-        <div class="form-group col-md-3">
-          <label for="peso">Peso:</label>
-          <input
-            type="text"
-            name="peso"
-            id="peso"
-            placeholder="Peso"
-            class="form-control"
-            [(ngModel)]="cuadroPeso"
-          />
-        </div>
+  <div class="container">
+    <form class="form-group row">
+      <div class="form-group col-md-3">
+        <label for="marca">Marca:</label>
+        <input
+          type="text"
+          name="marca"
+          id="marca"
+          placeholder="Marca"
+          class="form-control"
+          [(ngModel)]="cuadroMarca"
+        />
+      </div>
+      <div class="form-group col-md-3">
+        <label for="modelo">Modelo:</label>
+        <input
+          type="text"
+          name="modelo"
+          id="modelo"
+          placeholder="Modelo"
+          class="form-control"
+          [(ngModel)]="cuadroModelo"
+        />
+      </div>
+      <div class="form-group col-md-3">
+        <label for="precio">Precio:</label>
+        <input
+          type="text"
+          name="precio"
+          id="precio"
+          placeholder="Precio"
+          class="form-control"
+          [(ngModel)]="cuadroPrecio"
+        />
+      </div>
+      <div class="form-group col-md-3">
+        <label for="anyo">Año:</label>
+        <input
+          type="text"
+          name="anyo"
+          id="anyo"
+          placeholder="Año"
+          class="form-control"
+          [(ngModel)]="cuadroAnyo"
+        />
+      </div>
+      <div class="form-group col-md-3">
+        <label for="potencia">Potencia:</label>
+        <input
+          type="text"
+          name="potencia"
+          id="potencia"
+          placeholder="Potencia"
+          class="form-control"
+          [(ngModel)]="cuadroPotencia"
+        />
+      </div>
+      <div class="form-group col-md-3">
+        <label for="kilometraje">Kilometraje:</label>
+        <input
+          type="text"
+          name="kilometraje"
+          id="kilometraje"
+          placeholder="Kilometraje"
+          class="form-control"
+          [(ngModel)]="cuadroKilometraje"
+        />
+      </div>
+      <div class="form-group col-md-3">
+        <label for="combustible">Combustible:</label>
+        <input
+          type="text"
+          name="combustible"
+          id="combustible"
+          placeholder="Combustible"
+          class="form-control"
+          [(ngModel)]="cuadroCombustible"
+        />
+      </div>
+      <div class="form-group col-md-3">
+        <label for="consumo">Consumo:</label>
+        <input
+          type="text"
+          name="consumo"
+          id="consumo"
+          placeholder="Consumo"
+          class="form-control"
+          [(ngModel)]="cuadroConsumo"
+        />
+      </div>
+      <div class="form-group col-md-3">
+        <label for="tipoCambio">Tipo de cambio:</label>
+        <input
+          type="text"
+          name="tipoCambio"
+          id="tipoCambio"
+          placeholder="Tipo de cambio"
+          class="form-control"
+          [(ngModel)]="cuadroTipo_cambio"
+        />
+      </div>
+      <div class="form-group col-md-3">
+        <label for="categoria">Categoria:</label>
+        <input
+          type="text"
+          name="categoria"
+          id="categoria"
+          placeholder="Categoria"
+          class="form-control"
+          [(ngModel)]="cuadroCategoria"
+        />
+      </div>
+      <div class="form-group col-md-3">
+        <label for="tipoVehiculo">Tipo de vehículo:</label>
+        <input
+          type="text"
+          name="tipoVehiculo"
+          id="tipoVehiculo"
+          placeholder="Tipo de vehículo"
+          class="form-control"
+          [(ngModel)]="cuadroTipo_vehiculo"
+        />
+      </div>
+      <div class="form-group col-md-3">
+        <label for="traccion">Tracción:</label>
+        <input
+          type="text"
+          name="traccion"
+          id="traccion"
+          placeholder="Tracción"
+          class="form-control"
+          [(ngModel)]="cuadroTraccion"
+        />
+      </div>
+      <div class="form-group col-md-3">
+        <label for="plazas">Plazas:</label>
+        <input
+          type="number"
+          name="plazas"
+          id="plazas"
+          placeholder="Plazas"
+          class="form-control"
+          [(ngModel)]="cuadroPlazas"
+        />
+      </div>
+      <div class="form-group col-md-3">
+        <label for="puertas">Puertas:</label>
+        <input
+          type="number"
+          name="puertas"
+          id="puertas"
+          placeholder="Puertas"
+          class="form-control"
+          [(ngModel)]="cuadroPuertas"
+        />
+      </div>
+      <div class="form-group col-md-3">
+        <label for="garantia">Garantía:</label>
+        <input
+          type="text"
+          name="garantia"
+          id="garantia"
+          placeholder="Garantía"
+          class="form-control"
+          [(ngModel)]="cuadroGarantia"
+        />
+      </div>
+      <div class="form-group col-md-3">
+        <label for="peso">Peso:</label>
+        <input
+          type="text"
+          name="peso"
+          id="peso"
+          placeholder="Peso"
+          class="form-control"
+          [(ngModel)]="cuadroPeso"
+        />
+      </div>
 
-        <div class="form-group col-md-3">
-          <label for="color">Color:</label>
-          <input
-            type="text"
-            name="color"
-            id="color"
-            placeholder="Color"
-            class="form-control"
-            [(ngModel)]="cuadroColor"
-          />
-        </div>
-        <div class="form-group col-md-3">
-          <label for="numeroMarchas">Número de Marchas:</label>
-          <input
-            type="text"
-            name="numeroMarchas"
-            id="numeroMarchas"
-            placeholder="Numero de Marchas"
-            class="form-control"
-            [(ngModel)]="cuadroNumero_marchas"
-          />
-        </div>
+      <div class="form-group col-md-3">
+        <label for="color">Color:</label>
+        <input
+          type="text"
+          name="color"
+          id="color"
+          placeholder="Color"
+          class="form-control"
+          [(ngModel)]="cuadroColor"
+        />
+      </div>
+      <div class="form-group col-md-3">
+        <label for="numeroMarchas">Número de Marchas:</label>
+        <input
+          type="text"
+          name="numeroMarchas"
+          id="numeroMarchas"
+          placeholder="Numero de Marchas"
+          class="form-control"
+          [(ngModel)]="cuadroNumero_marchas"
+        />
+      </div>
 
-        <div class="form-group col-md-3">
-          <label for="cilindros">Número de Cilindros:</label>
-          <input
-            type="text"
-            name="cilindros"
-            id="cilindros"
-            placeholder="Cilindros"
-            class="form-control"
-            [(ngModel)]="cuadroNumero_cilindros"
-          />
-        </div>
+      <div class="form-group col-md-3">
+        <label for="cilindros">Número de Cilindros:</label>
+        <input
+          type="text"
+          name="cilindros"
+          id="cilindros"
+          placeholder="Cilindros"
+          class="form-control"
+          [(ngModel)]="cuadroNumero_cilindros"
+        />
+      </div>
 
-        <div class="form-group col-md-3">
-          <label for="ciudad">Ciudad:</label>
-          <input
-            type="text"
-            name="ciudad"
-            id="ciudad"
-            placeholder="Ciudad"
-            class="form-control"
-            [(ngModel)]="cuadroCiudad"
-          />
-        </div>
+      <div class="form-group col-md-3">
+        <label for="ciudad">Ciudad:</label>
+        <input
+          type="text"
+          name="ciudad"
+          id="ciudad"
+          placeholder="Ciudad"
+          class="form-control"
+          [(ngModel)]="cuadroCiudad"
+        />
+      </div>
 
-        <div class="form-group col-md-12">
-          <label for="descripcion">Descripción:</label>
-          <textarea
-            name="descripcion"
-            id="descripcion"
-            placeholder="Descripción"
-            class="form-control"
-            [(ngModel)]="cuadroDescripcion"
-          ></textarea>
-        </div>
-        <!-- Botón de submit -->
-        <div class="col">
-          <button
-            type="submit"
-            class="btn btn-primary"
-            (click)="actualizaCoche()"
-            style="margin-top: 20px; margin-right: 40px"
-          >
-            Acción
-          </button>
-        </div>
-      </form>
-    </div>
+      <div class="form-group col-md-12">
+        <label for="descripcion">Descripción:</label>
+        <textarea
+          name="descripcion"
+          id="descripcion"
+          placeholder="Descripción"
+          class="form-control"
+          [(ngModel)]="cuadroDescripcion"
+        ></textarea>
+      </div>
+      <!-- Botón de submit -->
+      <div class="col">
+        <button
+          type="submit"
+          class="btn btn-primary"
+          (click)="actualizaCoche()"
+          style="margin-top: 20px; margin-right: 40px"
+        >
+          Acción
+        </button>
+      </div>
+    </form>
+  </div>
 
-    <div style="text-align: center">
-      <button class="btn btn-secondary" (click)="volverACatalogo()">
-        Volver
-      </button>
-    </div>
-  </body>
-</html>
+  <div style="text-align: center">
+    <button class="btn btn-secondary" (click)="volverACatalogo()">
+      Volver
+    </button>
+  </div>
+</body>

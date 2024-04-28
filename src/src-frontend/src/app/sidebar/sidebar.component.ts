@@ -13,15 +13,37 @@ export class SidebarComponent {
 
   marca: string = '';
   modelo: string = '';
-  precio: number | null = null;
-  anyo: number | null = null;
+  categoria: string = '';
+  combustible: string = '';
+  anyoMin: number | null = null;
+  anyoMax: number | null = null;
+  precioMin: number | null = null;
+  precioMax: number | null = null;
+  kilometrajeMin: number | null = null;
+  kilometrajeMax: number | null = null;
+  potenciaMin: number | null = null;
+  potenciaMax: number | null = null;
+  tipo_cambio: string = '';
+  plazasMin: number | null = null;
+  plazasMax: number | null = null;
 
   aplicarFiltros(): void {
     const filters = {
       marca: this.marca,
       modelo: this.modelo,
-      precio: this.precio,
-      anyo: this.anyo,
+      categoria: this.categoria,
+      combustible: this.combustible,
+      anyoMin: this.anyoMin,
+      anyoMax: this.anyoMax,
+      precioMin: this.precioMin,
+      precioMax: this.precioMax,
+      kilometrajeMin: this.kilometrajeMin,
+      kilometrajeMax: this.kilometrajeMax,
+      potenciaMin: this.potenciaMin,
+      potenciaMax: this.potenciaMax,
+      tipo_cambio: this.tipo_cambio,
+      plazasMin: this.potenciaMin,
+      plazasMax: this.potenciaMax,
     };
 
     this.filtersApplied.emit(filters);
