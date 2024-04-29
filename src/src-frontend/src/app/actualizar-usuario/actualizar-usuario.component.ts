@@ -59,10 +59,10 @@ export class ActualizarUsuarioComponent implements OnInit {
       );
 
       this.miServicio.actualizarUsuario(this.indice, miUsuario);
-      this.router.navigate(['/catalogo']);
+      this.volverAGestionDeUsuarios();
     } else {
       this.miServicio.eliminarUsuario(this.indice);
-      this.router.navigate(['/catalogo']);
+      this.volverAGestionDeUsuarios();
     }
   }
 

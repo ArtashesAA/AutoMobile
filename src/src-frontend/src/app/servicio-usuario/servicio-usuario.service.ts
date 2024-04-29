@@ -47,17 +47,18 @@ export class ServicioUsuarioService {
   actualizarUsuario(indice: number, usuario: Usuario) {
     let usuarioModificado = this.usuarios[indice];
 
-    usuarioModificado.email = usuario.email;
     usuarioModificado.nombre_usuario = usuario.nombre_usuario;
+    usuarioModificado.email = usuario.email;
     usuarioModificado.imagen_usuario = usuario.imagen_usuario;
+    usuarioModificado.password = usuario.password;
     usuarioModificado.role = usuario.role;
 
-    this.dataService.actualizarUsuario(indice, usuario);
+    this.dataService.actualizarUsuario(indice, usuarioModificado);
+    this.servicioGeneral.muestraMensaje('Usuario actualizado');
   }
 
   eliminarUsuario(indice: number) {
-    this.servicioGeneral.muestraMensaje('Usuario eliminado');
-    this.usuarios.splice(indice, 1);
     this.dataService.eliminarUsuario(indice);
+    this.servicioGeneral.muestraMensaje('Usuario eliminado');
   }
 }

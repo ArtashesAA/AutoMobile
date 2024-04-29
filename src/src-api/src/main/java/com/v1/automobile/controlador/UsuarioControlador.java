@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.v1.automobile.entidad.Usuario;
 import com.v1.automobile.entidad.dto.UsuarioActualDTO;
 import com.v1.automobile.entidad.dto.UsuarioCreacion;
+import com.v1.automobile.entidad.dto.UsuarioDTO;
 import com.v1.automobile.repositorio.UsuarioRepositorio;
 
 @RestController
@@ -53,10 +54,13 @@ public class UsuarioControlador {
 
 	@PreAuthorize("hasRole('ADMIN')")
 	@GetMapping("/{id}")
-	public ResponseEntity<Usuario> obtenerUsuarioPorId(@PathVariable Integer id) {
+	public ResponseEntity<UsuarioActualDTO> obtenerUsuarioPorId(@PathVariable Integer id) {
 		Usuario usuario = usuarioRepositorio.findById(id).orElse(null);
 		if (usuario != null) {
-			return new ResponseEntity<>(usuario, HttpStatus.OK);
+			// Crear un UsuarioActualDTO con los datos requeridos
+			UsuarioActualDTO usuarioDTO = new UsuarioActualDTO(usuario.getId(), usuario.getNombre_usuario(),
+					usuario.getEmail(), usuario.getImagen_usuario(), usuario.getPassword(), usuario.getRole());
+			return new ResponseEntity<>(usuarioDTO, HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}

@@ -9,23 +9,22 @@
   color: black; /* Color del texto */
 }
 
+.coche-precio {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
 /* Estilos para los enlaces dentro de la caja */
 a {
   color: inherit; /* Heredar el color del texto normal */
   text-decoration: none; /* Eliminar subrayado */
 }
 
-/* Contenedor completo */
-.container {
-  max-width: 800px;
-  margin: 0 auto;
-}
-
 /* Caja de imagen + datos */
 .caja {
   border: 1px solid #ccc;
   border-radius: 8px;
-  height: 610px;
+  height: 570px;
   margin-bottom: 50px;
 }
 

@@ -18,13 +18,34 @@
         <div class="coche-texto">
           <h4>{{ cochedelista.marca }} {{ cochedelista.modelo }}</h4>
           <!-- Detalles del coche -->
-          <p><strong>Precio:</strong> {{ cochedelista.precio }}</p>
-          <p><strong>Año:</strong> {{ cochedelista.anyo }}</p>
-          <p><strong>Potencia:</strong> {{ cochedelista.potencia }}</p>
-          <p><strong>Kilometraje:</strong> {{ cochedelista.kilometraje }}</p>
-          <p><strong>Peso:</strong> {{ cochedelista.peso }}</p>
-          <p><strong>Combustible:</strong> {{ cochedelista.combustible }}</p>
-          <p><strong>Color:</strong> {{ cochedelista.color }}</p>
+          <div class="coche-precio">
+            <h5>€ {{ cochedelista.precio }},-</h5>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <p><i class="bi bi-calendar-date"></i> {{ cochedelista.anyo }}</p>
+            </div>
+            <div class="col-md-6">
+              <p>
+                <i class="bi bi-speedometer"></i> {{ cochedelista.potencia }} CV
+              </p>
+            </div>
+            <div class="col-md-6">
+              <p>
+                <i class="bi bi-car-front"></i>
+                {{ cochedelista.kilometraje }} KM
+              </p>
+            </div>
+            <div class="col-md-6">
+              <p>
+                <i class="bi bi-fuel-pump"></i> {{ cochedelista.combustible }}
+              </p>
+            </div>
+            <div class="col-md-6">
+              <p><i class="bi bi-palette"></i> {{ cochedelista.color }}</p>
+            </div>
+          </div>
         </div>
       </a>
       <div class="coche-actions mt-3">
