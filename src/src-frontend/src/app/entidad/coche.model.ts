@@ -2,47 +2,78 @@ import { Imagen } from './imagen.model';
 import { Usuario } from './usuario.model';
 
 export class Coche {
+  id?: number;
+  marca: string;
+  modelo: string;
+  precio: number;
+  anyo: number;
+  potencia: number;
+  kilometraje: number;
+  combustible: string;
+  consumo: string;
+  tipo_cambio: string;
+  categoria: string;
+  tipo_vehiculo: string;
+  traccion: string;
+  plazas: number;
+  puertas: number;
+  garantia: string;
+  peso: number;
+  color: string;
+  numero_marchas: number;
+  numero_cilindros: number;
+  ciudad: string;
+  descripcion: string;
+  usuario?: Usuario;
+  imagenes: Imagen[];
+
   constructor(
-    id: number,
     marca: string,
     modelo: string,
+    precio: number,
     anyo: number,
     potencia: number,
     kilometraje: number,
-    peso: number,
     combustible: string,
+    consumo: string,
+    tipo_cambio: string,
+    categoria: string,
+    tipo_vehiculo: string,
+    traccion: string,
+    plazas: number,
+    puertas: number,
+    garantia: string,
+    peso: number,
     color: string,
-    precio: number,
+    numero_marchas: number,
+    numero_cilindros: number,
+    ciudad: string,
     descripcion: string,
     usuario: Usuario,
     imagenes: Imagen[]
   ) {
-    this.id = id;
     this.marca = marca;
     this.modelo = modelo;
+    this.precio = precio;
     this.anyo = anyo;
     this.potencia = potencia;
     this.kilometraje = kilometraje;
-    this.peso = peso;
     this.combustible = combustible;
+    this.consumo = consumo;
+    this.tipo_cambio = tipo_cambio;
+    this.categoria = categoria;
+    this.tipo_vehiculo = tipo_vehiculo;
+    this.traccion = traccion;
+    this.plazas = plazas;
+    this.puertas = puertas;
+    this.garantia = garantia;
+    this.peso = peso;
     this.color = color;
-    this.precio = precio;
+    this.numero_marchas = numero_marchas;
+    this.numero_cilindros = numero_cilindros;
+    this.ciudad = ciudad;
     this.descripcion = descripcion;
     this.usuario = usuario;
     this.imagenes = imagenes;
   }
-
-  id: number = 1;
-  marca: string = '';
-  modelo: string = '';
-  anyo: number = 0;
-  potencia: number = 0;
-  kilometraje: number = 0;
-  peso: number = 0;
-  combustible: string = '';
-  color: string = '';
-  precio: number = 0;
-  descripcion: string = '';
-  usuario: Usuario;
-  imagenes: Imagen[] = [];
 }

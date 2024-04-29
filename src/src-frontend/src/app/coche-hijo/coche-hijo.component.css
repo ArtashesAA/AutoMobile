@@ -1,28 +1,67 @@
-.coche-info-container {
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Estilos para el texto dentro de la caja */
+.coche-texto {
+  color: black; /* Color del texto */
+}
+
+.coche-precio {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+/* Estilos para los enlaces dentro de la caja */
+a {
+  color: inherit; /* Heredar el color del texto normal */
+  text-decoration: none; /* Eliminar subrayado */
+}
+
+/* Caja de imagen + datos */
+.caja {
   border: 1px solid #ccc;
-  padding: 20px;
+  border-radius: 8px;
+  height: 570px;
+  margin-bottom: 50px;
 }
 
-.coche-header {
-  border-bottom: 1px solid #ccc;
-  padding-bottom: 10px;
+/* Datos coche */
+.coche-info-container {
+  position: relative; /* Posicionamiento relativo para el contenedor de la imagen */
+  height: 300px; /* Altura para la imagen */
 }
 
+/* Imagen coche */
 .coche-imagen {
-  width: 300px;
-  height: auto;
-  margin-right: 5%;
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+  object-fit: cover;
 }
 
-.coche-details p {
-  margin-bottom: 5px;
+/* Datos coche */
+.coche-texto {
+  padding: 20px;
+  border-radius: 8px;
 }
 
-.coche-description {
-  font-size: 14px;
+.coche-texto h4 {
+  font-size: 24px;
+  margin-bottom: 10px;
 }
 
+/* Acciones coche */
+.coche-actions {
+  display: flex;
+  justify-content: center;
+}
+
+/* Datos coche */
 .coche-actions button {
   font-size: 14px;
   margin-right: 10px;
+  padding: 7px;
 }

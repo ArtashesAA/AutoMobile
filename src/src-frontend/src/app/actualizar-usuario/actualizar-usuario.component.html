@@ -1,0 +1,96 @@
+<head>
+  <title>Actualizar datos</title>
+</head>
+<body>
+  <h1 style="text-align: center">Actualizar datos</h1>
+
+  <div class="container">
+    <form class="form-group row">
+      <div class="form-group col-md-4">
+        <label for="id">Id:</label>
+        <input
+          type="text"
+          name="id"
+          id="id"
+          placeholder="Id"
+          class="form-control"
+          [(ngModel)]="cuadroId"
+        />
+      </div>
+      <div class="form-group col-md-4">
+        <label for="nombreDeUsuario">Nombre de usuario:</label>
+        <input
+          type="text"
+          name="nombreDeUsuario"
+          id="nombreDeUsuario"
+          placeholder="Nombre de usuario"
+          class="form-control"
+          [(ngModel)]="cuadroNombreDeUsuario"
+        />
+      </div>
+      <div class="form-group col-md-4">
+        <label for="email">Email:</label>
+        <input
+          type="text"
+          name="email"
+          id="email"
+          placeholder="Email"
+          class="form-control"
+          [(ngModel)]="cuadroEmail"
+        />
+      </div>
+      <div class="form-group col-md-4">
+        <label for="imagen">Imagen:</label>
+        <input
+          type="text"
+          name="imagen"
+          id="imagen"
+          placeholder="Imagen"
+          class="form-control"
+          [(ngModel)]="cuadroImagen"
+        />
+      </div>
+      <div class="form-group col-md-4">
+        <label for="contrasena">Contraseña:</label>
+        <input
+          type="text"
+          name="contrasena"
+          id="contrasena"
+          placeholder="Contraseña"
+          class="form-control"
+          [(ngModel)]="cuadroPassword"
+        />
+      </div>
+      <div class="form-group col-md-4">
+        <label for="role">Rol:</label>
+        <select
+          class="form-control"
+          [(ngModel)]="cuadroRole"
+          id="role"
+          name="role"
+        >
+          <option [ngValue]="'USER'" default>Usuario</option>
+          <option [ngValue]="'ADMIN'">Administrador</option>
+        </select>
+      </div>
+
+      <!-- Botón de submit -->
+      <div class="col">
+        <button
+          type="submit"
+          class="btn btn-primary"
+          (click)="actualizaUsuario()"
+          style="margin-top: 20px; margin-right: 40px"
+        >
+          Acción
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <div style="text-align: center">
+    <button class="btn btn-secondary" (click)="volverAGestionDeUsuarios()">
+      Volver
+    </button>
+  </div>
+</body>

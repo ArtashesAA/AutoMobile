@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<div class="container">
+  <div *ngIf="noticia" class="noticia-info-container">
+    <div class="noticia-header">
+      <h4>{{ noticia.titulo }}</h4>
+    </div>
+
+    <!-- Imagen del noticia -->
+    <div class="noticia-image">
+      <img
+        *ngIf="noticia.url_imagen.length > 0"
+        [src]="noticia.url_imagen"
+        alt="Imagen de noticia"
+        class="noticia-imagen"
+      />
+    </div>
+
+    <!-- Detalles del noticia -->
+    <div class="noticia-details">
+      <!-- Otros detalles -->
+      <div class="noticia-specs">
+        <p>{{ noticia.contenido }}</p>
+      </div>
+    </div>
+
+    <!-- Video del noticia -->
+    <div class="noticia-video mt-3">
+      <video width="100%" controls>
+        <source [src]="noticia.url_video" type="video/mp4" />
+        Tu navegador no soporta la reproducción de videos.
+      </video>
+    </div>
+
+    <!-- Botones de acción -->
+    <div class="noticia-actions mt-3">
+      <button
+        class="btn btn-secondary mr-3"
+        [routerLink]="['/actualizaNoticia', id]"
+        [queryParams]="{ accion: '1' }"
+        *ngIf="estaLogueado()"
+      >
+        Editar
+      </button>
+      <button
+        class="btn btn-danger"
+        [routerLink]="['/actualizaNoticia', id]"
+        [queryParams]="{ accion: '2' }"
+        *ngIf="estaLogueado()"
+      >
+        Eliminar
+      </button>
+    </div>
+  </div>
+</div>

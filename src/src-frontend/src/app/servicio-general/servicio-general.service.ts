@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class ServicioGeneralService {
+  router: any;
   constructor() {}
 
   muestraMensaje(mensaje: string) {

@@ -1,69 +1,79 @@
 <!DOCTYPE html>
 <div class="container">
-  <div class="row">
-    <div class="col">
-      <div class="coche-info-container border rounded p-4">
-        <div
-          class="coche-header d-flex justify-content-between align-items-center"
-        >
-          <h4>{{ cochedelista.marca }} {{ cochedelista.modelo }}</h4>
-          <div class="d-flex align-items-center">
-            <!-- Icono de favorito -->
-            <i class="far fa-heart mr-3"></i>
-            <!-- Icono de compartir -->
-            <i class="fas fa-share-alt"></i>
-          </div>
-        </div>
-        <div class="coche-content d-flex align-items-center">
-          <!-- Imagen del coche -->
-          <img
-            [src]="
-              cochedelista.imagenes.length > 0
-                ? cochedelista.imagenes[0].imagen_url
-                : 'https://i.pinimg.com/736x/50/e8/ae/50e8ae16afb7509d86da75259ba6a154.jpg'
-            "
-            alt="Imagen de coche"
-            class="coche-imagen"
-          />
-          <div class="coche-details ml-4">
-            <!-- Detalles del coche -->
-            <p><strong>Precio:</strong> {{ cochedelista.precio }}</p>
-            <p><strong>Año:</strong> {{ cochedelista.anyo }}</p>
-            <p><strong>Potencia:</strong> {{ cochedelista.potencia }}</p>
-            <p><strong>Kilometraje:</strong> {{ cochedelista.kilometraje }}</p>
-            <p><strong>Peso:</strong> {{ cochedelista.peso }}</p>
-            <p><strong>Combustible:</strong> {{ cochedelista.combustible }}</p>
-            <p><strong>Color:</strong> {{ cochedelista.color }}</p>
-          </div>
-        </div>
-        <div class="coche-description mt-3">
-          <!-- Descripción del coche -->
-          <p>{{ cochedelista.descripcion }}</p>
-        </div>
-        <div class="coche-actions mt-3">
-          <button class="btn btn-primary mr-3" [routerLink]="['/ver', id]">
-            Ver Coche
-          </button>
+  <div class="caja">
+    <div class="coche-info-container">
+      <!-- Imagen del coche ocupando toda la caja -->
+      <a [routerLink]="['/verCoche', cochedelista.id]" class="coche-link"
+        ><img
+          [src]="
+            cochedelista.imagenes.length > 0
+              ? cochedelista.imagenes[0].imagen_url
+              : 'https://i.pinimg.com/736x/50/e8/ae/50e8ae16afb7509d86da75259ba6a154.jpg'
+          "
+          alt="Imagen de coche"
+          class="coche-imagen"
+        />
 
-          <button
-            class="btn btn-secondary"
-            [routerLink]="['/actualiza', id]"
-            [queryParams]="{ accion: '1' }"
-            *ngIf="estaLogueado()"
-          >
-            Actualizar
-          </button>
-          <button
-            class="btn btn-danger ml-3"
-            [routerLink]="['/actualiza', id]"
-            [queryParams]="{ accion: '2' }"
-            *ngIf="estaLogueado()"
-          >
-            Eliminar
-          </button>
+        <!-- Contenedor para el texto -->
+        <div class="coche-texto">
+          <h4>{{ cochedelista.marca }} {{ cochedelista.modelo }}</h4>
+          <!-- Detalles del coche -->
+          <div class="coche-precio">
+            <h5>€ {{ cochedelista.precio }},-</h5>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <p><i class="bi bi-calendar-date"></i> {{ cochedelista.anyo }}</p>
+            </div>
+            <div class="col-md-6">
+              <p>
+                <i class="bi bi-speedometer"></i> {{ cochedelista.potencia }} CV
+              </p>
+            </div>
+            <div class="col-md-6">
+              <p>
+                <i class="bi bi-car-front"></i>
+                {{ cochedelista.kilometraje }} KM
+              </p>
+            </div>
+            <div class="col-md-6">
+              <p>
+                <i class="bi bi-fuel-pump"></i> {{ cochedelista.combustible }}
+              </p>
+            </div>
+            <div class="col-md-6">
+              <p><i class="bi bi-palette"></i> {{ cochedelista.color }}</p>
+            </div>
+          </div>
         </div>
+      </a>
+      <div class="coche-actions mt-3">
+        <!-- Acciones -->
+        <button
+          class="btn btn-primary mr-3"
+          [routerLink]="['/ver', cochedelista.id]"
+        >
+          Ver Coche
+        </button>
+
+        <button
+          class="btn btn-secondary"
+          [routerLink]="['/actualiza', cochedelista.id]"
+          [queryParams]="{ accion: '1' }"
+          *ngIf="estaLogueado()"
+        >
+          Actualizar
+        </button>
+        <button
+          class="btn btn-danger ml-3"
+          [routerLink]="['/actualiza', cochedelista.id]"
+          [queryParams]="{ accion: '2' }"
+          *ngIf="estaLogueado()"
+        >
+          Eliminar
+        </button>
       </div>
     </div>
   </div>
-  <br />
 </div>

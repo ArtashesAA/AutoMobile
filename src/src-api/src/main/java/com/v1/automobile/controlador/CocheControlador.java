@@ -120,6 +120,17 @@ public class CocheControlador {
 	public ResponseEntity<ImagenDTO> getImagenById(@PathVariable Long id) {
 		return imagenServicio.getImagenById(id);
 	}
+	
+	/*
+	 * Recupera imagenes por id de coche. Puede acceder cualquier rol
+	 * 
+	 * @Parameter id de coche que se va a buscar
+	 * 
+	 */
+	@GetMapping("/public/imagen/coche/{id}")
+	public ResponseEntity<List<ImagenDTO>> getImagenByCocheId(@PathVariable Long id) {
+		return imagenServicio.getImagenesByCocheId(id);
+	}
 
 	/*
 	 * Añade una imagen a un coche. Puede acceder solo el admin
@@ -129,7 +140,7 @@ public class CocheControlador {
 	 * @return añade la imagen al coche pasado por parámetro
 	 */
 	@PreAuthorize("hasRole('ADMIN')")
-	@PostMapping("/imagen")
+	@PostMapping("/admin/imagen")
 	public ResponseEntity<String> addImagen(@RequestBody ImagenRequest request) {
 		return imagenServicio.addImagen(request.getCoche_id(), request.getImagen_url());
 	}

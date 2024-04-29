@@ -1,33 +1,36 @@
 import { Component, OnInit } from '@angular/core';
 import { Coche } from '../entidad/coche.model';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { ServicioCocheService } from '../servicio-coche/servicio-coche.service';
 import { CommonModule } from '@angular/common';
 import { DataServices } from '../servicio-general/DataServices';
+import { CocheHijoComponent } from '../coche-hijo/coche-hijo.component';
+import { LoginService } from '../login/servicio/login.service';
 
 @Component({
   selector: 'app-ver-coche',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule, CocheHijoComponent],
   providers: [ServicioCocheService, DataServices],
   templateUrl: './ver-coche.component.html',
   styleUrl: './ver-coche.component.css',
 })
 export class VerCocheComponent implements OnInit {
   coche!: Coche;
+  id!: number;
 
   constructor(
     private route: ActivatedRoute,
-    private servicioCoche: DataServices
+    private servicioCoche: ServicioCocheService,
+    private loginService: LoginService
   ) {}
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
-      const idParam = params['id'];
-      const id = parseInt(idParam, 10);
+      this.id = params['id'];
 
-      if (!isNaN(id)) {
-        this.servicioCoche.cargarCochePorId(idParam).subscribe(
+      if (!isNaN(this.id)) {
+        this.servicioCoche.obtenerCochePorId(this.id).subscribe(
           (coche: Coche) => {
             this.coche = coche;
           },
@@ -36,8 +39,12 @@ export class VerCocheComponent implements OnInit {
           }
         );
       } else {
-        console.error('Índice inválido:', idParam);
+        console.error('Índice inválido:', this.id);
       }
     });
+  }
+
+  estaLogueado() {
+    return this.loginService.estaLogueado();
   }
 }

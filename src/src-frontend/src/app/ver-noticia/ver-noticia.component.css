@@ -1,0 +1,74 @@
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.noticia-info-container {
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.noticia-header {
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+}
+
+.noticia-header h4 {
+  color: #333;
+}
+
+.noticia-image img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.noticia-details {
+  margin-top: 20px;
+}
+
+.noticia-specs p {
+  line-height: 1.6;
+}
+
+.noticia-video {
+  margin-top: 20px;
+}
+
+.coche-actions {
+  margin-top: 20px;
+}
+
+.coche-actions button {
+  font-size: 16px;
+  padding: 10px 20px;
+  border-radius: 4px;
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+  color: #fff;
+  border: none;
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  color: #fff;
+  border: none;
+}
+
+.noticia-actions button {
+  margin-right: 20px;
+}
+
+/* Media Query para hacer responsive */
+@media (max-width: 600px) {
+  .noticia-info-container {
+    padding: 15px;
+  }
+}

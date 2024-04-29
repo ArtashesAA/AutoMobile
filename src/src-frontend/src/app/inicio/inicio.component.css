@@ -1,0 +1,39 @@
+.imagen-principal img {
+  max-width: 1000px;
+}
+
+.form-select {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  width: 240px;
+  margin-top: 40px;
+}
+
+/* Estilos para el botón */
+.btn {
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+}
+
+/* Estilos para el contenedor principal */
+.col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.select-container {
+  display: flex;
+  gap: 10px;
+}
+
+.btn-container {
+  margin-top: 20px;
+}

@@ -1,4 +1,45 @@
-img {
-  width: 800px;
+.coche-details {
+  background-color: #f9f9f9;
+  color: black;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  border-radius: 20px;
+  padding: 10px;
+  width: 65%;
+}
+
+.coche-marca {
+  margin-top: 30px;
+}
+
+.coche-imagen {
+  width: 100%;
+  border-radius: 20px;
   height: auto;
+}
+
+.coche-price {
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.coche-datos-basicos {
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.coche-historial {
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.coche-description {
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.botones button {
+  margin-top: 30px;
+  margin-right: 10px;
+  width: 100%;
 }

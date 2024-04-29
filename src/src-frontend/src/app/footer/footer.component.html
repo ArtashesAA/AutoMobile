@@ -1,102 +1,78 @@
 <!DOCTYPE html>
-<footer class="py-5" zn_id="50">
-  <div class="row" zn_id="51">
-    <div class="col-6 col-md-2 mb-3" zn_id="53">
-      <h5>Section</h5>
+<footer class="py-5">
+  <div class="row">
+    <div class="col-md-3">
+      <h5>Navegar</h5>
       <ul class="nav flex-column">
         <li class="nav-item mb-2">
-          <a href="#" class="nav-link p-0 text-muted">Home</a>
+          <a [routerLink]="'/'" class="nav-link p-0 text-muted">Inicio</a>
         </li>
         <li class="nav-item mb-2">
-          <a href="#" class="nav-link p-0 text-muted">Features</a>
+          <a [routerLink]="'/catalogo'" class="nav-link p-0 text-muted"
+            >Catálogo</a
+          >
         </li>
         <li class="nav-item mb-2">
-          <a href="#" class="nav-link p-0 text-muted">Pricing</a>
+          <a [routerLink]="'/explorar'" class="nav-link p-0 text-muted"
+            >Explorar</a
+          >
         </li>
         <li class="nav-item mb-2">
-          <a href="#" class="nav-link p-0 text-muted">FAQs</a>
+          <a [routerLink]="'/vender'" class="nav-link p-0 text-muted">Vender</a>
         </li>
         <li class="nav-item mb-2">
-          <a href="#" class="nav-link p-0 text-muted">About</a>
+          <a [routerLink]="'/sobre'" class="nav-link p-0 text-muted"
+            >Sobre Nosotros</a
+          >
         </li>
       </ul>
     </div>
 
-    <div class="col-6 col-md-2 mb-3" zn_id="54">
-      <h5>Section</h5>
+    <div class="col-md-3">
+      <h5>Servicios</h5>
       <ul class="nav flex-column">
         <li class="nav-item mb-2">
-          <a href="#" class="nav-link p-0 text-muted">Home</a>
-        </li>
-        <li class="nav-item mb-2">
-          <a href="#" class="nav-link p-0 text-muted">Features</a>
-        </li>
-        <li class="nav-item mb-2">
-          <a href="#" class="nav-link p-0 text-muted">Pricing</a>
-        </li>
-        <li class="nav-item mb-2">
-          <a href="#" class="nav-link p-0 text-muted">FAQs</a>
-        </li>
-        <li class="nav-item mb-2">
-          <a href="#" class="nav-link p-0 text-muted">About</a>
+          <a [routerLink]="'/perfil'" class="nav-link p-0 text-muted">Perfil</a>
         </li>
       </ul>
     </div>
 
-    <div class="col-6 col-md-2 mb-3" zn_id="55">
-      <h5 zn_id="57">Section</h5>
-      <ul class="nav flex-column" zn_id="58">
+    <div class="col-md-3">
+      <h5>Clientes</h5>
+      <ul class="nav flex-column">
         <li class="nav-item mb-2">
-          <a href="#" class="nav-link p-0 text-muted">Home</a>
+          <a [routerLink]="'/login'" class="nav-link p-0 text-muted"
+            >Iniciar Sesión</a
+          >
         </li>
         <li class="nav-item mb-2">
-          <a href="#" class="nav-link p-0 text-muted">Features</a>
+          <a [routerLink]="'/registrarse'" class="nav-link p-0 text-muted"
+            >Registrarse</a
+          >
         </li>
         <li class="nav-item mb-2">
-          <a href="#" class="nav-link p-0 text-muted">Pricing</a>
-        </li>
-        <li class="nav-item mb-2">
-          <a href="#" class="nav-link p-0 text-muted">FAQs</a>
-        </li>
-        <li class="nav-item mb-2">
-          <a href="#" class="nav-link p-0 text-muted">About</a>
+          <a [routerLink]="'/contactar'" class="nav-link p-0 text-muted"
+            >Contactar</a
+          >
         </li>
       </ul>
     </div>
 
-    <div class="col-md-3 offset-md-1 mb-3" zn_id="56">
-      <form zn_id="60">
-        <h5 zn_id="59">Subscribe to our newsletter</h5>
-        <p zn_id="61">Monthly digest of what's new and exciting from us.</p>
-        <div class="d-flex flex-column flex-sm-row w-100 gap-2" zn_id="62">
-          <label for="newsletter1" class="visually-hidden">Email address</label>
+    <div class="col-md-3">
+      <form>
+        <h5>Subscribirse en AutoMobile</h5>
+        <p>Subscribirse para recibir nuestras noticias.</p>
+        <div class="d-flex flex-column flex-sm-row w-100 gap-2">
+          <label for="newsletter1" class="visually-hidden">Email</label>
           <input
             id="newsletter1"
             type="text"
             class="form-control"
-            placeholder="Email address"
+            placeholder="Email"
           />
-          <button class="btn btn-primary" type="button">Subscribe</button>
+          <button class="btn btn-primary" type="button">Subscribirse</button>
         </div>
       </form>
     </div>
-  </div>
-
-  <div
-    class="d-flex flex-column flex-sm-row justify-content-between py-4 my-4 border-top"
-    zn_id="52"
-  >
-    <p>© 2022 Company, Inc. All rights reserved.</p>
-    <ul class="list-unstyled d-flex">
-      <li class="ms-3">
-        <a class="link-dark" href="#"></a>
-      </li>
-      <li class="ms-3">
-        <a class="link-dark" href="#"></a>
-      </li>
-      <li class="ms-3">
-        <a class="link-dark" href="#"></a>
-      </li>
-    </ul>
   </div>
 </footer>

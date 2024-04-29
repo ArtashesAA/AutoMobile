@@ -1,9 +1,56 @@
 <!DOCTYPE html>
 <div class="col" style="text-align: center">
-  <h1>Bienvenido a AutoMobile</h1>
-  <div>
+  <div class="imagen-principal">
     <img
       src="https://neomotor.epe.es/binrepository/imagen3786_NM3787_MG7738668.jpeg"
     />
+  </div>
+
+  <div class="select-container">
+    <select class="form-select" name="Marca" id="lang">
+      <option selected disabled>Marca</option>
+      <option value="Audi">Audi</option>
+      <option value="BMW">BMW</option>
+      <option value="Chevrolet">Chevrolet</option>
+      <option value="Ford">Ford</option>
+      <option value="Honda">Honda</option>
+      <option value="Mercedes-Benz">Mercedes-Benz</option>
+      <option value="Nissan">Nissan</option>
+      <option value="Toyota">Toyota</option>
+    </select>
+
+    <select class="form-select" name="Modelo" id="lang">
+      <option selected disabled>Modelo</option>
+      <option value="opcion1">opcion1</option>
+    </select>
+
+    <select class="form-select" name="Año" id="lang">
+      <option selected disabled>Año</option>
+      <option value="2024">2022</option>
+      <option value="2023">2022</option>
+      <option value="2022">2022</option>
+      <option value="2021">2021</option>
+      <option value="2020">2020</option>
+      <option value="2019">2019</option>
+      <option value="2018">2018</option>
+      <option value="2017">2017</option>
+      <option value="2016">2016</option>
+      <option value="2015">2015</option>
+    </select>
+
+    <select class="form-select" name="Precio" id="lang">
+      <option selected disabled>Precio</option>
+      <option value="10,000">10,000€</option>
+      <option value="15,000">15,000€</option>
+      <option value="20,000">20,000€</option>
+      <option value="25,000">25,000€</option>
+      <option value="30,000">30,000€</option>
+      <option value="35,000">35,000€</option>
+      <option value="40,000">40,000€</option>
+      <option value="45,000">45,000€</option>
+    </select>
+  </div>
+  <div class="btn-container">
+    <button class="btn btn-primary" [routerLink]="['/catalogo']">Buscar</button>
   </div>
 </div>

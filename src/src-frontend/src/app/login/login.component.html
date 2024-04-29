@@ -1,6 +1,6 @@
 <!DOCTYPE html> <br /><br />
 <div id="container" style="width: 600px; height: 400px; margin: auto">
-  <form class="form-group row" (ngSubmit)="login()">
+  <form class="form-group row" (ngSubmit)="onSubmit()">
     <!-- Email -->
     <label class="form-label" for="form2Example1">Email</label>
     <div class="form-outline mb-4">
@@ -48,7 +48,7 @@
     </div>
 
     <!-- Botón de inicio de sesión o nombre de usuario -->
-    <div *ngIf="loginService.estaLogueado(); else loggedOutTemplate">
+    <div *ngIf="servicioLogin.estaLogueado(); else loggedOutTemplate">
       <div class="text-center">
         <p>Bienvenido</p>
       </div>
@@ -66,7 +66,9 @@
 
       <!-- Registro -->
       <div class="text-center">
-        <p>No estás registrado? <a href="/register">Regístrate</a></p>
+        <p>
+          No estás registrado? <a [routerLink]="'/registrarse'">Regístrate</a>
+        </p>
       </div>
     </ng-template>
   </form>

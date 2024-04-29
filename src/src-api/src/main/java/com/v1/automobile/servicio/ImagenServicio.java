@@ -23,11 +23,13 @@ public class ImagenServicio {
 	@Autowired
 	private ImagenRepositorio imagenRepositorio;
 
+	// Recupera todas las imagenes
 	public List<ImagenDTO> getAllImagenes() {
 		List<Imagen> imagenes = imagenRepositorio.findAll();
 		return imagenes.stream().map(this::convertToDto).collect(Collectors.toList());
 	}
 
+	// Recupera una imagen por su id
 	public ResponseEntity<ImagenDTO> getImagenById(Long id) {
 		Optional<Imagen> imagenOptional = imagenRepositorio.findById(id);
 		if (imagenOptional.isPresent()) {
@@ -39,15 +41,18 @@ public class ImagenServicio {
 		}
 	}
 
-	public ResponseEntity<List<Imagen>> getImagenesByCocheId(Long cocheId) {
-		List<Imagen> imagenes = imagenRepositorio.findByCocheId(cocheId);
-		if (!imagenes.isEmpty()) {
-			return new ResponseEntity<>(imagenes, HttpStatus.OK);
-		} else {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
+	// Recupera las imagenes por el id del coche
+	public ResponseEntity<List<ImagenDTO>> getImagenesByCocheId(Long cocheId) {
+	    List<Imagen> imagenes = imagenRepositorio.findByCocheId(cocheId);
+	    List<ImagenDTO> dtos = imagenes.stream().map(this::convertToDto).collect(Collectors.toList());
+	    if (!dtos.isEmpty()) {
+	        return new ResponseEntity<>(dtos, HttpStatus.OK);
+	    } else {
+	        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	    }
 	}
 
+	// Crea una imagen
 	public ResponseEntity<String> addImagen(Long coche_id, String imagen_url) {
 	    // Verificar si el coche con el ID proporcionado existe
 	    Coche coche = cocheRepositorio.findById(coche_id).orElse(null);
@@ -70,6 +75,7 @@ public class ImagenServicio {
 	    return ResponseEntity.ok().body("Imagen con ID " + imagenId + " creado correctamente");
 	}
 
+	// Actualiza una imagen
 	public ResponseEntity<String> updateImagen(Long imagenId, Imagen nuevaImagen) {
 		Optional<Imagen> optionalImagen = imagenRepositorio.findById(imagenId);
 

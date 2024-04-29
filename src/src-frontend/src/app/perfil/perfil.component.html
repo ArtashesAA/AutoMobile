@@ -1,0 +1,55 @@
+<div class="container">
+  <div class="row">
+    <h2 class="titulo">Perfil</h2>
+    <!-- Sidebar -->
+
+    <div class="col-md-2">
+      <div class="sidebar">
+        <ul class="nav nav-pills flex-column mb-auto">
+          <li class="nav-item">
+            <a
+              [routerLink]="'/perfil'"
+              class="nav-link active"
+              aria-current="page"
+            >
+              Perfil
+            </a>
+          </li>
+          <li>
+            <a [routerLink]="'/gestionUsuarios'" class="nav-link link-dark">
+              Gestión de Usuarios
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Contenido de Perfil -->
+    <div class="col-md-8">
+      <div *ngIf="usuario" class="perfil-container">
+        <div class="usuario-info">
+          <p>
+            <strong>Nombre de Usuario:</strong> {{ usuario.nombre_usuario }}
+          </p>
+          <p><strong>Email:</strong> {{ usuario.email }}</p>
+
+          <p><strong>Contraseña:</strong> **********</p>
+          <p>
+            <strong>Tipo de usuario: </strong>
+            <span *ngIf="usuario.role === 'ADMIN'">Administrador</span>
+            <span *ngIf="usuario.role === 'USER'">Usuario</span>
+          </p>
+          <img
+            [src]="
+              usuario.imagen_usuario
+                ? usuario.imagen_usuario
+                : 'https://images.freeimages.com/fic/images/icons/2526/bloggers/256/admin.png'
+            "
+            alt="Imagen de Usuario"
+            class="avatar"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

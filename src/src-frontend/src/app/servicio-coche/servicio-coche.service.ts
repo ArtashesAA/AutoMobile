@@ -15,19 +15,23 @@ export class ServicioCocheService {
     private dataService: DataServices
   ) {}
 
+  // Recibe un coche por id
   obtenerCochePorId(id: number): Observable<Coche> {
     return this.dataService.cargarCochePorId(id);
   }
 
+  // Recibe todos los coches de la base de datos
   obtenerCoches() {
     return this.dataService.cargarCoches();
   }
 
+  // Guarda los coches
   guardarCoches(misCoches: Coche[]) {
     this.coches = misCoches;
   }
 
-  agregarCocheServicio(coche: Coche) {
+  // Crea un coche nuevo
+  crearCoche(coche: Coche) {
     this.servicioGeneral.muestraMensaje(
       'Coche que se va a agregar: ' + '\n' + coche.marca + ' ' + coche.modelo
     );
@@ -39,28 +43,45 @@ export class ServicioCocheService {
     }
   }
 
-  actualizarCoche(indice: number, coche: Coche) {
-    let cocheModificado = this.coches[indice];
+  // Actualiza un coche por id y los datos del nuevo coche
+  actualizarCoche(id: number, coche: Coche) {
+    let cocheModificado = this.coches[id];
 
     cocheModificado.marca = coche.marca;
     cocheModificado.modelo = coche.modelo;
+    cocheModificado.precio = coche.precio;
     cocheModificado.anyo = coche.anyo;
     cocheModificado.potencia = coche.potencia;
     cocheModificado.kilometraje = coche.kilometraje;
-    cocheModificado.peso = coche.peso;
     cocheModificado.combustible = coche.combustible;
+    cocheModificado.consumo = coche.consumo;
+    cocheModificado.tipo_cambio = coche.tipo_cambio;
+    cocheModificado.categoria = coche.categoria;
+    cocheModificado.tipo_vehiculo = coche.tipo_vehiculo;
+    cocheModificado.traccion = coche.traccion;
+    cocheModificado.plazas = coche.plazas;
+    cocheModificado.puertas = coche.puertas;
+    cocheModificado.garantia = coche.garantia;
+    cocheModificado.peso = coche.peso;
     cocheModificado.color = coche.color;
-    cocheModificado.precio = coche.precio;
+    cocheModificado.numero_marchas = coche.numero_marchas;
+    cocheModificado.numero_cilindros = coche.numero_cilindros;
+    cocheModificado.ciudad = coche.ciudad;
     cocheModificado.descripcion = coche.descripcion;
+    cocheModificado.usuario = coche.usuario;
+    cocheModificado.imagenes = coche.imagenes;
 
-    this.dataService.actualizarCoche(indice, coche);
+    this.dataService.actualizarCoche(id, coche);
   }
 
-  eliminarCoche(indice: number) {
+  // Elimina un coche por id
+  eliminarCoche(id: number) {
     this.servicioGeneral.muestraMensaje('Coche eliminado');
-    this.coches.splice(indice, 1);
-    this.dataService.eliminarCoche(indice);
+    this.coches.splice(id, 1);
+    // Elimina el coche
+    this.dataService.eliminarCoche(id);
 
+    // Por último guarda los coches
     if (this.coches != null) this.dataService.guardarCoches(this.coches);
   }
 }

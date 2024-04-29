@@ -24,61 +24,100 @@ import { DataServices } from '../servicio-general/DataServices';
 export class CrearCocheComponent implements OnInit {
   miFormulario: FormGroup;
 
+  coches: Coche[] = [];
+
+  cuadroId: number | null = null;
+  cuadroMarca: string = '';
+  cuadroModelo: string = '';
+  cuadroPrecio: number | null = null;
+  cuadroAnyo: number | null = null;
+  cuadroPotencia: number | null = null;
+  cuadroKilometraje: number | null = null;
+  cuadroCombustible: string = '';
+  cuadroConsumo: string = '';
+  cuadroTipo_cambio: string = '';
+  cuadroCategoria: string = '';
+  cuadroTipo_vehiculo: string = '';
+  cuadroTraccion: string = '';
+  cuadroPlazas: number | null = null;
+  cuadroPuertas: number | null = null;
+  cuadroGarantia: string = '';
+  cuadroPeso: number | null = null;
+  cuadroColor: string = '';
+  cuadroNumero_marchas: number | null = null;
+  cuadroNumero_cilindros: number | null = null;
+  cuadroCiudad: string = '';
+  cuadroDescripcion: string = '';
+  cuadroUsuario: Usuario | null = null;
+  cuadroImagenes: Imagen[] = [];
+
   constructor(
     private router: Router,
-    private miServicio: ServicioCocheService,
+    private servicioCoche: ServicioCocheService,
     private formBuilder: FormBuilder
   ) {
     this.miFormulario = this.formBuilder.group({
+      id: [null],
       marca: ['', Validators.required],
       modelo: ['', Validators.required],
+      precio: [null, [Validators.required, Validators.min(0)]],
       anyo: [null, [Validators.required, Validators.min(0)]],
       potencia: [null, [Validators.required, Validators.min(0)]],
       kilometraje: [null, [Validators.required, Validators.min(0)]],
-      peso: [null, [Validators.required, Validators.min(0)]],
       combustible: ['', Validators.required],
+      consumo: ['', Validators.required],
+      tipo_cambio: ['', Validators.required],
+      categoria: ['', Validators.required],
+      tipo_vehiculo: ['', Validators.required],
+      traccion: ['', Validators.required],
+      plazas: [null, [Validators.required, Validators.min(0)]],
+      puertas: [null, [Validators.required, Validators.min(0)]],
+      garantia: ['', Validators.required],
+      peso: [null, [Validators.required, Validators.min(0)]],
       color: ['', Validators.required],
-      precio: [null, [Validators.required, Validators.min(0)]],
+      numero_marchas: [null, [Validators.required, Validators.min(0)]],
+      numero_cilindros: [null, [Validators.required, Validators.min(0)]],
+      ciudad: ['', Validators.required],
       descripcion: ['', Validators.required],
       usuario: [null, Validators.required],
-      imagenes: [[], Validators.required],
+      imagenes: [[]],
     });
   }
 
-  coches: Coche[] = [];
+  ngOnInit(): void {}
 
-  ngOnInit(): void {
-    this.miServicio.obtenerCoches().subscribe((misCoches) => {
-      console.log(misCoches);
-      this.coches = Object.values(misCoches);
-
-      this.miServicio.guardarCoches(this.coches);
-    });
-  }
-
-  volverHome() {
-    this.router.navigate(['']);
-  }
-
-  agregarCoche() {
+  crearCoche() {
     if (this.miFormulario.valid) {
-      let miCoche = new Coche(
-        this.miFormulario.value.id,
-        this.miFormulario.value.marca,
-        this.miFormulario.value.modelo,
-        this.miFormulario.value.anyo,
-        this.miFormulario.value.potencia,
-        this.miFormulario.value.kilometraje,
-        this.miFormulario.value.peso,
-        this.miFormulario.value.combustible,
-        this.miFormulario.value.color,
-        this.miFormulario.value.precio,
-        this.miFormulario.value.descripcion,
-        this.miFormulario.value.usuario,
-        this.miFormulario.value.imagenes
+      const cocheData = this.miFormulario.value;
+
+      const nuevoCoche = new Coche(
+        cocheData.marca,
+        cocheData.modelo,
+        cocheData.precio,
+        cocheData.anyo,
+        cocheData.potencia,
+        cocheData.kilometraje,
+        cocheData.combustible,
+        cocheData.consumo,
+        cocheData.tipo_cambio,
+        cocheData.categoria,
+        cocheData.tipo_vehiculo,
+        cocheData.traccion,
+        cocheData.plazas,
+        cocheData.puertas,
+        cocheData.garantia,
+        cocheData.peso,
+        cocheData.color,
+        cocheData.numero_marchas,
+        cocheData.numero_cilindros,
+        cocheData.ciudad,
+        cocheData.descripcion,
+        cocheData.usuario,
+        cocheData.imagenes
       );
 
-      this.miServicio.agregarCocheServicio(miCoche);
+      // Hay que añadir datos del usuario
+      this.servicioCoche.crearCoche(nuevoCoche);
 
       this.router.navigate(['/catalogo']);
     } else {
@@ -86,33 +125,7 @@ export class CrearCocheComponent implements OnInit {
     }
   }
 
-  validarFormulario(): boolean {
-    return (
-      this.cuadroMarca.trim() !== '' &&
-      this.cuadroModelo.trim() !== '' &&
-      this.cuadroAnyo > 0 &&
-      this.cuadroPotencia > 0 &&
-      this.cuadroKilometraje > 0 &&
-      this.cuadroPeso > 0 &&
-      this.cuadroCombustible.trim() !== '' &&
-      this.cuadroColor.trim() !== '' &&
-      this.cuadroPrecio > 0 &&
-      this.cuadroDescripcion.trim() !== '' &&
-      this.cuadroUsuario !== null &&
-      this.cuadroImagenes.length > 0
-    );
+  volverAlInicio() {
+    this.router.navigate(['']);
   }
-
-  cuadroMarca: string = '';
-  cuadroModelo: string = '';
-  cuadroAnyo: number = 0;
-  cuadroPotencia: number = 0;
-  cuadroKilometraje: number = 0;
-  cuadroPeso: number = 0;
-  cuadroCombustible: string = '';
-  cuadroColor: string = '';
-  cuadroPrecio: number = 0;
-  cuadroDescripcion: string = '';
-  cuadroUsuario!: Usuario;
-  cuadroImagenes: Imagen[] = [];
 }

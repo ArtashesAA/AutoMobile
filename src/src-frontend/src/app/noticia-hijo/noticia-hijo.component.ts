@@ -13,7 +13,7 @@ import { LoginService } from '../login/servicio/login.service';
 })
 export class NoticiaHijoComponent {
   @Input() noticiadelista!: Noticia;
-  @Input() indice!: number;
+  @Input() indiceNoticia!: number;
 
   constructor(private loginService: LoginService) {}
 

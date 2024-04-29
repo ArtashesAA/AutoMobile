@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { DataServices } from '../servicio-general/DataServices';
 import { ServicioGeneralService } from '../servicio-general/servicio-general.service';
 import { Usuario } from '../entidad/usuario.model';
+import { AutenticacionService } from '../servicio-autenticacion/autenticacion.service';
 
 @Injectable({
   providedIn: 'root',
@@ -11,11 +12,16 @@ export class ServicioUsuarioService {
 
   constructor(
     private servicioGeneral: ServicioGeneralService,
-    private dataService: DataServices
+    private dataService: DataServices,
+    private servicioAutenticacion: AutenticacionService
   ) {}
 
   getUsuarioPorId(id: number) {
     return this.dataService.cargarUsuarioPorId(id);
+  }
+
+  getUsuarioActual() {
+    return this.servicioAutenticacion.cargarUsuarioActual();
   }
 
   setUsuarios(misUsuarios: Usuario[]) {
@@ -41,17 +47,18 @@ export class ServicioUsuarioService {
   actualizarUsuario(indice: number, usuario: Usuario) {
     let usuarioModificado = this.usuarios[indice];
 
-    usuarioModificado.email = usuario.email;
     usuarioModificado.nombre_usuario = usuario.nombre_usuario;
+    usuarioModificado.email = usuario.email;
     usuarioModificado.imagen_usuario = usuario.imagen_usuario;
+    usuarioModificado.password = usuario.password;
     usuarioModificado.role = usuario.role;
 
-    this.dataService.actualizarUsuario(indice, usuario);
+    this.dataService.actualizarUsuario(indice, usuarioModificado);
+    this.servicioGeneral.muestraMensaje('Usuario actualizado');
   }
 
   eliminarUsuario(indice: number) {
-    this.servicioGeneral.muestraMensaje('Usuario eliminado');
-    this.usuarios.splice(indice, 1);
     this.dataService.eliminarUsuario(indice);
+    this.servicioGeneral.muestraMensaje('Usuario eliminado');
   }
 }

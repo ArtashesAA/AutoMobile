@@ -1,0 +1,47 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Estilos para los enlaces dentro de la caja */
+a {
+  color: inherit; /* Heredar el color del texto normal */
+  text-decoration: none; /* Eliminar subrayado */
+}
+
+/* Contenedor completo */
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Caja de imagen + datos */
+.caja {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.noticia-imagen-container {
+  position: relative; /* Posicionamiento relativo para el contenedor de la imagen */
+  overflow: hidden;
+  height: 300px; /* Altura para la imagen */
+}
+
+.noticia-imagen {
+  width: 100%; /* Ancho y alto completo */
+  height: 100%;
+  border-radius: 8px;
+  object-fit: cover; /* Ajustar la imagen manteniendo la relación de aspecto */
+}
+
+.noticia-texto {
+  color: black; /* Color del texto */
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.noticia-texto h4 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}

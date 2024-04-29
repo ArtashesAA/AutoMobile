@@ -1,21 +1,21 @@
 <!DOCTYPE html>
 <div class="container">
-  <div class="row">
-    <div class="col">
-      <h4>{{ noticiadelista.titulo }}</h4>
-      <div class="d-flex align-items-center">
-        <!-- Icono de favorito -->
-        <i class="far fa-heart mr-3"></i>
-        <!-- Icono de compartir -->
-        <i class="fas fa-share-alt"></i>
+  <div class="caja">
+    <a [routerLink]="['/verNoticia', noticiadelista.id]" class="coche-link">
+      <!-- Contenedor de la imagen del noticia -->
+      <div class="noticia-imagen-container">
+        <img
+          [src]="noticiadelista.url_imagen"
+          alt="Imagen de noticia"
+          class="noticia-imagen"
+        />
       </div>
-      <div class="coche-content d-flex align-items-center">
-        <div class="coche-details ml-4">
-          <!-- Detalles del coche -->
-          <p>{{ noticiadelista.contenido }}</p>
-        </div>
+      <!-- Contenido del texto -->
+      <div class="noticia-texto">
+        <h4>{{ noticiadelista.titulo }}</h4>
       </div>
-    </div>
+    </a>
   </div>
+
   <br />
 </div>

@@ -8,7 +8,11 @@ import { CrearCocheComponent } from './crear-coche/crear-coche.component';
 import { NoticiasComponent } from './noticias/noticias.component';
 import { guardianGuard } from './guardian/guardian.guard';
 import { VerCocheComponent } from './ver-coche/ver-coche.component';
-
+import { ActualizarCocheComponent } from './actualizar-coche/actualizar-coche.component';
+import { PerfilComponent } from './perfil/perfil.component';
+import { VerNoticiaComponent } from './ver-noticia/ver-noticia.component';
+import { GestionUsuariosComponent } from './gestion-usuarios/gestion-usuarios.component';
+import { ActualizarUsuarioComponent } from './actualizar-usuario/actualizar-usuario.component';
 export const routes: Routes = [
   { path: '', component: InicioComponent },
   {
@@ -16,17 +20,22 @@ export const routes: Routes = [
     component: CatalogoCocheComponent,
   },
   {
-    path: 'noticias',
+    path: 'explorar',
     component: NoticiasComponent,
     canActivate: [guardianGuard],
   },
   {
-    path: 'crear',
+    path: 'vender',
     component: CrearCocheComponent,
     canActivate: [guardianGuard],
   },
-  { path: 'ver/:id', component: VerCocheComponent },
+  { path: 'actualiza/:id', component: ActualizarCocheComponent },
+  { path: 'actualizaUsuario/:id', component: ActualizarUsuarioComponent },
+  { path: 'verCoche/:id', component: VerCocheComponent },
+  { path: 'verNoticia/:id', component: VerNoticiaComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegistroComponent },
+  { path: 'registrarse', component: RegistroComponent },
+  { path: 'perfil', component: PerfilComponent },
+  { path: 'gestionUsuarios', component: GestionUsuariosComponent },
   { path: '**', component: ErrorPersonalizadoComponent },
 ];

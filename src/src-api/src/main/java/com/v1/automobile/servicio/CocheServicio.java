@@ -186,6 +186,7 @@ public class CocheServicio {
 	private CocheDTO convertToDto(Coche coche) {
 		CocheDTO dto = new CocheDTO();
 
+		dto.setId(coche.getId());
 		dto.setMarca(coche.getMarca());
 		dto.setModelo(coche.getModelo());
 		dto.setAnyo(coche.getAnyo());
