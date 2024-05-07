@@ -3,14 +3,13 @@ import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Usuario } from '../entidad/usuario.model';
 import { ServicioUsuarioService } from '../servicio-usuario/servicio-usuario.service';
-import { DataServices } from '../servicio-general/DataServices';
 import { GestionUsuariosComponent } from '../gestion-usuarios/gestion-usuarios.component';
 
 @Component({
   selector: 'app-actualizar-usuario',
   standalone: true,
   imports: [FormsModule, GestionUsuariosComponent],
-  providers: [ServicioUsuarioService, DataServices],
+  providers: [ServicioUsuarioService],
   templateUrl: './actualizar-usuario.component.html',
   styleUrl: './actualizar-usuario.component.css',
 })
@@ -25,8 +24,6 @@ export class ActualizarUsuarioComponent implements OnInit {
   indice!: number;
   usuarios: Usuario[] = [];
 
-  accion!: number;
-
   constructor(
     private router: Router,
     private miServicio: ServicioUsuarioService,
@@ -36,7 +33,8 @@ export class ActualizarUsuarioComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
       const id = +params['id'];
-      this.miServicio.getUsuarioPorId(id).subscribe((usuario: Usuario) => {
+      this.indice = id;
+      this.miServicio.cargarUsuarioPorId(id).subscribe((usuario: Usuario) => {
         this.cuadroId = usuario.id;
         this.cuadroNombreDeUsuario = usuario.nombre_usuario;
         this.cuadroEmail = usuario.email;
@@ -45,25 +43,30 @@ export class ActualizarUsuarioComponent implements OnInit {
         this.cuadroRole = usuario.role;
       });
     });
+
+    const botonVolverAGestionUsuarios = document.getElementById(
+      'boton-volver-gestion-usuarios'
+    );
+    if (botonVolverAGestionUsuarios) {
+      botonVolverAGestionUsuarios.addEventListener(
+        'click',
+        this.volverAGestionDeUsuarios.bind(this)
+      );
+    }
   }
 
   actualizaUsuario() {
-    if (this.accion === 1) {
-      let miUsuario = new Usuario(
-        this.cuadroId,
-        this.cuadroNombreDeUsuario,
-        this.cuadroEmail,
-        this.cuadroImagen,
-        this.cuadroPassword,
-        this.cuadroRole
-      );
+    let miUsuario = new Usuario(
+      this.cuadroId,
+      this.cuadroNombreDeUsuario,
+      this.cuadroEmail,
+      this.cuadroImagen,
+      this.cuadroPassword,
+      this.cuadroRole
+    );
 
-      this.miServicio.actualizarUsuario(this.indice, miUsuario);
-      this.volverAGestionDeUsuarios();
-    } else {
-      this.miServicio.eliminarUsuario(this.indice);
-      this.volverAGestionDeUsuarios();
-    }
+    this.miServicio.actualizarUsuario(this.indice, miUsuario);
+    this.volverAGestionDeUsuarios();
   }
 
   volverAGestionDeUsuarios() {

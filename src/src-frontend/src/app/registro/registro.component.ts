@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { LoginService } from '../login/servicio/login.service';
 import { Router, RouterLink } from '@angular/router';
@@ -11,7 +11,7 @@ import { Router, RouterLink } from '@angular/router';
   templateUrl: './registro.component.html',
   styleUrl: './registro.component.css',
 })
-export class RegistroComponent {
+export class RegistroComponent implements OnInit {
   nombre_usuario: string = '';
   email: string = '';
   password: string = '';
@@ -19,13 +19,20 @@ export class RegistroComponent {
 
   constructor(private router: Router, private loginService: LoginService) {}
 
+  ngOnInit(): void {
+    // const botonActualizar = document.getElementById('boton-actualizar');
+    // if (botonActualizar) {
+    //   botonActualizar.addEventListener('submit', this.register.bind(this));
+    // }
+  }
+
   register() {
     this.loginService
       .register(this.nombre_usuario, this.email, this.password)
       .subscribe(
         (response) => {
           // Registro exitoso, redirigir al usuario a la página de inicio de sesión
-          this.router.navigate(['/login']);
+          this.router.navigate(['/registroCorrecto']);
         },
         (error) => {
           // Manejar errores de registro, por ejemplo, mostrar un mensaje de error al usuario

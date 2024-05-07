@@ -1,8 +1,7 @@
-<!DOCTYPE html>
-<h2 style="text-align: center">Publicar coche</h2>
+<h2 class="titulo">Publicar coche</h2>
 
 <div class="container">
-  <form class="form-group row">
+  <form class="form-group row" (ngSubmit)="crearCoche()">
     <div class="form-group col-md-3">
       <label for="marca">Marca:</label>
       <input
@@ -23,6 +22,17 @@
         placeholder="Modelo"
         class="form-control"
         [(ngModel)]="cuadroModelo"
+      />
+    </div>
+    <div class="form-group col-md-3">
+      <label for="imagen">Imagen:</label>
+      <input
+        type="text"
+        name="imagen"
+        id="imagen"
+        placeholder="imagen"
+        class="form-control"
+        [(ngModel)]="cuadroImagenPrincipal"
       />
     </div>
     <div class="form-group col-md-3">
@@ -99,7 +109,7 @@
         id="tipoCambio"
         placeholder="Tipo de cambio"
         class="form-control"
-        [(ngModel)]="cuadroTipo_cambio"
+        [(ngModel)]="cuadroTipoCambio"
       />
     </div>
     <div class="form-group col-md-3">
@@ -121,7 +131,7 @@
         id="tipoVehiculo"
         placeholder="Tipo de vehículo"
         class="form-control"
-        [(ngModel)]="cuadroTipo_vehiculo"
+        [(ngModel)]="cuadroTipoVehiculo"
       />
     </div>
     <div class="form-group col-md-3">
@@ -199,7 +209,7 @@
         id="numeroMarchas"
         placeholder="Numero de Marchas"
         class="form-control"
-        [(ngModel)]="cuadroNumero_marchas"
+        [(ngModel)]="cuadroNumeroMarchas"
       />
     </div>
 
@@ -211,7 +221,7 @@
         id="cilindros"
         placeholder="Cilindros"
         class="form-control"
-        [(ngModel)]="cuadroNumero_cilindros"
+        [(ngModel)]="cuadroNumeroCilindros"
       />
     </div>
 
@@ -239,20 +249,13 @@
     </div>
 
     <div class="col">
-      <button
-        type="submit"
-        class="btn btn-primary"
-        (click)="crearCoche()"
-        style="margin-top: 20px; margin-right: 40px"
-      >
+      <button type="submit" class="btn btn-primary" id="boton-crear">
         Crear
       </button>
     </div>
   </form>
 </div>
 
-<div style="text-align: center">
-  <button class="btn btn-secondary" (click)="volverAlInicio()">
-    Ir a Inicio
-  </button>
+<div id="boton-volver">
+  <button class="btn btn-light" id="boton-volver-inicio">Ir a Inicio</button>
 </div>

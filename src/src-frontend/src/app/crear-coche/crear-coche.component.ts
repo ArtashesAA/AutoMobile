@@ -1,128 +1,111 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  FormGroup,
-  FormBuilder,
-  Validators,
-  FormsModule,
-} from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { Coche } from '../entidad/coche.model';
 import { ServicioCocheService } from '../servicio-coche/servicio-coche.service';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { Imagen } from '../entidad/imagen.model';
 import { Usuario } from '../entidad/usuario.model';
-import { DataServices } from '../servicio-general/DataServices';
+import { ServicioUsuarioService } from '../servicio-usuario/servicio-usuario.service';
 
 @Component({
   selector: 'app-crear-coche',
   standalone: true,
   imports: [CommonModule, FormsModule],
-  providers: [ServicioCocheService, DataServices],
+  providers: [ServicioCocheService, ServicioUsuarioService],
   templateUrl: './crear-coche.component.html',
   styleUrl: './crear-coche.component.css',
 })
 export class CrearCocheComponent implements OnInit {
-  miFormulario: FormGroup;
-
   coches: Coche[] = [];
+  coche: Coche | undefined;
 
-  cuadroId: number | null = null;
   cuadroMarca: string = '';
   cuadroModelo: string = '';
-  cuadroPrecio: number | null = null;
-  cuadroAnyo: number | null = null;
-  cuadroPotencia: number | null = null;
-  cuadroKilometraje: number | null = null;
+  cuadroImagenPrincipal: string = '';
+  cuadroPrecio: number = 0;
+  cuadroAnyo: number = 0;
+  cuadroPotencia: number = 0;
+  cuadroKilometraje: number = 0;
   cuadroCombustible: string = '';
   cuadroConsumo: string = '';
-  cuadroTipo_cambio: string = '';
+  cuadroTipoCambio: string = '';
   cuadroCategoria: string = '';
-  cuadroTipo_vehiculo: string = '';
+  cuadroTipoVehiculo: string = '';
   cuadroTraccion: string = '';
-  cuadroPlazas: number | null = null;
-  cuadroPuertas: number | null = null;
+  cuadroPlazas: number = 0;
+  cuadroPuertas: number = 0;
   cuadroGarantia: string = '';
-  cuadroPeso: number | null = null;
+  cuadroPeso: number = 0;
   cuadroColor: string = '';
-  cuadroNumero_marchas: number | null = null;
-  cuadroNumero_cilindros: number | null = null;
+  cuadroNumeroMarchas: number = 0;
+  cuadroNumeroCilindros: number = 0;
   cuadroCiudad: string = '';
   cuadroDescripcion: string = '';
-  cuadroUsuario: Usuario | null = null;
-  cuadroImagenes: Imagen[] = [];
+  cuadroTelefonoAdjunto: number = 0;
+  cuadroEmailAdjunto: string = '';
+  cuadroUsuario: Usuario | undefined;
 
   constructor(
     private router: Router,
     private servicioCoche: ServicioCocheService,
-    private formBuilder: FormBuilder
-  ) {
-    this.miFormulario = this.formBuilder.group({
-      id: [null],
-      marca: ['', Validators.required],
-      modelo: ['', Validators.required],
-      precio: [null, [Validators.required, Validators.min(0)]],
-      anyo: [null, [Validators.required, Validators.min(0)]],
-      potencia: [null, [Validators.required, Validators.min(0)]],
-      kilometraje: [null, [Validators.required, Validators.min(0)]],
-      combustible: ['', Validators.required],
-      consumo: ['', Validators.required],
-      tipo_cambio: ['', Validators.required],
-      categoria: ['', Validators.required],
-      tipo_vehiculo: ['', Validators.required],
-      traccion: ['', Validators.required],
-      plazas: [null, [Validators.required, Validators.min(0)]],
-      puertas: [null, [Validators.required, Validators.min(0)]],
-      garantia: ['', Validators.required],
-      peso: [null, [Validators.required, Validators.min(0)]],
-      color: ['', Validators.required],
-      numero_marchas: [null, [Validators.required, Validators.min(0)]],
-      numero_cilindros: [null, [Validators.required, Validators.min(0)]],
-      ciudad: ['', Validators.required],
-      descripcion: ['', Validators.required],
-      usuario: [null, Validators.required],
-      imagenes: [[]],
-    });
+    private servicioUsuario: ServicioUsuarioService
+  ) {}
+
+  ngOnInit(): void {
+    const botonVolverInicio = document.getElementById('boton-volver-inicio');
+    if (botonVolverInicio) {
+      botonVolverInicio.addEventListener(
+        'click',
+        this.volverAlInicio.bind(this)
+      );
+    }
   }
 
-  ngOnInit(): void {}
-
+  // Crea un coche con los datos del formulario
   crearCoche() {
-    if (this.miFormulario.valid) {
-      const cocheData = this.miFormulario.value;
+    // Obtener el usuario actual
+    this.servicioUsuario.getUsuarioActual().subscribe(
+      (usuario: Usuario) => {
+        // Asignar el usuario al cuadroUsuario
+        this.cuadroUsuario = usuario;
 
-      const nuevoCoche = new Coche(
-        cocheData.marca,
-        cocheData.modelo,
-        cocheData.precio,
-        cocheData.anyo,
-        cocheData.potencia,
-        cocheData.kilometraje,
-        cocheData.combustible,
-        cocheData.consumo,
-        cocheData.tipo_cambio,
-        cocheData.categoria,
-        cocheData.tipo_vehiculo,
-        cocheData.traccion,
-        cocheData.plazas,
-        cocheData.puertas,
-        cocheData.garantia,
-        cocheData.peso,
-        cocheData.color,
-        cocheData.numero_marchas,
-        cocheData.numero_cilindros,
-        cocheData.ciudad,
-        cocheData.descripcion,
-        cocheData.usuario,
-        cocheData.imagenes
-      );
+        this.coche = new Coche(
+          this.cuadroMarca,
+          this.cuadroModelo,
+          this.cuadroImagenPrincipal,
+          this.cuadroPrecio,
+          this.cuadroAnyo,
+          this.cuadroPotencia,
+          this.cuadroKilometraje,
+          this.cuadroCombustible,
+          this.cuadroConsumo,
+          this.cuadroTipoCambio,
+          this.cuadroCategoria,
+          this.cuadroTipoVehiculo,
+          this.cuadroTraccion,
+          this.cuadroPlazas,
+          this.cuadroPuertas,
+          this.cuadroGarantia,
+          this.cuadroPeso,
+          this.cuadroColor,
+          this.cuadroNumeroMarchas,
+          this.cuadroNumeroCilindros,
+          this.cuadroCiudad,
+          this.cuadroDescripcion,
+          this.cuadroTelefonoAdjunto,
+          this.cuadroEmailAdjunto,
+          this.cuadroUsuario
+        );
+        // Crear el coche con los datos del formulario
+        this.servicioCoche.crearCoche(this.coche);
 
-      // Hay que añadir datos del usuario
-      this.servicioCoche.crearCoche(nuevoCoche);
-
-      this.router.navigate(['/catalogo']);
-    } else {
-      console.log('Formulario no válido');
-    }
+        // Volver al catálogo
+        this.router.navigate(['/catalogo']);
+      },
+      (error) => {
+        console.error('Error al obtener el usuario:', error);
+      }
+    );
   }
 
   volverAlInicio() {

@@ -3,9 +3,12 @@ package com.v1.automobile.entidad;
 import java.sql.Date;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -31,17 +34,23 @@ public class Noticia {
 	@Column(name = "url_video")
 	private String url_video;
 
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "id_usuario", referencedColumnName = "id", nullable = false)
+	private Usuario usuario;
+
 	public Noticia() {
 
 	}
 
-	public Noticia(Long id, Date fecha, String titulo, String contenido, String url_imagen, String url_video) {
+	public Noticia(Long id, Date fecha, String titulo, String contenido, String url_imagen, String url_video,
+			Usuario usuario) {
 		this.id = id;
 		this.fecha = fecha;
 		this.titulo = titulo;
 		this.contenido = contenido;
 		this.url_imagen = url_imagen;
 		this.url_video = url_video;
+		this.usuario = usuario;
 	}
 
 	public Long getId() {
@@ -92,11 +101,19 @@ public class Noticia {
 		this.url_video = url_video;
 	}
 
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
 	@Override
 	public String toString() {
 		return "Noticia [getId()=" + getId() + ", getFecha()=" + getFecha() + ", getTitulo()=" + getTitulo()
 				+ ", getContenido()=" + getContenido() + ", getUrl_imagen()=" + getUrl_imagen() + ", getUrl_video()="
-				+ getUrl_video() + "]";
+				+ getUrl_video() + ", getUsuario()=" + getUsuario() + "]";
 	}
 
 }

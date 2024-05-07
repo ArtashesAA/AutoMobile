@@ -18,7 +18,6 @@ import com.v1.automobile.entidad.Coche;
 import com.v1.automobile.entidad.Imagen;
 import com.v1.automobile.entidad.dto.CocheDTO;
 import com.v1.automobile.entidad.dto.ImagenDTO;
-import com.v1.automobile.entidad.request.CocheRequest;
 import com.v1.automobile.entidad.request.ImagenRequest;
 import com.v1.automobile.servicio.CocheServicio;
 import com.v1.automobile.servicio.ImagenServicio;
@@ -57,16 +56,16 @@ public class CocheControlador {
 	}
 
 	/*
-	 * Añade un coche a la bbdd. Puede acceder solo el admin
+	 * Añade un coche a la bbdd. Puede acceder un admin o usuario
 	 * 
 	 * @Parameter coche que se va a añadir
 	 * 
 	 * @return guarda el coche pasado por parámetro
 	 */
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasAnyRole('ADMIN', 'USER')")
 	@PostMapping("/coche")
-	public ResponseEntity<String> addCoche(@RequestBody CocheRequest request) {
-		return cocheServicio.addCoche(request);
+	public ResponseEntity<String> addCoche(@RequestBody CocheDTO dto) {
+		return cocheServicio.addCoche(dto);
 	}
 
 	/*
@@ -139,8 +138,8 @@ public class CocheControlador {
 	 * 
 	 * @return añade la imagen al coche pasado por parámetro
 	 */
-	@PreAuthorize("hasRole('ADMIN')")
-	@PostMapping("/admin/imagen")
+	@PreAuthorize("hasAnyRole('ADMIN', 'USER')")
+	@PostMapping("/imagen")
 	public ResponseEntity<String> addImagen(@RequestBody ImagenRequest request) {
 		return imagenServicio.addImagen(request.getCoche_id(), request.getImagen_url());
 	}

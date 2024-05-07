@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { Noticia } from '../entidad/noticia.model';
-import { LoginService } from '../login/servicio/login.service';
+import { AutenticacionService } from '../servicio-autenticacion/autenticacion.service';
 
 @Component({
   selector: 'app-noticia-hijo',
@@ -15,11 +15,11 @@ export class NoticiaHijoComponent {
   @Input() noticiadelista!: Noticia;
   @Input() indiceNoticia!: number;
 
-  constructor(private loginService: LoginService) {}
+  constructor(private servicioAutenticacion: AutenticacionService) {}
 
   ngOnInit(): void {}
 
   estaLogueado() {
-    return this.loginService.estaLogueado();
+    return this.servicioAutenticacion.estaAutenticado();
   }
 }

@@ -3,14 +3,13 @@ import { Usuario } from '../entidad/usuario.model';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { ServicioUsuarioService } from '../servicio-usuario/servicio-usuario.service';
-import { DataServices } from '../servicio-general/DataServices';
 import { AutenticacionService } from '../servicio-autenticacion/autenticacion.service';
 
 @Component({
   selector: 'app-perfil',
   standalone: true,
   imports: [CommonModule, RouterModule],
-  providers: [ServicioUsuarioService, DataServices],
+  providers: [ServicioUsuarioService],
   templateUrl: './perfil.component.html',
   styleUrl: './perfil.component.css',
 })

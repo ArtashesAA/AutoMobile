@@ -2,16 +2,16 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { NoticiaHijoComponent } from '../noticia-hijo/noticia-hijo.component';
-import { DataServices } from '../servicio-general/DataServices';
 import { ServicioNoticiaService } from '../servicio-noticia/servicio-noticia.service';
 import { LoginService } from '../login/servicio/login.service';
 import { Noticia } from '../entidad/noticia.model';
+import { AutenticacionService } from '../servicio-autenticacion/autenticacion.service';
 
 @Component({
   selector: 'app-ver-noticia',
   standalone: true,
   imports: [CommonModule, RouterModule, NoticiaHijoComponent],
-  providers: [ServicioNoticiaService, DataServices],
+  providers: [ServicioNoticiaService],
   templateUrl: './ver-noticia.component.html',
   styleUrl: './ver-noticia.component.css',
 })
@@ -22,7 +22,7 @@ export class VerNoticiaComponent {
   constructor(
     private route: ActivatedRoute,
     private servicioNoticia: ServicioNoticiaService,
-    private loginService: LoginService
+    private servicioAutenticacion: AutenticacionService
   ) {}
 
   ngOnInit(): void {
@@ -30,7 +30,7 @@ export class VerNoticiaComponent {
       this.id = params['id'];
 
       if (!isNaN(this.id)) {
-        this.servicioNoticia.obtenerNoticiaPorId(this.id).subscribe(
+        this.servicioNoticia.cargarNoticiaPorId(this.id).subscribe(
           (noticia: Noticia) => {
             this.noticia = noticia;
           },
@@ -45,6 +45,6 @@ export class VerNoticiaComponent {
   }
 
   estaLogueado() {
-    return this.loginService.estaLogueado();
+    return this.servicioAutenticacion.estaAutenticado();
   }
 }

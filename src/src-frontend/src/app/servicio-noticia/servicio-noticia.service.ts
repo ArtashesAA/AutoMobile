@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { DataServices } from '../servicio-general/DataServices';
-import { ServicioGeneralService } from '../servicio-general/servicio-general.service';
 import { Noticia } from '../entidad/noticia.model';
+import { Observable, catchError, throwError } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
@@ -9,52 +9,85 @@ import { Noticia } from '../entidad/noticia.model';
 export class ServicioNoticiaService {
   noticias: Noticia[] = [];
 
-  constructor(
-    private servicioGeneral: ServicioGeneralService,
-    private dataService: DataServices
-  ) {}
+  private token = 'userToken';
 
-  obtenerNoticiaPorId(id: number) {
-    return this.dataService.cargarNoticiaPorId(id);
-  }
+  constructor(private httpClient: HttpClient) {}
 
-  setNoticias(misNoticias: Noticia[]) {
-    this.noticias = misNoticias;
-  }
-
-  obtenerNoticias() {
-    return this.dataService.cargarNoticias();
-  }
-
-  agregarNoticiaServicio(noticia: Noticia) {
-    this.servicioGeneral.muestraMensaje(
-      'Noticia que se va a agregar: ' + '\n' + noticia.titulo
-    );
-    this.noticias.push(noticia);
-    if (this.noticias.length === 1) {
-      this.dataService.guardarNoticias(this.noticias);
+  // Token para los urls que lo requieran
+  private getHeaders(): HttpHeaders {
+    const token = localStorage.getItem(this.token);
+    if (token) {
+      return new HttpHeaders({
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      });
     } else {
-      this.dataService.guardarNoticias(this.noticias);
+      throw new Error('Token no encontrado en localStorage');
     }
   }
 
-  actualizarNoticia(indice: number, noticia: Noticia) {
-    let noticiaModificada = this.noticias[indice];
+  // Recupera todas las noticias
+  cargarNoticias(): Observable<any> {
+    const headers = this.getHeaders();
 
-    noticiaModificada.id = noticia.id;
-    noticiaModificada.fecha = noticia.fecha;
-    noticiaModificada.titulo = noticia.titulo;
-    noticiaModificada.contenido = noticia.contenido;
-    noticiaModificada.url_imagen = noticia.url_imagen;
-    noticiaModificada.url_video = noticia.url_video;
-    noticiaModificada.usuario = noticia.usuario;
-
-    this.dataService.actualizarNoticia(indice, noticia);
+    return this.httpClient
+      .get('http://localhost:8080/api/v1/noticia', { headers })
+      .pipe(
+        catchError((error) => {
+          return throwError('Error al cargar noticias: ' + error.message);
+        })
+      );
   }
 
-  eliminarNoticia(indice: number) {
-    this.servicioGeneral.muestraMensaje('Noticia eliminada');
-    this.noticias.splice(indice, 1);
-    this.dataService.eliminarNoticia(indice);
+  // Recupera una noticia por su id
+  cargarNoticiaPorId(id: number): Observable<any> {
+    const headers = this.getHeaders();
+
+    return this.httpClient
+      .get(`http://localhost:8080/api/v1/noticia/${id}`, { headers })
+      .pipe(
+        catchError((error) => {
+          return throwError('Error al cargar la noticia: ' + error.message);
+        })
+      );
+  }
+
+  // Crea una noticia
+  crearNoticia(noticia: Noticia): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+
+    return this.httpClient
+      .post('http://localhost:8080/api/v1/noticia', noticia, { headers })
+      .pipe(
+        catchError((error) => {
+          return throwError('Error al crear la noticia: ' + error.message);
+        })
+      );
+  }
+
+  // Actualiza una noticia por una id y los nuevos datos de la noticia
+  actualizarNoticia(indice: number, noticia: any): Observable<any> {
+    const headers = this.getHeaders();
+    const url = `http://localhost:8080/api/v1/noticia/${indice}`;
+
+    return this.httpClient.put(url, noticia, { headers }).pipe(
+      catchError((error) => {
+        return throwError('Error al actualizar la noticia: ' + error.message);
+      })
+    );
+  }
+
+  // Elimina una noticia por su id
+  eliminarNoticia(id: number): Observable<any> {
+    const headers = this.getHeaders();
+    const url = `http://localhost:8080/api/v1/noticia/${id}`;
+
+    return this.httpClient.delete(url, { headers }).pipe(
+      catchError((error) => {
+        return throwError('Error al eliminar la noticia: ' + error.message);
+      })
+    );
   }
 }

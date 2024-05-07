@@ -22,6 +22,10 @@ public class Favorito {
 	@Column(name = "id")
 	private Long id;
 
+	@NotNull(message = "La fecha no puede estar nula")
+	@Column(name = "fecha", nullable = false, columnDefinition = "TIMESTAMP")
+	private Date fecha;
+	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "usuario_id", referencedColumnName = "id", nullable = false)
 	private Usuario usuario;
@@ -30,9 +34,7 @@ public class Favorito {
 	@JoinColumn(name = "coche_id", referencedColumnName = "id", nullable = false)
 	private Coche coche;
 
-	@NotNull(message = "La fecha no puede estar nula")
-	@Column(name = "fecha", nullable = false, columnDefinition = "TIMESTAMP")
-	private Date fecha;
+	
 
 	public Favorito() {
 

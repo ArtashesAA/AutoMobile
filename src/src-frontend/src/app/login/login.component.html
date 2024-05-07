@@ -1,5 +1,4 @@
-<!DOCTYPE html> <br /><br />
-<div id="container" style="width: 600px; height: 400px; margin: auto">
+<div class="container">
   <form class="form-group row" (ngSubmit)="onSubmit()">
     <!-- Email -->
     <label class="form-label" for="form2Example1">Email</label>
@@ -48,7 +47,7 @@
     </div>
 
     <!-- Botón de inicio de sesión o nombre de usuario -->
-    <div *ngIf="servicioLogin.estaLogueado(); else loggedOutTemplate">
+    <div *ngIf="estaLogueado(); else loggedOutTemplate">
       <div class="text-center">
         <p>Bienvenido</p>
       </div>

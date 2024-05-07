@@ -43,3 +43,9 @@
   margin-right: 10px;
   width: 100%;
 }
+
+#cerrarFormulario {
+  width: 30px;
+  height: 30px;
+  border-radius: 20px;
+}

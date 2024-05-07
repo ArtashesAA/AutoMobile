@@ -57,14 +57,12 @@
             <td>
               <button
                 [routerLink]="['/actualizaUsuario', usuario.id]"
-                [queryParams]="{ accion: '1' }"
                 class="btn btn-warning"
               >
                 Editar</button
               ><br />
               <button
-                [routerLink]="['/actualizaUsuario', usuario.id]"
-                [queryParams]="{ accion: '1' }"
+                (click)="eliminarUsuario(usuario.id)"
                 class="btn btn-danger"
               >
                 Eliminar

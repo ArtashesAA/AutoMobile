@@ -1,9 +1,5 @@
 package com.v1.automobile.entidad;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -12,7 +8,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -33,6 +28,9 @@ public class Coche {
 	@NotBlank(message = "El modelo no puede estar en blanco")
 	@Column(name = "modelo", nullable = false)
 	private String modelo;
+
+	@Column(name = "imagen_principal")
+	private String imagen_principal;
 
 	@NotNull(message = "El precio no puede ser nulo")
 	@Column(name = "precio", nullable = false)
@@ -110,19 +108,24 @@ public class Coche {
 	@Column(name = "descripcion", nullable = false)
 	private String descripcion;
 
+	@NotBlank(message = "El telefono no puede estar en blanco")
+	@Column(name = "telefonoAdjunto")
+	private Integer telefonoAdjunto;
+
+	@NotBlank(message = "El email no puede estar en blanco")
+	@Column(name = "emailAdjunto")
+	private String emailAdjunto;
+
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "usuario_id", referencedColumnName = "id", nullable = false)
 	private Usuario usuario;
-
-	@OneToMany(mappedBy = "coche", cascade = CascadeType.ALL)
-	private List<Imagen> imagenes = new ArrayList<>();
 
 	public Coche() {
 
 	}
 
 	public Coche(Long id, @NotBlank(message = "La marca no puede estar en blanco") String marca,
-			@NotBlank(message = "El modelo no puede estar en blanco") String modelo,
+			@NotBlank(message = "El modelo no puede estar en blanco") String modelo, String imagen_principal,
 			@NotNull(message = "El precio no puede ser nulo") Integer precio,
 			@NotNull(message = "El año no puede ser nulo") Integer anyo,
 			@NotNull(message = "La potencia no puede ser nula") Integer potencia,
@@ -141,11 +144,13 @@ public class Coche {
 			@NotNull(message = "El número de marchas no puede ser nulo") Integer numeroMarchas,
 			@NotNull(message = "El número de cilindros no puede ser nulo") Integer numeroCilindros,
 			@NotBlank(message = "La ciudad no puede estar en blanco") String ciudad,
-			@NotBlank(message = "La descripción no puede estar en blanco") String descripcion, Usuario usuario,
-			List<Imagen> imagenes) {
+			@NotBlank(message = "La descripción no puede estar en blanco") String descripcion,
+			@NotBlank(message = "El telefono no puede estar en blanco") Integer telefonoAdjunto,
+			@NotBlank(message = "El email no puede estar en blanco") String emailAdjunto, Usuario usuario) {
 		this.id = id;
 		this.marca = marca;
 		this.modelo = modelo;
+		this.imagen_principal = imagen_principal;
 		this.precio = precio;
 		this.anyo = anyo;
 		this.potencia = potencia;
@@ -165,8 +170,9 @@ public class Coche {
 		this.numeroCilindros = numeroCilindros;
 		this.ciudad = ciudad;
 		this.descripcion = descripcion;
+		this.telefonoAdjunto = telefonoAdjunto;
+		this.emailAdjunto = emailAdjunto;
 		this.usuario = usuario;
-		this.imagenes = imagenes;
 	}
 
 	public Long getId() {
@@ -191,6 +197,14 @@ public class Coche {
 
 	public void setModelo(String modelo) {
 		this.modelo = modelo;
+	}
+
+	public String getImagen_principal() {
+		return imagen_principal;
+	}
+
+	public void setImagen_principal(String imagen_principal) {
+		this.imagen_principal = imagen_principal;
 	}
 
 	public Integer getPrecio() {
@@ -345,6 +359,22 @@ public class Coche {
 		this.descripcion = descripcion;
 	}
 
+	public Integer getTelefonoAdjunto() {
+		return telefonoAdjunto;
+	}
+
+	public void setTelefonoAdjunto(Integer telefonoAdjunto) {
+		this.telefonoAdjunto = telefonoAdjunto;
+	}
+
+	public String getEmailAdjunto() {
+		return emailAdjunto;
+	}
+
+	public void setEmailAdjunto(String emailAdjunto) {
+		this.emailAdjunto = emailAdjunto;
+	}
+
 	public Usuario getUsuario() {
 		return usuario;
 	}
@@ -353,26 +383,19 @@ public class Coche {
 		this.usuario = usuario;
 	}
 
-	public List<Imagen> getImagenes() {
-		return imagenes;
-	}
-
-	public void setImagenes(List<Imagen> imagenes) {
-		this.imagenes = imagenes;
-	}
-
 	@Override
 	public String toString() {
 		return "Coche [getId()=" + getId() + ", getMarca()=" + getMarca() + ", getModelo()=" + getModelo()
-				+ ", getPrecio()=" + getPrecio() + ", getAnyo()=" + getAnyo() + ", getPotencia()=" + getPotencia()
-				+ ", getKilometraje()=" + getKilometraje() + ", getCombustible()=" + getCombustible()
-				+ ", getConsumo()=" + getConsumo() + ", getTipoCambio()=" + getTipoCambio() + ", getCategoria()="
-				+ getCategoria() + ", getTipoVehiculo()=" + getTipoVehiculo() + ", getTraccion()=" + getTraccion()
-				+ ", getPlazas()=" + getPlazas() + ", getPuertas()=" + getPuertas() + ", getGarantia()=" + getGarantia()
-				+ ", getPeso()=" + getPeso() + ", getColor()=" + getColor() + ", getNumeroMarchas()="
-				+ getNumeroMarchas() + ", getNumeroCilindros()=" + getNumeroCilindros() + ", getCiudad()=" + getCiudad()
-				+ ", getDescripcion()=" + getDescripcion() + ", getUsuario()=" + getUsuario() + ", getImagenes()="
-				+ getImagenes() + "]";
+				+ ", getImagen_principal()=" + getImagen_principal() + ", getPrecio()=" + getPrecio() + ", getAnyo()="
+				+ getAnyo() + ", getPotencia()=" + getPotencia() + ", getKilometraje()=" + getKilometraje()
+				+ ", getCombustible()=" + getCombustible() + ", getConsumo()=" + getConsumo() + ", getTipoCambio()="
+				+ getTipoCambio() + ", getCategoria()=" + getCategoria() + ", getTipoVehiculo()=" + getTipoVehiculo()
+				+ ", getTraccion()=" + getTraccion() + ", getPlazas()=" + getPlazas() + ", getPuertas()=" + getPuertas()
+				+ ", getGarantia()=" + getGarantia() + ", getPeso()=" + getPeso() + ", getColor()=" + getColor()
+				+ ", getNumeroMarchas()=" + getNumeroMarchas() + ", getNumeroCilindros()=" + getNumeroCilindros()
+				+ ", getCiudad()=" + getCiudad() + ", getDescripcion()=" + getDescripcion() + ", getTelefonoAdjunto()="
+				+ getTelefonoAdjunto() + ", getEmailAdjunto()=" + getEmailAdjunto() + ", getUsuario()=" + getUsuario()
+				+ "]";
 	}
 
 }

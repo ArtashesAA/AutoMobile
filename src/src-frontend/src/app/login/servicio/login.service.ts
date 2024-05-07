@@ -33,27 +33,6 @@ export class LoginService {
     return this.http.post(this.url_register, body);
   }
 
-  //Guarda el token en local storage
-  guardarToken(token: string): void {
-    localStorage.setItem(this.tokenKey, token);
-  }
-
-  //Recupera el token
-  getIdToken(): string | null {
-    return localStorage.getItem(this.tokenKey);
-  }
-
-  //Comprueba si esta logado
-  estaLogueado(): boolean {
-    //Si el local storage no esta vacio, devuelve el token
-    if (typeof localStorage !== 'undefined') {
-      return !!localStorage.getItem(this.tokenKey);
-    } else {
-      //Sino devuelve false
-      return false;
-    }
-  }
-
   //Cierra sesión borrando el token
   logout() {
     localStorage.removeItem(this.tokenKey);

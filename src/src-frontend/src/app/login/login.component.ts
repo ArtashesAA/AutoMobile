@@ -3,8 +3,7 @@ import { LoginService } from './servicio/login.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { Router, RouterModule } from '@angular/router';
-import { Observable } from 'rxjs';
+import { RouterModule } from '@angular/router';
 import { AutenticacionService } from '../servicio-autenticacion/autenticacion.service';
 
 @Component({
@@ -23,14 +22,13 @@ export class LoginComponent {
 
   constructor(
     private servicioAutenticacion: AutenticacionService,
-    private router: Router,
     public servicioLogin: LoginService
   ) {}
 
   onSubmit(): void {
     // Hace login con email-contraseña al enviar el formulario de login
     this.servicioAutenticacion.login(this.email, this.password).subscribe(
-      (response) => {
+      () => {
         // Si se consigue, devuelve que se ha logueado
         console.log('Login successful.');
         window.location.reload();
@@ -42,5 +40,9 @@ export class LoginComponent {
           'Error en la autenticación. Verifique sus credenciales.';
       }
     );
+  }
+
+  estaLogueado() {
+    return this.servicioAutenticacion.estaAutenticado();
   }
 }
