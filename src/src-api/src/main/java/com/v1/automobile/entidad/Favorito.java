@@ -34,8 +34,6 @@ public class Favorito {
 	@JoinColumn(name = "coche_id", referencedColumnName = "id", nullable = false)
 	private Coche coche;
 
-	
-
 	public Favorito() {
 
 	}

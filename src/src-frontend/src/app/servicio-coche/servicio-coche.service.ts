@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Coche } from '../entidad/coche.model';
 import { Observable, catchError, throwError } from 'rxjs';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +10,7 @@ export class ServicioCocheService {
   coches: Coche[] = [];
   private token = 'userToken';
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(private http: HttpClient) {}
 
   private getHeaders(): HttpHeaders {
     const token = localStorage.getItem(this.token);
@@ -26,17 +26,49 @@ export class ServicioCocheService {
 
   // Recupera todos los coches. No es necesario un token
   cargarCoches() {
-    return this.httpClient.get('http://localhost:8080/api/v1/public/coche');
+    return this.http.get('http://localhost:8080/api/v1/public/coche');
   }
 
   // Recupera un coche por su id
   cargarCochePorId(id: number): Observable<Coche> {
     const url = `http://localhost:8080/api/v1/public/coche/${id}`;
-    return this.httpClient.get<Coche>(url).pipe(
+    return this.http.get<Coche>(url).pipe(
       catchError((error) => {
         console.error('Error al cargar el coche:', error);
         return throwError('Error al cargar el coche');
       })
+    );
+  }
+
+  cochesTodosFiltros(filtros: any): Observable<Coche[]> {
+    // Construye los parámetros de búsqueda
+    let params = new HttpParams();
+    for (let key in filtros) {
+      if (filtros.hasOwnProperty(key)) {
+        params = params.set(key, filtros[key]);
+      }
+    }
+
+    // Realiza la solicitud HTTP al backend con los parámetros de búsqueda
+    return this.http.get<Coche[]>(
+      'http://localhost:8080/api/v1/public/coche/filtroTodos',
+      { params }
+    );
+  }
+
+  cochesPorMarca(filtros: any): Observable<Coche[]> {
+    // Construye los parámetros de búsqueda
+    let params = new HttpParams();
+    for (let key in filtros) {
+      if (filtros.hasOwnProperty(key)) {
+        params = params.set(key, filtros[key]);
+      }
+    }
+
+    // Realiza la solicitud HTTP al backend con los parámetros de búsqueda
+    return this.http.get<Coche[]>(
+      'http://localhost:8080/api/v1/public/cochesPorMarca',
+      { params }
     );
   }
 
@@ -46,8 +78,8 @@ export class ServicioCocheService {
       'Content-Type': 'application/json',
     });
 
-    return this.httpClient
-      .post('http://localhost:8080/api/v1/coche', coche, { headers })
+    return this.http
+      .post('http://localhost:8080/api/v1/admin/coche', coche, { headers })
       .pipe(
         catchError((error) => {
           return throwError('Error al crear el coche: ' + error.message);
@@ -58,9 +90,9 @@ export class ServicioCocheService {
   //Actualiza un coche por su id, y los nuevos datos del coche
   actualizarCoche(id: number, coche: Coche): Observable<any> {
     const headers = this.getHeaders();
-    const url = `http://localhost:8080/api/v1/coche/${id}`;
+    const url = `http://localhost:8080/api/v1/admin/coche/${id}`;
 
-    return this.httpClient
+    return this.http
       .put(url, coche, {
         headers,
       })
@@ -74,15 +106,16 @@ export class ServicioCocheService {
   // Elimina un coche por su id
   eliminarCoche(id: number): Observable<any> {
     const headers = this.getHeaders();
-    const url = `http://localhost:8080/api/v1/coche/${id}`;
+    const url = `http://localhost:8080/api/v1/admin/coche/${id}`;
 
-    return this.httpClient
+    console.log('Eliminando coche ' + id);
+    return this.http
       .delete(url, {
         headers,
       })
       .pipe(
         catchError((error) => {
-          return throwError('Error al eliminar coche: ' + error.message);
+          return throwError('Error al eliminar coche: ' + error);
         })
       );
   }

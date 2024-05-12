@@ -31,7 +31,7 @@ export class ServicioNoticiaService {
     const headers = this.getHeaders();
 
     return this.httpClient
-      .get('http://localhost:8080/api/v1/noticia', { headers })
+      .get('http://localhost:8080/api/v1/noticia/adminuser', { headers })
       .pipe(
         catchError((error) => {
           return throwError('Error al cargar noticias: ' + error.message);
@@ -44,7 +44,7 @@ export class ServicioNoticiaService {
     const headers = this.getHeaders();
 
     return this.httpClient
-      .get(`http://localhost:8080/api/v1/noticia/${id}`, { headers })
+      .get(`http://localhost:8080/api/v1/noticia/adminuser/${id}`, { headers })
       .pipe(
         catchError((error) => {
           return throwError('Error al cargar la noticia: ' + error.message);
@@ -59,7 +59,7 @@ export class ServicioNoticiaService {
     });
 
     return this.httpClient
-      .post('http://localhost:8080/api/v1/noticia', noticia, { headers })
+      .post('http://localhost:8080/api/v1/noticia/admin', noticia, { headers })
       .pipe(
         catchError((error) => {
           return throwError('Error al crear la noticia: ' + error.message);
@@ -70,7 +70,7 @@ export class ServicioNoticiaService {
   // Actualiza una noticia por una id y los nuevos datos de la noticia
   actualizarNoticia(indice: number, noticia: any): Observable<any> {
     const headers = this.getHeaders();
-    const url = `http://localhost:8080/api/v1/noticia/${indice}`;
+    const url = `http://localhost:8080/api/v1/noticia/admin/${indice}`;
 
     return this.httpClient.put(url, noticia, { headers }).pipe(
       catchError((error) => {
@@ -82,7 +82,7 @@ export class ServicioNoticiaService {
   // Elimina una noticia por su id
   eliminarNoticia(id: number): Observable<any> {
     const headers = this.getHeaders();
-    const url = `http://localhost:8080/api/v1/noticia/${id}`;
+    const url = `http://localhost:8080/api/v1/noticia/admin/${id}`;
 
     return this.httpClient.delete(url, { headers }).pipe(
       catchError((error) => {

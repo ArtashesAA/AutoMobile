@@ -1,3 +1,5 @@
+import { Favorito } from './favorito.model';
+import { Imagen } from './imagen.model';
 import { Usuario } from './usuario.model';
 
 export class Coche {
@@ -27,6 +29,8 @@ export class Coche {
   telefonoAdjunto: number;
   emailAdjunto: string;
   usuario?: Usuario;
+  imagenes?: Imagen[];
+  favoritos?: Favorito[];
 
   constructor(
     marca: string,
@@ -53,7 +57,9 @@ export class Coche {
     descripcion: string,
     telefonoAdjunto: number,
     emailAdjunto: string,
-    usuario?: Usuario
+    usuario?: Usuario,
+    imagenes?: Imagen[],
+    favoritos?: Favorito[]
   ) {
     this.marca = marca;
     this.modelo = modelo;
@@ -80,5 +86,7 @@ export class Coche {
     this.telefonoAdjunto = telefonoAdjunto;
     this.emailAdjunto = emailAdjunto;
     this.usuario = usuario;
+    this.imagenes = imagenes;
+    this.favoritos = favoritos;
   }
 }

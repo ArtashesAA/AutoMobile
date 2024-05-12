@@ -14,10 +14,8 @@ import { Subscription } from 'rxjs';
   imports: [CocheHijoComponent, CommonModule, SidebarComponent],
   providers: [ServicioCocheService],
 })
-export class CatalogoCocheComponent implements OnInit, OnDestroy {
-  titulo = 'Catálogo de Coches';
+export class CatalogoCocheComponent implements OnInit {
   coches: Coche[] = [];
-  filtrosSubscription: Subscription | undefined = undefined;
 
   constructor(private miServicio: ServicioCocheService) {}
 
@@ -25,11 +23,5 @@ export class CatalogoCocheComponent implements OnInit, OnDestroy {
     this.miServicio.cargarCoches().subscribe((misCoches) => {
       this.coches = Object.values(misCoches);
     });
-  }
-
-  ngOnDestroy(): void {
-    if (this.filtrosSubscription) {
-      this.filtrosSubscription.unsubscribe();
-    }
   }
 }

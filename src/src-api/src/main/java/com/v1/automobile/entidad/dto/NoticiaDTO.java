@@ -5,15 +5,10 @@ import java.sql.Date;
 public class NoticiaDTO {
 
 	private Long id;
-
 	private Date fecha;
-
 	private String titulo;
-
 	private String contenido;
-
 	private String url_imagen;
-
 	private String url_video;
 
 	public NoticiaDTO() {
@@ -75,13 +70,6 @@ public class NoticiaDTO {
 
 	public void setUrl_video(String url_video) {
 		this.url_video = url_video;
-	}
-
-	@Override
-	public String toString() {
-		return "NoticiaDTO [getId()=" + getId() + ", getFecha()=" + getFecha() + ", getTitulo()=" + getTitulo()
-				+ ", getContenido()=" + getContenido() + ", getUrl_imagen()=" + getUrl_imagen() + ", getUrl_video()="
-				+ getUrl_video() + "]";
 	}
 
 }

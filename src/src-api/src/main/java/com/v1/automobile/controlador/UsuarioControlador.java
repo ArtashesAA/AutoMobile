@@ -6,7 +6,6 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -34,8 +33,7 @@ public class UsuarioControlador {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
-	@PreAuthorize("hasRole('ADMIN')")
-	@GetMapping("/usuario")
+	@GetMapping("/admin/usuario")
 	public ResponseEntity<List<UsuarioActualDTO>> obtenerTodosUsuarios() {
 		List<Usuario> usuarios = usuarioRepositorio.findAll();
 		List<UsuarioActualDTO> usuariosDTO = usuarios.stream().map(usuario -> {
@@ -52,8 +50,7 @@ public class UsuarioControlador {
 		return new ResponseEntity<>(usuariosDTO, HttpStatus.OK);
 	}
 
-	@PreAuthorize("hasRole('ADMIN')")
-	@GetMapping("/usuario/{id}")
+	@GetMapping("/admin/usuario/{id}")
 	public ResponseEntity<UsuarioActualDTO> obtenerUsuarioPorId(@PathVariable Integer id) {
 		Usuario usuario = usuarioRepositorio.findById(id).orElse(null);
 		if (usuario != null) {
@@ -66,23 +63,24 @@ public class UsuarioControlador {
 		}
 	}
 
-	@PreAuthorize("hasAnyRole('ADMIN', 'USER')")
-	@GetMapping("/usuario/actual")
+	@GetMapping("/adminuser/usuario/actual")
 	public ResponseEntity<UsuarioActualDTO> obtenerUsuarioActual() {
-		// Obtener la autenticación actual del contexto de seguridad
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		if (authentication != null && authentication.isAuthenticated()) {
-			String username = authentication.getName();
-			Usuario usuario = usuarioRepositorio.findByEmail(username).orElse(null);
-			if (usuario != null) {
-				// Crear un UsuarioActualDTO con los datos requeridos
-				UsuarioActualDTO usuarioDTO = new UsuarioActualDTO(usuario.getId(), usuario.getNombre_usuario(),
-						usuario.getEmail(), usuario.getImagen_usuario(), usuario.getPassword(), usuario.getRole());
-				return new ResponseEntity<>(usuarioDTO, HttpStatus.OK);
-			}
-		}
-		return new ResponseEntity<>(HttpStatus.UNAUTHORIZED); // Usuario no autenticado o no encontrado
+	    // Obtener la autenticación actual del contexto de seguridad
+	    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+	    if (authentication != null && authentication.isAuthenticated()) {
+	        String username = authentication.getName();
+	        Usuario usuario = usuarioRepositorio.findByEmail(username).orElse(null);
+	        if (usuario != null) {
+	            // Crear un UsuarioActualDTO sin el campo password encriptado
+	            UsuarioActualDTO usuarioDTO = new UsuarioActualDTO(usuario.getId(), usuario.getNombre_usuario(),
+	                    usuario.getEmail(), usuario.getImagen_usuario(), usuario.getPassword(), usuario.getRole());
+	            usuarioDTO.setPassword(usuario.getPassword()); // Devuelve el password sin encriptar
+	            return new ResponseEntity<>(usuarioDTO, HttpStatus.OK);
+	        }
+	    }
+	    return new ResponseEntity<>(HttpStatus.UNAUTHORIZED); // Usuario no autenticado o no encontrado
 	}
+
 
 	
 	@PostMapping("/public/usuario")
@@ -98,8 +96,7 @@ public class UsuarioControlador {
 		return new ResponseEntity<>(usuarioCreado, HttpStatus.CREATED);
 	}
 
-	@PreAuthorize("hasRole('ADMIN')")
-	@PutMapping("/usuario/{id}")
+	@PutMapping("/admin/usuario/{id}")
 	public ResponseEntity<String> actualizarUsuario(@PathVariable Integer id,
 			@RequestBody Usuario usuarioActualizado) {
 		Usuario usuarioExistente = usuarioRepositorio.findById(id).orElse(null);
@@ -119,8 +116,7 @@ public class UsuarioControlador {
 		}
 	}
 
-	@PreAuthorize("hasRole('ADMIN')")
-	@DeleteMapping("/usuario/{id}")
+	@DeleteMapping("/admin/usuario/{id}")
 	public ResponseEntity<String> eliminarUsuario(@PathVariable Integer id) {
 		if (!usuarioRepositorio.existsById(id)) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);

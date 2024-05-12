@@ -1,77 +1,104 @@
-<footer class="py-5">
-  <div class="row">
-    <div class="col-md-3">
-      <h5>Navegar</h5>
-      <ul class="nav flex-column">
-        <li class="nav-item mb-2">
-          <a [routerLink]="'/'" class="nav-link p-0 text-muted">Inicio</a>
-        </li>
-        <li class="nav-item mb-2">
-          <a [routerLink]="'/catalogo'" class="nav-link p-0 text-muted"
-            >Catálogo</a
-          >
-        </li>
-        <li class="nav-item mb-2">
-          <a [routerLink]="'/explorar'" class="nav-link p-0 text-muted"
-            >Explorar</a
-          >
-        </li>
-        <li class="nav-item mb-2">
-          <a [routerLink]="'/vender'" class="nav-link p-0 text-muted">Vender</a>
-        </li>
-        <li class="nav-item mb-2">
-          <a [routerLink]="'/sobre'" class="nav-link p-0 text-muted"
-            >Sobre Nosotros</a
-          >
-        </li>
-      </ul>
-    </div>
+<footer class="text-white text-center text-lg-start bg-secondary">
+  <!-- Grid container -->
+  <div class="container p-4">
+    <!--Grid row-->
+    <div class="row mt-4">
+      <!--Grid column-->
+      <div class="col-lg-4 col-md-12 mb-4 mb-md-0">
+        <h5 class="text-uppercase mb-4 text-dark">Sobre nosotros</h5>
 
-    <div class="col-md-3">
-      <h5>Servicios</h5>
-      <ul class="nav flex-column">
-        <li class="nav-item mb-2">
-          <a [routerLink]="'/perfil'" class="nav-link p-0 text-muted">Perfil</a>
-        </li>
-      </ul>
-    </div>
+        <p class="text-dark">
+          Navega por AutoMobile y encontrarás el coche que tanto deseas.
+        </p>
 
-    <div class="col-md-3">
-      <h5>Clientes</h5>
-      <ul class="nav flex-column">
-        <li class="nav-item mb-2">
-          <a [routerLink]="'/login'" class="nav-link p-0 text-muted"
-            >Iniciar Sesión</a
-          >
-        </li>
-        <li class="nav-item mb-2">
-          <a [routerLink]="'/registrarse'" class="nav-link p-0 text-muted"
-            >Registrarse</a
-          >
-        </li>
-        <li class="nav-item mb-2">
-          <a [routerLink]="'/contactar'" class="nav-link p-0 text-muted"
-            >Contactar</a
-          >
-        </li>
-      </ul>
-    </div>
+        <p class="text-dark">
+          Somos una empresa que buscamos ofrecerte las mejores ofertas de coches
+          al mejor precio.
+        </p>
 
-    <div class="col-md-3">
-      <form>
-        <h5>Subscribirse en AutoMobile</h5>
-        <p>Subscribirse para recibir nuestras noticias.</p>
-        <div class="d-flex flex-column flex-sm-row w-100 gap-2">
-          <label for="newsletter1" class="visually-hidden">Email</label>
-          <input
-            id="newsletter1"
-            type="text"
-            class="form-control"
-            placeholder="Email"
-          />
-          <button class="btn btn-primary" type="button">Subscribirse</button>
+        <div class="mt-4 text-dark">
+          <a type="button" class="btn btn-floating btn-light btn-lg me-1"
+            ><i class="bi bi-facebook"></i
+          ></a>
+          <a type="button" class="btn btn-floating btn-light btn-lg me-1"
+            ><i class="bi bi-twitter-x"></i
+          ></a>
+          <a type="button" class="btn btn-floating btn-light btn-lg me-1"
+            ><i class="bi bi-instagram"></i
+          ></a>
+          <a type="button" class="btn btn-floating btn-light btn-lg me-1"
+            ><i class="bi bi-linkedin"></i
+          ></a>
+          <a type="button" class="btn btn-floating btn-light btn-lg me-1"
+            ><i class="bi bi-google"></i
+          ></a>
         </div>
-      </form>
+      </div>
+      <!--Grid column-->
+
+      <!--Grid column-->
+      <div class="col-lg-4 col-md-6 mb-4 mb-md-0">
+        <h5 class="text-uppercase mb-4 pb-1 text-dark">Navegar</h5>
+
+        <ul class="fa-ul list-unstyled text-dark" style="margin-left: 1.65em">
+          <li class="mb-3">
+            <span class="fa-li"><i class="bi bi-house"></i></span
+            ><span class="ms-2"
+              ><a [routerLink]="'/'" class="text-dark text-decoration-none"
+                >Inicio</a
+              ></span
+            >
+          </li>
+          <li class="mb-3">
+            <span class="fa-li"><i class="bi bi-car-front"></i></span
+            ><span class="ms-2"
+              ><a
+                [routerLink]="'/catalogo'"
+                class="text-dark text-decoration-none"
+                >Catálogo</a
+              ></span
+            >
+          </li>
+          <li class="mb-3">
+            <span class="fa-li"><i class="bi bi-box-arrow-right"></i></span
+            ><span class="ms-2"
+              ><a [routerLink]="'/login'" class="text-dark text-decoration-none"
+                >Iniciar Sesión</a
+              ></span
+            >
+          </li>
+          <li class="mb-3">
+            <span class="fa-li"><i class="bi bi-box-arrow-in-right"></i></span
+            ><span class="ms-2"
+              ><a
+                [routerLink]="'/registrarse'"
+                class="text-dark text-decoration-none"
+                >Registrarse</a
+              ></span
+            >
+          </li>
+        </ul>
+      </div>
+
+      <!--Grid column-->
+
+      <!--Grid column-->
+      <div class="col-lg-4 col-md-6 mb-4 mb-md-0">
+        <form>
+          <h5 class="text-dark">Subscribirse en AutoMobile</h5>
+          <p class="text-dark">Subscribirse para recibir nuestras noticias.</p>
+          <div class="d-flex flex-column flex-sm-row w-100 gap-2">
+            <label for="newsletter1" class="visually-hidden">Email</label>
+            <input
+              id="newsletter1"
+              type="text"
+              class="form-control"
+              placeholder="Email"
+            />
+            <button class="btn btn-primary" type="button">Subscribirse</button>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 </footer>

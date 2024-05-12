@@ -8,6 +8,10 @@
   width: 65%;
 }
 
+.spec-item {
+  margin-bottom: 20px;
+}
+
 .coche-marca {
   margin-top: 30px;
 }
@@ -42,6 +46,10 @@
   margin-top: 30px;
   margin-right: 10px;
   width: 100%;
+}
+
+.botones-accion button {
+  margin-right: 20px;
 }
 
 #cerrarFormulario {

@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class LoginService {
   //Token
-  private tokenKey = 'userToken';
+  private token = 'userToken';
 
   //Url de API para login y registro
   private url_login = 'http://localhost:8080/api/v1/auth/signin';
@@ -35,7 +35,7 @@ export class LoginService {
 
   //Cierra sesión borrando el token
   logout() {
-    localStorage.removeItem(this.tokenKey);
+    localStorage.removeItem(this.token);
     this.router.navigate(['/']);
     window.location.reload();
   }

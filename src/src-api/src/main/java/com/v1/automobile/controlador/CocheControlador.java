@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,12 +11,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.v1.automobile.entidad.Coche;
 import com.v1.automobile.entidad.Imagen;
 import com.v1.automobile.entidad.dto.CocheDTO;
 import com.v1.automobile.entidad.dto.ImagenDTO;
+import com.v1.automobile.entidad.request.CocheRequest;
 import com.v1.automobile.entidad.request.ImagenRequest;
 import com.v1.automobile.servicio.CocheServicio;
 import com.v1.automobile.servicio.ImagenServicio;
@@ -55,6 +56,25 @@ public class CocheControlador {
 		return cocheServicio.getCocheById(id);
 	}
 
+	@GetMapping("/public/coche/filtroTodos")
+	public List<CocheDTO> obtenerCochesFiltrados(@RequestParam String marca, @RequestParam String modelo,
+			@RequestParam Integer anyo, @RequestParam Integer precioMax) {
+		// Lógica para obtener coches filtrados según los parámetros proporcionados
+		return cocheServicio.cochesFiltrados(marca, modelo, anyo, precioMax);
+	}
+
+	@GetMapping("/public/cochesPorMarca")
+	public List<CocheDTO> obtenerCochesPorMarca(@RequestParam String marca) {
+		// Lógica para obtener coches filtrados por marca
+		return cocheServicio.cochesPorMarca(marca);
+	}
+
+	@GetMapping("/public/cochesPorMarcaModelo")
+	public List<CocheDTO> obtenerCochesPorMarcaModelo(@RequestParam String marca, @RequestParam String modelo) {
+		// Lógica para obtener coches filtrados por marca
+		return cocheServicio.cochesPorMarcaModelo(marca, modelo);
+	}
+
 	/*
 	 * Añade un coche a la bbdd. Puede acceder un admin o usuario
 	 * 
@@ -62,10 +82,9 @@ public class CocheControlador {
 	 * 
 	 * @return guarda el coche pasado por parámetro
 	 */
-	@PreAuthorize("hasAnyRole('ADMIN', 'USER')")
-	@PostMapping("/coche")
-	public ResponseEntity<String> addCoche(@RequestBody CocheDTO dto) {
-		return cocheServicio.addCoche(dto);
+	@PostMapping("/adminuser/coche")
+	public ResponseEntity<String> addCoche(@RequestBody CocheRequest request) {
+		return cocheServicio.addCoche(request);
 	}
 
 	/*
@@ -78,8 +97,7 @@ public class CocheControlador {
 	 * 
 	 * @return actualiza el coche pasado por parámetro
 	 */
-	@PreAuthorize("hasRole('ADMIN')")
-	@PutMapping("/coche/{id}")
+	@PutMapping("/admin/coche/{id}")
 	public ResponseEntity<String> updateCoche(@PathVariable Long id, @RequestBody Coche nuevoCoche) {
 		return cocheServicio.updateCoche(id, nuevoCoche);
 	}
@@ -89,9 +107,9 @@ public class CocheControlador {
 	 * 
 	 * @Parameter id del coche que se quiere borrar
 	 */
-	@PreAuthorize("hasRole('ADMIN')")
-	@DeleteMapping("/coche/{id}")
+	@DeleteMapping("/admin/coche/{id}")
 	public ResponseEntity<String> deleteCoche(@PathVariable Long id) {
+		System.out.println("Eliminando");
 		return cocheServicio.deleteCoche(id);
 	}
 
@@ -119,7 +137,7 @@ public class CocheControlador {
 	public ResponseEntity<ImagenDTO> getImagenById(@PathVariable Long id) {
 		return imagenServicio.getImagenById(id);
 	}
-	
+
 	/*
 	 * Recupera imagenes por id de coche. Puede acceder cualquier rol
 	 * 
@@ -132,14 +150,13 @@ public class CocheControlador {
 	}
 
 	/*
-	 * Añade una imagen a un coche. Puede acceder solo el admin
+	 * Añade una imagen a un coche. Puede acceder admin y usuario
 	 * 
 	 * @Parameter imagen que se va a añadir
 	 * 
 	 * @return añade la imagen al coche pasado por parámetro
 	 */
-	@PreAuthorize("hasAnyRole('ADMIN', 'USER')")
-	@PostMapping("/imagen")
+	@PostMapping("/adminuser/imagen")
 	public ResponseEntity<String> addImagen(@RequestBody ImagenRequest request) {
 		return imagenServicio.addImagen(request.getCoche_id(), request.getImagen_url());
 	}
@@ -157,8 +174,7 @@ public class CocheControlador {
 	 * @return ResponseEntity con la imagen actualizada o un mensaje de error si no
 	 * se encuentra la imagen.
 	 */
-	@PreAuthorize("hasRole('ADMIN')")
-	@PutMapping("/imagen/{imagenId}")
+	@PutMapping("/admin/imagen/{imagenId}")
 	public ResponseEntity<String> updateImagen(@PathVariable Long imagenId, @RequestBody Imagen nuevaImagen) {
 		return imagenServicio.updateImagen(imagenId, nuevaImagen);
 	}
@@ -170,8 +186,7 @@ public class CocheControlador {
 	 * 
 	 * @Parameter id de la imagen que se quiere borrar
 	 */
-	@PreAuthorize("hasRole('ADMIN')")
-	@DeleteMapping("/imagen/{imagenId}")
+	@DeleteMapping("/admin/imagen/{imagenId}")
 	public ResponseEntity<String> deleteImagen(@PathVariable Long imagenId) {
 		return imagenServicio.deleteImagen(imagenId);
 	}

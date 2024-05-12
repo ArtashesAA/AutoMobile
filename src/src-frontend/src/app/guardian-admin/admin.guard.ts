@@ -3,15 +3,14 @@ import { AutenticacionService } from '../servicio-autenticacion/autenticacion.se
 import { inject } from '@angular/core';
 
 export const adminGuard: CanActivateFn = () => {
-  const autenticacionService = inject(AutenticacionService);
+  const servicioAutenticacion = inject(AutenticacionService);
   const router = inject(Router);
 
-  // Permite el acceso si el usuario es administrador
-  if (autenticacionService.isAdmin()) {
+  if (servicioAutenticacion.esAdmin()) {
     return true;
   } else {
-    // Vuelve a perfil si el usuario no es administrador
-    const url = router.createUrlTree(['/perfil']);
+    // Redirigir a la página de inicio u otra página
+    const url = router.navigate(['/perfil']);
     return url;
   }
 };

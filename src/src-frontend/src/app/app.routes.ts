@@ -15,6 +15,8 @@ import { GestionUsuariosComponent } from './gestion-usuarios/gestion-usuarios.co
 import { ActualizarUsuarioComponent } from './actualizar-usuario/actualizar-usuario.component';
 import { adminGuard } from './guardian-admin/admin.guard';
 import { RegistroCorrectoComponent } from './registro-correcto/registro-correcto.component';
+import { ModificarUsuarioComponent } from './modificar-usuario/modificar-usuario.component';
+import { ModificarUsuarioCorrectoComponent } from './modificar-usuario-correcto/modificar-usuario-correcto.component';
 export const routes: Routes = [
   { path: '', component: InicioComponent },
   {
@@ -42,6 +44,8 @@ export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'registrarse', component: RegistroComponent },
   { path: 'perfil', component: PerfilComponent },
+  { path: 'modificarUsuario', component: ModificarUsuarioComponent },
+  { path: 'modificarCorrecto', component: ModificarUsuarioCorrectoComponent },
   {
     path: 'gestionUsuarios',
     component: GestionUsuariosComponent,

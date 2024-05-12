@@ -1,3 +1,16 @@
 .perfil {
   margin-right: 50px;
 }
+
+.nav-item {
+  font-size: 20px;
+}
+
+/* Cambian el color del texto al pasar el ratón por encima */
+.perfil:hover {
+  color: white;
+}
+
+.nav-link.btn:hover {
+  color: white;
+}

@@ -26,7 +26,7 @@ export class ServicioUsuarioService {
     const headers = this.servicioAutenticacion.getHeaders();
 
     return this.http
-      .get<any[]>('http://localhost:8080/api/v1/usuario', {
+      .get<any[]>('http://localhost:8080/api/v1/admin/usuario', {
         headers,
       })
       .pipe(
@@ -41,7 +41,7 @@ export class ServicioUsuarioService {
     const headers = this.servicioAutenticacion.getHeaders();
 
     return this.http
-      .get<Usuario>(`http://localhost:8080/api/v1/usuario/${id}`, {
+      .get<Usuario>(`http://localhost:8080/api/v1/admin/usuario/${id}`, {
         headers,
       })
       .pipe(
@@ -69,22 +69,16 @@ export class ServicioUsuarioService {
   // Actualiza un usuario por su id y los nuevos datos
   actualizarUsuario(id: number, usuario: Usuario): Observable<any> {
     const headers = this.servicioAutenticacion.getHeaders();
-    const url = `http://localhost:8080/api/v1/usuario/${id}`;
+    const url = `http://localhost:8080/api/v1/admin/usuario/${id}`;
 
-    return this.http
-      .put(url, usuario, {
-        headers,
-      })
-      .pipe(
-        catchError((error) => {
-          return throwError('Error al actualizar usuario: ' + error.message);
-        })
-      );
+    return this.http.put(url, usuario, {
+      headers,
+    });
   }
 
   // Elimina un usuario por su id
   eliminarUsuario(id: number): Observable<any> {
-    const url = `http://localhost:8080/api/v1/usuario/${id}`;
+    const url = `http://localhost:8080/api/v1/admin/usuario/${id}`;
 
     return this.http.delete<any>(url).pipe(
       tap((response) => {

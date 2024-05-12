@@ -1,6 +1,13 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, Subscription, catchError, tap, throwError } from 'rxjs';
+import {
+  Observable,
+  Subscription,
+  catchError,
+  map,
+  tap,
+  throwError,
+} from 'rxjs';
 import { Usuario } from '../entidad/usuario.model';
 
 @Injectable({
@@ -9,10 +16,12 @@ import { Usuario } from '../entidad/usuario.model';
 export class AutenticacionService {
   //Token
   private token = 'userToken';
+  usuario: Usuario | undefined;
 
   //Urls de API
   private url = 'http://localhost:8080/api/v1/auth/signin';
-  private urlUsuarioActual = 'http://localhost:8080/api/v1/usuario/actual';
+  private urlUsuarioActual =
+    'http://localhost:8080/api/v1/adminuser/usuario/actual';
 
   constructor(private http: HttpClient) {}
 
@@ -53,7 +62,10 @@ export class AutenticacionService {
 
   // Recupera el token
   obtenerToken(): string | null {
-    return localStorage.getItem(this.token);
+    if (typeof localStorage !== 'undefined') {
+      return localStorage.getItem(this.token);
+    }
+    return null;
   }
 
   // Borra el token
@@ -88,27 +100,15 @@ export class AutenticacionService {
     }
   }
 
-  private usuarioSubscription: Subscription | undefined;
-
-  // Comprueba si es admin
-  isAdmin(): boolean {
-    // let isAdmin = false; // Inicialmente, asumimos que el usuario no es administrador
-
-    // // Suscribirse al observable para obtener el usuario actual
-    // this.usuarioSubscription = this.cargarUsuarioActual().subscribe(
-    //   (usuario: Usuario) => {
-    //     // Verificar si el usuario tiene el rol de administrador
-    //     if (usuario.role === 'ADMIN') {
-    //       isAdmin = true; // Si el usuario es administrador, establecer isAdmin en true
-    //     }
-    //   },
-    //   (error) => {
-    //     console.error('Error al cargar el usuario:', error);
-    //     isAdmin = false; // En caso de error, establecer isAdmin en false
-    //   }
-    // );
-
-    // return isAdmin; // Devolver el valor de isAdmin
-    return true;
+  esAdmin(): Observable<boolean> {
+    return this.cargarUsuarioActual().pipe(
+      map((usuario: Usuario) => {
+        return usuario.role === 'ADMIN';
+      }),
+      catchError((error) => {
+        console.error('Error al cargar el usuario:', error);
+        return throwError('Error al cargar el usuario: ' + error.message);
+      })
+    );
   }
 }

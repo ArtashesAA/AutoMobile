@@ -1,12 +1,10 @@
-package com.v1.automobile.entidad.dto;
+package com.v1.automobile.entidad.request;
 
 import java.util.ArrayList;
 import java.util.List;
+import com.v1.automobile.entidad.dto.ImagenDTO;
 
-import com.v1.automobile.entidad.Favorito;
-
-public class CocheDTO {
-
+public class CocheRequest {
 	private Long id;
 	private String marca;
 	private String modelo;
@@ -32,20 +30,19 @@ public class CocheDTO {
 	private String descripcion;
 	private Integer telefonoAdjunto;
 	private String emailAdjunto;
-	private UsuarioDTO usuario;
-	private List<ImagenDTO> imagenes;
-	private List<Favorito> favoritos = new ArrayList<>();
+	private Integer usuarioId;
+	private List<ImagenDTO> imagenes = new ArrayList<>();
 
-	public CocheDTO() {
+	public CocheRequest() {
 
 	}
 
-	public CocheDTO(Long id, String marca, String modelo, String imagen_principal, Integer precio, Integer anyo,
+	public CocheRequest(Long id, String marca, String modelo, String imagen_principal, Integer precio, Integer anyo,
 			Integer potencia, Integer kilometraje, String combustible, String consumo, String tipoCambio,
 			String categoria, String tipoVehiculo, String traccion, Integer plazas, Integer puertas, String garantia,
 			Integer peso, String color, Integer numeroMarchas, Integer numeroCilindros, String ciudad,
-			String descripcion, Integer telefonoAdjunto, String emailAdjunto, UsuarioDTO usuario,
-			List<ImagenDTO> imagenes, List<Favorito> favoritos) {
+			String descripcion, Integer telefonoAdjunto, String emailAdjunto, Integer usuarioId,
+			List<ImagenDTO> imagenes) {
 		this.id = id;
 		this.marca = marca;
 		this.modelo = modelo;
@@ -71,9 +68,8 @@ public class CocheDTO {
 		this.descripcion = descripcion;
 		this.telefonoAdjunto = telefonoAdjunto;
 		this.emailAdjunto = emailAdjunto;
-		this.usuario = usuario;
+		this.usuarioId = usuarioId;
 		this.imagenes = imagenes;
-		this.favoritos = favoritos;
 	}
 
 	public Long getId() {
@@ -98,14 +94,6 @@ public class CocheDTO {
 
 	public void setModelo(String modelo) {
 		this.modelo = modelo;
-	}
-
-	public String getImagen_principal() {
-		return imagen_principal;
-	}
-
-	public void setImagen_principal(String imagen_principal) {
-		this.imagen_principal = imagen_principal;
 	}
 
 	public Integer getPrecio() {
@@ -260,12 +248,28 @@ public class CocheDTO {
 		this.descripcion = descripcion;
 	}
 
-	public UsuarioDTO getUsuario() {
-		return usuario;
+	public Integer getUsuarioId() {
+		return usuarioId;
 	}
 
-	public void setUsuario(UsuarioDTO usuario) {
-		this.usuario = usuario;
+	public void setUsuarioId(Integer usuarioId) {
+		this.usuarioId = usuarioId;
+	}
+
+	public List<ImagenDTO> getImagenes() {
+		return imagenes;
+	}
+
+	public void setImagenes(List<ImagenDTO> imagenes) {
+		this.imagenes = imagenes;
+	}
+
+	public String getImagen_principal() {
+		return imagen_principal;
+	}
+
+	public void setImagen_principal(String imagen_principal) {
+		this.imagen_principal = imagen_principal;
 	}
 
 	public Integer getTelefonoAdjunto() {
@@ -284,20 +288,19 @@ public class CocheDTO {
 		this.emailAdjunto = emailAdjunto;
 	}
 
-	public List<ImagenDTO> getImagenes() {
-		return imagenes;
-	}
-
-	public void setImagenes(List<ImagenDTO> imagenes) {
-		this.imagenes = imagenes;
-	}
-
-	public List<Favorito> getFavoritos() {
-		return favoritos;
-	}
-
-	public void setFavoritos(List<Favorito> favoritos) {
-		this.favoritos = favoritos;
+	@Override
+	public String toString() {
+		return "CocheRequest [getId()=" + getId() + ", getMarca()=" + getMarca() + ", getModelo()=" + getModelo()
+				+ ", getPrecio()=" + getPrecio() + ", getAnyo()=" + getAnyo() + ", getPotencia()=" + getPotencia()
+				+ ", getKilometraje()=" + getKilometraje() + ", getCombustible()=" + getCombustible()
+				+ ", getConsumo()=" + getConsumo() + ", getTipoCambio()=" + getTipoCambio() + ", getCategoria()="
+				+ getCategoria() + ", getTipoVehiculo()=" + getTipoVehiculo() + ", getTraccion()=" + getTraccion()
+				+ ", getPlazas()=" + getPlazas() + ", getPuertas()=" + getPuertas() + ", getGarantia()=" + getGarantia()
+				+ ", getPeso()=" + getPeso() + ", getColor()=" + getColor() + ", getNumeroMarchas()="
+				+ getNumeroMarchas() + ", getNumeroCilindros()=" + getNumeroCilindros() + ", getCiudad()=" + getCiudad()
+				+ ", getDescripcion()=" + getDescripcion() + ", getUsuarioId()=" + getUsuarioId() + ", getImagenes()="
+				+ getImagenes() + ", getImagen_principal()=" + getImagen_principal() + ", getTelefonoAdjunto()="
+				+ getTelefonoAdjunto() + ", getEmailAdjunto()=" + getEmailAdjunto() + "]";
 	}
 
 }

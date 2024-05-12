@@ -29,9 +29,29 @@ export class CocheHijoComponent {
   // Borra un coche por su id
   eliminarCoche(id: number) {
     if (id != null) {
-      this.servicioCoche.eliminarCoche(id);
+      // Cargar el coche por su ID
+      this.servicioCoche.cargarCochePorId(id).subscribe(
+        (coche: Coche) => {
+          if (coche) {
+            // Si el coche existe y no es null, eliminarlo
+            this.servicioCoche.eliminarCoche(id).subscribe(
+              () => {
+                console.log('Coche eliminado correctamente');
+              },
+              (error) => {
+                console.error('Error al eliminar el coche:', error);
+              }
+            );
+          } else {
+            console.error('El coche con ID', id, 'no fue encontrado.');
+          }
+        },
+        (error) => {
+          console.error('Error al cargar el coche:', error);
+        }
+      );
     } else {
-      console.error('Error al obtener el id del coche.');
+      console.error('Error al obtener el ID del coche.');
     }
   }
 }

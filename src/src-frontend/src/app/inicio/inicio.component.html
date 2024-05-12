@@ -11,8 +11,11 @@
         class="form-select"
         name="marca"
         id="marca"
+        [value]="marcaSeleccionada"
         [(ngModel)]="marcaSeleccionada"
-        (change)="onMarcaSeleccionada()"
+        (change)="
+          onMarcaSeleccionada(); filtrarCochesPorMarca(marcaSeleccionada)
+        "
       >
         <option value="" disabled selected>Marca</option>
         <option *ngFor="let marca of obtenerMarcas()" [value]="marca">
@@ -73,7 +76,7 @@
       class="form-select"
       name="Precio"
       id="Precio"
-      [(ngModel)]="precioSeleccionado"
+      [(ngModel)]="precioMaxSeleccionado"
       required
     >
       <option value="" selected disabled>Precio hasta (€)</option>

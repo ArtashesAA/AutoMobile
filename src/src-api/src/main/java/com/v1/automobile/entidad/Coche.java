@@ -1,5 +1,9 @@
 package com.v1.automobile.entidad;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -8,6 +12,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -120,6 +125,12 @@ public class Coche {
 	@JoinColumn(name = "usuario_id", referencedColumnName = "id", nullable = false)
 	private Usuario usuario;
 
+	@OneToMany(mappedBy = "coche", cascade = CascadeType.ALL)
+	private List<Imagen> imagenes = new ArrayList<>();
+
+	@OneToMany(mappedBy = "coche", cascade = CascadeType.ALL)
+	private List<Favorito> favoritos = new ArrayList<>();
+
 	public Coche() {
 
 	}
@@ -146,7 +157,8 @@ public class Coche {
 			@NotBlank(message = "La ciudad no puede estar en blanco") String ciudad,
 			@NotBlank(message = "La descripción no puede estar en blanco") String descripcion,
 			@NotBlank(message = "El telefono no puede estar en blanco") Integer telefonoAdjunto,
-			@NotBlank(message = "El email no puede estar en blanco") String emailAdjunto, Usuario usuario) {
+			@NotBlank(message = "El email no puede estar en blanco") String emailAdjunto, Usuario usuario,
+			List<Imagen> imagenes, List<Favorito> favoritos) {
 		this.id = id;
 		this.marca = marca;
 		this.modelo = modelo;
@@ -173,6 +185,8 @@ public class Coche {
 		this.telefonoAdjunto = telefonoAdjunto;
 		this.emailAdjunto = emailAdjunto;
 		this.usuario = usuario;
+		this.imagenes = imagenes;
+		this.favoritos = favoritos;
 	}
 
 	public Long getId() {
@@ -383,6 +397,22 @@ public class Coche {
 		this.usuario = usuario;
 	}
 
+	public List<Imagen> getImagenes() {
+		return imagenes;
+	}
+
+	public void setImagenes(List<Imagen> imagenes) {
+		this.imagenes = imagenes;
+	}
+
+	public List<Favorito> getFavoritos() {
+		return favoritos;
+	}
+
+	public void setFavoritos(List<Favorito> favoritos) {
+		this.favoritos = favoritos;
+	}
+
 	@Override
 	public String toString() {
 		return "Coche [getId()=" + getId() + ", getMarca()=" + getMarca() + ", getModelo()=" + getModelo()
@@ -395,7 +425,7 @@ public class Coche {
 				+ ", getNumeroMarchas()=" + getNumeroMarchas() + ", getNumeroCilindros()=" + getNumeroCilindros()
 				+ ", getCiudad()=" + getCiudad() + ", getDescripcion()=" + getDescripcion() + ", getTelefonoAdjunto()="
 				+ getTelefonoAdjunto() + ", getEmailAdjunto()=" + getEmailAdjunto() + ", getUsuario()=" + getUsuario()
-				+ "]";
+				+ ", getImagenes()=" + getImagenes() + ", getFavoritos()=" + getFavoritos() + "]";
 	}
 
 }

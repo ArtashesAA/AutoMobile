@@ -15,13 +15,15 @@ import { CommonModule } from '@angular/common';
 })
 export class InicioComponent implements OnInit {
   coches: Coche[] = [];
+  cochesFiltrados: Coche[] = [];
+
   modelos: String[] = [];
   marcasModelos: any = {};
 
   marcaSeleccionada: string = '';
   modeloSeleccionado: string = '';
   anyoSeleccionado: string = '';
-  precioSeleccionado: string = '';
+  precioMaxSeleccionado: string = '';
   cargandoCoches: boolean = true;
 
   constructor(
@@ -68,9 +70,26 @@ export class InicioComponent implements OnInit {
     if (this.marcaSeleccionada) queryParams.marca = this.marcaSeleccionada;
     if (this.modeloSeleccionado) queryParams.modelo = this.modeloSeleccionado;
     if (this.anyoSeleccionado) queryParams.anyo = this.anyoSeleccionado;
-    if (this.precioSeleccionado) queryParams.precio = this.precioSeleccionado;
+    if (this.precioMaxSeleccionado)
+      queryParams.precio = this.precioMaxSeleccionado;
 
     // Navega a la página del catálogo con los filtros aplicados como parámetros de consulta
     this.router.navigate(['/catalogo'], { queryParams });
+  }
+
+  filtrarCochesPorMarca(marca: string): void {
+    // Construye los parámetros de búsqueda
+    const queryParams = { marca: marca };
+
+    // Realiza la solicitud HTTP para obtener coches filtrados por marca
+    this.servicioCoche
+      .cochesPorMarca(queryParams)
+      .subscribe((cochesFiltrados) => {
+        // Actualiza la lista de coches filtrados
+        this.cochesFiltrados = cochesFiltrados;
+
+        // Actualiza los coches filtrados en el servicio de filtro
+        console.log(this.coches);
+      });
   }
 }

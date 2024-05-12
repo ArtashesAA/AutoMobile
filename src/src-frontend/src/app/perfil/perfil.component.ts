@@ -33,4 +33,8 @@ export class PerfilComponent {
       );
     }
   }
+
+  esAdmin() {
+    this.servicioAutenticacion.esAdmin();
+  }
 }
