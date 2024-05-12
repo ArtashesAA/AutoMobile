@@ -13,18 +13,36 @@
   </div>
 
   <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-    <li>
-      <a [routerLink]="'/'" class="nav-link px-2">Inicio</a>
+    <li class="nav-item">
+      <a [routerLink]="'/'" class="nav-link px-3 btn btn-outline-primary"
+        ><b>Inicio</b></a
+      >
     </li>
-    <li><a [routerLink]="'/catalogo'" class="nav-link px-2">Catálogo</a></li>
-    <li><a [routerLink]="'/explorar'" class="nav-link px-2">Explorar</a></li>
-    <li><a [routerLink]="'/vender'" class="nav-link px-2">Vender</a></li>
+    <li class="nav-item">
+      <a
+        [routerLink]="'/catalogo'"
+        class="nav-link px-3 btn btn-outline-primary"
+        ><b>Catálogo</b></a
+      >
+    </li>
+    <li class="nav-item">
+      <a
+        [routerLink]="'/explorar'"
+        class="nav-link px-3 btn btn-outline-primary"
+        ><b>Explorar</b></a
+      >
+    </li>
+    <li class="nav-item">
+      <a [routerLink]="'/vender'" class="nav-link px-3 btn btn-outline-primary"
+        ><b>Vender</b></a
+      >
+    </li>
   </ul>
 
   <div class="col-md-3 text-end">
     <ng-container *ngIf="estaLogueado; else loginButtons">
       <!-- Perfil -->
-      <a class="perfil" [routerLink]="'/perfil'"
+      <a class="perfil btn btn-outline-primary" [routerLink]="'/perfil'"
         ><span class="me-2">{{ usuario?.nombre_usuario }}</span></a
       >
       <!-- Mostrar botón de Logout si está logueado -->

@@ -1,9 +1,9 @@
 import { Coche } from './coche.model';
 
 export class Imagen {
-  id: number = 0;
-  coche: Coche | undefined;
-  imagen_url: string = '';
+  id: number;
+  imagen_url: string;
+  coche: Coche;
 
   constructor(id: number, coche: Coche, imagen_url: string) {
     this.id = id;

@@ -34,6 +34,9 @@ public class Coche {
 	@Column(name = "modelo", nullable = false)
 	private String modelo;
 
+	@Column(name = "imagen_principal")
+	private String imagen_principal;
+
 	@NotNull(message = "El precio no puede ser nulo")
 	@Column(name = "precio", nullable = false)
 	private Integer precio;
@@ -110,6 +113,14 @@ public class Coche {
 	@Column(name = "descripcion", nullable = false)
 	private String descripcion;
 
+	@NotBlank(message = "El telefono no puede estar en blanco")
+	@Column(name = "telefonoAdjunto")
+	private Integer telefonoAdjunto;
+
+	@NotBlank(message = "El email no puede estar en blanco")
+	@Column(name = "emailAdjunto")
+	private String emailAdjunto;
+
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "usuario_id", referencedColumnName = "id", nullable = false)
 	private Usuario usuario;
@@ -117,12 +128,15 @@ public class Coche {
 	@OneToMany(mappedBy = "coche", cascade = CascadeType.ALL)
 	private List<Imagen> imagenes = new ArrayList<>();
 
+	@OneToMany(mappedBy = "coche", cascade = CascadeType.ALL)
+	private List<Favorito> favoritos = new ArrayList<>();
+
 	public Coche() {
 
 	}
 
 	public Coche(Long id, @NotBlank(message = "La marca no puede estar en blanco") String marca,
-			@NotBlank(message = "El modelo no puede estar en blanco") String modelo,
+			@NotBlank(message = "El modelo no puede estar en blanco") String modelo, String imagen_principal,
 			@NotNull(message = "El precio no puede ser nulo") Integer precio,
 			@NotNull(message = "El año no puede ser nulo") Integer anyo,
 			@NotNull(message = "La potencia no puede ser nula") Integer potencia,
@@ -141,11 +155,14 @@ public class Coche {
 			@NotNull(message = "El número de marchas no puede ser nulo") Integer numeroMarchas,
 			@NotNull(message = "El número de cilindros no puede ser nulo") Integer numeroCilindros,
 			@NotBlank(message = "La ciudad no puede estar en blanco") String ciudad,
-			@NotBlank(message = "La descripción no puede estar en blanco") String descripcion, Usuario usuario,
-			List<Imagen> imagenes) {
+			@NotBlank(message = "La descripción no puede estar en blanco") String descripcion,
+			@NotBlank(message = "El telefono no puede estar en blanco") Integer telefonoAdjunto,
+			@NotBlank(message = "El email no puede estar en blanco") String emailAdjunto, Usuario usuario,
+			List<Imagen> imagenes, List<Favorito> favoritos) {
 		this.id = id;
 		this.marca = marca;
 		this.modelo = modelo;
+		this.imagen_principal = imagen_principal;
 		this.precio = precio;
 		this.anyo = anyo;
 		this.potencia = potencia;
@@ -165,8 +182,11 @@ public class Coche {
 		this.numeroCilindros = numeroCilindros;
 		this.ciudad = ciudad;
 		this.descripcion = descripcion;
+		this.telefonoAdjunto = telefonoAdjunto;
+		this.emailAdjunto = emailAdjunto;
 		this.usuario = usuario;
 		this.imagenes = imagenes;
+		this.favoritos = favoritos;
 	}
 
 	public Long getId() {
@@ -191,6 +211,14 @@ public class Coche {
 
 	public void setModelo(String modelo) {
 		this.modelo = modelo;
+	}
+
+	public String getImagen_principal() {
+		return imagen_principal;
+	}
+
+	public void setImagen_principal(String imagen_principal) {
+		this.imagen_principal = imagen_principal;
 	}
 
 	public Integer getPrecio() {
@@ -345,6 +373,22 @@ public class Coche {
 		this.descripcion = descripcion;
 	}
 
+	public Integer getTelefonoAdjunto() {
+		return telefonoAdjunto;
+	}
+
+	public void setTelefonoAdjunto(Integer telefonoAdjunto) {
+		this.telefonoAdjunto = telefonoAdjunto;
+	}
+
+	public String getEmailAdjunto() {
+		return emailAdjunto;
+	}
+
+	public void setEmailAdjunto(String emailAdjunto) {
+		this.emailAdjunto = emailAdjunto;
+	}
+
 	public Usuario getUsuario() {
 		return usuario;
 	}
@@ -361,18 +405,27 @@ public class Coche {
 		this.imagenes = imagenes;
 	}
 
+	public List<Favorito> getFavoritos() {
+		return favoritos;
+	}
+
+	public void setFavoritos(List<Favorito> favoritos) {
+		this.favoritos = favoritos;
+	}
+
 	@Override
 	public String toString() {
 		return "Coche [getId()=" + getId() + ", getMarca()=" + getMarca() + ", getModelo()=" + getModelo()
-				+ ", getPrecio()=" + getPrecio() + ", getAnyo()=" + getAnyo() + ", getPotencia()=" + getPotencia()
-				+ ", getKilometraje()=" + getKilometraje() + ", getCombustible()=" + getCombustible()
-				+ ", getConsumo()=" + getConsumo() + ", getTipoCambio()=" + getTipoCambio() + ", getCategoria()="
-				+ getCategoria() + ", getTipoVehiculo()=" + getTipoVehiculo() + ", getTraccion()=" + getTraccion()
-				+ ", getPlazas()=" + getPlazas() + ", getPuertas()=" + getPuertas() + ", getGarantia()=" + getGarantia()
-				+ ", getPeso()=" + getPeso() + ", getColor()=" + getColor() + ", getNumeroMarchas()="
-				+ getNumeroMarchas() + ", getNumeroCilindros()=" + getNumeroCilindros() + ", getCiudad()=" + getCiudad()
-				+ ", getDescripcion()=" + getDescripcion() + ", getUsuario()=" + getUsuario() + ", getImagenes()="
-				+ getImagenes() + "]";
+				+ ", getImagen_principal()=" + getImagen_principal() + ", getPrecio()=" + getPrecio() + ", getAnyo()="
+				+ getAnyo() + ", getPotencia()=" + getPotencia() + ", getKilometraje()=" + getKilometraje()
+				+ ", getCombustible()=" + getCombustible() + ", getConsumo()=" + getConsumo() + ", getTipoCambio()="
+				+ getTipoCambio() + ", getCategoria()=" + getCategoria() + ", getTipoVehiculo()=" + getTipoVehiculo()
+				+ ", getTraccion()=" + getTraccion() + ", getPlazas()=" + getPlazas() + ", getPuertas()=" + getPuertas()
+				+ ", getGarantia()=" + getGarantia() + ", getPeso()=" + getPeso() + ", getColor()=" + getColor()
+				+ ", getNumeroMarchas()=" + getNumeroMarchas() + ", getNumeroCilindros()=" + getNumeroCilindros()
+				+ ", getCiudad()=" + getCiudad() + ", getDescripcion()=" + getDescripcion() + ", getTelefonoAdjunto()="
+				+ getTelefonoAdjunto() + ", getEmailAdjunto()=" + getEmailAdjunto() + ", getUsuario()=" + getUsuario()
+				+ ", getImagenes()=" + getImagenes() + ", getFavoritos()=" + getFavoritos() + "]";
 	}
 
 }

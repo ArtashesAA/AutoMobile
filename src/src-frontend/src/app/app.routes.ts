@@ -13,6 +13,10 @@ import { PerfilComponent } from './perfil/perfil.component';
 import { VerNoticiaComponent } from './ver-noticia/ver-noticia.component';
 import { GestionUsuariosComponent } from './gestion-usuarios/gestion-usuarios.component';
 import { ActualizarUsuarioComponent } from './actualizar-usuario/actualizar-usuario.component';
+import { adminGuard } from './guardian-admin/admin.guard';
+import { RegistroCorrectoComponent } from './registro-correcto/registro-correcto.component';
+import { ModificarUsuarioComponent } from './modificar-usuario/modificar-usuario.component';
+import { ModificarUsuarioCorrectoComponent } from './modificar-usuario-correcto/modificar-usuario-correcto.component';
 export const routes: Routes = [
   { path: '', component: InicioComponent },
   {
@@ -30,12 +34,23 @@ export const routes: Routes = [
     canActivate: [guardianGuard],
   },
   { path: 'actualiza/:id', component: ActualizarCocheComponent },
-  { path: 'actualizaUsuario/:id', component: ActualizarUsuarioComponent },
+  {
+    path: 'actualizaUsuario/:id',
+    component: ActualizarUsuarioComponent,
+    canActivate: [adminGuard],
+  },
   { path: 'verCoche/:id', component: VerCocheComponent },
   { path: 'verNoticia/:id', component: VerNoticiaComponent },
   { path: 'login', component: LoginComponent },
   { path: 'registrarse', component: RegistroComponent },
   { path: 'perfil', component: PerfilComponent },
-  { path: 'gestionUsuarios', component: GestionUsuariosComponent },
+  { path: 'modificarUsuario', component: ModificarUsuarioComponent },
+  { path: 'modificarCorrecto', component: ModificarUsuarioCorrectoComponent },
+  {
+    path: 'gestionUsuarios',
+    component: GestionUsuariosComponent,
+    canActivate: [adminGuard],
+  },
+  { path: 'registroCorrecto', component: RegistroCorrectoComponent },
   { path: '**', component: ErrorPersonalizadoComponent },
 ];

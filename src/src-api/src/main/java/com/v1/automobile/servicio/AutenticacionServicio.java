@@ -28,15 +28,14 @@ public class AutenticacionServicio {
 
 	public ResponseEntity<String> signUp(ReqRes registrationRequest) {
 		try {
-			Usuario usuarios = new Usuario();
-			usuarios.setNombre_usuario(registrationRequest.getNombre_usuario());
-			usuarios.setEmail(registrationRequest.getEmail());
-			usuarios.setImagen_usuario(registrationRequest.getImagen_usuario());
-			usuarios.setPassword(passwordEncoder.encode(registrationRequest.getPassword()));
+			Usuario usuario = new Usuario();
+			usuario.setNombre_usuario(registrationRequest.getNombre_usuario());
+			usuario.setEmail(registrationRequest.getEmail());
+			usuario.setPassword(passwordEncoder.encode(registrationRequest.getPassword()));
 
 			// Por defecto se registra como usuario normal
-			usuarios.setRole("USER");
-			Usuario usuarioResult = usuarioRepositorio.save(usuarios);
+			usuario.setRole("USER");
+			Usuario usuarioResult = usuarioRepositorio.save(usuario);
 			if (usuarioResult != null && usuarioResult.getId() > 0) {
 				String mensaje = "Usuario " + usuarioResult.getNombre_usuario() + " ha sido registrado correctamente";
 				return new ResponseEntity<>(mensaje, HttpStatus.CREATED);

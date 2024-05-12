@@ -1,0 +1,54 @@
+<div *ngIf="usuario" class="container">
+  <div class="row">
+    <h2 class="titulo">Modificar Usuario</h2>
+    <div class="col-md-8">
+      <form (ngSubmit)="guardarCambios()" #form="ngForm">
+        <div class="mb-3">
+          <label for="nombreUsuario" class="form-label"
+            >Nombre de Usuario</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            id="nombreUsuario"
+            name="nombreUsuario"
+            [(ngModel)]="usuario.nombre_usuario"
+            required
+          />
+        </div>
+        <div class="mb-3">
+          <label for="email" class="form-label">Email</label>
+          <input
+            type="email"
+            class="form-control"
+            id="email"
+            name="email"
+            [(ngModel)]="usuario.email"
+            required
+          />
+        </div>
+        <div class="mb-3">
+          <label for="contrasena" class="form-label">Contraseña</label>
+          <div class="input-group">
+            <input
+              type="password"
+              class="form-control"
+              id="contrasena"
+              name="contrasena"
+              [(ngModel)]="usuario.password"
+              [disabled]="!editarContrasena"
+            />
+            <button
+              type="button"
+              class="btn btn-outline-secondary"
+              (click)="toggleEdicionContrasena()"
+            >
+              {{ editarContrasena ? "Cancelar" : "Modificar" }}
+            </button>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+      </form>
+    </div>
+  </div>
+</div>

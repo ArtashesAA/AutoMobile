@@ -1,13 +1,10 @@
 package com.v1.automobile.dto;
 
-import com.v1.automobile.entidad.Coche;
-import com.v1.automobile.entidad.Usuario;
-
 import lombok.Data;
 
-import java.util.List;
 
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+
 
 @Data
 @EnableWebSecurity
@@ -20,12 +17,9 @@ public class ReqRes {
 	private String refreshToken;
 	private String expirationTime;
 	private String nombre_usuario;
-	private String imagen_usuario;
 	private String email;
 	private String role;
 	private String password;
-	private List<Coche> coches;
-	private Usuario usuarios;
 
 	public ReqRes() {
 
@@ -43,7 +37,7 @@ public class ReqRes {
 		this.message = message;
 		this.token = token;
 	}
-
+	
 	public int getStatusCode() {
 		return statusCode;
 	}
@@ -100,14 +94,6 @@ public class ReqRes {
 		this.nombre_usuario = nombre_usuario;
 	}
 
-	public String getImagen_usuario() {
-		return imagen_usuario;
-	}
-
-	public void setImagen_usuario(String imagen_usuario) {
-		this.imagen_usuario = imagen_usuario;
-	}
-
 	public String getEmail() {
 		return email;
 	}
@@ -130,22 +116,6 @@ public class ReqRes {
 
 	public void setPassword(String password) {
 		this.password = password;
-	}
-
-	public List<Coche> getCoches() {
-		return coches;
-	}
-
-	public void setCoches(List<Coche> coches) {
-		this.coches = coches;
-	}
-
-	public Usuario getUsuarios() {
-		return usuarios;
-	}
-
-	public void setUsuarios(Usuario usuarios) {
-		this.usuarios = usuarios;
 	}
 
 }

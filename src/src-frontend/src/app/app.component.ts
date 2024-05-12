@@ -3,6 +3,7 @@ import { RouterOutlet } from '@angular/router';
 import { LoginService } from './login/servicio/login.service';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
+import { AutenticacionService } from './servicio-autenticacion/autenticacion.service';
 
 @Component({
   selector: 'app-root',
@@ -13,13 +14,16 @@ import { FooterComponent } from './footer/footer.component';
 })
 export class AppComponent {
   title = 'AutoMobile';
-  constructor(private loginService: LoginService) {}
+  constructor(
+    private servicioAutenticacion: AutenticacionService,
+    private servicioLogin: LoginService
+  ) {}
 
   estaLogueado() {
-    return this.loginService.estaLogueado();
+    return this.servicioAutenticacion.estaAutenticado();
   }
 
   logout() {
-    this.loginService.logout();
+    this.servicioLogin.logout();
   }
 }

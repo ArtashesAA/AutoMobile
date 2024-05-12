@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.v1.automobile.entidad.Coche;
 import com.v1.automobile.entidad.Favorito;
@@ -28,16 +27,19 @@ public class CocheServicio {
 
 	@Autowired
 	private CocheRepositorio cocheRepositorio;
-
+	
 	@Autowired
 	private UsuarioRepositorio usuarioRepositorio;
+	
+	@Autowired
+	private UsuarioServicio usuarioServicio;
 
 	@Autowired
 	private ImagenRepositorio imagenRepositorio;
 
 	@Autowired
 	private ImagenServicio imagenServicio;
-
+	
 	@Autowired
 	private FavoritoRepositorio favoritoRepositorio;
 
@@ -61,6 +63,7 @@ public class CocheServicio {
 		try {
 			// Crea un nuevo coche
 			Coche coche = new Coche();
+			coche.setId(cocheRequest.getId());
 			coche.setMarca(cocheRequest.getMarca());
 			coche.setModelo(cocheRequest.getModelo());
 			coche.setAnyo(cocheRequest.getAnyo());
@@ -82,14 +85,18 @@ public class CocheServicio {
 			coche.setNumeroMarchas(cocheRequest.getNumeroMarchas());
 			coche.setNumeroCilindros(cocheRequest.getNumeroCilindros());
 			coche.setCiudad(cocheRequest.getCiudad());
+			coche.setDescripcion(cocheRequest.getDescripcion());
+			
 
 			// Obtiene el usuario asociado al coche
-			Optional<Usuario> optionalUsuario = usuarioRepositorio.findById(cocheRequest.getUsuario_id());
+			Optional<Usuario> optionalUsuario = usuarioRepositorio.findById(cocheRequest.getUsuarioId());
 			if (optionalUsuario.isPresent()) {
 				coche.setUsuario(optionalUsuario.get());
 			} else {
+				System.out.println("Error");
 				return new ResponseEntity<>("Usuario no encontrado", HttpStatus.NOT_FOUND);
 			}
+			
 
 			// Guarda el coche
 			Coche savedCoche = cocheRepositorio.save(coche);
@@ -117,13 +124,11 @@ public class CocheServicio {
 			// Actualizar los campos del coche existente con los datos del nuevo coche
 			cocheExistente.setMarca(nuevoCoche.getMarca());
 			cocheExistente.setModelo(nuevoCoche.getModelo());
-			cocheExistente.setAnyo(nuevoCoche.getAnyo());
-			cocheExistente.setKilometraje(nuevoCoche.getKilometraje());
-			cocheExistente.setPeso(nuevoCoche.getPeso());
-			cocheExistente.setColor(nuevoCoche.getColor());
+			cocheExistente.setImagen_principal(nuevoCoche.getImagen_principal());
 			cocheExistente.setPrecio(nuevoCoche.getPrecio());
-			cocheExistente.setDescripcion(nuevoCoche.getDescripcion());
+			cocheExistente.setAnyo(nuevoCoche.getAnyo());
 			cocheExistente.setPotencia(nuevoCoche.getPotencia());
+			cocheExistente.setKilometraje(nuevoCoche.getKilometraje());
 			cocheExistente.setCombustible(nuevoCoche.getCombustible());
 			cocheExistente.setConsumo(nuevoCoche.getConsumo());
 			cocheExistente.setTipoCambio(nuevoCoche.getTipoCambio());
@@ -133,9 +138,14 @@ public class CocheServicio {
 			cocheExistente.setPlazas(nuevoCoche.getPlazas());
 			cocheExistente.setPuertas(nuevoCoche.getPuertas());
 			cocheExistente.setGarantia(nuevoCoche.getGarantia());
+			cocheExistente.setPeso(nuevoCoche.getPeso());
+			cocheExistente.setColor(nuevoCoche.getColor());
 			cocheExistente.setNumeroMarchas(nuevoCoche.getNumeroMarchas());
 			cocheExistente.setNumeroCilindros(nuevoCoche.getNumeroCilindros());
 			cocheExistente.setCiudad(nuevoCoche.getCiudad());
+			cocheExistente.setDescripcion(nuevoCoche.getDescripcion());
+			cocheExistente.setTelefonoAdjunto(nuevoCoche.getTelefonoAdjunto());
+			cocheExistente.setEmailAdjunto(nuevoCoche.getEmailAdjunto());
 
 			// Guardar el coche actualizado
 			cocheRepositorio.save(cocheExistente);
@@ -175,28 +185,17 @@ public class CocheServicio {
 		}
 	}
 
-	@Transactional
-	public Usuario addCocheToUsuario(Coche coche, Integer usuarioId) {
-		Usuario usuario = usuarioRepositorio.findById(usuarioId)
-				.orElseThrow(() -> new IllegalArgumentException("Usuario no encontrado con ID: " + usuarioId));
-		usuario.getCoches().add(coche);
-		return usuarioRepositorio.save(usuario);
-	}
-
 	private CocheDTO convertToDto(Coche coche) {
 		CocheDTO dto = new CocheDTO();
-
 		dto.setId(coche.getId());
 		dto.setMarca(coche.getMarca());
 		dto.setModelo(coche.getModelo());
+		dto.setImagen_principal(coche.getImagen_principal());
+		dto.setPrecio(coche.getPrecio());
 		dto.setAnyo(coche.getAnyo());
 		dto.setPotencia(coche.getPotencia());
 		dto.setKilometraje(coche.getKilometraje());
-		dto.setPeso(coche.getPeso());
 		dto.setCombustible(coche.getCombustible());
-		dto.setColor(coche.getColor());
-		dto.setPrecio(coche.getPrecio());
-		dto.setDescripcion(coche.getDescripcion());
 		dto.setConsumo(coche.getConsumo());
 		dto.setTipoCambio(coche.getTipoCambio());
 		dto.setCategoria(coche.getCategoria());
@@ -205,31 +204,93 @@ public class CocheServicio {
 		dto.setPlazas(coche.getPlazas());
 		dto.setPuertas(coche.getPuertas());
 		dto.setGarantia(coche.getGarantia());
+		dto.setPeso(coche.getPeso());
+		dto.setColor(coche.getColor());
 		dto.setNumeroMarchas(coche.getNumeroMarchas());
 		dto.setNumeroCilindros(coche.getNumeroCilindros());
 		dto.setCiudad(coche.getCiudad());
+		dto.setDescripcion(coche.getDescripcion());
+		dto.setTelefonoAdjunto(coche.getTelefonoAdjunto());
+		dto.setEmailAdjunto(coche.getEmailAdjunto());
 
-		if (coche.getUsuario() != null) {
-			Usuario usuario = coche.getUsuario();
-			UsuarioDTO usuarioDTO = new UsuarioDTO();
-			usuarioDTO.setNombre_usuario(usuario.getNombre_usuario());
-			usuarioDTO.setImagen_usuario(usuario.getImagen_usuario());
-			dto.setUsuario(usuarioDTO);
+		Usuario usuario = coche.getUsuario();
+		if (usuario != null) {
+			dto.setUsuario(convertUsuarioToDto(usuario));
 		}
 
-		List<Imagen> imagenes = coche.getImagenes();
-		if (imagenes != null) {
-			List<ImagenDTO> imagenesDTO = imagenes.stream().map(this::convertImagenToDto).collect(Collectors.toList());
-			dto.setImagenes(imagenesDTO);
-		}
+		List<ImagenDTO> imagenDTOs = coche.getImagenes().stream().map(imagen -> new ImagenDTO(imagen.getImagen_url()))
+				.collect(Collectors.toList());
+		dto.setImagenes(imagenDTOs);
 
 		return dto;
 	}
 
-	private ImagenDTO convertImagenToDto(Imagen imagen) {
-		ImagenDTO imagenDTO = new ImagenDTO();
-		imagenDTO.setImagen_url(imagen.getImagen_url());
-		return imagenDTO;
+	private UsuarioDTO convertUsuarioToDto(Usuario usuario) {
+		UsuarioDTO usuarioDTO = new UsuarioDTO();
+		usuarioDTO.setNombre_usuario(usuario.getNombre_usuario());
+		usuarioDTO.setImagen_usuario(usuario.getImagen_usuario());
+		return usuarioDTO;
 	}
 
+	private Coche convertToEntity(CocheDTO cocheDTO) {
+		Coche coche = new Coche();
+		coche.setId(cocheDTO.getId());
+		coche.setMarca(cocheDTO.getMarca());
+		coche.setModelo(cocheDTO.getModelo());
+		coche.setImagen_principal(cocheDTO.getImagen_principal());
+		coche.setPrecio(cocheDTO.getPrecio());
+		coche.setAnyo(cocheDTO.getAnyo());
+		coche.setPotencia(cocheDTO.getPotencia());
+		coche.setKilometraje(cocheDTO.getKilometraje());
+		coche.setCombustible(cocheDTO.getCombustible());
+		coche.setConsumo(cocheDTO.getConsumo());
+		coche.setTipoCambio(cocheDTO.getTipoCambio());
+		coche.setCategoria(cocheDTO.getCategoria());
+		coche.setTipoVehiculo(cocheDTO.getTipoVehiculo());
+		coche.setTraccion(cocheDTO.getTraccion());
+		coche.setPlazas(cocheDTO.getPlazas());
+		coche.setPuertas(cocheDTO.getPuertas());
+		coche.setGarantia(cocheDTO.getGarantia());
+		coche.setPeso(cocheDTO.getPeso());
+		coche.setColor(cocheDTO.getColor());
+		coche.setNumeroMarchas(cocheDTO.getNumeroMarchas());
+		coche.setNumeroCilindros(cocheDTO.getNumeroCilindros());
+		coche.setCiudad(cocheDTO.getCiudad());
+		coche.setDescripcion(cocheDTO.getDescripcion());
+		coche.setTelefonoAdjunto(cocheDTO.getTelefonoAdjunto());
+		coche.setEmailAdjunto(cocheDTO.getEmailAdjunto());
+
+		UsuarioDTO usuarioDTO = cocheDTO.getUsuario();
+		if (usuarioDTO != null) {
+			coche.setUsuario(convertDtoToUsuario(usuarioDTO));
+		}
+
+		List<Imagen> imagenes = cocheDTO.getImagenes().stream()
+				.map(imagenDTO -> new Imagen(null, imagenDTO.getImagen_url(), coche)).collect(Collectors.toList());
+		coche.setImagenes(imagenes);
+
+		return coche;
+	}
+
+	private Usuario convertDtoToUsuario(UsuarioDTO usuarioDTO) {
+		Usuario usuario = new Usuario();
+		usuario.setNombre_usuario(usuarioDTO.getNombre_usuario());
+		usuario.setImagen_usuario(usuarioDTO.getImagen_usuario());
+		return usuario;
+	}
+
+	public List<CocheDTO> cochesFiltrados(String marca, String modelo, Integer anyo, Integer precio) {
+		List<Coche> coches = cocheRepositorio.findByMarcaAndModeloAndAnyoAndPrecio(marca, modelo, anyo, precio);
+		return coches.stream().map(this::convertToDto).collect(Collectors.toList());
+	}
+
+	public List<CocheDTO> cochesPorMarca(String marca) {
+		List<Coche> coches = cocheRepositorio.findByMarca(marca);
+		return coches.stream().map(this::convertToDto).collect(Collectors.toList());
+	}
+
+	public List<CocheDTO> cochesPorMarcaModelo(String marca, String modelo) {
+		List<Coche> coches = cocheRepositorio.findByMarcaAndModelo(marca, modelo);
+		return coches.stream().map(this::convertToDto).collect(Collectors.toList());
+	}
 }

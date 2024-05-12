@@ -2,13 +2,13 @@ package com.v1.automobile.entidad.request;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import com.v1.automobile.entidad.dto.ImagenDTO;
 
 public class CocheRequest {
 	private Long id;
 	private String marca;
 	private String modelo;
+	private String imagen_principal;
 	private Integer precio;
 	private Integer anyo;
 	private Integer potencia;
@@ -28,21 +28,25 @@ public class CocheRequest {
 	private Integer numeroCilindros;
 	private String ciudad;
 	private String descripcion;
-	private Integer usuario_id;
+	private Integer telefonoAdjunto;
+	private String emailAdjunto;
+	private Integer usuarioId;
 	private List<ImagenDTO> imagenes = new ArrayList<>();
 
 	public CocheRequest() {
 
 	}
 
-	public CocheRequest(Long id, String marca, String modelo, Integer precio, Integer anyo, Integer potencia,
-			Integer kilometraje, String combustible, String consumo, String tipoCambio, String categoria,
-			String tipoVehiculo, String traccion, Integer plazas, Integer puertas, String garantia, Integer peso,
-			String color, Integer numeroMarchas, Integer numeroCilindros, String ciudad, String descripcion,
-			Integer usuario_id, List<ImagenDTO> imagenes) {
+	public CocheRequest(Long id, String marca, String modelo, String imagen_principal, Integer precio, Integer anyo,
+			Integer potencia, Integer kilometraje, String combustible, String consumo, String tipoCambio,
+			String categoria, String tipoVehiculo, String traccion, Integer plazas, Integer puertas, String garantia,
+			Integer peso, String color, Integer numeroMarchas, Integer numeroCilindros, String ciudad,
+			String descripcion, Integer telefonoAdjunto, String emailAdjunto, Integer usuarioId,
+			List<ImagenDTO> imagenes) {
 		this.id = id;
 		this.marca = marca;
 		this.modelo = modelo;
+		this.imagen_principal = imagen_principal;
 		this.precio = precio;
 		this.anyo = anyo;
 		this.potencia = potencia;
@@ -62,7 +66,9 @@ public class CocheRequest {
 		this.numeroCilindros = numeroCilindros;
 		this.ciudad = ciudad;
 		this.descripcion = descripcion;
-		this.usuario_id = usuario_id;
+		this.telefonoAdjunto = telefonoAdjunto;
+		this.emailAdjunto = emailAdjunto;
+		this.usuarioId = usuarioId;
 		this.imagenes = imagenes;
 	}
 
@@ -242,12 +248,12 @@ public class CocheRequest {
 		this.descripcion = descripcion;
 	}
 
-	public Integer getUsuario_id() {
-		return usuario_id;
+	public Integer getUsuarioId() {
+		return usuarioId;
 	}
 
-	public void setUsuario_id(Integer usuario_id) {
-		this.usuario_id = usuario_id;
+	public void setUsuarioId(Integer usuarioId) {
+		this.usuarioId = usuarioId;
 	}
 
 	public List<ImagenDTO> getImagenes() {
@@ -256,6 +262,30 @@ public class CocheRequest {
 
 	public void setImagenes(List<ImagenDTO> imagenes) {
 		this.imagenes = imagenes;
+	}
+
+	public String getImagen_principal() {
+		return imagen_principal;
+	}
+
+	public void setImagen_principal(String imagen_principal) {
+		this.imagen_principal = imagen_principal;
+	}
+
+	public Integer getTelefonoAdjunto() {
+		return telefonoAdjunto;
+	}
+
+	public void setTelefonoAdjunto(Integer telefonoAdjunto) {
+		this.telefonoAdjunto = telefonoAdjunto;
+	}
+
+	public String getEmailAdjunto() {
+		return emailAdjunto;
+	}
+
+	public void setEmailAdjunto(String emailAdjunto) {
+		this.emailAdjunto = emailAdjunto;
 	}
 
 	@Override
@@ -268,8 +298,9 @@ public class CocheRequest {
 				+ ", getPlazas()=" + getPlazas() + ", getPuertas()=" + getPuertas() + ", getGarantia()=" + getGarantia()
 				+ ", getPeso()=" + getPeso() + ", getColor()=" + getColor() + ", getNumeroMarchas()="
 				+ getNumeroMarchas() + ", getNumeroCilindros()=" + getNumeroCilindros() + ", getCiudad()=" + getCiudad()
-				+ ", getDescripcion()=" + getDescripcion() + ", getUsuario_id()=" + getUsuario_id() + ", getImagenes()="
-				+ getImagenes() + "]";
+				+ ", getDescripcion()=" + getDescripcion() + ", getUsuarioId()=" + getUsuarioId() + ", getImagenes()="
+				+ getImagenes() + ", getImagen_principal()=" + getImagen_principal() + ", getTelefonoAdjunto()="
+				+ getTelefonoAdjunto() + ", getEmailAdjunto()=" + getEmailAdjunto() + "]";
 	}
 
 }

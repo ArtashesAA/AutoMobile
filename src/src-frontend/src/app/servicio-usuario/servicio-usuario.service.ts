@@ -1,64 +1,112 @@
 import { Injectable } from '@angular/core';
-import { DataServices } from '../servicio-general/DataServices';
-import { ServicioGeneralService } from '../servicio-general/servicio-general.service';
 import { Usuario } from '../entidad/usuario.model';
 import { AutenticacionService } from '../servicio-autenticacion/autenticacion.service';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable, catchError, tap, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ServicioUsuarioService {
+  private token = 'userToken';
   usuarios: Usuario[] = [];
 
   constructor(
-    private servicioGeneral: ServicioGeneralService,
-    private dataService: DataServices,
-    private servicioAutenticacion: AutenticacionService
+    private servicioAutenticacion: AutenticacionService,
+    private http: HttpClient
   ) {}
 
-  getUsuarioPorId(id: number) {
-    return this.dataService.cargarUsuarioPorId(id);
-  }
-
+  // Recupera el usuario que esta iniciado
   getUsuarioActual() {
     return this.servicioAutenticacion.cargarUsuarioActual();
   }
 
-  setUsuarios(misUsuarios: Usuario[]) {
-    this.usuarios = misUsuarios;
+  // Recupera todos los usuarios
+  cargarUsuarios(): Observable<Usuario[]> {
+    const headers = this.servicioAutenticacion.getHeaders();
+
+    return this.http
+      .get<any[]>('http://localhost:8080/api/v1/admin/usuario', {
+        headers,
+      })
+      .pipe(
+        catchError((error) => {
+          return throwError('Error al cargar usuarios: ' + error.message);
+        })
+      );
   }
 
-  getUsuarios() {
-    return this.dataService.cargarUsuarios();
+  // Recupera un usuario por su id
+  cargarUsuarioPorId(id: number): Observable<Usuario> {
+    const headers = this.servicioAutenticacion.getHeaders();
+
+    return this.http
+      .get<Usuario>(`http://localhost:8080/api/v1/admin/usuario/${id}`, {
+        headers,
+      })
+      .pipe(
+        catchError((error) => {
+          return throwError('Error al cargar el usuario: ' + error.message);
+        })
+      );
   }
 
-  agregarUsuarioServicio(usuario: Usuario) {
-    this.servicioGeneral.muestraMensaje(
-      'Usuario que se va a agregar: ' + '\n' + usuario.nombre_usuario
+  // Crea un usuario
+  crearUsuario(usuario: Usuario): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+
+    return this.http
+      .post('http://localhost:8080/api/v1/public/usuario', usuario, { headers })
+      .pipe(
+        catchError((error) => {
+          return throwError('Error al crear el usuario: ' + error.message);
+        })
+      );
+  }
+
+  // Actualiza un usuario por su id y los nuevos datos
+  actualizarUsuario(id: number, usuario: Usuario): Observable<any> {
+    const headers = this.servicioAutenticacion.getHeaders();
+    const url = `http://localhost:8080/api/v1/admin/usuario/${id}`;
+
+    return this.http.put(url, usuario, {
+      headers,
+    });
+  }
+
+  // Elimina un usuario por su id
+  eliminarUsuario(id: number): Observable<any> {
+    const url = `http://localhost:8080/api/v1/admin/usuario/${id}`;
+
+    return this.http.delete<any>(url).pipe(
+      tap((response) => {
+        if (response && response.token) {
+          // Guardar el token en localStorage
+          this.guardarToken(response.token);
+        }
+      }),
+      catchError((error) => {
+        return throwError('Error en la autenticación: ' + error.message);
+      })
     );
-    this.usuarios.push(usuario);
-    if (this.usuarios.length === 1) {
-      this.dataService.guardarUsuarios(this.usuarios);
-    } else {
-      this.dataService.guardarUsuarios(this.usuarios);
-    }
   }
 
-  actualizarUsuario(indice: number, usuario: Usuario) {
-    let usuarioModificado = this.usuarios[indice];
+  // --------- Gestión Token ----------------
 
-    usuarioModificado.nombre_usuario = usuario.nombre_usuario;
-    usuarioModificado.email = usuario.email;
-    usuarioModificado.imagen_usuario = usuario.imagen_usuario;
-    usuarioModificado.password = usuario.password;
-    usuarioModificado.role = usuario.role;
-
-    this.dataService.actualizarUsuario(indice, usuarioModificado);
-    this.servicioGeneral.muestraMensaje('Usuario actualizado');
+  // Guarda el token
+  guardarToken(token: string): void {
+    localStorage.setItem(this.token, token);
   }
 
-  eliminarUsuario(indice: number) {
-    this.dataService.eliminarUsuario(indice);
-    this.servicioGeneral.muestraMensaje('Usuario eliminado');
+  // Recupera el token
+  obtenerToken(): string | null {
+    return localStorage.getItem(this.token);
+  }
+
+  // Borra el token
+  eliminarToken(): void {
+    localStorage.removeItem(this.token);
   }
 }

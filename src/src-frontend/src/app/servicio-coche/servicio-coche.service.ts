@@ -1,87 +1,122 @@
 import { Injectable } from '@angular/core';
 import { Coche } from '../entidad/coche.model';
-import { ServicioGeneralService } from '../servicio-general/servicio-general.service';
-import { DataServices } from '../servicio-general/DataServices';
-import { Observable } from 'rxjs';
+import { Observable, catchError, throwError } from 'rxjs';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ServicioCocheService {
   coches: Coche[] = [];
+  private token = 'userToken';
 
-  constructor(
-    private servicioGeneral: ServicioGeneralService,
-    private dataService: DataServices
-  ) {}
+  constructor(private http: HttpClient) {}
 
-  // Recibe un coche por id
-  obtenerCochePorId(id: number): Observable<Coche> {
-    return this.dataService.cargarCochePorId(id);
-  }
-
-  // Recibe todos los coches de la base de datos
-  obtenerCoches() {
-    return this.dataService.cargarCoches();
-  }
-
-  // Guarda los coches
-  guardarCoches(misCoches: Coche[]) {
-    this.coches = misCoches;
-  }
-
-  // Crea un coche nuevo
-  crearCoche(coche: Coche) {
-    this.servicioGeneral.muestraMensaje(
-      'Coche que se va a agregar: ' + '\n' + coche.marca + ' ' + coche.modelo
-    );
-    this.coches.push(coche);
-    if (this.coches.length === 1) {
-      this.dataService.guardarCoches(this.coches);
+  private getHeaders(): HttpHeaders {
+    const token = localStorage.getItem(this.token);
+    if (token) {
+      return new HttpHeaders({
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      });
     } else {
-      this.dataService.guardarCoches(this.coches);
+      throw new Error('Token no encontrado en localStorage');
     }
   }
 
-  // Actualiza un coche por id y los datos del nuevo coche
-  actualizarCoche(id: number, coche: Coche) {
-    let cocheModificado = this.coches[id];
-
-    cocheModificado.marca = coche.marca;
-    cocheModificado.modelo = coche.modelo;
-    cocheModificado.precio = coche.precio;
-    cocheModificado.anyo = coche.anyo;
-    cocheModificado.potencia = coche.potencia;
-    cocheModificado.kilometraje = coche.kilometraje;
-    cocheModificado.combustible = coche.combustible;
-    cocheModificado.consumo = coche.consumo;
-    cocheModificado.tipo_cambio = coche.tipo_cambio;
-    cocheModificado.categoria = coche.categoria;
-    cocheModificado.tipo_vehiculo = coche.tipo_vehiculo;
-    cocheModificado.traccion = coche.traccion;
-    cocheModificado.plazas = coche.plazas;
-    cocheModificado.puertas = coche.puertas;
-    cocheModificado.garantia = coche.garantia;
-    cocheModificado.peso = coche.peso;
-    cocheModificado.color = coche.color;
-    cocheModificado.numero_marchas = coche.numero_marchas;
-    cocheModificado.numero_cilindros = coche.numero_cilindros;
-    cocheModificado.ciudad = coche.ciudad;
-    cocheModificado.descripcion = coche.descripcion;
-    cocheModificado.usuario = coche.usuario;
-    cocheModificado.imagenes = coche.imagenes;
-
-    this.dataService.actualizarCoche(id, coche);
+  // Recupera todos los coches. No es necesario un token
+  cargarCoches() {
+    return this.http.get('http://localhost:8080/api/v1/public/coche');
   }
 
-  // Elimina un coche por id
-  eliminarCoche(id: number) {
-    this.servicioGeneral.muestraMensaje('Coche eliminado');
-    this.coches.splice(id, 1);
-    // Elimina el coche
-    this.dataService.eliminarCoche(id);
+  // Recupera un coche por su id
+  cargarCochePorId(id: number): Observable<Coche> {
+    const url = `http://localhost:8080/api/v1/public/coche/${id}`;
+    return this.http.get<Coche>(url).pipe(
+      catchError((error) => {
+        console.error('Error al cargar el coche:', error);
+        return throwError('Error al cargar el coche');
+      })
+    );
+  }
 
-    // Por último guarda los coches
-    if (this.coches != null) this.dataService.guardarCoches(this.coches);
+  cochesTodosFiltros(filtros: any): Observable<Coche[]> {
+    // Construye los parámetros de búsqueda
+    let params = new HttpParams();
+    for (let key in filtros) {
+      if (filtros.hasOwnProperty(key)) {
+        params = params.set(key, filtros[key]);
+      }
+    }
+
+    // Realiza la solicitud HTTP al backend con los parámetros de búsqueda
+    return this.http.get<Coche[]>(
+      'http://localhost:8080/api/v1/public/coche/filtroTodos',
+      { params }
+    );
+  }
+
+  cochesPorMarca(filtros: any): Observable<Coche[]> {
+    // Construye los parámetros de búsqueda
+    let params = new HttpParams();
+    for (let key in filtros) {
+      if (filtros.hasOwnProperty(key)) {
+        params = params.set(key, filtros[key]);
+      }
+    }
+
+    // Realiza la solicitud HTTP al backend con los parámetros de búsqueda
+    return this.http.get<Coche[]>(
+      'http://localhost:8080/api/v1/public/cochesPorMarca',
+      { params }
+    );
+  }
+
+  // Crea un coche
+  crearCoche(coche: Coche): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+
+    return this.http
+      .post('http://localhost:8080/api/v1/admin/coche', coche, { headers })
+      .pipe(
+        catchError((error) => {
+          return throwError('Error al crear el coche: ' + error.message);
+        })
+      );
+  }
+
+  //Actualiza un coche por su id, y los nuevos datos del coche
+  actualizarCoche(id: number, coche: Coche): Observable<any> {
+    const headers = this.getHeaders();
+    const url = `http://localhost:8080/api/v1/admin/coche/${id}`;
+
+    return this.http
+      .put(url, coche, {
+        headers,
+      })
+      .pipe(
+        catchError((error) => {
+          return throwError('Error al actualizar coche: ' + error.message);
+        })
+      );
+  }
+
+  // Elimina un coche por su id
+  eliminarCoche(id: number): Observable<any> {
+    const headers = this.getHeaders();
+    const url = `http://localhost:8080/api/v1/admin/coche/${id}`;
+
+    console.log('Eliminando coche ' + id);
+    return this.http
+      .delete(url, {
+        headers,
+      })
+      .pipe(
+        catchError((error) => {
+          return throwError('Error al eliminar coche: ' + error);
+        })
+      );
   }
 }

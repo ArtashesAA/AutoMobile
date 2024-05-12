@@ -3,14 +3,13 @@ import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Usuario } from '../entidad/usuario.model';
 import { ServicioUsuarioService } from '../servicio-usuario/servicio-usuario.service';
-import { DataServices } from '../servicio-general/DataServices';
 import { AutenticacionService } from '../servicio-autenticacion/autenticacion.service';
 
 @Component({
   selector: 'app-header',
   standalone: true,
   imports: [RouterModule, CommonModule],
-  providers: [ServicioUsuarioService, DataServices],
+  providers: [ServicioUsuarioService],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css',
 })

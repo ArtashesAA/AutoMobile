@@ -3,10 +3,14 @@ package com.v1.automobile.entidad.dto;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.v1.automobile.entidad.Favorito;
+
 public class CocheDTO {
+
 	private Long id;
 	private String marca;
 	private String modelo;
+	private String imagen_principal;
 	private Integer precio;
 	private Integer anyo;
 	private Integer potencia;
@@ -26,21 +30,26 @@ public class CocheDTO {
 	private Integer numeroCilindros;
 	private String ciudad;
 	private String descripcion;
+	private Integer telefonoAdjunto;
+	private String emailAdjunto;
 	private UsuarioDTO usuario;
-	private List<ImagenDTO> imagenes = new ArrayList<>();
+	private List<ImagenDTO> imagenes;
+	private List<Favorito> favoritos = new ArrayList<>();
 
 	public CocheDTO() {
 
 	}
 
-	public CocheDTO(Long id, String marca, String modelo, Integer precio, Integer anyo, Integer potencia,
-			Integer kilometraje, String combustible, String consumo, String tipoCambio, String categoria,
-			String tipoVehiculo, String traccion, Integer plazas, Integer puertas, String garantia, Integer peso,
-			String color, Integer numeroMarchas, Integer numeroCilindros, String ciudad, String descripcion,
-			UsuarioDTO usuario, List<ImagenDTO> imagenes) {
+	public CocheDTO(Long id, String marca, String modelo, String imagen_principal, Integer precio, Integer anyo,
+			Integer potencia, Integer kilometraje, String combustible, String consumo, String tipoCambio,
+			String categoria, String tipoVehiculo, String traccion, Integer plazas, Integer puertas, String garantia,
+			Integer peso, String color, Integer numeroMarchas, Integer numeroCilindros, String ciudad,
+			String descripcion, Integer telefonoAdjunto, String emailAdjunto, UsuarioDTO usuario,
+			List<ImagenDTO> imagenes, List<Favorito> favoritos) {
 		this.id = id;
 		this.marca = marca;
 		this.modelo = modelo;
+		this.imagen_principal = imagen_principal;
 		this.precio = precio;
 		this.anyo = anyo;
 		this.potencia = potencia;
@@ -60,8 +69,11 @@ public class CocheDTO {
 		this.numeroCilindros = numeroCilindros;
 		this.ciudad = ciudad;
 		this.descripcion = descripcion;
+		this.telefonoAdjunto = telefonoAdjunto;
+		this.emailAdjunto = emailAdjunto;
 		this.usuario = usuario;
 		this.imagenes = imagenes;
+		this.favoritos = favoritos;
 	}
 
 	public Long getId() {
@@ -86,6 +98,14 @@ public class CocheDTO {
 
 	public void setModelo(String modelo) {
 		this.modelo = modelo;
+	}
+
+	public String getImagen_principal() {
+		return imagen_principal;
+	}
+
+	public void setImagen_principal(String imagen_principal) {
+		this.imagen_principal = imagen_principal;
 	}
 
 	public Integer getPrecio() {
@@ -248,6 +268,22 @@ public class CocheDTO {
 		this.usuario = usuario;
 	}
 
+	public Integer getTelefonoAdjunto() {
+		return telefonoAdjunto;
+	}
+
+	public void setTelefonoAdjunto(Integer telefonoAdjunto) {
+		this.telefonoAdjunto = telefonoAdjunto;
+	}
+
+	public String getEmailAdjunto() {
+		return emailAdjunto;
+	}
+
+	public void setEmailAdjunto(String emailAdjunto) {
+		this.emailAdjunto = emailAdjunto;
+	}
+
 	public List<ImagenDTO> getImagenes() {
 		return imagenes;
 	}
@@ -256,18 +292,12 @@ public class CocheDTO {
 		this.imagenes = imagenes;
 	}
 
-	@Override
-	public String toString() {
-		return "CocheDTO [getId()=" + getId() + ", getMarca()=" + getMarca() + ", getModelo()=" + getModelo()
-				+ ", getPrecio()=" + getPrecio() + ", getAnyo()=" + getAnyo() + ", getPotencia()=" + getPotencia()
-				+ ", getKilometraje()=" + getKilometraje() + ", getCombustible()=" + getCombustible()
-				+ ", getConsumo()=" + getConsumo() + ", getTipoCambio()=" + getTipoCambio() + ", getCategoria()="
-				+ getCategoria() + ", getTipoVehiculo()=" + getTipoVehiculo() + ", getTraccion()=" + getTraccion()
-				+ ", getPlazas()=" + getPlazas() + ", getPuertas()=" + getPuertas() + ", getGarantia()=" + getGarantia()
-				+ ", getPeso()=" + getPeso() + ", getColor()=" + getColor() + ", getNumeroMarchas()="
-				+ getNumeroMarchas() + ", getNumeroCilindros()=" + getNumeroCilindros() + ", getCiudad()=" + getCiudad()
-				+ ", getDescripcion()=" + getDescripcion() + ", getUsuario()=" + getUsuario() + ", getImagenes()="
-				+ getImagenes() + "]";
+	public List<Favorito> getFavoritos() {
+		return favoritos;
+	}
+
+	public void setFavoritos(List<Favorito> favoritos) {
+		this.favoritos = favoritos;
 	}
 
 }

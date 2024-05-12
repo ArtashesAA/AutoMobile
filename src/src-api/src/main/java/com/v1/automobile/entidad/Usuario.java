@@ -39,10 +39,13 @@ public class Usuario implements UserDetails {
 	private String password;
 
 	@Column(name = "role", nullable = false, columnDefinition = "VARCHAR(255) DEFAULT 'USER'")
-	private String role;
-
+	private String role;	
+	
 	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
 	private List<Coche> coches = new ArrayList<>();
+	
+	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
+	private List<Noticia> noticias = new ArrayList<>();
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -112,14 +115,6 @@ public class Usuario implements UserDetails {
 		this.password = password;
 	}
 
-	public List<Coche> getCoches() {
-		return coches;
-	}
-
-	public void setCoches(List<Coche> coches) {
-		this.coches = coches;
-	}
-
 	public String getNombre_usuario() {
 		return nombre_usuario;
 	}
@@ -135,5 +130,22 @@ public class Usuario implements UserDetails {
 	public void setImagen_usuario(String imagen_usuario) {
 		this.imagen_usuario = imagen_usuario;
 	}
+
+	public List<Coche> getCoches() {
+		return coches;
+	}
+
+	public void setCoches(List<Coche> coches) {
+		this.coches = coches;
+	}
+
+	public List<Noticia> getNoticias() {
+		return noticias;
+	}
+
+	public void setNoticias(List<Noticia> noticias) {
+		this.noticias = noticias;
+	}
+
 
 }

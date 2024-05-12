@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <div class="container">
   <div class="caja">
     <div class="coche-info-container">
@@ -6,8 +5,8 @@
       <a [routerLink]="['/verCoche', cochedelista.id]" class="coche-link"
         ><img
           [src]="
-            cochedelista.imagenes.length > 0
-              ? cochedelista.imagenes[0].imagen_url
+            cochedelista.imagen_principal
+              ? cochedelista.imagen_principal
               : 'https://i.pinimg.com/736x/50/e8/ae/50e8ae16afb7509d86da75259ba6a154.jpg'
           "
           alt="Imagen de coche"
@@ -52,24 +51,22 @@
         <!-- Acciones -->
         <button
           class="btn btn-primary mr-3"
-          [routerLink]="['/ver', cochedelista.id]"
+          [routerLink]="['/verCoche', cochedelista.id]"
         >
           Ver Coche
         </button>
 
         <button
-          class="btn btn-secondary"
+          class="btn btn-warning"
           [routerLink]="['/actualiza', cochedelista.id]"
-          [queryParams]="{ accion: '1' }"
           *ngIf="estaLogueado()"
         >
           Actualizar
         </button>
         <button
           class="btn btn-danger ml-3"
-          [routerLink]="['/actualiza', cochedelista.id]"
-          [queryParams]="{ accion: '2' }"
-          *ngIf="estaLogueado()"
+          *ngIf="cochedelista.id !== undefined && estaLogueado()"
+          (click)="eliminarCoche(cochedelista.id)"
         >
           Eliminar
         </button>
