@@ -32,12 +32,7 @@ export class ServicioCocheService {
   // Recupera un coche por su id
   cargarCochePorId(id: number): Observable<Coche> {
     const url = `http://localhost:8080/api/v1/public/coche/${id}`;
-    return this.http.get<Coche>(url).pipe(
-      catchError((error) => {
-        console.error('Error al cargar el coche:', error);
-        return throwError('Error al cargar el coche');
-      })
-    );
+    return this.http.get<Coche>(url);
   }
 
   cochesTodosFiltros(filtros: any): Observable<Coche[]> {
@@ -78,13 +73,9 @@ export class ServicioCocheService {
       'Content-Type': 'application/json',
     });
 
-    return this.http
-      .post('http://localhost:8080/api/v1/admin/coche', coche, { headers })
-      .pipe(
-        catchError((error) => {
-          return throwError('Error al crear el coche: ' + error.message);
-        })
-      );
+    return this.http.post('http://localhost:8080/api/v1/admin/coche', coche, {
+      headers,
+    });
   }
 
   //Actualiza un coche por su id, y los nuevos datos del coche
@@ -92,15 +83,9 @@ export class ServicioCocheService {
     const headers = this.getHeaders();
     const url = `http://localhost:8080/api/v1/admin/coche/${id}`;
 
-    return this.http
-      .put(url, coche, {
-        headers,
-      })
-      .pipe(
-        catchError((error) => {
-          return throwError('Error al actualizar coche: ' + error.message);
-        })
-      );
+    return this.http.put(url, coche, {
+      headers,
+    });
   }
 
   // Elimina un coche por su id
@@ -108,15 +93,8 @@ export class ServicioCocheService {
     const headers = this.getHeaders();
     const url = `http://localhost:8080/api/v1/admin/coche/${id}`;
 
-    console.log('Eliminando coche ' + id);
-    return this.http
-      .delete(url, {
-        headers,
-      })
-      .pipe(
-        catchError((error) => {
-          return throwError('Error al eliminar coche: ' + error);
-        })
-      );
+    return this.http.delete(url, {
+      headers,
+    });
   }
 }
