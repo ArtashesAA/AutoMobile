@@ -1,3 +1,21 @@
 .titulo {
   text-align: center;
 }
+
+.coches-no-encontrados {
+  margin-top: 100px;
+  text-align: center;
+}
+
+.coches-no-encontrados button {
+  margin-top: 200px;
+}
+
+.paginacion {
+  text-align: center;
+}
+
+.paginacion button {
+  margin-left: 15px;
+  margin-right: 15px;
+}

@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Usuario } from '../entidad/usuario.model';
 import { ServicioUsuarioService } from '../servicio-usuario/servicio-usuario.service';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { AutenticacionService } from '../servicio-autenticacion/autenticacion.service';
 
 @Component({
@@ -20,6 +20,7 @@ export class GestionUsuariosComponent {
   @Input() usuario!: Usuario;
 
   constructor(
+    private router: Router,
     private servicioAutenticacion: AutenticacionService,
     private servicioUsuario: ServicioUsuarioService
   ) {}
@@ -49,9 +50,46 @@ export class GestionUsuariosComponent {
   // Borra un usuario por su id
   eliminarUsuario(id: number) {
     if (id != null) {
-      this.servicioUsuario.eliminarUsuario(id);
+      // Cargar el usuario por su ID
+      this.servicioUsuario
+        .cargarUsuarioPorId(id)
+        .subscribe((usuario: Usuario) => {
+          if (usuario) {
+            // Mostrar alerta de confirmación
+            const confirmacion = window.confirm(
+              `¿Estás seguro que quieres eliminar el usuario ${usuario.nombre_usuario} ?`
+            );
+
+            // Si el usuario confirma la eliminación
+            if (confirmacion) {
+              // Eliminar el usuario
+              this.servicioUsuario.eliminarUsuario(id).subscribe(
+                () => {
+                  alert('Usuario eliminado correctamente');
+                  // Vuelve a la página de gestión
+                  this.volverAGestionDeUsuarios();
+                },
+                (error) => {
+                  if (error.status === 200) {
+                    alert('Usuario eliminado correctamente');
+                    // Vuelve a la página de gestión
+                    this.volverAGestionDeUsuarios();
+                  } else {
+                    console.error('Error al eliminar usuario:', error);
+                  }
+                }
+              );
+            }
+          } else {
+            console.error('El usuario con ID', id, 'no fue encontrado.');
+          }
+        });
     } else {
-      console.error('Error al obtener el id del usuario.');
+      console.error('Error al obtener el ID del usuario.');
     }
+  }
+
+  volverAGestionDeUsuarios() {
+    this.router.navigate(['gestionUsuarios']);
   }
 }

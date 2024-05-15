@@ -18,7 +18,6 @@ import com.v1.automobile.entidad.Coche;
 import com.v1.automobile.entidad.Imagen;
 import com.v1.automobile.entidad.dto.CocheDTO;
 import com.v1.automobile.entidad.dto.ImagenDTO;
-import com.v1.automobile.entidad.request.CocheRequest;
 import com.v1.automobile.entidad.request.ImagenRequest;
 import com.v1.automobile.servicio.CocheServicio;
 import com.v1.automobile.servicio.ImagenServicio;
@@ -55,26 +54,7 @@ public class CocheControlador {
 	public ResponseEntity<CocheDTO> getCocheById(@PathVariable Long id) {
 		return cocheServicio.getCocheById(id);
 	}
-
-	@GetMapping("/public/coche/filtroTodos")
-	public List<CocheDTO> obtenerCochesFiltrados(@RequestParam String marca, @RequestParam String modelo,
-			@RequestParam Integer anyo, @RequestParam Integer precioMax) {
-		// Lógica para obtener coches filtrados según los parámetros proporcionados
-		return cocheServicio.cochesFiltrados(marca, modelo, anyo, precioMax);
-	}
-
-	@GetMapping("/public/cochesPorMarca")
-	public List<CocheDTO> obtenerCochesPorMarca(@RequestParam String marca) {
-		// Lógica para obtener coches filtrados por marca
-		return cocheServicio.cochesPorMarca(marca);
-	}
-
-	@GetMapping("/public/cochesPorMarcaModelo")
-	public List<CocheDTO> obtenerCochesPorMarcaModelo(@RequestParam String marca, @RequestParam String modelo) {
-		// Lógica para obtener coches filtrados por marca
-		return cocheServicio.cochesPorMarcaModelo(marca, modelo);
-	}
-
+	
 	/*
 	 * Añade un coche a la bbdd. Puede acceder un admin o usuario
 	 * 
@@ -83,8 +63,8 @@ public class CocheControlador {
 	 * @return guarda el coche pasado por parámetro
 	 */
 	@PostMapping("/adminuser/coche")
-	public ResponseEntity<String> addCoche(@RequestBody CocheRequest request) {
-		return cocheServicio.addCoche(request);
+	public ResponseEntity<String> addCoche(@RequestBody Coche request, @RequestParam Integer usuarioId) {
+		return cocheServicio.addCoche(request, usuarioId);
 	}
 
 	/*

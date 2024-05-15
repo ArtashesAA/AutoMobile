@@ -30,26 +30,20 @@ export class ServicioNoticiaService {
   cargarNoticias(): Observable<any> {
     const headers = this.getHeaders();
 
-    return this.httpClient
-      .get('http://localhost:8080/api/v1/noticia/adminuser', { headers })
-      .pipe(
-        catchError((error) => {
-          return throwError('Error al cargar noticias: ' + error.message);
-        })
-      );
+    return this.httpClient.get(
+      'http://localhost:8080/api/v1/noticia/adminuser',
+      { headers }
+    );
   }
 
   // Recupera una noticia por su id
   cargarNoticiaPorId(id: number): Observable<any> {
     const headers = this.getHeaders();
 
-    return this.httpClient
-      .get(`http://localhost:8080/api/v1/noticia/adminuser/${id}`, { headers })
-      .pipe(
-        catchError((error) => {
-          return throwError('Error al cargar la noticia: ' + error.message);
-        })
-      );
+    return this.httpClient.get(
+      `http://localhost:8080/api/v1/noticia/adminuser/${id}`,
+      { headers }
+    );
   }
 
   // Crea una noticia
@@ -58,13 +52,11 @@ export class ServicioNoticiaService {
       'Content-Type': 'application/json',
     });
 
-    return this.httpClient
-      .post('http://localhost:8080/api/v1/noticia/admin', noticia, { headers })
-      .pipe(
-        catchError((error) => {
-          return throwError('Error al crear la noticia: ' + error.message);
-        })
-      );
+    return this.httpClient.post(
+      'http://localhost:8080/api/v1/noticia/admin',
+      noticia,
+      { headers }
+    );
   }
 
   // Actualiza una noticia por una id y los nuevos datos de la noticia
@@ -72,11 +64,7 @@ export class ServicioNoticiaService {
     const headers = this.getHeaders();
     const url = `http://localhost:8080/api/v1/noticia/admin/${indice}`;
 
-    return this.httpClient.put(url, noticia, { headers }).pipe(
-      catchError((error) => {
-        return throwError('Error al actualizar la noticia: ' + error.message);
-      })
-    );
+    return this.httpClient.put(url, noticia, { headers });
   }
 
   // Elimina una noticia por su id
@@ -84,10 +72,6 @@ export class ServicioNoticiaService {
     const headers = this.getHeaders();
     const url = `http://localhost:8080/api/v1/noticia/admin/${id}`;
 
-    return this.httpClient.delete(url, { headers }).pipe(
-      catchError((error) => {
-        return throwError('Error al eliminar la noticia: ' + error.message);
-      })
-    );
+    return this.httpClient.delete(url, { headers });
   }
 }

@@ -15,9 +15,9 @@ import { GestionUsuariosComponent } from '../gestion-usuarios/gestion-usuarios.c
 })
 export class ActualizarUsuarioComponent implements OnInit {
   cuadroId: number = 0;
-  cuadroNombreDeUsuario: string = '';
+  cuadroNombreUsuario: string = '';
   cuadroEmail: string = '';
-  cuadroImagen: string = '';
+  cuadroImagenUsuario: string = '';
   cuadroPassword: string = '';
   cuadroRole: string = '';
 
@@ -36,9 +36,9 @@ export class ActualizarUsuarioComponent implements OnInit {
       this.indice = id;
       this.miServicio.cargarUsuarioPorId(id).subscribe((usuario: Usuario) => {
         this.cuadroId = usuario.id;
-        this.cuadroNombreDeUsuario = usuario.nombre_usuario;
+        this.cuadroNombreUsuario = usuario.nombre_usuario;
         this.cuadroEmail = usuario.email;
-        this.cuadroImagen = usuario.imagen_usuario;
+        this.cuadroImagenUsuario = usuario.imagen_usuario;
         this.cuadroPassword = usuario.password;
         this.cuadroRole = usuario.role;
       });
@@ -58,15 +58,52 @@ export class ActualizarUsuarioComponent implements OnInit {
   actualizaUsuario() {
     let miUsuario = new Usuario(
       this.cuadroId,
-      this.cuadroNombreDeUsuario,
+      this.cuadroNombreUsuario,
       this.cuadroEmail,
-      this.cuadroImagen,
+      this.cuadroImagenUsuario,
       this.cuadroPassword,
       this.cuadroRole
     );
 
-    this.miServicio.actualizarUsuario(this.indice, miUsuario);
-    this.volverAGestionDeUsuarios();
+    // Cargar el usuario por su ID
+    this.miServicio.cargarUsuarioPorId(this.indice).subscribe(
+      (usuario: Usuario) => {
+        if (usuario) {
+          // Mostrar alerta de confirmación
+          const confirmacion = window.confirm(
+            `¿Estás seguro que quieres actualizar el usuario ${usuario.nombre_usuario}?`
+          );
+
+          // Si el usuario confirma la actualización
+          if (confirmacion) {
+            // Actualizar el usuario
+            this.miServicio.actualizarUsuario(this.indice, miUsuario).subscribe(
+              () => {
+                alert('Usuario actualizado correctamente');
+                // Vuelve a la página de gestión
+                this.volverAGestionDeUsuarios();
+              },
+              (error) => {
+                if (error.status === 200) {
+                  alert('Usuario actualizado correctamente');
+                  // Vuelve a la página de gestión
+                  this.volverAGestionDeUsuarios();
+                } else {
+                  console.error('Error al eliminar coche:', error);
+                }
+              }
+            );
+          }
+        } else {
+          console.error('El usuario con ID', this.indice, 'no fue encontrado.');
+        }
+      },
+      (error) => {
+        // Si ocurre un error al cargar el usuario por su ID, se captura aquí
+        console.error('Error al cargar el usuario:', error);
+        // Aquí puedes agregar más lógica para manejar el error, como mostrar un mensaje al usuario
+      }
+    );
   }
 
   volverAGestionDeUsuarios() {

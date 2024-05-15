@@ -62,7 +62,23 @@ export class ServicioCocheService {
 
     // Realiza la solicitud HTTP al backend con los parámetros de búsqueda
     return this.http.get<Coche[]>(
-      'http://localhost:8080/api/v1/public/cochesPorMarca',
+      'http://localhost:8080/api/v1/public/cochesMarca',
+      { params }
+    );
+  }
+
+  cochesPorMarcaModelo(filtros: any): Observable<Coche[]> {
+    // Construye los parámetros de búsqueda
+    let params = new HttpParams();
+    for (let key in filtros) {
+      if (filtros.hasOwnProperty(key)) {
+        params = params.set(key, filtros[key]);
+      }
+    }
+
+    // Realiza la solicitud HTTP al backend con los parámetros de búsqueda
+    return this.http.get<Coche[]>(
+      'http://localhost:8080/api/v1/public/cochesMarcaModelo',
       { params }
     );
   }

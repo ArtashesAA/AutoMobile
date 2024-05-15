@@ -1,6 +1,5 @@
 <div class="sidebar">
   <h3>Filtros de Búsqueda</h3>
-
   <form>
     <!-- Marca -->
     <label>Marca:</label>
@@ -22,13 +21,14 @@
     <!-- Modelo -->
     <label>Modelo:</label>
     <div *ngIf="!cargandoCoches">
-      <select class="form-select" name="modelo" id="modelo">
+      <select
+        class="form-select"
+        name="modelo"
+        id="modelo"
+        [(ngModel)]="modeloSeleccionado"
+      >
         <option value="" disabled selected>Todos</option>
-        <option
-          *ngFor="let modelo of modelos"
-          [value]="modelo"
-          [(ngModel)]="modeloSeleccionado"
-        >
+        <option *ngFor="let modelo of modelos" [value]="modelo">
           {{ modelo }}
         </option>
       </select>
@@ -110,7 +110,7 @@
       class="form-select"
       name="precioMin"
       [(ngModel)]="precioMin"
-      id="lang"
+      id="precioMin"
     >
       <option selected disabled>Desde</option>
       <option value="1000">1,000€</option>
@@ -122,26 +122,26 @@
       <option value="7000">7,000€</option>
       <option value="8000">8,000€</option>
       <option value="9000">9,000€</option>
-      <option value="10,000">10,000€</option>
-      <option value="15,000">15,000€</option>
-      <option value="20,000">20,000€</option>
-      <option value="25,000">25,000€</option>
-      <option value="30,000">30,000€</option>
-      <option value="35,000">35,000€</option>
-      <option value="40,000">40,000€</option>
-      <option value="45,000">45,000€</option>
-      <option value="50,000">50,000€</option>
-      <option value="75,000">75,000€</option>
-      <option value="100,000">100,000€</option>
-      <option value="150,000">150,000€</option>
-      <option value="200,000">200,000€</option>
+      <option value="10000">10,000€</option>
+      <option value="15000">15,000€</option>
+      <option value="20000">20,000€</option>
+      <option value="25000">25,000€</option>
+      <option value="30000">30,000€</option>
+      <option value="35000">35,000€</option>
+      <option value="40000">40,000€</option>
+      <option value="45000">45,000€</option>
+      <option value="50000">50,000€</option>
+      <option value="75000">75,000€</option>
+      <option value="100000">100,000€</option>
+      <option value="150000">150,000€</option>
+      <option value="200000">200,000€</option>
     </select>
 
     <select
       class="form-select"
       name="precioMax"
       [(ngModel)]="precioMax"
-      id="lang"
+      id="precioMax"
     >
       <option selected disabled>Hasta</option>
       <option value="1000">1,000€</option>
@@ -153,19 +153,19 @@
       <option value="7000">7,000€</option>
       <option value="8000">8,000€</option>
       <option value="9000">9,000€</option>
-      <option value="10,000">10,000€</option>
-      <option value="15,000">15,000€</option>
-      <option value="20,000">20,000€</option>
-      <option value="25,000">25,000€</option>
-      <option value="30,000">30,000€</option>
-      <option value="35,000">35,000€</option>
-      <option value="40,000">40,000€</option>
-      <option value="45,000">45,000€</option>
-      <option value="50,000">50,000€</option>
-      <option value="75,000">75,000€</option>
-      <option value="100,000">100,000€</option>
-      <option value="150,000">150,000€</option>
-      <option value="200,000">200,000€</option>
+      <option value="10000">10,000€</option>
+      <option value="15000">15,000€</option>
+      <option value="20000">20,000€</option>
+      <option value="25000">25,000€</option>
+      <option value="30000">30,000€</option>
+      <option value="35000">35,000€</option>
+      <option value="40000">40,000€</option>
+      <option value="45000">45,000€</option>
+      <option value="50000">50,000€</option>
+      <option value="75000">75,000€</option>
+      <option value="100000">100,000€</option>
+      <option value="150000">150,000€</option>
+      <option value="200000">200,000€</option>
     </select>
 
     <label>Kilometraje</label>
@@ -282,6 +282,12 @@
       <option value="9">9 plazas</option>
     </select>
 
-    <button type="submit" class="btn btn-primary mt-3">Aplicar Filtros</button>
+    <button
+      type="button"
+      class="btn btn-primary mt-3"
+      (click)="aplicarFiltros()"
+    >
+      Aplicar Filtros
+    </button>
   </form>
 </div>

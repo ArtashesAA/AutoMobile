@@ -4,16 +4,45 @@
   <div class="row">
     <!-- Sidebar -->
     <div class="col-md-2">
-      <app-sidebar></app-sidebar>
+      <app-sidebar [filtros]="filtros"></app-sidebar>
     </div>
 
     <!-- Resultados de la búsqueda -->
     <div class="col-md-10">
       <div class="row">
-        <div class="col-md-6" *ngFor="let coche of coches">
+        <div *ngIf="cochesFiltrados.length === 0" class="col-12">
+          <div class="coches-no-encontrados">
+            <h4>
+              No se encontraron coches que coincidan con los filtros
+              seleccionados.
+            </h4>
+            <button class="btn btn-primary" (click)="volverAInicio()">
+              Volver a Inicio
+            </button>
+          </div>
+        </div>
+        <div class="col-md-6" *ngFor="let coche of cochesPaginados">
           <app-coche-hijo [cochedelista]="coche"></app-coche-hijo>
         </div>
       </div>
     </div>
+  </div>
+
+  <div class="paginacion">
+    <button
+      class="btn btn-light"
+      (click)="anteriorPag()"
+      [disabled]="paginaActual === 1"
+    >
+      Anterior
+    </button>
+    <span>{{ paginaActual }}</span>
+    <button
+      class="btn btn-light"
+      (click)="siguientePag()"
+      [disabled]="paginaActual === totalPaginas"
+    >
+      Siguiente
+    </button>
   </div>
 </div>

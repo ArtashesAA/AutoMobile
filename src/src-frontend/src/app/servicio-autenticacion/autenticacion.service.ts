@@ -48,9 +48,6 @@ export class AutenticacionService {
           // Guardar el token en localStorage
           this.guardarToken(response.token);
         }
-      }),
-      catchError((error) => {
-        return throwError('Error en la autenticación: ' + error.message);
       })
     );
   }
@@ -77,12 +74,7 @@ export class AutenticacionService {
   cargarUsuarioActual(): Observable<Usuario> {
     const headers = this.getHeaders();
 
-    return this.http.get<Usuario>(this.urlUsuarioActual, { headers }).pipe(
-      catchError((error) => {
-        console.error('Error al cargar el usuario:', error);
-        return throwError('Error al cargar el usuario: ' + error.message);
-      })
-    );
+    return this.http.get<Usuario>(this.urlUsuarioActual, { headers });
   }
 
   // Comprueba si esta logueado a partir del token
@@ -104,10 +96,6 @@ export class AutenticacionService {
     return this.cargarUsuarioActual().pipe(
       map((usuario: Usuario) => {
         return usuario.role === 'ADMIN';
-      }),
-      catchError((error) => {
-        console.error('Error al cargar el usuario:', error);
-        return throwError('Error al cargar el usuario: ' + error.message);
       })
     );
   }

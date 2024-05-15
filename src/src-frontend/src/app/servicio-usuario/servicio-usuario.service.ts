@@ -60,6 +60,7 @@ export class ServicioUsuarioService {
     const headers = this.servicioAutenticacion.getHeaders();
     const url = `http://localhost:8080/api/v1/admin/usuario/${id}`;
 
+    console.log('Actualizando usuario ' + id);
     return this.http.put(url, usuario, {
       headers,
     });

@@ -59,58 +59,18 @@ public class CocheServicio {
 		}
 	}
 
-	public ResponseEntity<String> addCoche(CocheRequest cocheRequest) {
+	public ResponseEntity<String> addCoche(Coche coche, Integer idUsuario) {
 		try {
-			// Crea un nuevo coche
-			Coche coche = new Coche();
-			coche.setId(cocheRequest.getId());
-			coche.setMarca(cocheRequest.getMarca());
-			coche.setModelo(cocheRequest.getModelo());
-			coche.setAnyo(cocheRequest.getAnyo());
-			coche.setPotencia(cocheRequest.getPotencia());
-			coche.setKilometraje(cocheRequest.getKilometraje());
-			coche.setPeso(cocheRequest.getPeso());
-			coche.setCombustible(cocheRequest.getCombustible());
-			coche.setColor(cocheRequest.getColor());
-			coche.setPrecio(cocheRequest.getPrecio());
-			coche.setDescripcion(cocheRequest.getDescripcion());
-			coche.setTipoCambio(cocheRequest.getTipoCambio());
-			coche.setConsumo(cocheRequest.getConsumo());
-			coche.setCategoria(cocheRequest.getCategoria());
-			coche.setTipoVehiculo(cocheRequest.getTipoVehiculo());
-			coche.setTraccion(cocheRequest.getTraccion());
-			coche.setPlazas(cocheRequest.getPlazas());
-			coche.setPuertas(cocheRequest.getPuertas());
-			coche.setGarantia(cocheRequest.getGarantia());
-			coche.setNumeroMarchas(cocheRequest.getNumeroMarchas());
-			coche.setNumeroCilindros(cocheRequest.getNumeroCilindros());
-			coche.setCiudad(cocheRequest.getCiudad());
-			coche.setDescripcion(cocheRequest.getDescripcion());
+			// Obtener el usuario por su ID
+	        Usuario usuario = usuarioRepositorio.findById(idUsuario)
+	                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+
+	        // Asignar el usuario al coche
+	        coche.setUsuario(usuario);
 			
 
-			// Obtiene el usuario asociado al coche
-			Optional<Usuario> optionalUsuario = usuarioRepositorio.findById(cocheRequest.getUsuarioId());
-			if (optionalUsuario.isPresent()) {
-				coche.setUsuario(optionalUsuario.get());
-			} else {
-				System.out.println("Error");
-				return new ResponseEntity<>("Usuario no encontrado", HttpStatus.NOT_FOUND);
-			}
-			
-
-			// Guarda el coche
-			Coche savedCoche = cocheRepositorio.save(coche);
-
-			// Guarda las imágenes asociadas
-			List<ImagenDTO> imagenes = cocheRequest.getImagenes();
-			for (ImagenDTO imagenDTO : imagenes) {
-				ResponseEntity<String> response = imagenServicio.addImagen(savedCoche.getId(),
-						imagenDTO.getImagen_url());
-				if (response.getStatusCode() != HttpStatus.OK) {
-					// Mensaje de error
-					return new ResponseEntity<>(response.getBody(), response.getStatusCode());
-				}
-			}
+	     // Guardar el coche en la base de datos
+	        cocheRepositorio.save(coche);
 
 			return new ResponseEntity<>("Coche creado correctamente", HttpStatus.CREATED);
 		} catch (Exception e) {
