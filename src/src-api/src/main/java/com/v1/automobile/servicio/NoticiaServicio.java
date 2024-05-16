@@ -2,7 +2,6 @@ package com.v1.automobile.servicio;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.v1.automobile.entidad.Noticia;
-import com.v1.automobile.entidad.dto.NoticiaDTO;
 import com.v1.automobile.repositorio.NoticiaRepositorio;
 
 @Service
@@ -19,14 +17,12 @@ public class NoticiaServicio {
 	@Autowired
 	private NoticiaRepositorio noticiaRepositorio;
 
-	public NoticiaDTO obtenerNoticiaPorId(Long id) {
-		 Optional<Noticia> optionalNoticia = noticiaRepositorio.findById(id);
-		    return optionalNoticia.map(this::convertToDto).orElse(null);
+	public Optional<Noticia> obtenerNoticiaPorId(Long id) {
+		return noticiaRepositorio.findById(id);
 	}
 
-	public List<NoticiaDTO> obtenerTodasLasNoticias() {
-		List<Noticia> noticias = noticiaRepositorio.findAll();
-		return noticias.stream().map(this::convertToDto).collect(Collectors.toList());
+	public List<Noticia> obtenerTodasLasNoticias() {
+		return noticiaRepositorio.findAll();
 	}
 
 	public Noticia crearNoticia(Noticia noticia) {
@@ -57,18 +53,7 @@ public class NoticiaServicio {
 		} catch (Exception e) {
 			return new ResponseEntity<>("Error al eliminar la noticia", HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		
+
 	}
 
-	private NoticiaDTO convertToDto(Noticia noticia) {
-		NoticiaDTO dto = new NoticiaDTO();
-
-		dto.setId(noticia.getId());
-		dto.setFecha(noticia.getFecha());
-		dto.setTitulo(noticia.getTitulo());
-		dto.setContenido(noticia.getContenido());
-		dto.setUrl_imagen(noticia.getUrl_imagen());
-		dto.setUrl_video(noticia.getUrl_video());
-		return dto;
-	}
 }

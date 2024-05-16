@@ -7,6 +7,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -39,13 +41,46 @@ public class Usuario implements UserDetails {
 	private String password;
 
 	@Column(name = "role", nullable = false, columnDefinition = "VARCHAR(255) DEFAULT 'USER'")
-	private String role;	
-	
+	private String role;
+
 	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
+	@JsonManagedReference(value = "usuario-coches")
 	private List<Coche> coches = new ArrayList<>();
-	
+
 	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
+	@JsonManagedReference(value = "usuario-noticias")
 	private List<Noticia> noticias = new ArrayList<>();
+
+	public Usuario(Integer id,
+			@NotBlank(message = "El nombre de usuario no puede estar en blanco") String nombre_usuario,
+			@NotBlank(message = "El email no puede estar en blanco") String email, String imagen_usuario,
+			@NotBlank(message = "La contraseña no puede estar en blanco") String password, String role,
+			List<Coche> coches, List<Noticia> noticias) {
+		this.id = id;
+		this.nombre_usuario = nombre_usuario;
+		this.email = email;
+		this.imagen_usuario = imagen_usuario;
+		this.password = password;
+		this.role = role;
+		this.coches = coches;
+		this.noticias = noticias;
+	}
+
+	public Usuario(Integer id,
+			@NotBlank(message = "El nombre de usuario no puede estar en blanco") String nombre_usuario,
+			@NotBlank(message = "El email no puede estar en blanco") String email, String imagen_usuario,
+			@NotBlank(message = "La contraseña no puede estar en blanco") String password, String role) {
+		this.id = id;
+		this.nombre_usuario = nombre_usuario;
+		this.email = email;
+		this.imagen_usuario = imagen_usuario;
+		this.password = password;
+		this.role = role;
+	}
+
+	public Usuario() {
+
+	}
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -146,6 +181,5 @@ public class Usuario implements UserDetails {
 	public void setNoticias(List<Noticia> noticias) {
 		this.noticias = noticias;
 	}
-
 
 }

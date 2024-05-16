@@ -1,6 +1,7 @@
 package com.v1.automobile.controlador;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.v1.automobile.entidad.Noticia;
-import com.v1.automobile.entidad.dto.NoticiaDTO;
 import com.v1.automobile.servicio.NoticiaServicio;
 
 @RestController
@@ -25,8 +25,8 @@ public class NoticiaControlador {
 	private NoticiaServicio noticiaServicio;
 
 	@GetMapping("/adminuser/{id}")
-	public ResponseEntity<NoticiaDTO> obtenerNoticiaPorId(@PathVariable Long id) {
-		NoticiaDTO noticia = noticiaServicio.obtenerNoticiaPorId(id);
+	public ResponseEntity<Optional<Noticia>> obtenerNoticiaPorId(@PathVariable Long id) {
+		Optional<Noticia> noticia = noticiaServicio.obtenerNoticiaPorId(id);
 		if (noticia != null) {
 			return ResponseEntity.ok().body(noticia);
 		} else {
@@ -35,8 +35,8 @@ public class NoticiaControlador {
 	}
 
 	@GetMapping("/adminuser")
-	public ResponseEntity<List<NoticiaDTO>> obtenerTodasLasNoticias() {
-		List<NoticiaDTO> noticias = noticiaServicio.obtenerTodasLasNoticias();
+	public ResponseEntity<List<Noticia>> obtenerTodasLasNoticias() {
+		List<Noticia> noticias = (List<Noticia>) noticiaServicio.obtenerTodasLasNoticias();
 		return ResponseEntity.ok().body(noticias);
 	}
 

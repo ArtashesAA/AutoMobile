@@ -1,5 +1,7 @@
 package com.v1.automobile.entidad;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -24,6 +26,7 @@ public class Imagen {
 
 	@ManyToOne
 	@JoinColumn(name = "coche_id", nullable = false)
+	@JsonBackReference("coche-imagenes")
 	private Coche coche;
 
 	public Imagen() {

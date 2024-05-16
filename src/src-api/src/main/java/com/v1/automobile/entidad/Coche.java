@@ -3,6 +3,9 @@ package com.v1.automobile.entidad;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -113,8 +116,8 @@ public class Coche {
 	@Column(name = "descripcion", nullable = false)
 	private String descripcion;
 
-	@NotBlank(message = "El telefono no puede estar en blanco")
-	@Column(name = "telefonoAdjunto")
+	@NotNull(message = "El telefono no puede estar vacío")
+	@Column(name = "telefonoAdjunto", nullable = false)
 	private Integer telefonoAdjunto;
 
 	@NotBlank(message = "El email no puede estar en blanco")
@@ -123,12 +126,15 @@ public class Coche {
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "usuario_id", referencedColumnName = "id", nullable = false)
+	@JsonBackReference(value = "usuario-coches")
 	private Usuario usuario;
 
 	@OneToMany(mappedBy = "coche", cascade = CascadeType.ALL)
+	@JsonManagedReference(value = "coche-imagenes")
 	private List<Imagen> imagenes = new ArrayList<>();
 
 	@OneToMany(mappedBy = "coche", cascade = CascadeType.ALL)
+	@JsonManagedReference(value = "coche-favoritos")
 	private List<Favorito> favoritos = new ArrayList<>();
 
 	public Coche() {

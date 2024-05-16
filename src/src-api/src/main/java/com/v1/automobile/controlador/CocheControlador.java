@@ -1,6 +1,7 @@
 package com.v1.automobile.controlador;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -11,14 +12,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.v1.automobile.entidad.Coche;
 import com.v1.automobile.entidad.Imagen;
-import com.v1.automobile.entidad.dto.CocheDTO;
-import com.v1.automobile.entidad.dto.ImagenDTO;
-import com.v1.automobile.entidad.request.ImagenRequest;
 import com.v1.automobile.servicio.CocheServicio;
 import com.v1.automobile.servicio.ImagenServicio;
 
@@ -38,8 +35,8 @@ public class CocheControlador {
 	 * @return recupera todos los coches
 	 */
 	@GetMapping("/public/coche")
-	public ResponseEntity<List<CocheDTO>> getAllCoches() {
-		List<CocheDTO> coches = cocheServicio.getAllCoches();
+	public ResponseEntity<List<Coche>> getAllCoches() {
+		List<Coche> coches = cocheServicio.getAllCoches();
 		return ResponseEntity.ok(coches);
 	}
 
@@ -51,10 +48,10 @@ public class CocheControlador {
 	 * @return recupera el coche por id
 	 */
 	@GetMapping("/public/coche/{id}")
-	public ResponseEntity<CocheDTO> getCocheById(@PathVariable Long id) {
+	public ResponseEntity<Optional<Coche>> getCocheById(@PathVariable Long id) {
 		return cocheServicio.getCocheById(id);
 	}
-	
+
 	/*
 	 * Añade un coche a la bbdd. Puede acceder un admin o usuario
 	 * 
@@ -63,8 +60,8 @@ public class CocheControlador {
 	 * @return guarda el coche pasado por parámetro
 	 */
 	@PostMapping("/adminuser/coche")
-	public ResponseEntity<String> addCoche(@RequestBody Coche request, @RequestParam Integer usuarioId) {
-		return cocheServicio.addCoche(request, usuarioId);
+	public ResponseEntity<String> addCoche(@RequestBody Coche request) {
+		return cocheServicio.addCoche(request);
 	}
 
 	/*
@@ -101,8 +98,8 @@ public class CocheControlador {
 	 * @return recupera todas las imagenes
 	 */
 	@GetMapping("/public/imagen")
-	public ResponseEntity<List<ImagenDTO>> getAllImagenes() {
-		List<ImagenDTO> imagenes = imagenServicio.getAllImagenes();
+	public ResponseEntity<List<Imagen>> getAllImagenes() {
+		List<Imagen> imagenes = imagenServicio.getAllImagenes();
 		return ResponseEntity.ok(imagenes);
 	}
 
@@ -114,7 +111,7 @@ public class CocheControlador {
 	 * @return recupera la imagen por id
 	 */
 	@GetMapping("/public/imagen/{id}")
-	public ResponseEntity<ImagenDTO> getImagenById(@PathVariable Long id) {
+	public ResponseEntity<Optional<Imagen>> getImagenById(@PathVariable Long id) {
 		return imagenServicio.getImagenById(id);
 	}
 
@@ -125,8 +122,8 @@ public class CocheControlador {
 	 * 
 	 */
 	@GetMapping("/public/imagen/coche/{id}")
-	public ResponseEntity<List<ImagenDTO>> getImagenByCocheId(@PathVariable Long id) {
-		return imagenServicio.getImagenesByCocheId(id);
+	public ResponseEntity<List<Imagen>> getImagenByCocheId(@PathVariable Long id) {
+		return (ResponseEntity<List<Imagen>>) imagenServicio.getImagenesByCocheId(id);
 	}
 
 	/*
@@ -137,8 +134,8 @@ public class CocheControlador {
 	 * @return añade la imagen al coche pasado por parámetro
 	 */
 	@PostMapping("/adminuser/imagen")
-	public ResponseEntity<String> addImagen(@RequestBody ImagenRequest request) {
-		return imagenServicio.addImagen(request.getCoche_id(), request.getImagen_url());
+	public ResponseEntity<String> addImagen(@RequestBody Imagen imagen) {
+		return imagenServicio.addImagen(imagen.getId(), imagen.getImagen_url());
 	}
 
 	/*

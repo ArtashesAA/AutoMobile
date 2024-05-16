@@ -16,7 +16,11 @@
               No se encontraron coches que coincidan con los filtros
               seleccionados.
             </h4>
-            <button class="btn btn-primary" (click)="volverAInicio()">
+            <button
+              class="btn btn-primary"
+              id="boton-volver-inicio"
+              (click)="volverAInicio()"
+            >
               Volver a Inicio
             </button>
           </div>
@@ -31,6 +35,7 @@
   <div class="paginacion">
     <button
       class="btn btn-light"
+      id="boton-pagina-anterior"
       (click)="anteriorPag()"
       [disabled]="paginaActual === 1"
     >
