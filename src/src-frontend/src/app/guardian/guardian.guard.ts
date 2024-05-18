@@ -6,11 +6,11 @@ export const guardianGuard: CanActivateFn = () => {
   const servicioAutenticacion = inject(AutenticacionService);
   const router = inject(Router);
 
-  // Permite el acceso si el usuario es administrador
+  // Permite el acceso si el usuario esta auntenticado
   if (servicioAutenticacion.estaAutenticado()) {
     return true;
   } else {
-    // Lleva a login si el usuario no es administrador
+    // Lleva a login si el usuario no esta auntenticado
     const url = router.createUrlTree(['/login']);
     return url;
   }

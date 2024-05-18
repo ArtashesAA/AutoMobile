@@ -2,6 +2,8 @@ package com.v1.automobile.entidad;
 
 import java.sql.Date;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -28,10 +30,12 @@ public class Favorito {
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "usuario_id", referencedColumnName = "id", nullable = false)
+	@JsonBackReference("usuario-favoritos")
 	private Usuario usuario;
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "coche_id", referencedColumnName = "id", nullable = false)
+	@JsonBackReference("coche-favoritos")
 	private Coche coche;
 
 	public Favorito() {

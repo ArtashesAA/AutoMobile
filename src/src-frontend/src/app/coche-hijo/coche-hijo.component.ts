@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Coche } from '../entidad/coche.model';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ServicioCocheService } from '../servicio-coche/servicio-coche.service';
 import { AutenticacionService } from '../servicio-autenticacion/autenticacion.service';
@@ -17,7 +17,8 @@ export class CocheHijoComponent {
 
   constructor(
     private servicioAutenticacion: AutenticacionService,
-    private servicioCoche: ServicioCocheService
+    private servicioCoche: ServicioCocheService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {}
@@ -30,26 +31,37 @@ export class CocheHijoComponent {
   eliminarCoche(id: number) {
     if (id != null) {
       // Cargar el coche por su ID
-      this.servicioCoche.cargarCochePorId(id).subscribe(
-        (coche: Coche) => {
-          if (coche) {
-            // Si el coche existe y no es null, eliminarlo
+      this.servicioCoche.cargarCochePorId(id).subscribe((coche: Coche) => {
+        if (coche) {
+          // Mostrar alerta de confirmación
+          const confirmacion = window.confirm(
+            `¿Estás seguro que quieres eliminar el coche ${coche.marca} ${coche.modelo}?`
+          );
+
+          // Si el usuario confirma la eliminación
+          if (confirmacion) {
+            // Eliminar el coche
             this.servicioCoche.eliminarCoche(id).subscribe(
               () => {
-                console.log('Coche eliminado correctamente');
+                alert('Coche eliminado correctamente');
+                // Refrescar la página
+                this.router.navigate(['/catalogo']);
               },
               (error) => {
-                console.error('Error al eliminar el coche:', error);
+                if (error.status === 200) {
+                  alert('Coche eliminado correctamente');
+                  // Refrescar la página
+                  this.router.navigate(['/catalogo']);
+                } else {
+                  console.error('Error al eliminar coche:', error);
+                }
               }
             );
-          } else {
-            console.error('El coche con ID', id, 'no fue encontrado.');
           }
-        },
-        (error) => {
-          console.error('Error al cargar el coche:', error);
+        } else {
+          console.error('El coche con ID', id, 'no fue encontrado.');
         }
-      );
+      });
     } else {
       console.error('Error al obtener el ID del coche.');
     }

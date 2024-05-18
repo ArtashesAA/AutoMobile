@@ -4,7 +4,6 @@ import { ServicioUsuarioService } from '../servicio-usuario/servicio-usuario.ser
 import { AutenticacionService } from '../servicio-autenticacion/autenticacion.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 
 @Component({

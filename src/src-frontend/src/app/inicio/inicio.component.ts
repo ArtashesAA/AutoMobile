@@ -16,9 +16,33 @@ import { CommonModule } from '@angular/common';
 export class InicioComponent implements OnInit {
   coches: Coche[] = [];
   cochesFiltrados: Coche[] = [];
-
-  modelos: String[] = [];
+  modelos: string[] = [];
   marcasModelos: any = {};
+  anyos: string[] = [];
+  precios: string[] = [
+    '1000',
+    '2000',
+    '3000',
+    '4000',
+    '5000',
+    '6000',
+    '7000',
+    '8000',
+    '9000',
+    '10000',
+    '15000',
+    '20000',
+    '25000',
+    '30000',
+    '35000',
+    '40000',
+    '45000',
+    '50000',
+    '75000',
+    '100000',
+    '150000',
+    '200000',
+  ];
 
   marcaSeleccionada: string = '';
   modeloSeleccionado: string = '';
@@ -39,7 +63,6 @@ export class InicioComponent implements OnInit {
     });
   }
 
-  // Procesa los coches
   procesarCoches() {
     this.coches.forEach((coche) => {
       const marca = coche.marca;
@@ -49,23 +72,22 @@ export class InicioComponent implements OnInit {
       }
       this.marcasModelos[marca].push(modelo);
     });
+    this.anyos = this.coches
+      .map((coche) => coche.anyo.toString())
+      .filter((value, index, self) => self.indexOf(value) === index)
+      .sort((a, b) => parseInt(b) - parseInt(a));
   }
 
-  // Guarda las marcas obtenidas
   obtenerMarcas(): string[] {
     return Object.keys(this.marcasModelos);
   }
 
-  // Devuelve modelos según la marca seleccionada
   onMarcaSeleccionada() {
-    // Restablece el modelo seleccionado al cambiar la marca
     this.modeloSeleccionado = '';
     this.modelos = this.marcasModelos[this.marcaSeleccionada] || [];
   }
 
-  // Método que hace la búsqueda
   buscarCoches() {
-    // Construye la URL con los parámetros de los filtros seleccionados
     let queryParams: any = {};
     if (this.marcaSeleccionada) queryParams.marca = this.marcaSeleccionada;
     if (this.modeloSeleccionado) queryParams.modelo = this.modeloSeleccionado;
@@ -73,23 +95,6 @@ export class InicioComponent implements OnInit {
     if (this.precioMaxSeleccionado)
       queryParams.precio = this.precioMaxSeleccionado;
 
-    // Navega a la página del catálogo con los filtros aplicados como parámetros de consulta
     this.router.navigate(['/catalogo'], { queryParams });
-  }
-
-  filtrarCochesPorMarca(marca: string): void {
-    // Construye los parámetros de búsqueda
-    const queryParams = { marca: marca };
-
-    // Realiza la solicitud HTTP para obtener coches filtrados por marca
-    this.servicioCoche
-      .cochesPorMarca(queryParams)
-      .subscribe((cochesFiltrados) => {
-        // Actualiza la lista de coches filtrados
-        this.cochesFiltrados = cochesFiltrados;
-
-        // Actualiza los coches filtrados en el servicio de filtro
-        console.log(this.coches);
-      });
   }
 }

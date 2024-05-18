@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Usuario } from '../entidad/usuario.model';
 import { AutenticacionService } from '../servicio-autenticacion/autenticacion.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, catchError, tap, throwError } from 'rxjs';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -25,30 +25,21 @@ export class ServicioUsuarioService {
   cargarUsuarios(): Observable<Usuario[]> {
     const headers = this.servicioAutenticacion.getHeaders();
 
-    return this.http
-      .get<any[]>('http://localhost:8080/api/v1/admin/usuario', {
-        headers,
-      })
-      .pipe(
-        catchError((error) => {
-          return throwError('Error al cargar usuarios: ' + error.message);
-        })
-      );
+    return this.http.get<any[]>('http://localhost:8080/api/v1/admin/usuario', {
+      headers,
+    });
   }
 
   // Recupera un usuario por su id
   cargarUsuarioPorId(id: number): Observable<Usuario> {
     const headers = this.servicioAutenticacion.getHeaders();
 
-    return this.http
-      .get<Usuario>(`http://localhost:8080/api/v1/admin/usuario/${id}`, {
+    return this.http.get<Usuario>(
+      `http://localhost:8080/api/v1/admin/usuario/${id}`,
+      {
         headers,
-      })
-      .pipe(
-        catchError((error) => {
-          return throwError('Error al cargar el usuario: ' + error.message);
-        })
-      );
+      }
+    );
   }
 
   // Crea un usuario
@@ -57,13 +48,11 @@ export class ServicioUsuarioService {
       'Content-Type': 'application/json',
     });
 
-    return this.http
-      .post('http://localhost:8080/api/v1/public/usuario', usuario, { headers })
-      .pipe(
-        catchError((error) => {
-          return throwError('Error al crear el usuario: ' + error.message);
-        })
-      );
+    return this.http.post(
+      'http://localhost:8080/api/v1/public/usuario',
+      usuario,
+      { headers }
+    );
   }
 
   // Actualiza un usuario por su id y los nuevos datos
@@ -71,6 +60,18 @@ export class ServicioUsuarioService {
     const headers = this.servicioAutenticacion.getHeaders();
     const url = `http://localhost:8080/api/v1/admin/usuario/${id}`;
 
+    console.log('Actualizando usuario ' + id);
+    return this.http.put(url, usuario, {
+      headers,
+    });
+  }
+
+  // Actualiza un usuario por su id y los nuevos datos
+  actualizarPerfil(id: number, usuario: Usuario): Observable<any> {
+    const headers = this.servicioAutenticacion.getHeaders();
+    const url = `http://localhost:8080/api/v1/adminuser/usuario`;
+
+    console.log('Actualizando usuario ' + id);
     return this.http.put(url, usuario, {
       headers,
     });
@@ -78,19 +79,13 @@ export class ServicioUsuarioService {
 
   // Elimina un usuario por su id
   eliminarUsuario(id: number): Observable<any> {
+    const headers = this.servicioAutenticacion.getHeaders();
     const url = `http://localhost:8080/api/v1/admin/usuario/${id}`;
 
-    return this.http.delete<any>(url).pipe(
-      tap((response) => {
-        if (response && response.token) {
-          // Guardar el token en localStorage
-          this.guardarToken(response.token);
-        }
-      }),
-      catchError((error) => {
-        return throwError('Error en la autenticación: ' + error.message);
-      })
-    );
+    console.log('Eliminando usuario ' + id);
+    return this.http.delete(url, {
+      headers,
+    });
   }
 
   // --------- Gestión Token ----------------

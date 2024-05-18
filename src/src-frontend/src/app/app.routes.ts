@@ -1,6 +1,5 @@
 import { Routes } from '@angular/router';
 import { InicioComponent } from './inicio/inicio.component';
-import { ErrorPersonalizadoComponent } from './error-personalizado/error-personalizado.component';
 import { LoginComponent } from './login/login.component';
 import { CatalogoCocheComponent } from './catalogo-coche/catalogo-coche.component';
 import { RegistroComponent } from './registro/registro.component';
@@ -17,6 +16,7 @@ import { adminGuard } from './guardian-admin/admin.guard';
 import { RegistroCorrectoComponent } from './registro-correcto/registro-correcto.component';
 import { ModificarUsuarioComponent } from './modificar-usuario/modificar-usuario.component';
 import { ModificarUsuarioCorrectoComponent } from './modificar-usuario-correcto/modificar-usuario-correcto.component';
+import { ErrorComponent } from './error/error.component';
 export const routes: Routes = [
   { path: '', component: InicioComponent },
   {
@@ -52,5 +52,5 @@ export const routes: Routes = [
     canActivate: [adminGuard],
   },
   { path: 'registroCorrecto', component: RegistroCorrectoComponent },
-  { path: '**', component: ErrorPersonalizadoComponent },
+  { path: '**', component: ErrorComponent },
 ];

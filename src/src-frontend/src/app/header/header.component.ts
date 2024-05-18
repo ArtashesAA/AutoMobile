@@ -17,7 +17,10 @@ export class HeaderComponent implements OnInit {
   estaLogueado: boolean = false;
   usuario: Usuario | undefined;
 
-  constructor(private servicioAutenticacion: AutenticacionService) {}
+  constructor(
+    private router: Router,
+    private servicioAutenticacion: AutenticacionService
+  ) {}
 
   // Si esta logueado, muestra el nombre del usuario en el header
   ngOnInit(): void {
@@ -40,6 +43,12 @@ export class HeaderComponent implements OnInit {
   // Elimina el token y refresca la página
   logout(): void {
     this.servicioAutenticacion.eliminarToken();
-    window.location.reload();
+    this.volverALogin();
+  }
+
+  volverALogin() {
+    this.router.navigate(['login']).then(() => {
+      window.location.reload();
+    });
   }
 }

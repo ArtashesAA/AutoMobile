@@ -35,3 +35,9 @@
 .btn-container {
   margin-top: 20px;
 }
+
+/* Estilos para el botón de buscar principal */
+#boton-buscar button {
+  width: 250px;
+  height: 50px;
+}

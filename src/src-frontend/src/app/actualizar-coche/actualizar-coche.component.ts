@@ -154,11 +154,44 @@ export class ActualizarCocheComponent implements OnInit {
         this.cuadroEmailAdjunto
       );
 
-      this.miServicio.actualizarCoche(this.indice, miCoche);
-      this.router.navigate(['/catalogo']);
-    } else {
-      console.error(
-        'Por favor, complete todos los campos antes de actualizar el coche.'
+      // Cargar el coche por su ID
+      this.miServicio.cargarCochePorId(this.indice).subscribe(
+        (coche: Coche) => {
+          if (coche) {
+            // Mostrar alerta de confirmación
+            const confirmacion = window.confirm(
+              `¿Estás seguro que quieres actualizar el coche ${coche.marca}?`
+            );
+
+            // Si el coche confirma la actualización
+            if (confirmacion) {
+              // Actualizar el coche
+              this.miServicio.actualizarCoche(this.indice, miCoche).subscribe(
+                () => {
+                  alert('Coche actualizado correctamente');
+                  // Vuelve a la página de gestión
+                  this.volverACatalogo();
+                },
+                (error) => {
+                  if (error.status === 200) {
+                    alert('Coche actualizado correctamente');
+                    // Vuelve a la página de gestión
+                    this.volverACatalogo();
+                  } else {
+                    console.error('Error al eliminar coche:', error);
+                  }
+                }
+              );
+            }
+          } else {
+            console.error('El coche con ID', this.indice, 'no fue encontrado.');
+          }
+        },
+        (error) => {
+          // Si ocurre un error al cargar el coche por su ID, se captura aquí
+          console.error('Error al cargar el coche:', error);
+          // Aquí puedes agregar más lógica para manejar el error, como mostrar un mensaje al coche
+        }
       );
     }
   }

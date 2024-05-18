@@ -11,7 +11,7 @@ import { FormsModule } from '@angular/forms';
   selector: 'app-ver-coche',
   standalone: true,
   imports: [CommonModule, FormsModule, RouterModule, CocheHijoComponent],
-  providers: [ServicioCocheService],
+  providers: [ServicioCocheService, CocheHijoComponent],
   templateUrl: './ver-coche.component.html',
   styleUrl: './ver-coche.component.css',
 })
@@ -33,7 +33,8 @@ export class VerCocheComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private servicioCoche: ServicioCocheService,
-    private servicioAutenticacion: AutenticacionService
+    private servicioAutenticacion: AutenticacionService,
+    private cocheHijo: CocheHijoComponent
   ) {}
 
   ngOnInit(): void {
@@ -101,10 +102,6 @@ export class VerCocheComponent implements OnInit {
 
   // Borra un coche por su id
   eliminarCoche(id: number) {
-    if (id != null) {
-      this.servicioCoche.eliminarCoche(id);
-    } else {
-      console.error('Error al obtener el id del coche.');
-    }
+    this.cocheHijo.eliminarCoche(id);
   }
 }

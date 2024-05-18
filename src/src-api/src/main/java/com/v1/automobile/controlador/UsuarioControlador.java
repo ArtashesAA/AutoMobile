@@ -1,7 +1,6 @@
 package com.v1.automobile.controlador;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,8 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.v1.automobile.entidad.Usuario;
-import com.v1.automobile.entidad.dto.UsuarioActualDTO;
-import com.v1.automobile.entidad.dto.UsuarioCreacion;
 import com.v1.automobile.repositorio.UsuarioRepositorio;
 
 @RestController
@@ -33,72 +30,87 @@ public class UsuarioControlador {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
+	/*
+	 * Recupera todos los usuarios. Puede acceder solo un admin
+	 * 
+	 * @return recupera todos los usuarios
+	 */
 	@GetMapping("/admin/usuario")
-	public ResponseEntity<List<UsuarioActualDTO>> obtenerTodosUsuarios() {
+	public ResponseEntity<List<Usuario>> obtenerUsuarios() {
 		List<Usuario> usuarios = usuarioRepositorio.findAll();
-		List<UsuarioActualDTO> usuariosDTO = usuarios.stream().map(usuario -> {
-			UsuarioActualDTO dto = new UsuarioActualDTO();
-			dto.setId(usuario.getId());
-			dto.setNombre_usuario(usuario.getNombre_usuario());
-			dto.setEmail(usuario.getEmail());
-			dto.setImagen_usuario(usuario.getImagen_usuario());
-			dto.setPassword(usuario.getPassword());
-			dto.setRole(usuario.getRole());
-			return dto;
-		}).collect(Collectors.toList());
 
-		return new ResponseEntity<>(usuariosDTO, HttpStatus.OK);
+		return new ResponseEntity<>(usuarios, HttpStatus.OK);
 	}
 
+	/*
+	 * Recupera un usuario por id. Puede acceder solo un admin
+	 * 
+	 * @Parameter id de usuario que se va a buscar
+	 * 
+	 * @return recupera el usuario por id
+	 */
 	@GetMapping("/admin/usuario/{id}")
-	public ResponseEntity<UsuarioActualDTO> obtenerUsuarioPorId(@PathVariable Integer id) {
+	public ResponseEntity<Usuario> obtenerUsuarioPorId(@PathVariable Integer id) {
 		Usuario usuario = usuarioRepositorio.findById(id).orElse(null);
 		if (usuario != null) {
-			// Crear un UsuarioActualDTO con los datos requeridos
-			UsuarioActualDTO usuarioDTO = new UsuarioActualDTO(usuario.getId(), usuario.getNombre_usuario(),
-					usuario.getEmail(), usuario.getImagen_usuario(), usuario.getPassword(), usuario.getRole());
-			return new ResponseEntity<>(usuarioDTO, HttpStatus.OK);
+			return new ResponseEntity<>(usuario, HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
 
+	/*
+	 * Recupera el usuario que tiene la sesión iniciada. Puede acceder cualquier rol
+	 * 
+	 * @return recupera el usuario
+	 */
 	@GetMapping("/adminuser/usuario/actual")
-	public ResponseEntity<UsuarioActualDTO> obtenerUsuarioActual() {
-	    // Obtener la autenticación actual del contexto de seguridad
-	    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-	    if (authentication != null && authentication.isAuthenticated()) {
-	        String username = authentication.getName();
-	        Usuario usuario = usuarioRepositorio.findByEmail(username).orElse(null);
-	        if (usuario != null) {
-	            // Crear un UsuarioActualDTO sin el campo password encriptado
-	            UsuarioActualDTO usuarioDTO = new UsuarioActualDTO(usuario.getId(), usuario.getNombre_usuario(),
-	                    usuario.getEmail(), usuario.getImagen_usuario(), usuario.getPassword(), usuario.getRole());
-	            usuarioDTO.setPassword(usuario.getPassword()); // Devuelve el password sin encriptar
-	            return new ResponseEntity<>(usuarioDTO, HttpStatus.OK);
-	        }
-	    }
-	    return new ResponseEntity<>(HttpStatus.UNAUTHORIZED); // Usuario no autenticado o no encontrado
+	public ResponseEntity<Usuario> obtenerUsuarioActual() {
+		// Obtener la autenticación actual del contexto de seguridad
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		if (authentication != null && authentication.isAuthenticated()) {
+			String username = authentication.getName();
+			Usuario usuario = usuarioRepositorio.findByEmail(username).orElse(null);
+			if (usuario != null) {
+				// Crear un UsuarioActualDTO sin el campo password encriptado
+				Usuario usuarioNuevo = new Usuario(usuario.getId(), usuario.getNombre_usuario(), usuario.getEmail(),
+						usuario.getImagen_usuario(), usuario.getPassword(), usuario.getRole(), usuario.getCoches(),
+						usuario.getNoticias());
+				usuario.setPassword(usuario.getPassword());
+				return new ResponseEntity<>(usuarioNuevo, HttpStatus.OK);
+			}
+		}
+		return new ResponseEntity<>(HttpStatus.UNAUTHORIZED); // Usuario no autenticado o no encontrado
 	}
 
-
-	
+	/*
+	 * Añade un usuario a la bbdd. Puede acceder sin rol
+	 * 
+	 * @Parameter usuario que se va a crear
+	 * 
+	 * @return recupera el usuario guardado
+	 */
 	@PostMapping("/public/usuario")
-	public ResponseEntity<Usuario> crearUsuario(@RequestBody UsuarioCreacion usuario) {
-		Usuario usuarioCreado = new Usuario();
-		usuarioCreado.setId(usuario.getId());
-		usuarioCreado.setNombre_usuario(usuario.getNombre_usuario());
-		usuarioCreado.setEmail(usuario.getEmail());
-		usuarioCreado.setPassword(passwordEncoder.encode(usuario.getPassword()));
-		usuarioCreado.setImagen_usuario(usuario.getImagen_usuario());
-		usuarioCreado.setRole("USER");
+	public ResponseEntity<Usuario> crearUsuario(@RequestBody Usuario usuario) {
+		Usuario usuarioCreado = new Usuario(usuario.getId(), usuario.getNombre_usuario(), usuario.getEmail(),
+				passwordEncoder.encode(usuario.getPassword()), usuario.getImagen_usuario(), "USER");
+
 		usuarioRepositorio.save(usuarioCreado);
 		return new ResponseEntity<>(usuarioCreado, HttpStatus.CREATED);
 	}
 
+	/*
+	 * Actualiza un usuario de la bbdd. Puede acceder solo el admin
+	 * 
+	 * @Parameter id del usuario que se quiere actualizar
+	 * 
+	 * @Parameter usuarioActualizado que contiene los datos del usuario nuevo que va
+	 * a sustituir al otro
+	 * 
+	 * @return Recupera que se ha actualizado el usuario con su id
+	 */
 	@PutMapping("/admin/usuario/{id}")
-	public ResponseEntity<String> actualizarUsuario(@PathVariable Integer id,
-			@RequestBody Usuario usuarioActualizado) {
+	public ResponseEntity<String> actualizarUsuario(@PathVariable Integer id, @RequestBody Usuario usuarioActualizado) {
 		Usuario usuarioExistente = usuarioRepositorio.findById(id).orElse(null);
 		if (usuarioExistente != null) {
 			usuarioExistente.setNombre_usuario(usuarioActualizado.getNombre_usuario());
@@ -116,6 +128,52 @@ public class UsuarioControlador {
 		}
 	}
 
+	/*
+	 * Actualiza el perfil del usuario autenticado. Solo puede acceder el usuario
+	 * autenticado.
+	 * 
+	 * @Parameter usuarioActualizado que contiene los datos del perfil actualizado
+	 * 
+	 * @return Recupera un mensaje indicando si se ha actualizado el perfil
+	 * correctamente o si ha ocurrido algún error.
+	 */
+	@PutMapping("/adminuser/usuario")
+	public ResponseEntity<String> actualizarPerfil(@RequestBody Usuario usuarioActualizado) {
+		// Obtener la autenticación actual del contexto de seguridad
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		if (authentication != null && authentication.isAuthenticated()) {
+			String username = authentication.getName();
+			Usuario usuarioAutenticado = usuarioRepositorio.findByEmail(username).orElse(null);
+			if (usuarioAutenticado != null) {
+				usuarioAutenticado.setNombre_usuario(usuarioActualizado.getNombre_usuario());
+				usuarioAutenticado.setEmail(usuarioActualizado.getEmail());
+				usuarioAutenticado.setImagen_usuario(usuarioActualizado.getImagen_usuario());
+
+				// Verificar si se proporcionó una nueva contraseña
+				if (!usuarioActualizado.getPassword().isEmpty()) {
+					usuarioAutenticado.setPassword(passwordEncoder.encode(usuarioActualizado.getPassword()));
+				} else {
+					// Si no se proporciona una nueva contraseña, mantener la misma
+					usuarioActualizado.setPassword(usuarioAutenticado.getPassword());
+				}
+
+				usuarioRepositorio.save(usuarioAutenticado);
+				return ResponseEntity.ok().body("Perfil actualizado correctamente");
+			} else {
+				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+						.body("No se pudo encontrar el usuario autenticado");
+			}
+		} else {
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+					.body("Debes iniciar sesión para actualizar tu perfil");
+		}
+	}
+
+	/*
+	 * Borra un coche de la bbdd. Puede acceder solo el admin
+	 * 
+	 * @Parameter id del coche que se quiere borrar
+	 */
 	@DeleteMapping("/admin/usuario/{id}")
 	public ResponseEntity<String> eliminarUsuario(@PathVariable Integer id) {
 		if (!usuarioRepositorio.existsById(id)) {
