@@ -22,12 +22,12 @@ public class ImagenServicio {
 	private ImagenRepositorio imagenRepositorio;
 
 	// Recupera todas las imagenes
-	public List<Imagen> getAllImagenes() {
+	public List<Imagen> obtenerImagenes() {
 		return imagenRepositorio.findAll();
 	}
 
 	// Recupera una imagen por su id
-	public ResponseEntity<Optional<Imagen>> getImagenById(Long id) {
+	public ResponseEntity<Optional<Imagen>> obtenerImagenPorId(Long id) {
 		Optional<Imagen> imagenOptional = imagenRepositorio.findById(id);
 		if (imagenOptional.isPresent()) {
 			return ResponseEntity.ok(imagenOptional);
@@ -37,7 +37,7 @@ public class ImagenServicio {
 	}
 
 	// Recupera las imagenes por el id del coche
-	public ResponseEntity<List<Imagen>> getImagenesByCocheId(Long cocheId) {
+	public ResponseEntity<List<Imagen>> obtenerImagenesPorCocheId(Long cocheId) {
 		List<Imagen> imagenes = imagenRepositorio.findByCocheId(cocheId);
 		if (!imagenes.isEmpty()) {
 			return new ResponseEntity<>(imagenes, HttpStatus.OK);
@@ -47,7 +47,7 @@ public class ImagenServicio {
 	}
 
 	// Crea una imagen
-	public ResponseEntity<String> addImagen(Long coche_id, String imagen_url) {
+	public ResponseEntity<String> crearImagen(Long coche_id, String imagen_url) {
 		// Verificar si el coche con el ID proporcionado existe
 		Coche coche = cocheRepositorio.findById(coche_id).orElse(null);
 		if (coche == null) {
@@ -70,7 +70,7 @@ public class ImagenServicio {
 	}
 
 	// Actualiza una imagen
-	public ResponseEntity<String> updateImagen(Long imagenId, Imagen nuevaImagen) {
+	public ResponseEntity<String> actualizarImagen(Long imagenId, Imagen nuevaImagen) {
 		Optional<Imagen> optionalImagen = imagenRepositorio.findById(imagenId);
 
 		if (optionalImagen.isPresent()) {
@@ -87,7 +87,7 @@ public class ImagenServicio {
 		}
 	}
 
-	public ResponseEntity<String> deleteImagen(Long id) {
+	public ResponseEntity<String> borrarImagen(Long id) {
 		try {
 			imagenRepositorio.deleteById(id);
 			return new ResponseEntity<>("Imagen con ID " + id + " borrada correctamente", HttpStatus.OK);

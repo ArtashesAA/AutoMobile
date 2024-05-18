@@ -21,7 +21,7 @@ public class NoticiaServicio {
 		return noticiaRepositorio.findById(id);
 	}
 
-	public List<Noticia> obtenerTodasLasNoticias() {
+	public List<Noticia> obtenerNoticias() {
 		return noticiaRepositorio.findAll();
 	}
 

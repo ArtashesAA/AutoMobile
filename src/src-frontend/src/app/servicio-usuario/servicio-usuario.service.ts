@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Usuario } from '../entidad/usuario.model';
 import { AutenticacionService } from '../servicio-autenticacion/autenticacion.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, catchError, tap, throwError } from 'rxjs';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -59,6 +59,17 @@ export class ServicioUsuarioService {
   actualizarUsuario(id: number, usuario: Usuario): Observable<any> {
     const headers = this.servicioAutenticacion.getHeaders();
     const url = `http://localhost:8080/api/v1/admin/usuario/${id}`;
+
+    console.log('Actualizando usuario ' + id);
+    return this.http.put(url, usuario, {
+      headers,
+    });
+  }
+
+  // Actualiza un usuario por su id y los nuevos datos
+  actualizarPerfil(id: number, usuario: Usuario): Observable<any> {
+    const headers = this.servicioAutenticacion.getHeaders();
+    const url = `http://localhost:8080/api/v1/adminuser/usuario`;
 
     console.log('Actualizando usuario ' + id);
     return this.http.put(url, usuario, {

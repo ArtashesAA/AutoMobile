@@ -16,7 +16,7 @@ import { AutenticacionService } from '../servicio-autenticacion/autenticacion.se
 export class PerfilComponent {
   usuario: Usuario | undefined;
   estaLogueado: boolean = false;
-
+  esAdmin: boolean = false;
   constructor(private servicioAutenticacion: AutenticacionService) {}
 
   ngOnInit(): void {
@@ -26,15 +26,16 @@ export class PerfilComponent {
       this.servicioAutenticacion.cargarUsuarioActual().subscribe(
         (usuario: Usuario) => {
           this.usuario = usuario;
+
+          // Comprueba si el usuario es administrador
+          this.servicioAutenticacion.esAdmin().subscribe((isAdmin: boolean) => {
+            this.esAdmin = isAdmin;
+          });
         },
         (error) => {
           console.error('Error al obtener el usuario:', error);
         }
       );
     }
-  }
-
-  esAdmin() {
-    this.servicioAutenticacion.esAdmin();
   }
 }

@@ -19,12 +19,30 @@ import com.v1.automobile.entidad.Noticia;
 import com.v1.automobile.servicio.NoticiaServicio;
 
 @RestController
-@RequestMapping("/api/v1/noticia")
+@RequestMapping("/api/v1")
 public class NoticiaControlador {
 	@Autowired
 	private NoticiaServicio noticiaServicio;
 
-	@GetMapping("/adminuser/{id}")
+	/*
+	 * Recupera todas las noticias. Puede acceder un admin o usuario
+	 * 
+	 * @return recupera todas las noticias
+	 */
+	@GetMapping("/adminuser/noticia")
+	public ResponseEntity<List<Noticia>> obtenerNoticias() {
+		List<Noticia> noticias = (List<Noticia>) noticiaServicio.obtenerNoticias();
+		return ResponseEntity.ok().body(noticias);
+	}
+
+	/*
+	 * Recupera una noticia por id. Puede acceder un admin o usuario
+	 * 
+	 * @Parameter id de noticia que se va a buscar
+	 * 
+	 * @return recupera la noticia
+	 */
+	@GetMapping("/adminuser/noticia/{id}")
 	public ResponseEntity<Optional<Noticia>> obtenerNoticiaPorId(@PathVariable Long id) {
 		Optional<Noticia> noticia = noticiaServicio.obtenerNoticiaPorId(id);
 		if (noticia != null) {
@@ -34,26 +52,41 @@ public class NoticiaControlador {
 		}
 	}
 
-	@GetMapping("/adminuser")
-	public ResponseEntity<List<Noticia>> obtenerTodasLasNoticias() {
-		List<Noticia> noticias = (List<Noticia>) noticiaServicio.obtenerTodasLasNoticias();
-		return ResponseEntity.ok().body(noticias);
-	}
-
-	@PostMapping("/admin")
+	/*
+	 * Añade una noticia a la bbdd. Puede acceder solo un admin
+	 * 
+	 * @Parameter noticia que se va a crear
+	 * 
+	 * @return recupera la noticia guardada
+	 */
+	@PostMapping("/admin/noticia")
 	public ResponseEntity<Noticia> crearNoticia(@RequestBody Noticia noticia) {
 		Noticia nuevaNoticia = noticiaServicio.crearNoticia(noticia);
 		return ResponseEntity.status(HttpStatus.CREATED).body(nuevaNoticia);
 	}
 
-	@PutMapping("/admin/{id}")
+	/*
+	 * Actualiza una noticia de la bbdd. Puede acceder solo el admin
+	 * 
+	 * @Parameter id de la noticia que se quiere actualizar
+	 * 
+	 * @Parameter noticiaActualizada que contiene los datos de la noticia que va a
+	 * sustituir a la antigua
+	 * 
+	 * @return Recupera la noticia
+	 */
+	@PutMapping("/admin/noticia/{id}")
 	public ResponseEntity<String> actualizarNoticia(@PathVariable Long id, @RequestBody Noticia noticiaActualizada) {
-		return noticiaServicio.actualizarNoticia(id, noticiaActualizada);	
+		return noticiaServicio.actualizarNoticia(id, noticiaActualizada);
 	}
 
-	@DeleteMapping("/admin/{id}")
+	/*
+	 * Borra una noticia de la bbdd. Puede acceder solo el admin
+	 * 
+	 * @Parameter id de la noticia que se quiere borrar
+	 */
+	@DeleteMapping("/admin/noticia/{id}")
 	public ResponseEntity<String> borrarNoticiaPorId(@PathVariable Long id) {
-		
 		return noticiaServicio.borrarNoticiaPorId(id);
 	}
 }

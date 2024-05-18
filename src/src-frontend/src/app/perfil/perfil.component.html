@@ -15,7 +15,7 @@
               Perfil
             </a>
           </li>
-          <li>
+          <li *ngIf="esAdmin">
             <a [routerLink]="'/gestionUsuarios'" class="nav-link link-dark">
               Gestión de Usuarios
             </a>

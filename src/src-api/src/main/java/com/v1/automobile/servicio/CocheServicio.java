@@ -32,12 +32,11 @@ public class CocheServicio {
 	@Autowired
 	private FavoritoRepositorio favoritoRepositorio;
 
-	public List<Coche> getAllCoches() {
-
+	public List<Coche> obtenerCoches() {
 		return cocheRepositorio.findAll();
 	}
 
-	public ResponseEntity<Optional<Coche>> getCocheById(Long id) {
+	public ResponseEntity<Optional<Coche>> obtenerCochePorId(Long id) {
 		Optional<Coche> cocheOptional = cocheRepositorio.findById(id);
 		if (cocheOptional.isPresent()) {
 			return ResponseEntity.ok(cocheOptional);
@@ -46,7 +45,7 @@ public class CocheServicio {
 		}
 	}
 
-	public ResponseEntity<String> addCoche(Coche coche) {
+	public ResponseEntity<String> crearCoche(Coche coche) {
 		try {
 			// Obtener el usuario desde el coche
 			Usuario usuario = coche.getUsuario();
@@ -67,9 +66,9 @@ public class CocheServicio {
 
 			// Guarda las imágenes asociadas
 			for (Imagen imagen : coche.getImagenes()) {
-	            imagen.setCoche(savedCoche); // Asegurar que la imagen tiene el coche asociado
-	            imagenRepositorio.save(imagen); // Guardar cada imagen en el repositorio de imágenes
-	        }
+				imagen.setCoche(savedCoche); // Asegurar que la imagen tiene el coche asociado
+				imagenRepositorio.save(imagen); // Guardar cada imagen en el repositorio de imágenes
+			}
 
 			return new ResponseEntity<>("Coche creado correctamente", HttpStatus.CREATED);
 		} catch (Exception e) {
@@ -77,7 +76,7 @@ public class CocheServicio {
 		}
 	}
 
-	public ResponseEntity<String> updateCoche(Long id, Coche nuevoCoche) {
+	public ResponseEntity<String> actualizarCoche(Long id, Coche nuevoCoche) {
 		Coche cocheExistente = cocheRepositorio.findById(id).orElse(null);
 		if (cocheExistente != null) {
 			// Actualizar los campos del coche existente con los datos del nuevo coche
@@ -115,7 +114,7 @@ public class CocheServicio {
 		}
 	}
 
-	public ResponseEntity<String> deleteCoche(Long cocheId) {
+	public ResponseEntity<String> borrarCoche(Long cocheId) {
 		try {
 			// Verificar si el coche con el ID proporcionado existe
 			Optional<Coche> optionalCoche = cocheRepositorio.findById(cocheId);

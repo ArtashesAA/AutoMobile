@@ -35,8 +35,8 @@ public class CocheControlador {
 	 * @return recupera todos los coches
 	 */
 	@GetMapping("/public/coche")
-	public ResponseEntity<List<Coche>> getAllCoches() {
-		List<Coche> coches = cocheServicio.getAllCoches();
+	public ResponseEntity<List<Coche>> obtenerCoches() {
+		List<Coche> coches = cocheServicio.obtenerCoches();
 		return ResponseEntity.ok(coches);
 	}
 
@@ -48,8 +48,8 @@ public class CocheControlador {
 	 * @return recupera el coche por id
 	 */
 	@GetMapping("/public/coche/{id}")
-	public ResponseEntity<Optional<Coche>> getCocheById(@PathVariable Long id) {
-		return cocheServicio.getCocheById(id);
+	public ResponseEntity<Optional<Coche>> obtenerCochePorId(@PathVariable Long id) {
+		return cocheServicio.obtenerCochePorId(id);
 	}
 
 	/*
@@ -60,8 +60,8 @@ public class CocheControlador {
 	 * @return guarda el coche pasado por parámetro
 	 */
 	@PostMapping("/adminuser/coche")
-	public ResponseEntity<String> addCoche(@RequestBody Coche request) {
-		return cocheServicio.addCoche(request);
+	public ResponseEntity<String> crearCoche(@RequestBody Coche request) {
+		return cocheServicio.crearCoche(request);
 	}
 
 	/*
@@ -74,9 +74,9 @@ public class CocheControlador {
 	 * 
 	 * @return actualiza el coche pasado por parámetro
 	 */
-	@PutMapping("/admin/coche/{id}")
-	public ResponseEntity<String> updateCoche(@PathVariable Long id, @RequestBody Coche nuevoCoche) {
-		return cocheServicio.updateCoche(id, nuevoCoche);
+	@PutMapping("/adminuser/coche/{id}")
+	public ResponseEntity<String> actualizarCoche(@PathVariable Long id, @RequestBody Coche nuevoCoche) {
+		return cocheServicio.actualizarCoche(id, nuevoCoche);
 	}
 
 	/*
@@ -84,10 +84,10 @@ public class CocheControlador {
 	 * 
 	 * @Parameter id del coche que se quiere borrar
 	 */
-	@DeleteMapping("/admin/coche/{id}")
-	public ResponseEntity<String> deleteCoche(@PathVariable Long id) {
+	@DeleteMapping("/adminuser/coche/{id}")
+	public ResponseEntity<String> borrarCoche(@PathVariable Long id) {
 		System.out.println("Eliminando");
-		return cocheServicio.deleteCoche(id);
+		return cocheServicio.borrarCoche(id);
 	}
 
 //-------------------------------------------------- Imagenes ---------------------------------------------------------
@@ -98,8 +98,8 @@ public class CocheControlador {
 	 * @return recupera todas las imagenes
 	 */
 	@GetMapping("/public/imagen")
-	public ResponseEntity<List<Imagen>> getAllImagenes() {
-		List<Imagen> imagenes = imagenServicio.getAllImagenes();
+	public ResponseEntity<List<Imagen>> obtenerImagenes() {
+		List<Imagen> imagenes = imagenServicio.obtenerImagenes();
 		return ResponseEntity.ok(imagenes);
 	}
 
@@ -111,8 +111,8 @@ public class CocheControlador {
 	 * @return recupera la imagen por id
 	 */
 	@GetMapping("/public/imagen/{id}")
-	public ResponseEntity<Optional<Imagen>> getImagenById(@PathVariable Long id) {
-		return imagenServicio.getImagenById(id);
+	public ResponseEntity<Optional<Imagen>> obtenerImagenPorId(@PathVariable Long id) {
+		return imagenServicio.obtenerImagenPorId(id);
 	}
 
 	/*
@@ -122,8 +122,8 @@ public class CocheControlador {
 	 * 
 	 */
 	@GetMapping("/public/imagen/coche/{id}")
-	public ResponseEntity<List<Imagen>> getImagenByCocheId(@PathVariable Long id) {
-		return (ResponseEntity<List<Imagen>>) imagenServicio.getImagenesByCocheId(id);
+	public ResponseEntity<List<Imagen>> obtenerImagenesPorCocheId(@PathVariable Long id) {
+		return (ResponseEntity<List<Imagen>>) imagenServicio.obtenerImagenesPorCocheId(id);
 	}
 
 	/*
@@ -134,8 +134,8 @@ public class CocheControlador {
 	 * @return añade la imagen al coche pasado por parámetro
 	 */
 	@PostMapping("/adminuser/imagen")
-	public ResponseEntity<String> addImagen(@RequestBody Imagen imagen) {
-		return imagenServicio.addImagen(imagen.getId(), imagen.getImagen_url());
+	public ResponseEntity<String> crearImagen(@RequestBody Imagen imagen) {
+		return imagenServicio.crearImagen(imagen.getId(), imagen.getImagen_url());
 	}
 
 	/*
@@ -151,9 +151,9 @@ public class CocheControlador {
 	 * @return ResponseEntity con la imagen actualizada o un mensaje de error si no
 	 * se encuentra la imagen.
 	 */
-	@PutMapping("/admin/imagen/{imagenId}")
-	public ResponseEntity<String> updateImagen(@PathVariable Long imagenId, @RequestBody Imagen nuevaImagen) {
-		return imagenServicio.updateImagen(imagenId, nuevaImagen);
+	@PutMapping("/adminuser/imagen/{imagenId}")
+	public ResponseEntity<String> actualizarImagen(@PathVariable Long imagenId, @RequestBody Imagen nuevaImagen) {
+		return imagenServicio.actualizarImagen(imagenId, nuevaImagen);
 	}
 
 	/*
@@ -163,9 +163,9 @@ public class CocheControlador {
 	 * 
 	 * @Parameter id de la imagen que se quiere borrar
 	 */
-	@DeleteMapping("/admin/imagen/{imagenId}")
-	public ResponseEntity<String> deleteImagen(@PathVariable Long imagenId) {
-		return imagenServicio.deleteImagen(imagenId);
+	@DeleteMapping("/adminuser/imagen/{imagenId}")
+	public ResponseEntity<String> borrarImagen(@PathVariable Long imagenId) {
+		return imagenServicio.borrarImagen(imagenId);
 	}
 
 }

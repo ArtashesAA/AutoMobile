@@ -1,3 +1,4 @@
+/* Datos principales debajo de imagen */
 .coche-details {
   background-color: #f9f9f9;
   color: black;
@@ -12,36 +13,43 @@
   margin-bottom: 20px;
 }
 
+/* Marca y modelo */
 .coche-marca {
   margin-top: 30px;
 }
 
+/* Imagen principal del coche */
 .coche-imagen {
   width: 100%;
-  border-radius: 20px;
+  border-radius: 10px;
   height: auto;
 }
 
+/* Precio de coche */
 .coche-price {
   margin-top: 30px;
   margin-bottom: 30px;
 }
 
+/* Sección de datos básicos */
 .coche-datos-basicos {
   margin-top: 30px;
   margin-bottom: 30px;
 }
 
+/* Sección de historial */
 .coche-historial {
   margin-top: 30px;
   margin-bottom: 30px;
 }
 
+/* Sección de descripción */
 .coche-description {
   margin-top: 30px;
   margin-bottom: 30px;
 }
 
+/* Botones de editar y eliminar (Admin) */
 .botones button {
   margin-top: 30px;
   margin-right: 10px;
@@ -52,8 +60,27 @@
   margin-right: 20px;
 }
 
+/* Botón para cerrar formulario de contacto */
 #cerrarFormulario {
   width: 30px;
   height: 30px;
   border-radius: 20px;
+}
+
+/* Botones de favoritos y compartir */
+.accion-link {
+  text-decoration: none;
+  border: none; /* Eliminamos los bordes */
+  display: inline-block;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+.accion-link:hover {
+  color: white;
+}
+
+.accion-link p {
+  margin: 0; /* Eliminamos el margen del párrafo */
+  display: inline; /* Alineamos el texto en línea */
 }

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Noticia } from '../entidad/noticia.model';
-import { Observable, catchError, throwError } from 'rxjs';
+import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
@@ -31,7 +31,7 @@ export class ServicioNoticiaService {
     const headers = this.getHeaders();
 
     return this.httpClient.get(
-      'http://localhost:8080/api/v1/noticia/adminuser',
+      'http://localhost:8080/api/v1/adminuser/noticia',
       { headers }
     );
   }
@@ -41,7 +41,7 @@ export class ServicioNoticiaService {
     const headers = this.getHeaders();
 
     return this.httpClient.get(
-      `http://localhost:8080/api/v1/noticia/adminuser/${id}`,
+      `http://localhost:8080/api/v1/adminuser/noticia/${id}`,
       { headers }
     );
   }
@@ -53,7 +53,7 @@ export class ServicioNoticiaService {
     });
 
     return this.httpClient.post(
-      'http://localhost:8080/api/v1/noticia/admin',
+      'http://localhost:8080/api/v1/admin/noticia',
       noticia,
       { headers }
     );
@@ -62,7 +62,7 @@ export class ServicioNoticiaService {
   // Actualiza una noticia por una id y los nuevos datos de la noticia
   actualizarNoticia(indice: number, noticia: any): Observable<any> {
     const headers = this.getHeaders();
-    const url = `http://localhost:8080/api/v1/noticia/admin/${indice}`;
+    const url = `http://localhost:8080/api/v1/admin/noticia/${indice}`;
 
     return this.httpClient.put(url, noticia, { headers });
   }
@@ -70,7 +70,7 @@ export class ServicioNoticiaService {
   // Elimina una noticia por su id
   eliminarNoticia(id: number): Observable<any> {
     const headers = this.getHeaders();
-    const url = `http://localhost:8080/api/v1/noticia/admin/${id}`;
+    const url = `http://localhost:8080/api/v1/admin/noticia/${id}`;
 
     return this.httpClient.delete(url, { headers });
   }

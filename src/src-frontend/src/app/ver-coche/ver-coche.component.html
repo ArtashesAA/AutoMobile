@@ -21,14 +21,14 @@
         <div class="row">
           <div class="col-6">
             <div class="acciones">
-              <a
+              <a class="accion-link btn btn-outline-primary"
                 ><p><i class="bi bi-star"></i> Añadir a favoritos</p></a
               >
             </div>
           </div>
           <div class="col-6">
             <div class="acciones">
-              <a
+              <a class="accion-link btn btn-outline-primary"
                 ><p><i class="bi bi-share"></i> Compartir</p></a
               >
             </div>
@@ -156,21 +156,21 @@
           <div class="coche-specs">
             <div class="row">
               <div class="col-4" id="anyo">
-                <h5><strong>Año</strong></h5>
+                <h5>Año</h5>
                 <p>
                   <i class="bi bi-calendar-date"></i>
                   {{ coche.anyo }}
                 </p>
               </div>
               <div class="col-4" id="potencia">
-                <h5><strong>Potencia</strong></h5>
+                <h5>Potencia</h5>
                 <p>
                   <i class="bi bi-speedometer"></i>
                   {{ coche.potencia }}
                 </p>
               </div>
               <div class="col-4" id="kilometraje">
-                <h5><strong>Kilometraje</strong></h5>
+                <h5>Kilometraje</h5>
                 <p>
                   <i class="bi bi-car-front"></i>
                   {{ coche.kilometraje }}
@@ -179,14 +179,14 @@
             </div>
             <div class="row">
               <div class="col-4" id="combustible">
-                <h5><strong>Combustible</strong></h5>
+                <h5>Combustible</h5>
                 <p>
                   <i class="bi bi-fuel-pump"></i>
                   {{ coche.combustible }}
                 </p>
               </div>
               <div class="col-4" id="color">
-                <h5><strong>Color</strong></h5>
+                <h5>Color</h5>
                 <p>
                   <i class="bi bi-palette"></i>
                   {{ coche.color }}
@@ -202,29 +202,50 @@
       <!-- Datos básicos del coche -->
       <div class="coche-datos-basicos mt-3">
         <div class="row">
-          <div class="col-4"><h3>Datos básicos</h3></div>
+          <div class="col-4"><h4>Datos básicos</h4></div>
           <div class="col-8">
-            <h5>
-              Categoría <strong>{{ coche.categoria }}</strong>
-            </h5>
-            <h5>
-              Tipo de vehículo <strong>{{ coche.tipoVehiculo }}</strong>
-            </h5>
-            <h5>
-              Tracción <strong>{{ coche.traccion }}</strong>
-            </h5>
-            <h5>
-              Plazas <strong>{{ coche.plazas }}</strong>
-            </h5>
-            <h5>
-              Puertas <strong>{{ coche.puertas }}</strong>
-            </h5>
-            <h5>
-              Color <strong>{{ coche.color }}</strong>
-            </h5>
-            <h5>
-              Peso <strong>{{ coche.peso }}</strong>
-            </h5>
+            <div class="row">
+              <div class="col-4">Categoría</div>
+              <div class="col-4">
+                <h6>{{ coche.categoria }}</h6>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-4">Tipo de vehículo</div>
+              <div class="col-4">
+                <h6>{{ coche.tipoVehiculo }}</h6>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-4">Tracción</div>
+              <div class="col-4">
+                <h6>{{ coche.traccion }}</h6>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-4">Plazas</div>
+              <div class="col-4">
+                <h6>{{ coche.plazas }}</h6>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-4">Puertas</div>
+              <div class="col-4">
+                <h6>{{ coche.puertas }}</h6>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-4">Color</div>
+              <div class="col-4">
+                <h6>{{ coche.color }}</h6>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-4">Peso</div>
+              <div class="col-4">
+                <h6>{{ coche.peso }}</h6>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -234,17 +255,27 @@
       <!-- Historial del coche -->
       <div class="coche-historial mt-3">
         <div class="row">
-          <div class="col-4"><h3>Historial</h3></div>
+          <div class="col-4"><h4>Historial</h4></div>
+
           <div class="col-8">
-            <h5>
-              Kilometraje <strong>{{ coche.kilometraje }}</strong>
-            </h5>
-            <h5>
-              Año <strong>{{ coche.anyo }}</strong>
-            </h5>
-            <h5>
-              Garantía <strong>{{ coche.garantia }}</strong>
-            </h5>
+            <div class="row">
+              <div class="col-4">Kilometraje</div>
+              <div class="col-4">
+                <h6>{{ coche.kilometraje }}</h6>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-4">Año</div>
+              <div class="col-4">
+                <h6>{{ coche.anyo }}</h6>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-4">Garantía</div>
+              <div class="col-4">
+                <h6>{{ coche.garantia }}</h6>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -254,9 +285,9 @@
       <!-- Descripción del coche -->
       <div class="coche-description mt-3">
         <div class="row">
-          <div class="col-4"><h3>Descripción</h3></div>
+          <div class="col-4"><h4>Descripción</h4></div>
           <div class="col-8">
-            <h5>{{ coche.descripcion }}</h5>
+            <h6>{{ coche.descripcion }}</h6>
           </div>
         </div>
       </div>
