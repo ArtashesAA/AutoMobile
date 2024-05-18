@@ -77,13 +77,16 @@ export class CatalogoCocheComponent implements OnInit {
     return this.cochesFiltrados.slice(primero, ultimo);
   }
 
+  // Para a la página anterior
   anteriorPag() {
     this.paginaActual--;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   // Para a la siguiente página
   siguientePag() {
     this.paginaActual++;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   // Obtiene el total de paginas dependiendo de los coches que se mostrarán en la página

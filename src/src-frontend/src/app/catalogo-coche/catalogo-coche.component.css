@@ -1,5 +1,21 @@
-.titulo {
-  text-align: center;
+body {
+  background-color: #f4f4f4;
+}
+
+.container {
+  margin-top: 50px;
+}
+
+/* Contenido */
+.coches {
+  padding: 50px;
+}
+
+/* Sidebar */
+.sidebar {
+  background-color: white;
+  border-radius: 10px;
+  margin-bottom: 50px;
 }
 
 /* Texto al no encontrar coches despues de filtrar */

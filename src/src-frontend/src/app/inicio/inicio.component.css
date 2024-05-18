@@ -1,5 +1,9 @@
+body {
+  background-color: #f4f4f4;
+}
+
 .imagen-principal img {
-  max-width: 1000px;
+  width: 1000px;
 }
 
 .form-select {
@@ -40,4 +44,5 @@
 #boton-buscar button {
   width: 250px;
   height: 50px;
+  margin-bottom: 50px;
 }

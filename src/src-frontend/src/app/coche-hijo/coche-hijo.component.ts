@@ -4,6 +4,7 @@ import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ServicioCocheService } from '../servicio-coche/servicio-coche.service';
 import { AutenticacionService } from '../servicio-autenticacion/autenticacion.service';
+import { Usuario } from '../entidad/usuario.model';
 
 @Component({
   selector: 'app-coche-hijo',
@@ -14,6 +15,10 @@ import { AutenticacionService } from '../servicio-autenticacion/autenticacion.se
 })
 export class CocheHijoComponent {
   @Input() cochedelista!: Coche;
+  usuario: Usuario | undefined;
+
+  estaLogueado: boolean = false;
+  esAdmin: boolean = false;
 
   constructor(
     private servicioAutenticacion: AutenticacionService,
@@ -21,10 +26,24 @@ export class CocheHijoComponent {
     private router: Router
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.estaLogueado = this.servicioAutenticacion.estaAutenticado();
 
-  estaLogueado() {
-    return this.servicioAutenticacion.estaAutenticado();
+    if (this.estaLogueado) {
+      this.servicioAutenticacion.cargarUsuarioActual().subscribe(
+        (usuario: Usuario) => {
+          this.usuario = usuario;
+
+          // Comprueba si el usuario es administrador
+          this.servicioAutenticacion.esAdmin().subscribe((isAdmin: boolean) => {
+            this.esAdmin = isAdmin;
+          });
+        },
+        (error) => {
+          console.error('Error al obtener el usuario:', error);
+        }
+      );
+    }
   }
 
   // Borra un coche por su id

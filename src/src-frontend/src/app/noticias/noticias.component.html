@@ -1,11 +1,13 @@
-<div class="container">
-  <div class="titulo"></div>
+<body>
+  <div class="container">
+    <div class="titulo"></div>
 
-  <br /><br />
+    <br /><br />
 
-  <div class="row">
-    <div class="col-md-4" *ngFor="let noticia of noticias; let i = index">
-      <app-noticia-hijo [noticiadelista]="noticia"></app-noticia-hijo>
+    <div class="row">
+      <div class="col-md-4" *ngFor="let noticia of noticias; let i = index">
+        <app-noticia-hijo [noticiadelista]="noticia"></app-noticia-hijo>
+      </div>
     </div>
   </div>
-</div>
+</body>

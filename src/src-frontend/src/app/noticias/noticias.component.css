@@ -1,3 +1,11 @@
-.titulo {
-  text-align: center;
+body {
+  background-color: #f4f4f4;
+}
+
+/* Contenedor general */
+.container {
+  background-color: white;
+  padding: 50px;
+  margin-top: 50px;
+  margin-bottom: 50px;
 }

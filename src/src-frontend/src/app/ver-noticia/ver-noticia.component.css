@@ -1,16 +1,25 @@
+body {
+  background-color: #f4f4f4;
+}
+
+/* Contenedor general*/
 .container {
+  margin-top: 50px;
+  margin-bottom: 50px;
+  padding: 50px;
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
 }
 
 .noticia-info-container {
-  background-color: #f9f9f9;
-  padding: 20px;
+  background-color: white;
+  padding: 50px;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+/* Cabecera noticia*/
 .noticia-header {
   border-bottom: 1px solid #ccc;
   margin-bottom: 20px;
@@ -21,6 +30,7 @@
   color: #333;
 }
 
+/* Imagen*/
 .noticia-image img {
   max-width: 100%;
   height: auto;
@@ -29,7 +39,7 @@
 }
 
 .noticia-details {
-  margin-top: 20px;
+  margin-top: 40px;
 }
 
 .noticia-specs p {
@@ -37,11 +47,11 @@
 }
 
 .noticia-video {
-  margin-top: 20px;
+  margin-top: 40px;
 }
 
 .coche-actions {
-  margin-top: 20px;
+  margin-top: 40px;
 }
 
 .coche-actions button {

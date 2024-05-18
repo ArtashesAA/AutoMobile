@@ -37,14 +37,14 @@ CREATE TABLE coche (
     telefono_adjunto INT NOT null,
     email_adjunto VARCHAR(255) NOT NULL,
     usuario_id INT not NULL,
-    FOREIGN KEY (usuario_id) REFERENCES usuario(id)
+    FOREIGN KEY (usuario_id) REFERENCES usuario(id) ON DELETE CASCADE
 );
 
 CREATE TABLE imagen (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    coche_id BIGINT not NULL,
+    coche_id BIGINT,
     imagen_url VARCHAR(255) NOT NULL,
-    FOREIGN KEY (coche_id) REFERENCES coche(id)
+    FOREIGN KEY (coche_id) REFERENCES coche(id) ON DELETE CASCADE
 );
 
 CREATE TABLE noticia (
@@ -55,7 +55,7 @@ CREATE TABLE noticia (
     url_imagen VARCHAR(255),
     url_video VARCHAR(255),
     id_usuario INT, 
-    FOREIGN KEY (id_usuario) REFERENCES usuario(id)
+    FOREIGN KEY (id_usuario) REFERENCES usuario(id) ON DELETE CASCADE
 );
 
 CREATE TABLE favorito (
@@ -63,8 +63,8 @@ CREATE TABLE favorito (
     coche_id BIGINT not NULL,
     usuario_id INT not NULL,
     fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (coche_id) REFERENCES coche(id),
-    FOREIGN KEY (usuario_id) REFERENCES usuario(id)
+    FOREIGN KEY (coche_id) REFERENCES coche(id) ON DELETE CASCADE,
+    FOREIGN KEY (usuario_id) REFERENCES usuario(id) ON DELETE CASCADE
 );
 
 -- Insertar datos
@@ -226,3 +226,4 @@ INSERT INTO favorito (coche_id, usuario_id) VALUES
     (13, 3), 
     (13, 2), 
     (14, 3);
+    

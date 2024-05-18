@@ -1,53 +1,53 @@
-<div class="container">
-  <div class="titulo"></div>
+<body>
+  <div class="container">
+    <div class="row">
+      <!-- Sidebar -->
+      <div class="sidebar col-md-2">
+        <app-sidebar [filtros]="filtros"></app-sidebar>
+      </div>
 
-  <div class="row">
-    <!-- Sidebar -->
-    <div class="col-md-2">
-      <app-sidebar [filtros]="filtros"></app-sidebar>
-    </div>
-
-    <!-- Resultados de la búsqueda -->
-    <div class="col-md-10">
-      <div class="row">
-        <div *ngIf="cochesFiltrados.length === 0" class="col-12">
-          <div class="coches-no-encontrados">
-            <h4>
-              No se encontraron coches que coincidan con los filtros
-              seleccionados.
-            </h4>
-            <button
-              class="btn btn-primary"
-              id="boton-volver-inicio"
-              (click)="volverAInicio()"
-            >
-              Volver a Inicio
-            </button>
+      <div class="coches col-md-10">
+        <!-- Resultados de la búsqueda -->
+        <div class="row">
+          <div *ngIf="cochesFiltrados.length === 0" class="col-12">
+            <div class="coches-no-encontrados">
+              <h4>
+                No se encontraron coches que coincidan con los filtros
+                seleccionados.
+              </h4>
+              <button
+                class="btn btn-primary"
+                id="boton-volver-inicio"
+                (click)="volverAInicio()"
+              >
+                Volver a Inicio
+              </button>
+            </div>
+          </div>
+          <div class="col-md-6" *ngFor="let coche of cochesPaginados">
+            <app-coche-hijo [cochedelista]="coche"></app-coche-hijo>
           </div>
         </div>
-        <div class="col-md-6" *ngFor="let coche of cochesPaginados">
-          <app-coche-hijo [cochedelista]="coche"></app-coche-hijo>
+
+        <div class="paginacion">
+          <button
+            class="btn btn-light"
+            id="boton-pagina-anterior"
+            (click)="anteriorPag()"
+            [disabled]="paginaActual === 1"
+          >
+            Anterior
+          </button>
+          <span>{{ paginaActual }}</span>
+          <button
+            class="btn btn-light"
+            (click)="siguientePag()"
+            [disabled]="paginaActual === totalPaginas"
+          >
+            Siguiente
+          </button>
         </div>
       </div>
     </div>
   </div>
-
-  <div class="paginacion">
-    <button
-      class="btn btn-light"
-      id="boton-pagina-anterior"
-      (click)="anteriorPag()"
-      [disabled]="paginaActual === 1"
-    >
-      Anterior
-    </button>
-    <span>{{ paginaActual }}</span>
-    <button
-      class="btn btn-light"
-      (click)="siguientePag()"
-      [disabled]="paginaActual === totalPaginas"
-    >
-      Siguiente
-    </button>
-  </div>
-</div>
+</body>

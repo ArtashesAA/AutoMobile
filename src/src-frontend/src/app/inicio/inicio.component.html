@@ -1,65 +1,67 @@
-<div class="col" style="text-align: center">
-  <div class="imagen-principal">
-    <img
-      src="https://neomotor.epe.es/binrepository/imagen3786_NM3787_MG7738668.jpeg"
-    />
-  </div>
+<body>
+  <div class="col" style="text-align: center">
+    <div class="imagen-principal">
+      <img
+        src="https://neomotor.epe.es/binrepository/imagen3786_NM3787_MG7738668.jpeg"
+      />
+    </div>
 
-  <div class="select-container">
-    <div *ngIf="!cargandoCoches">
+    <div class="select-container">
+      <div *ngIf="!cargandoCoches">
+        <select
+          class="form-select"
+          name="marca"
+          id="marca"
+          [value]="marcaSeleccionada"
+          [(ngModel)]="marcaSeleccionada"
+          (change)="onMarcaSeleccionada()"
+        >
+          <option value="" disabled selected>Marca</option>
+          <option *ngFor="let marca of obtenerMarcas()" [value]="marca">
+            {{ marca }}
+          </option>
+        </select>
+      </div>
+
+      <div *ngIf="!cargandoCoches">
+        <select
+          class="form-select"
+          name="modelo"
+          id="modelo"
+          [(ngModel)]="modeloSeleccionado"
+        >
+          <option value="" disabled selected>Modelo</option>
+          <option *ngFor="let modelo of modelos" [value]="modelo">
+            {{ modelo }}
+          </option>
+        </select>
+      </div>
+
       <select
         class="form-select"
-        name="marca"
-        id="marca"
-        [value]="marcaSeleccionada"
-        [(ngModel)]="marcaSeleccionada"
-        (change)="onMarcaSeleccionada()"
+        name="Anyo"
+        id="Anyo"
+        [(ngModel)]="anyoSeleccionado"
+        required
       >
-        <option value="" disabled selected>Marca</option>
-        <option *ngFor="let marca of obtenerMarcas()" [value]="marca">
-          {{ marca }}
-        </option>
+        <option value="" selected disabled>Año</option>
+        <option *ngFor="let anyo of anyos" [value]="anyo">{{ anyo }}</option>
+      </select>
+
+      <select
+        class="form-select"
+        name="Precio"
+        id="Precio"
+        [(ngModel)]="precioMaxSeleccionado"
+        required
+      >
+        <option value="" selected disabled>Precio hasta (€)</option>
+        <option *ngFor="let precio of precios">{{ precio }}</option>
       </select>
     </div>
 
-    <div *ngIf="!cargandoCoches">
-      <select
-        class="form-select"
-        name="modelo"
-        id="modelo"
-        [(ngModel)]="modeloSeleccionado"
-      >
-        <option value="" disabled selected>Modelo</option>
-        <option *ngFor="let modelo of modelos" [value]="modelo">
-          {{ modelo }}
-        </option>
-      </select>
+    <div class="btn-container" id="boton-buscar">
+      <button class="btn btn-primary" (click)="buscarCoches()">Buscar</button>
     </div>
-
-    <select
-      class="form-select"
-      name="Anyo"
-      id="Anyo"
-      [(ngModel)]="anyoSeleccionado"
-      required
-    >
-      <option value="" selected disabled>Año</option>
-      <option *ngFor="let anyo of anyos" [value]="anyo">{{ anyo }}</option>
-    </select>
-
-    <select
-      class="form-select"
-      name="Precio"
-      id="Precio"
-      [(ngModel)]="precioMaxSeleccionado"
-      required
-    >
-      <option value="" selected disabled>Precio hasta (€)</option>
-      <option *ngFor="let precio of precios">{{ precio }}</option>
-    </select>
   </div>
-
-  <div class="btn-container" id="boton-buscar">
-    <button class="btn btn-primary" (click)="buscarCoches()">Buscar</button>
-  </div>
-</div>
+</body>

@@ -1,53 +1,55 @@
-<div class="container">
-  <form class="form-group row" (ngSubmit)="register()">
-    <!-- Nombre de usuario -->
-    <label class="form-label" for="form2Example1">Nombre de usuario</label>
-    <div class="form-outline mb-4">
-      <input
-        type="nombre_usuario"
-        name="nombre_usuario"
-        placeholder="Nombre de usuario"
-        class="form-control"
-        [(ngModel)]="nombre_usuario"
-      />
-    </div>
+<body>
+  <div class="container">
+    <form class="form-group row" (ngSubmit)="register()">
+      <!-- Nombre de usuario -->
+      <label class="form-label" for="form2Example1">Nombre de usuario</label>
+      <div class="form-outline mb-4">
+        <input
+          type="nombre_usuario"
+          name="nombre_usuario"
+          placeholder="Nombre de usuario"
+          class="form-control"
+          [(ngModel)]="nombre_usuario"
+        />
+      </div>
 
-    <!-- Email -->
-    <label class="form-label" for="form2Example1">Email</label>
-    <div class="form-outline mb-4">
-      <input
-        type="email"
-        name="email"
-        placeholder="Email"
-        class="form-control"
-        [(ngModel)]="email"
-      />
-    </div>
+      <!-- Email -->
+      <label class="form-label" for="form2Example1">Email</label>
+      <div class="form-outline mb-4">
+        <input
+          type="email"
+          name="email"
+          placeholder="Email"
+          class="form-control"
+          [(ngModel)]="email"
+        />
+      </div>
 
-    <!-- Password  -->
-    <label class="form-label" for="form2Example2">Contraseña</label>
-    <div class="form-outline mb-4">
-      <input
-        type="password"
-        name="password"
-        placeholder="Contraseña"
-        class="form-control"
-        [(ngModel)]="password"
-      />
-    </div>
+      <!-- Password  -->
+      <label class="form-label" for="form2Example2">Contraseña</label>
+      <div class="form-outline mb-4">
+        <input
+          type="password"
+          name="password"
+          placeholder="Contraseña"
+          class="form-control"
+          [(ngModel)]="password"
+        />
+      </div>
 
-    <!-- Submit -->
-    <button type="submit" class="btn btn-primary btn-block mb-4">
-      Registrarte
-    </button>
+      <!-- Submit -->
+      <button type="submit" class="btn btn-primary btn-block mb-4">
+        Registrarte
+      </button>
 
-    <div *ngIf="errorMessage" class="alert alert-danger text-center">
-      {{ errorMessage }}
-    </div>
+      <div *ngIf="errorMessage" class="alert alert-danger text-center">
+        {{ errorMessage }}
+      </div>
 
-    <!-- Registro -->
-    <div class="text-center">
-      <p>Ya estas registrado? <a [routerLink]="'/login'">Inicia sesión</a></p>
-    </div>
-  </form>
-</div>
+      <!-- Registro -->
+      <div class="text-center">
+        <p>Ya estas registrado? <a [routerLink]="'/login'">Inicia sesión</a></p>
+      </div>
+    </form>
+  </div>
+</body>

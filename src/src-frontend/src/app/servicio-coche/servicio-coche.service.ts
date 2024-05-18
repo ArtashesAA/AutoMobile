@@ -89,15 +89,19 @@ export class ServicioCocheService {
       'Content-Type': 'application/json',
     });
 
-    return this.http.post('http://localhost:8080/api/v1/admin/coche', coche, {
-      headers,
-    });
+    return this.http.post(
+      'http://localhost:8080/api/v1/adminuser/coche',
+      coche,
+      {
+        headers,
+      }
+    );
   }
 
   //Actualiza un coche por su id, y los nuevos datos del coche
   actualizarCoche(id: number, coche: Coche): Observable<any> {
     const headers = this.getHeaders();
-    const url = `http://localhost:8080/api/v1/admin/coche/${id}`;
+    const url = `http://localhost:8080/api/v1/adminuser/coche/${id}`;
 
     return this.http.put(url, coche, {
       headers,
@@ -107,7 +111,7 @@ export class ServicioCocheService {
   // Elimina un coche por su id
   eliminarCoche(id: number): Observable<any> {
     const headers = this.getHeaders();
-    const url = `http://localhost:8080/api/v1/admin/coche/${id}`;
+    const url = `http://localhost:8080/api/v1/adminuser/coche/${id}`;
 
     return this.http.delete(url, {
       headers,

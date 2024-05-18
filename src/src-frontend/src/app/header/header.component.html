@@ -1,71 +1,73 @@
-<header
-  class="d-flex justify-content-md-between py-3 mb-4 border-bottom shadow-sm-red"
->
-  <div class="col-md-3">
-    <a
-      [routerLink]="'/'"
-      class="d-inline-flex link-body-emphasis text-decoration-none"
-    >
-      <svg class="bi" width="40" height="32" role="img" aria-label="Bootstrap">
-        <use xlink:href="#bootstrap"></use>
-      </svg>
-    </a>
-  </div>
-
-  <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-    <li class="nav-item">
-      <a [routerLink]="'/'" class="nav-link px-3 btn btn-outline-primary"
-        ><b>Inicio</b></a
-      >
-    </li>
-    <li class="nav-item">
+<body>
+  <header
+    class="d-flex justify-content-md-between py-3 border-bottom shadow-sm-red"
+  >
+    <div class="col-md-3" id="icono">
       <a
-        [routerLink]="'/catalogo'"
-        class="nav-link px-3 btn btn-outline-primary"
-        ><b>Catálogo</b></a
+        [routerLink]="'/'"
+        class="d-inline-flex link-body-emphasis text-decoration-none"
       >
-    </li>
-    <li class="nav-item">
-      <a
-        [routerLink]="'/explorar'"
-        class="nav-link px-3 btn btn-outline-primary"
-        ><b>Explorar</b></a
-      >
-    </li>
-    <li class="nav-item">
-      <a [routerLink]="'/vender'" class="nav-link px-3 btn btn-outline-primary"
-        ><b>Vender</b></a
-      >
-    </li>
-  </ul>
+        <img src="../../assets/icono.svg" alt="Icono" />
+      </a>
+    </div>
 
-  <div class="col-md-3 text-end">
-    <ng-container *ngIf="estaLogueado; else loginButtons">
-      <!-- Perfil -->
-      <a class="perfil btn btn-outline-primary" [routerLink]="'/perfil'"
-        ><span class="me-2">{{ usuario?.nombre_usuario }}</span></a
-      >
-      <!-- Mostrar botón de Logout si está logueado -->
-      <button type="button" class="btn btn-primary me-2" (click)="logout()">
-        Logout
-      </button>
-    </ng-container>
-    <ng-template #loginButtons>
-      <!-- Mostrar botones de Login y Sign-up si no está logueado -->
-      <button
-        type="button"
-        class="btn btn-outline-primary me-2"
-        [routerLink]="'/login'"
-      >
-        Iniciar Sesión
-      </button>
-      <button
-        type="button"
-        class="btn btn-primary"
-        [routerLink]="'/registrarse'"
-      >
-        Registrarse
-      </button>
-    </ng-template>
-  </div>
-</header>
+    <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+      <li class="nav-item">
+        <a [routerLink]="'/'" class="nav-link px-3 btn btn-outline-primary"
+          ><b>Inicio</b></a
+        >
+      </li>
+      <li class="nav-item">
+        <a
+          [routerLink]="'/catalogo'"
+          class="nav-link px-3 btn btn-outline-primary"
+          ><b>Catálogo</b></a
+        >
+      </li>
+      <li class="nav-item">
+        <a
+          [routerLink]="'/explorar'"
+          class="nav-link px-3 btn btn-outline-primary"
+          ><b>Explorar</b></a
+        >
+      </li>
+      <li class="nav-item">
+        <a
+          [routerLink]="'/vender'"
+          class="nav-link px-3 btn btn-outline-primary"
+          ><b>Vender</b></a
+        >
+      </li>
+    </ul>
+
+    <div class="col-md-3 text-end">
+      <ng-container *ngIf="estaLogueado; else loginButtons">
+        <!-- Perfil -->
+        <a class="perfil btn btn-outline-primary" [routerLink]="'/perfil'"
+          ><span class="me-2">{{ usuario?.nombre_usuario }}</span></a
+        >
+        <!-- Mostrar botón de Logout si está logueado -->
+        <button type="button" class="btn btn-primary me-2" (click)="logout()">
+          Logout
+        </button>
+      </ng-container>
+      <ng-template #loginButtons>
+        <!-- Mostrar botones de Login y Sign-up si no está logueado -->
+        <button
+          type="button"
+          class="btn btn-outline-primary me-2"
+          [routerLink]="'/login'"
+        >
+          Iniciar Sesión
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          [routerLink]="'/registrarse'"
+        >
+          Registrarse
+        </button>
+      </ng-template>
+    </div>
+  </header>
+</body>

@@ -3,7 +3,6 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { NoticiaHijoComponent } from '../noticia-hijo/noticia-hijo.component';
 import { ServicioNoticiaService } from '../servicio-noticia/servicio-noticia.service';
-import { LoginService } from '../login/servicio/login.service';
 import { Noticia } from '../entidad/noticia.model';
 import { AutenticacionService } from '../servicio-autenticacion/autenticacion.service';
 

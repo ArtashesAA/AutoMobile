@@ -9,11 +9,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.v1.automobile.entidad.Coche;
-import com.v1.automobile.entidad.Favorito;
 import com.v1.automobile.entidad.Imagen;
 import com.v1.automobile.entidad.Usuario;
 import com.v1.automobile.repositorio.CocheRepositorio;
-import com.v1.automobile.repositorio.FavoritoRepositorio;
 import com.v1.automobile.repositorio.ImagenRepositorio;
 import com.v1.automobile.repositorio.UsuarioRepositorio;
 
@@ -28,9 +26,6 @@ public class CocheServicio {
 
 	@Autowired
 	private ImagenRepositorio imagenRepositorio;
-
-	@Autowired
-	private FavoritoRepositorio favoritoRepositorio;
 
 	public List<Coche> obtenerCoches() {
 		return cocheRepositorio.findAll();
@@ -120,18 +115,6 @@ public class CocheServicio {
 			Optional<Coche> optionalCoche = cocheRepositorio.findById(cocheId);
 			if (!optionalCoche.isPresent()) {
 				return new ResponseEntity<>("Coche no encontrado", HttpStatus.NOT_FOUND);
-			}
-
-			// Eliminar las imágenes asociadas al coche
-			List<Imagen> imagenes = imagenRepositorio.findByCocheId(cocheId);
-			for (Imagen imagen : imagenes) {
-				imagenRepositorio.delete(imagen);
-			}
-
-			// Eliminar los favoritos asociados al coche
-			List<Favorito> favoritos = favoritoRepositorio.findByCocheId(cocheId);
-			for (Favorito favorito : favoritos) {
-				favoritoRepositorio.delete(favorito);
 			}
 
 			// Eliminar el coche

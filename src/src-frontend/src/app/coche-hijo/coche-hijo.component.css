@@ -22,9 +22,10 @@ a {
 
 /* Caja de imagen + datos */
 .caja {
+  background-color: white;
   border: 1px solid #ccc;
   border-radius: 8px;
-  height: 570px;
+  height: 520px;
   margin-bottom: 50px;
 }
 

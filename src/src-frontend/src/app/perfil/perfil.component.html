@@ -1,58 +1,82 @@
-<div class="container">
-  <div class="row">
-    <h2 class="titulo">Perfil</h2>
-    <!-- Sidebar -->
+<body>
+  <div class="container">
+    <div class="row">
+      <h2 class="titulo">Perfil</h2>
+      <!-- Sidebar -->
 
-    <div class="col-md-2">
-      <div class="sidebar">
-        <ul class="nav nav-pills flex-column mb-auto">
-          <li class="nav-item">
-            <a
-              [routerLink]="'/perfil'"
-              class="nav-link active"
-              aria-current="page"
-            >
-              Perfil
-            </a>
-          </li>
-          <li *ngIf="esAdmin">
-            <a [routerLink]="'/gestionUsuarios'" class="nav-link link-dark">
-              Gestión de Usuarios
-            </a>
-          </li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- Contenido de Perfil -->
-    <div class="col-md-8">
-      <div *ngIf="usuario" class="perfil-container">
-        <div class="usuario-info">
-          <p>
-            <strong>Nombre de Usuario:</strong> {{ usuario.nombre_usuario }}
-          </p>
-          <p><strong>Email:</strong> {{ usuario.email }}</p>
-
-          <p><strong>Contraseña:</strong> **********</p>
-          <p>
-            <strong>Tipo de usuario: </strong>
-            <span *ngIf="usuario.role === 'ADMIN'">Administrador</span>
-            <span *ngIf="usuario.role === 'USER'">Usuario</span>
-          </p>
-          <img
-            [src]="
-              usuario.imagen_usuario
-                ? usuario.imagen_usuario
-                : 'https://images.freeimages.com/fic/images/icons/2526/bloggers/256/admin.png'
-            "
-            alt="Imagen de Usuario"
-            class="avatar"
-          />
+      <div class="col-md-2">
+        <div class="sidebar">
+          <ul class="nav nav-pills flex-column mb-auto">
+            <li class="nav-item">
+              <a
+                [routerLink]="'/perfil'"
+                class="nav-link active"
+                aria-current="page"
+              >
+                Perfil
+              </a>
+            </li>
+            <li *ngIf="esAdmin">
+              <a [routerLink]="'/gestionUsuarios'" class="nav-link link-dark">
+                Gestión de Usuarios
+              </a>
+            </li>
+          </ul>
         </div>
       </div>
-      <a [routerLink]="['/modificarUsuario']" class="btn btn-primary mt-3"
-        >Modificar</a
-      >
+
+      <!-- Contenido de Perfil -->
+      <div class="col-md-8">
+        <div *ngIf="usuario" class="perfil-container">
+          <div class="usuario-info">
+            <div>
+              <div class="row">
+                <div class="col-3">Nombre de Usuario:</div>
+                <div class="col-3">
+                  <h6>{{ usuario.nombre_usuario }}</h6>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-3">Email:</div>
+                <div class="col-3">
+                  <h6>{{ usuario.email }}</h6>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-3">Contraseña:</div>
+                <div class="col-3">
+                  <h6>**********</h6>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-3">Tipo de usuario:</div>
+                <div class="col-3">
+                  <h6 *ngIf="usuario.role === 'ADMIN'">Administrador</h6>
+                  <h6 *ngIf="usuario.role === 'USER'">Usuario</h6>
+                </div>
+              </div>
+            </div>
+            <br />
+            <img
+              [src]="
+                usuario.imagen_usuario
+                  ? usuario.imagen_usuario
+                  : 'https://images.freeimages.com/fic/images/icons/2526/bloggers/256/admin.png'
+              "
+              alt="Imagen de Usuario"
+              class="avatar"
+            />
+          </div>
+        </div>
+        <a
+          [routerLink]="['/modificarUsuario']"
+          class="modificar btn btn-primary mt-3"
+          >Modificar</a
+        >
+      </div>
     </div>
   </div>
-</div>
+</body>

@@ -1,8 +1,8 @@
-header {
-  flex-wrap: wrap;
-  text-align: center;
+body {
+  background-color: white;
 }
 
+/* Botón perfil*/
 .perfil {
   margin-right: 50px;
 }
@@ -20,6 +20,12 @@ header {
   color: white;
 }
 
-.shadow-sm-red {
-  box-shadow: 0 0.125rem 0.25rem rgba(255, 0, 0, 0.2);
+/* Icono */
+#icono {
+  margin-left: 3%;
+}
+
+#icono img {
+  height: 50px;
+  width: auto;
 }

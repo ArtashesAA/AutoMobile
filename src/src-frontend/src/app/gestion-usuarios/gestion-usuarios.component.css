@@ -1,3 +1,15 @@
+body {
+  background-color: #f4f4f4;
+}
+
+/* Sidebar */
+.sidebar {
+  background-color: white;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+/* Imagen de usuario */
 .avatar {
   max-width: 80px;
   height: 80px;
@@ -5,19 +17,19 @@
   margin-top: 10px;
 }
 
+/* Título */
 .titulo {
   text-align: center;
+  margin-top: 50px;
   margin-bottom: 40px;
 }
 
-.tabla-usuarios {
-  margin-top: 40px;
-}
-
-.btn {
+/* Separa los botones verticalmente */
+td .btn {
   margin-bottom: 10px;
 }
 
+/* Anchura botones */
 button {
   width: 90px;
 }

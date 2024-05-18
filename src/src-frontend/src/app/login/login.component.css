@@ -1,6 +1,14 @@
+body {
+  background-color: #f4f4f4;
+}
+
 .container {
+  background-color: white;
+  border-radius: 10px;
+  padding: 50px;
   margin-top: 100px;
   width: 600px;
   height: 400px;
   margin: "auto";
+  margin-bottom: 100px;
 }

@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { CocheHijoComponent } from '../coche-hijo/coche-hijo.component';
 import { AutenticacionService } from '../servicio-autenticacion/autenticacion.service';
 import { FormsModule } from '@angular/forms';
+import { Usuario } from '../entidad/usuario.model';
 
 @Component({
   selector: 'app-ver-coche',
@@ -18,6 +19,10 @@ import { FormsModule } from '@angular/forms';
 export class VerCocheComponent implements OnInit {
   coche!: Coche;
   id!: number;
+  usuario: Usuario | undefined;
+
+  estaLogueado: boolean = false;
+  esAdmin: boolean = false;
 
   // Mensaje
   mostrar: boolean = false;
@@ -54,10 +59,24 @@ export class VerCocheComponent implements OnInit {
         console.error('Índice inválido:', this.id);
       }
     });
-  }
 
-  estaLogueado() {
-    return this.servicioAutenticacion.estaAutenticado();
+    this.estaLogueado = this.servicioAutenticacion.estaAutenticado();
+
+    if (this.estaLogueado) {
+      this.servicioAutenticacion.cargarUsuarioActual().subscribe(
+        (usuario: Usuario) => {
+          this.usuario = usuario;
+
+          // Comprueba si el usuario es administrador
+          this.servicioAutenticacion.esAdmin().subscribe((isAdmin: boolean) => {
+            this.esAdmin = isAdmin;
+          });
+        },
+        (error) => {
+          console.error('Error al obtener el usuario:', error);
+        }
+      );
+    }
   }
 
   // ------- Formulario Contactar y Telefono ----------
