@@ -4,11 +4,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Usuario } from '../entidad/usuario.model';
 import { ServicioUsuarioService } from '../servicio-usuario/servicio-usuario.service';
 import { GestionUsuariosComponent } from '../gestion-usuarios/gestion-usuarios.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-actualizar-usuario',
   standalone: true,
-  imports: [FormsModule, GestionUsuariosComponent],
+  imports: [FormsModule, CommonModule, GestionUsuariosComponent],
   providers: [ServicioUsuarioService],
   templateUrl: './actualizar-usuario.component.html',
   styleUrl: './actualizar-usuario.component.css',
@@ -20,6 +21,9 @@ export class ActualizarUsuarioComponent implements OnInit {
   cuadroImagenUsuario: string = '';
   cuadroPassword: string = '';
   cuadroRole: string = '';
+
+  editarContrasena: boolean = false;
+  nuevaContrasena: string = '';
 
   indice!: number;
   usuarios: Usuario[] = [];
@@ -104,6 +108,13 @@ export class ActualizarUsuarioComponent implements OnInit {
         // Aquí puedes agregar más lógica para manejar el error, como mostrar un mensaje al usuario
       }
     );
+  }
+
+  toggleEdicionContrasena(): void {
+    this.editarContrasena = !this.editarContrasena;
+    if (this.editarContrasena) {
+      this.nuevaContrasena = ''; // Vaciar el campo de la nueva contraseña
+    }
   }
 
   volverAGestionDeUsuarios() {

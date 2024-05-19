@@ -65,24 +65,29 @@ export class CocheHijoComponent {
                 alert('Coche eliminado correctamente');
                 // Refrescar la página
                 this.router.navigate(['/catalogo']);
+                window.scrollTo({ top: 0, behavior: 'smooth' });
               },
               (error) => {
                 if (error.status === 200) {
                   alert('Coche eliminado correctamente');
                   // Refrescar la página
                   this.router.navigate(['/catalogo']);
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
                 } else {
                   console.error('Error al eliminar coche:', error);
+                  alert('Error al eliminar coche');
                 }
               }
             );
           }
         } else {
           console.error('El coche con ID', id, 'no fue encontrado.');
+          alert('Error al eliminar coche');
         }
       });
     } else {
       console.error('Error al obtener el ID del coche.');
+      alert('Error al eliminar coche');
     }
   }
 }

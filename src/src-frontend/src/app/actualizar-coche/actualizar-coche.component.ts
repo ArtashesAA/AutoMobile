@@ -171,12 +171,14 @@ export class ActualizarCocheComponent implements OnInit {
                   alert('Coche actualizado correctamente');
                   // Vuelve a la página de gestión
                   this.volverACatalogo();
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
                 },
                 (error) => {
                   if (error.status === 200) {
                     alert('Coche actualizado correctamente');
                     // Vuelve a la página de gestión
                     this.volverACatalogo();
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
                   } else {
                     console.error('Error al eliminar coche:', error);
                   }
@@ -184,11 +186,13 @@ export class ActualizarCocheComponent implements OnInit {
               );
             }
           } else {
+            alert('Error al actualizar el coche');
             console.error('El coche con ID', this.indice, 'no fue encontrado.');
           }
         },
         (error) => {
           // Si ocurre un error al cargar el coche por su ID, se captura aquí
+          alert('Error al actualizar el coche');
           console.error('Error al cargar el coche:', error);
           // Aquí puedes agregar más lógica para manejar el error, como mostrar un mensaje al coche
         }

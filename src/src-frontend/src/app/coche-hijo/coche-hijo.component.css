@@ -62,6 +62,7 @@ a {
 
 /* Datos coche */
 .coche-actions button {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
   font-size: 14px;
   margin-right: 10px;
   padding: 7px;

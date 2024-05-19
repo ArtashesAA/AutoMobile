@@ -16,6 +16,7 @@ import { Router } from '@angular/router';
 export class ModificarUsuarioComponent implements OnInit {
   usuario!: Usuario;
   editarContrasena: boolean = false;
+  nuevaContrasena: string = '';
 
   constructor(
     private servicioUsuario: ServicioUsuarioService,
@@ -37,30 +38,44 @@ export class ModificarUsuarioComponent implements OnInit {
 
   guardarCambios(): void {
     if (this.usuario) {
+      const usuarioActualizado: any = {
+        nombre_usuario: this.usuario.nombre_usuario,
+        email: this.usuario.email,
+      };
+
+      // Si la contraseña fue modificada, añadirla al objeto usuarioActualizado
+      if (this.editarContrasena && this.nuevaContrasena) {
+        usuarioActualizado.password = this.nuevaContrasena;
+      }
+
       // Lógica para guardar los cambios del usuario
       this.servicioUsuario
-        .actualizarUsuario(this.usuario.id, this.usuario)
+        .actualizarUsuario(this.usuario.id, usuarioActualizado)
         .subscribe(
           () => {
             console.log('Usuario actualizado correctamente');
+            this.router.navigate(['/modificarCorrecto']);
           },
           (error) => {
             if (error.status === 200) {
               console.log('Usuario actualizado correctamente');
+              this.router.navigate(['/modificarCorrecto']);
             } else {
               console.error('Error al actualizar usuario:', error);
             }
           }
         );
     }
-    this.router.navigate(['/modificarCorrecto']);
   }
 
   toggleEdicionContrasena(): void {
+    this.editarContrasena = !this.editarContrasena;
     if (this.editarContrasena) {
-      this.editarContrasena = false;
-    } else {
-      this.editarContrasena = true;
+      this.nuevaContrasena = ''; // Vaciar el campo de la nueva contraseña
     }
+  }
+
+  volver() {
+    this.router.navigate(['perfil']);
   }
 }
