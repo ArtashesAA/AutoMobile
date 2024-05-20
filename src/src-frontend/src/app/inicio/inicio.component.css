@@ -3,7 +3,29 @@ body {
 }
 
 .imagen-principal img {
-  width: 1000px;
+  position: relative;
+  width: 100%;
+  max-height: 700px; /* Ajusta esta altura para que la imagen sea más pequeña */
+  object-fit: cover;
+}
+
+/* Cuadro blanco */
+.contenedor {
+  position: absolute; /* Para superponer sobre la imagen */
+  top: 200px; /* Ajusta esta distancia para controlar cuánto se superpone */
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: white;
+  padding: 50px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.5);
+  z-index: 10; /* Asegura que el contenedor esté sobre la imagen */
+}
+
+/* Cuadro blanco */
+.contenedor img {
+  width: 100px;
+  height: 100px;
 }
 
 .form-select {
@@ -32,6 +54,7 @@ body {
 }
 
 .select-container {
+  background-color: white;
   display: flex;
   gap: 10px;
 }
@@ -44,5 +67,8 @@ body {
 #boton-buscar button {
   width: 250px;
   height: 50px;
-  margin-bottom: 50px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  /* Sombra */
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.5);
 }

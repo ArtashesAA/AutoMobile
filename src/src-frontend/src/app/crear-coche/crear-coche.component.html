@@ -3,29 +3,37 @@
     <form class="form-group" id="crear-coche" (ngSubmit)="crearCoche()">
       <h4>Datos del vehículo</h4>
       <div class="form-group col-4">
-        <label for="marca">Marca:</label>
-        <input
-          type="text"
+        <label for="marca">Marca</label>
+        <select
           name="marca"
           id="marca"
-          placeholder="Marca"
           class="form-control"
           [(ngModel)]="cuadroMarca"
-        />
+          (change)="onMarcaChange()"
+        >
+          <option value="">Seleccione una marca</option>
+          <option *ngFor="let marca of marcas" [value]="marca.id">
+            {{ marca.label }}
+          </option>
+        </select>
       </div>
       <div class="form-group col-4">
-        <label for="modelo">Modelo:</label>
-        <input
-          type="text"
+        <label for="modelo">Modelo</label>
+        <select
           name="modelo"
           id="modelo"
-          placeholder="Modelo"
           class="form-control"
           [(ngModel)]="cuadroModelo"
-        />
+        >
+          <option value="">Selecciona un modelo</option>
+          <option *ngFor="let modelo of modelos" [value]="modelo">
+            {{ modelo }}
+          </option>
+        </select>
       </div>
+
       <div class="form-group col-4">
-        <label for="anyo">Año:</label>
+        <label for="anyo">Año</label>
         <input
           type="text"
           name="anyo"
@@ -35,21 +43,29 @@
           [(ngModel)]="cuadroAnyo"
         />
       </div>
+
       <hr />
       <h4>Características</h4>
       <div class="form-group col-4">
-        <label for="combustible">Combustible:</label>
-        <input
-          type="text"
-          name="combustible"
-          id="combustible"
-          placeholder="Combustible"
+        <label for="tipoVehiculo">Tipo de vehículo</label>
+        <select
+          name="tipoVehiculo"
+          id="tipoVehiculo"
           class="form-control"
-          [(ngModel)]="cuadroCombustible"
-        />
+          [(ngModel)]="cuadroTipoVehiculo"
+        >
+          <option value="Cabrio">Cabrio</option>
+          <option value="Coche Pequeno">Coche Pequeño</option>
+          <option value="Coupe">Coupé</option>
+          <option value="Familiar">Familiar</option>
+          <option value="Furgoneta">Furgoneta</option>
+          <option value="Sedan">Sedán</option>
+          <option value="SUV">SUV</option>
+          <option value="Otros">Otros</option>
+        </select>
       </div>
       <div class="form-group col-4">
-        <label for="potencia">Potencia:</label>
+        <label for="potencia">Potencia</label>
         <input
           type="text"
           name="potencia"
@@ -60,7 +76,7 @@
         />
       </div>
       <div class="form-group col-4">
-        <label for="color">Color:</label>
+        <label for="color">Color</label>
         <input
           type="text"
           name="color"
@@ -71,31 +87,72 @@
         />
       </div>
       <div class="form-group col-4">
-        <label for="plazas">Plazas:</label>
-        <input
-          type="number"
-          name="plazas"
-          id="plazas"
-          placeholder="Plazas"
-          class="form-control"
-          [(ngModel)]="cuadroPlazas"
-        />
+        <label for="plazas">Plazas</label>
+        <div class="form-group col-4 input-group">
+          <div class="input-group-prepend">
+            <button
+              class="btn btn-outline-secondary"
+              type="button"
+              (click)="restarPlaza()"
+            >
+              -
+            </button>
+          </div>
+          <input
+            type="number"
+            name="plazas"
+            id="plazas"
+            placeholder="Plazas"
+            class="form-control text-center"
+            [(ngModel)]="cuadroPlazas"
+          />
+          <div class="input-group-append">
+            <button
+              class="btn btn-outline-secondary"
+              type="button"
+              (click)="sumarPlaza()"
+            >
+              +
+            </button>
+          </div>
+        </div>
       </div>
       <div class="form-group col-4">
-        <label for="puertas">Puertas:</label>
-        <input
-          type="number"
-          name="puertas"
-          id="puertas"
-          placeholder="Puertas"
-          class="form-control"
-          [(ngModel)]="cuadroPuertas"
-        />
+        <label for="plazas">Puertas</label>
+        <div class="form-group col-4 input-group">
+          <div class="input-group-prepend">
+            <button
+              class="btn btn-outline-secondary"
+              type="button"
+              (click)="restarPuerta()"
+            >
+              -
+            </button>
+          </div>
+          <input
+            type="number"
+            name="puertas"
+            id="puertas"
+            placeholder="Puertas"
+            class="form-control text-center"
+            [(ngModel)]="cuadroPuertas"
+          />
+          <div class="input-group-append">
+            <button
+              class="btn btn-outline-secondary"
+              type="button"
+              (click)="sumarPuerta()"
+            >
+              +
+            </button>
+          </div>
+        </div>
       </div>
+
       <hr />
       <h4>Estado del vehículo</h4>
       <div class="form-group col-4">
-        <label for="kilometraje">Kilometraje:</label>
+        <label for="kilometraje">Kilometraje</label>
         <input
           type="text"
           name="kilometraje"
@@ -106,7 +163,7 @@
         />
       </div>
       <div class="form-group col-4">
-        <label for="garantia">Garantía:</label>
+        <label for="garantia">Garantía</label>
         <input
           type="text"
           name="garantia"
@@ -117,7 +174,7 @@
         />
       </div>
       <div class="form-group col-4">
-        <label for="peso">Peso:</label>
+        <label for="peso">Peso</label>
         <input
           type="text"
           name="peso"
@@ -127,45 +184,55 @@
           [(ngModel)]="cuadroPeso"
         />
       </div>
+
       <hr />
       <h4>Equipamiento</h4>
       <div class="form-group col-4">
-        <label for="tipoVehiculo">Tipo de vehículo:</label>
-        <input
-          type="text"
-          name="tipoVehiculo"
-          id="tipoVehiculo"
-          placeholder="Tipo de vehículo"
+        <label for="combustible">Combustible</label>
+        <select
+          name="combustible"
+          id="combustible"
           class="form-control"
-          [(ngModel)]="cuadroTipoVehiculo"
-        />
+          [(ngModel)]="cuadroCombustible"
+        >
+          <option value="" disabled>Selecciona</option>
+          <option value="gasolina">Gasolina</option>
+          <option value="diesel">Diesel</option>
+          <option value="electrico">Eléctrico</option>
+          <option value="hibrido">Híbrido</option>
+        </select>
       </div>
       <div class="form-group col-4">
-        <label for="traccion">Tracción:</label>
-        <input
-          type="text"
+        <label for="traccion">Tracción</label>
+        <select
           name="traccion"
           id="traccion"
-          placeholder="Tracción"
           class="form-control"
           [(ngModel)]="cuadroTraccion"
-        />
+        >
+          <option value="Trasera">Trasera</option>
+          <option value="Delantera">Delantera</option>
+          <option value="Total">Total</option>
+        </select>
       </div>
+
       <hr />
       <h4>Transmisión</h4>
       <div class="form-group col-4">
-        <label for="tipoCambio">Tipo de cambio:</label>
-        <input
-          type="text"
+        <label for="tipoCambio">Tipo de cambio</label>
+        <select
           name="tipoCambio"
           id="tipoCambio"
-          placeholder="Tipo de cambio"
           class="form-control"
           [(ngModel)]="cuadroTipoCambio"
-        />
+        >
+          <option value="manual">Manual</option>
+          <option value="automatico">Automático</option>
+          <option value="semiAutomatico">Semiautomático</option>
+        </select>
       </div>
       <div class="form-group col-4">
-        <label for="numeroMarchas">Número de Marchas:</label>
+        <label for="numeroMarchas">Número de Marchas</label>
         <input
           type="text"
           name="numeroMarchas"
@@ -175,10 +242,11 @@
           [(ngModel)]="cuadroNumeroMarchas"
         />
       </div>
+
       <hr />
       <h4>Motor</h4>
       <div class="form-group col-4">
-        <label for="cilindros">Número de Cilindros:</label>
+        <label for="cilindros">Número de Cilindros</label>
         <input
           type="text"
           name="cilindros"
@@ -189,7 +257,7 @@
         />
       </div>
       <div class="form-group col-4">
-        <label for="consumo">Consumo:</label>
+        <label for="consumo">Consumo</label>
         <input
           type="text"
           name="consumo"
@@ -199,10 +267,11 @@
           [(ngModel)]="cuadroConsumo"
         />
       </div>
+
       <hr />
       <h4>Fotos</h4>
       <div class="form-group col-4">
-        <label for="imagen">Imagen:</label>
+        <label for="imagen">Imagen</label>
         <input
           type="text"
           name="imagen"
@@ -212,10 +281,11 @@
           [(ngModel)]="cuadroImagenPrincipal"
         />
       </div>
+
       <hr />
       <h4>Descripción</h4>
       <div class="form-group col-4">
-        <label for="descripcion">Descripción:</label>
+        <label for="descripcion">Descripción</label>
         <textarea
           name="descripcion"
           id="descripcion"
@@ -224,10 +294,11 @@
           [(ngModel)]="cuadroDescripcion"
         ></textarea>
       </div>
+
       <hr />
       <h4>Precio y Contacto</h4>
       <div class="form-group col-4">
-        <label for="precio">Precio:</label>
+        <label for="precio">Precio</label>
         <input
           type="text"
           name="precio"
@@ -238,7 +309,7 @@
         />
       </div>
       <div class="form-group col-4">
-        <label for="ciudad">Ciudad:</label>
+        <label for="ciudad">Ciudad</label>
         <input
           type="text"
           name="ciudad"
@@ -248,7 +319,20 @@
           [(ngModel)]="cuadroCiudad"
         />
       </div>
-      <div class="form-group">
+
+      <div class="form-group col-4">
+        <label for="imagenes">Imagen</label>
+        <input
+          type="text"
+          name="imagenes"
+          id="imagenes"
+          placeholder="Imagenes"
+          class="form-control"
+          [(ngModel)]="cuadroImagenes"
+        />
+      </div>
+
+      <div class="form-group col-4">
         <button type="submit" class="btn btn-primary" id="boton-crear">
           Crear
         </button>

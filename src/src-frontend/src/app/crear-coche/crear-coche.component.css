@@ -8,6 +8,11 @@ body {
   padding: 50px;
 }
 
+.form-group input,
+select {
+  border: 1px solid #949494;
+}
+
 .titulo {
   text-align: center;
 }

@@ -2,11 +2,11 @@
   <div class="container">
     <div class="row">
       <!-- Sidebar -->
-      <div class="sidebar col-md-2">
+      <div class="sidebar col-md-3">
         <app-sidebar [filtros]="filtros"></app-sidebar>
       </div>
 
-      <div class="coches col-md-10">
+      <div class="coches col-md-9">
         <!-- Resultados de la búsqueda -->
         <div class="row">
           <div *ngIf="cochesFiltrados.length === 0" class="col-12">

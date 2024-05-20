@@ -6,6 +6,9 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { Usuario } from '../entidad/usuario.model';
 import { ServicioUsuarioService } from '../servicio-usuario/servicio-usuario.service';
+import { HttpClient } from '@angular/common/http';
+import { MarcasService } from '../servicio-marcas/marcas.service';
+import { Imagen } from '../entidad/imagen.model';
 
 @Component({
   selector: 'app-crear-coche',
@@ -18,6 +21,12 @@ import { ServicioUsuarioService } from '../servicio-usuario/servicio-usuario.ser
 export class CrearCocheComponent implements OnInit {
   coches: Coche[] = [];
   coche: Coche | undefined;
+
+  // Array para almacenar las marcas que se obtendrán del servicio marcas
+  marcas: any[] = [];
+
+  // Array para almacenar los modelos que se obtendrán de la api
+  modelos: any[] = [];
 
   cuadroMarca: string = '';
   cuadroModelo: string = '';
@@ -32,8 +41,8 @@ export class CrearCocheComponent implements OnInit {
   cuadroCategoria: string = '';
   cuadroTipoVehiculo: string = '';
   cuadroTraccion: string = '';
-  cuadroPlazas: number = 0;
-  cuadroPuertas: number = 0;
+  cuadroPlazas: number = 5;
+  cuadroPuertas: number = 5;
   cuadroGarantia: string = '';
   cuadroPeso: number = 0;
   cuadroColor: string = '';
@@ -44,33 +53,61 @@ export class CrearCocheComponent implements OnInit {
   cuadroTelefonoAdjunto: number = 0;
   cuadroEmailAdjunto: string = '';
   cuadroUsuario: Usuario | undefined;
+  cuadroImagenes: { imagen_url: string }[] = [];
 
   constructor(
     private router: Router,
+    private http: HttpClient,
     private servicioCoche: ServicioCocheService,
-    private servicioUsuario: ServicioUsuarioService
+    private servicioUsuario: ServicioUsuarioService,
+    private servicioMarcas: MarcasService
   ) {}
 
   ngOnInit(): void {
-    const botonVolverInicio = document.getElementById('boton-volver-inicio');
-    if (botonVolverInicio) {
-      botonVolverInicio.addEventListener(
-        'click',
-        this.volverAlInicio.bind(this)
-      );
+    this.marcas = this.servicioMarcas.obtenerMarcas();
+  }
+
+  // Función para manejar el cambio en la selección de marca
+  onMarcaChange() {
+    // Si no se ha seleccionado ninguna marca, reinicia los modelos
+    if (!this.cuadroMarca) {
+      this.modelos = [];
+      return;
     }
+
+    // Realiza una solicitud HTTP para obtener los modelos de la marca seleccionada
+    const url = `https://www.autoscout24.es/listing-form/models/C/${this.cuadroMarca}`;
+    console.log('URL de solicitud:', url); // Agregar impresión para depuración
+
+    this.http.get<any[]>(url).subscribe(
+      (response) => {
+        // Mapea la respuesta para obtener solo los nombres de los modelos
+        console.log('Respuesta de la solicitud:', response); // Agregar impresión para depuración
+        this.modelos = response.map((item) => item.label);
+      },
+      (error) => {
+        console.error('Error al obtener los modelos:', error); // Agregar manejo de errores
+      }
+    );
   }
 
   // Crea un coche con los datos del formulario
   crearCoche() {
-    // Obtener el usuario actual
     this.servicioUsuario.getUsuarioActual().subscribe(
       (usuario: Usuario) => {
-        // Asignar el usuario al cuadroUsuario
         this.cuadroUsuario = usuario;
 
+        const marcaId = Number(this.cuadroMarca);
+        const nombreMarca =
+          this.servicioMarcas.obtenerNombreMarcaPorId(marcaId);
+
+        // Asegurarse de que cuadroImagenes es un array antes de mapear
+        const imagenes: Imagen[] = Array.isArray(this.cuadroImagenes)
+          ? this.cuadroImagenes.map((imagen) => new Imagen(imagen.imagen_url))
+          : [];
+
         this.coche = new Coche(
-          this.cuadroMarca,
+          nombreMarca,
           this.cuadroModelo,
           this.cuadroImagenPrincipal,
           this.cuadroPrecio,
@@ -94,18 +131,53 @@ export class CrearCocheComponent implements OnInit {
           this.cuadroDescripcion,
           this.cuadroTelefonoAdjunto,
           this.cuadroEmailAdjunto,
-          this.cuadroUsuario
+          this.cuadroUsuario,
+          imagenes // Aquí usamos el array de imágenes mapeadas
         );
-        // Crear el coche con los datos del formulario
-        this.servicioCoche.crearCoche(this.coche);
 
-        // Volver al catálogo
-        this.router.navigate(['/catalogo']);
+        this.servicioCoche.crearCoche(this.coche).subscribe(
+          (response) => {
+            if (response.status === 200 || response.status === 201) {
+              alert('Coche creado con éxito.');
+              this.router.navigate(['/catalogo']);
+            } else {
+              alert('Error al crear el coche.');
+            }
+          },
+          (error) => {
+            console.error('Error al crear el coche:', error);
+            alert('Error al crear el coche.');
+          }
+        );
       },
       (error) => {
         console.error('Error al obtener el usuario:', error);
       }
     );
+  }
+
+  sumarPlaza() {
+    if (this.cuadroPlazas < 20) {
+      this.cuadroPlazas++;
+    }
+  }
+
+  restarPlaza() {
+    if (this.cuadroPlazas > 0) {
+      this.cuadroPlazas--;
+    }
+  }
+
+  sumarPuerta() {
+    if (this.cuadroPuertas < 10) {
+      this.cuadroPuertas++;
+    }
+  }
+
+  restarPuerta() {
+    if (this.cuadroPuertas > 0) {
+      this.cuadroPuertas--;
+    }
   }
 
   volverAlInicio() {
