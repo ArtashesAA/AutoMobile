@@ -70,7 +70,22 @@ export class CatalogoCocheComponent implements OnInit {
     });
   }
 
-  //
+  // Ordena los coches según el criterio seleccionado
+  ordenarCoches(event: any): void {
+    const criterio = event.target.value;
+
+    if (criterio === 'precio-asc') {
+      this.cochesFiltrados.sort((a, b) => a.precio - b.precio);
+    } else if (criterio === 'precio-desc') {
+      this.cochesFiltrados.sort((a, b) => b.precio - a.precio);
+    } else if (criterio === 'kilometraje-asc') {
+      this.cochesFiltrados.sort((a, b) => a.kilometraje - b.kilometraje);
+    } else if (criterio === 'kilometraje-desc') {
+      this.cochesFiltrados.sort((a, b) => b.kilometraje - a.kilometraje);
+    }
+  }
+
+  // Paginación
   get cochesPaginados(): any[] {
     const primero = (this.paginaActual - 1) * 20;
     const ultimo = Math.min(primero + 10, this.cochesFiltrados.length);

@@ -7,6 +7,22 @@
       </div>
 
       <div class="coches col-md-9">
+        <!-- Ordenar coches -->
+        <div class="ordenar-coches mb-3 col-4">
+          <label for="ordenar" class="form-label">Ordenar por</label>
+          <select
+            id="ordenar"
+            class="form-select"
+            (change)="ordenarCoches($event)"
+          >
+            <option value="">Seleccionar</option>
+            <option value="precio-asc">Precio: Menor a Mayor</option>
+            <option value="precio-desc">Precio: Mayor a Menor</option>
+            <option value="kilometraje-asc">Kilometraje: Menor a Mayor</option>
+            <option value="kilometraje-desc">Kilometraje: Mayor a Menor</option>
+          </select>
+        </div>
+
         <!-- Resultados de la búsqueda -->
         <div class="row">
           <div *ngIf="cochesFiltrados.length === 0" class="col-12">

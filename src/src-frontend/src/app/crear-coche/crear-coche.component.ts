@@ -31,23 +31,23 @@ export class CrearCocheComponent implements OnInit {
   cuadroMarca: string = '';
   cuadroModelo: string = '';
   cuadroImagenPrincipal: string = '';
-  cuadroPrecio: number = 0;
-  cuadroAnyo: number = 0;
-  cuadroPotencia: number = 0;
-  cuadroKilometraje: number = 0;
+  cuadroPrecio: number = 10000;
+  cuadroAnyo: number = 2024;
+  cuadroPotencia: number = 100;
+  cuadroKilometraje: number = 1000;
   cuadroCombustible: string = '';
   cuadroConsumo: string = '';
-  cuadroTipoCambio: string = '';
+  cuadroTipoCambio: string = 'Manual';
   cuadroCategoria: string = '';
-  cuadroTipoVehiculo: string = '';
+  cuadroTipoVehiculo: string = 'Sedan';
   cuadroTraccion: string = '';
   cuadroPlazas: number = 5;
   cuadroPuertas: number = 5;
-  cuadroGarantia: string = '';
-  cuadroPeso: number = 0;
+  cuadroGarantia: string = 'Sin Garantia';
+  cuadroPeso: number = 1700;
   cuadroColor: string = '';
-  cuadroNumeroMarchas: number = 0;
-  cuadroNumeroCilindros: number = 0;
+  cuadroNumeroMarchas: number = 6;
+  cuadroNumeroCilindros: number = 4;
   cuadroCiudad: string = '';
   cuadroDescripcion: string = '';
   cuadroTelefonoAdjunto: number = 0;
@@ -132,7 +132,7 @@ export class CrearCocheComponent implements OnInit {
           this.cuadroTelefonoAdjunto,
           this.cuadroEmailAdjunto,
           this.cuadroUsuario,
-          imagenes // Aquí usamos el array de imágenes mapeadas
+          imagenes
         );
 
         this.servicioCoche.crearCoche(this.coche).subscribe(
@@ -178,6 +178,38 @@ export class CrearCocheComponent implements OnInit {
     if (this.cuadroPuertas > 0) {
       this.cuadroPuertas--;
     }
+  }
+
+  sumarMarchas() {
+    if (this.cuadroNumeroMarchas < 10) {
+      this.cuadroNumeroMarchas++;
+    }
+  }
+
+  restarMarchas() {
+    if (this.cuadroNumeroMarchas > 0) {
+      this.cuadroNumeroMarchas--;
+    }
+  }
+
+  sumarCilindros() {
+    if (this.cuadroNumeroCilindros < 20) {
+      this.cuadroNumeroCilindros++;
+    }
+  }
+
+  restarCilindros() {
+    if (this.cuadroNumeroCilindros > 0) {
+      this.cuadroNumeroCilindros--;
+    }
+  }
+
+  agregarImagen() {
+    this.cuadroImagenes.push({ imagen_url: '' });
+  }
+
+  eliminarImagen(index: number) {
+    this.cuadroImagenes.splice(index, 1);
   }
 
   volverAlInicio() {
