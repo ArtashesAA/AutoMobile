@@ -9,9 +9,15 @@ body {
 
 /* Sidebar */
 .sidebar {
+  position: relative;
+  padding-top: 20px;
   background-color: white;
   border-radius: 10px;
   padding: 10px;
+}
+
+.nav {
+  width: 100%;
 }
 
 /* Título */
@@ -32,15 +38,6 @@ body {
 .col-md-3 {
   position: relative;
   top: 0;
-}
-
-.sidebar {
-  position: relative;
-  padding-top: 20px;
-}
-
-.nav {
-  width: 100%;
 }
 
 /* Estilo para el contenido dinámico */

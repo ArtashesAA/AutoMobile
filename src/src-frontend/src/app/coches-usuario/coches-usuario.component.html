@@ -4,15 +4,11 @@
       <h2 class="titulo">Coches Publicados</h2>
       <!-- Sidebar -->
 
-      <div class="col-md-2">
+      <div class="col-md-3">
         <div class="sidebar">
           <ul class="nav nav-pills flex-column mb-auto">
             <li class="nav-item">
-              <a
-                [routerLink]="'/perfil'"
-                class="nav-link active"
-                aria-current="page"
-              >
+              <a [routerLink]="'/perfil'" class="nav-link" aria-current="page">
                 Perfil
               </a>
             </li>
@@ -24,10 +20,10 @@
             <li class="nav-item">
               <a
                 [routerLink]="'/cochesUsuario'"
-                class="nav-link"
+                class="nav-link active"
                 aria-current="page"
               >
-                Coches
+                Coches Publicados
               </a>
             </li>
             <li class="nav-item">
@@ -42,25 +38,23 @@
           </ul>
         </div>
       </div>
-    </div>
-    <div class="row">
-      <div *ngIf="coches.length === 0" class="col-12">
-        <div class="coches-no-encontrados">
-          <h4>
-            No se encontraron coches que coincidan con los filtros
-            seleccionados.
-          </h4>
-          <button
-            class="btn btn-primary"
-            id="boton-volver-inicio"
-            (click)="volverAInicio()"
-          >
-            Volver a Inicio
-          </button>
+
+      <div class="col-md-8">
+        <div *ngIf="cochesUsuario.length === 0" class="col-12">
+          <div class="coches-no-encontrados">
+            <h4>No tienes coches publicados</h4>
+            <button
+              class="btn btn-primary"
+              id="boton-ir-vender"
+              (click)="irAVender()"
+            >
+              Publicar coche
+            </button>
+          </div>
         </div>
-      </div>
-      <div class="col-md-6" *ngFor="let coche of cochesPaginados">
-        <app-coche-hijo [cochedelista]="coche"></app-coche-hijo>
+        <div class="col-md-6" *ngFor="let coche of cochesUsuario">
+          <app-coche-hijo [cochedelista]="coche"></app-coche-hijo>
+        </div>
       </div>
     </div>
   </div>

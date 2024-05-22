@@ -35,52 +35,9 @@ export class ServicioCocheService {
     return this.http.get<Coche>(url);
   }
 
-  cochesTodosFiltros(filtros: any): Observable<Coche[]> {
-    // Construye los parámetros de búsqueda
-    let params = new HttpParams();
-    for (let key in filtros) {
-      if (filtros.hasOwnProperty(key)) {
-        params = params.set(key, filtros[key]);
-      }
-    }
-
-    // Realiza la solicitud HTTP al backend con los parámetros de búsqueda
-    return this.http.get<Coche[]>(
-      'http://localhost:8080/api/v1/public/coche/filtroTodos',
-      { params }
-    );
-  }
-
-  cochesPorMarca(filtros: any): Observable<Coche[]> {
-    // Construye los parámetros de búsqueda
-    let params = new HttpParams();
-    for (let key in filtros) {
-      if (filtros.hasOwnProperty(key)) {
-        params = params.set(key, filtros[key]);
-      }
-    }
-
-    // Realiza la solicitud HTTP al backend con los parámetros de búsqueda
-    return this.http.get<Coche[]>(
-      'http://localhost:8080/api/v1/public/cochesMarca',
-      { params }
-    );
-  }
-
-  cochesPorMarcaModelo(filtros: any): Observable<Coche[]> {
-    // Construye los parámetros de búsqueda
-    let params = new HttpParams();
-    for (let key in filtros) {
-      if (filtros.hasOwnProperty(key)) {
-        params = params.set(key, filtros[key]);
-      }
-    }
-
-    // Realiza la solicitud HTTP al backend con los parámetros de búsqueda
-    return this.http.get<Coche[]>(
-      'http://localhost:8080/api/v1/public/cochesMarcaModelo',
-      { params }
-    );
+  cargarCochesPorIdUsuario(idUsuario: number): Observable<Coche[]> {
+    const url = `http://localhost:8080/api/v1/adminuser/coche/usuario/${idUsuario}`;
+    return this.http.get<Coche[]>(url);
   }
 
   // Crea un coche

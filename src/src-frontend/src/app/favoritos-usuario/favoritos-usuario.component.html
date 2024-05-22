@@ -1,1 +1,61 @@
-<p>favoritos-usuario works!</p>
+<body>
+  <div class="container">
+    <div class="row">
+      <h2 class="titulo">Coches Publicados</h2>
+      <!-- Sidebar -->
+
+      <div class="col-md-3">
+        <div class="sidebar">
+          <ul class="nav nav-pills flex-column mb-auto">
+            <li class="nav-item">
+              <a [routerLink]="'/perfil'" class="nav-link" aria-current="page">
+                Perfil
+              </a>
+            </li>
+            <li *ngIf="esAdmin">
+              <a [routerLink]="'/gestionUsuarios'" class="nav-link link-dark">
+                Gestión de Usuarios
+              </a>
+            </li>
+            <li class="nav-item">
+              <a
+                [routerLink]="'/cochesUsuario'"
+                class="nav-link"
+                aria-current="page"
+              >
+                Coches Publicados
+              </a>
+            </li>
+            <li class="nav-item">
+              <a
+                [routerLink]="'/favoritosUsuario'"
+                class="nav-link active"
+                aria-current="page"
+              >
+                Favoritos
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="col-md-8">
+        <div *ngIf="cochesUsuario.length === 0" class="col-12">
+          <div class="coches-no-encontrados">
+            <h4>No tienes ningún coche en favoritos</h4>
+            <button
+              class="btn btn-primary"
+              id="boton-ir-catalogo"
+              (click)="irACatalogo()"
+            >
+              Ver Catálogo
+            </button>
+          </div>
+        </div>
+        <div class="col-md-6" *ngFor="let coche of cochesUsuario">
+          <app-coche-hijo [cochedelista]="coche"></app-coche-hijo>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
