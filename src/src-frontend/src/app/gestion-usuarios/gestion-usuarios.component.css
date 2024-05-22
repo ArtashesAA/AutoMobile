@@ -33,3 +33,16 @@ td .btn {
 button {
   width: 90px;
 }
+
+/* Estilos para el contenedor de paginación */
+.paginacion {
+  text-align: center;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+/* Estilos para los botones de paginación */
+.paginacion button {
+  margin-left: 15px;
+  margin-right: 15px;
+}

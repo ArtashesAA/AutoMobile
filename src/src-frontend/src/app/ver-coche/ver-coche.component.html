@@ -29,10 +29,29 @@
             </div>
             <div class="col-6">
               <div class="acciones">
-                <a class="accion-link btn btn-outline-primary"
+                <a
+                  class="accion-link btn btn-outline-primary"
+                  (click)="mostrarVentanaCompartir()"
                   ><p><i class="bi bi-share"></i> Compartir</p></a
                 >
               </div>
+            </div>
+
+            <!-- Ventana de compartir (inicialmente oculta) -->
+            <div class="ventana-compartir" *ngIf="mostrarCompartir">
+              <!-- Botón de cierre -->
+              <button class="btn-cerrar" (click)="cerrarVentanaCompartir()">
+                <i class="bi bi-x"></i>
+              </button>
+              <!-- Contenido de compartir -->
+              <input type="text" [value]="urlCoche" readonly />
+              <button class="btn-whatsapp">
+                <i class="bi bi-whatsapp"></i>
+              </button>
+              <button class="btn-facebook">
+                <i class="bi bi-facebook"></i>
+              </button>
+              <button class="btn-email"><i class="bi bi-envelope"></i></button>
             </div>
           </div>
 

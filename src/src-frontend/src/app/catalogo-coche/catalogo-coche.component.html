@@ -15,7 +15,7 @@
             class="form-select"
             (change)="ordenarCoches($event)"
           >
-            <option value="">Seleccionar</option>
+            <option value="" disabled selected>Seleccionar</option>
             <option value="precio-asc">Precio: Menor a Mayor</option>
             <option value="precio-desc">Precio: Mayor a Menor</option>
             <option value="kilometraje-asc">Kilometraje: Menor a Mayor</option>
@@ -45,7 +45,7 @@
           </div>
         </div>
 
-        <div class="paginacion">
+        <div *ngIf="cochesFiltrados.length > 0" class="paginacion">
           <button
             class="btn btn-light"
             id="boton-pagina-anterior"

@@ -135,7 +135,35 @@ export class CrearCocheComponent implements OnInit {
           imagenes
         );
 
-        this.servicioCoche.crearCoche(this.coche).subscribe(
+        const cocheData = {
+          marca: nombreMarca,
+          modelo: this.cuadroModelo,
+          imagen_principal: this.cuadroImagenPrincipal,
+          precio: this.cuadroPrecio,
+          anyo: this.cuadroAnyo,
+          potencia: this.cuadroPotencia,
+          kilometraje: this.cuadroKilometraje,
+          combustible: this.cuadroCombustible,
+          consumo: this.cuadroConsumo,
+          tipoCambio: this.cuadroTipoCambio,
+          categoria: this.cuadroCategoria,
+          tipoVehiculo: this.cuadroTipoVehiculo,
+          traccion: this.cuadroTraccion,
+          plazas: this.cuadroPlazas,
+          puertas: this.cuadroPuertas,
+          garantia: this.cuadroGarantia,
+          peso: this.cuadroPeso,
+          color: this.cuadroColor,
+          numeroMarchas: this.cuadroNumeroMarchas,
+          numeroCilindros: this.cuadroNumeroCilindros,
+          ciudad: this.cuadroCiudad,
+          descripcion: this.cuadroDescripcion,
+          telefonoAdjunto: this.cuadroTelefonoAdjunto,
+          emailAdjunto: this.cuadroEmailAdjunto,
+          imagenes: this.cuadroImagenes,
+        };
+
+        this.servicioCoche.crearCoche(cocheData).subscribe(
           (response) => {
             if (response.status === 200 || response.status === 201) {
               alert('Coche creado con éxito.');

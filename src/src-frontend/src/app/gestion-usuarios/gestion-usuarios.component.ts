@@ -17,6 +17,9 @@ export class GestionUsuariosComponent {
   usuarios: Usuario[] = [];
   estaLogueado: boolean = false;
 
+  // Página de Paginación
+  paginaActual: number = 1;
+
   @Input() usuario!: Usuario;
 
   constructor(
@@ -91,5 +94,29 @@ export class GestionUsuariosComponent {
 
   volverAGestionDeUsuarios() {
     this.router.navigate(['gestionUsuarios']);
+  }
+
+  // Paginación
+  get usuariosPaginados(): Usuario[] {
+    const primero = (this.paginaActual - 1) * 10;
+    const ultimo = Math.min(primero + 10, this.usuarios.length);
+    return this.usuarios.slice(primero, ultimo);
+  }
+
+  // Para la página anterior
+  anteriorPag() {
+    this.paginaActual--;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // Para la siguiente página
+  siguientePag() {
+    this.paginaActual++;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // Obtiene el total de páginas dependiendo de los usuarios que se mostrarán en la página
+  get totalPaginas(): number {
+    return Math.ceil(this.usuarios.length / 10);
   }
 }

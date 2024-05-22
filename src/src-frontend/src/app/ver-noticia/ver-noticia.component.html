@@ -14,7 +14,7 @@
           class="noticia-imagen"
         />
       </div>
-
+      <hr />
       <!-- Detalles del noticia -->
       <div class="noticia-details">
         <!-- Otros detalles -->
@@ -22,7 +22,7 @@
           <p>{{ noticia.contenido }}</p>
         </div>
       </div>
-
+      <hr />
       <!-- Video del noticia -->
       <div class="noticia-video mt-3">
         <video width="100%" controls>
@@ -37,7 +37,7 @@
           class="btn btn-secondary mr-3"
           [routerLink]="['/actualizaNoticia', id]"
           [queryParams]="{ accion: '1' }"
-          *ngIf="estaLogueado()"
+          *ngIf="estaLogueado && esAdmin"
         >
           Editar
         </button>
@@ -45,7 +45,7 @@
           class="btn btn-danger"
           [routerLink]="['/actualizaNoticia', id]"
           [queryParams]="{ accion: '2' }"
-          *ngIf="estaLogueado()"
+          *ngIf="estaLogueado && esAdmin"
         >
           Eliminar
         </button>

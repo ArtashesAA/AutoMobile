@@ -85,9 +85,7 @@ export class ServicioCocheService {
 
   // Crea un coche
   crearCoche(coche: Coche): Observable<any> {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-    });
+    const headers = this.getHeaders();
 
     return this.http.post(
       'http://localhost:8080/api/v1/adminuser/coche',

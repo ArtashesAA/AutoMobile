@@ -17,6 +17,8 @@ import { RegistroCorrectoComponent } from './registro-correcto/registro-correcto
 import { ModificarUsuarioComponent } from './modificar-usuario/modificar-usuario.component';
 import { ModificarUsuarioCorrectoComponent } from './modificar-usuario-correcto/modificar-usuario-correcto.component';
 import { ErrorComponent } from './error/error.component';
+import { CochesUsuarioComponent } from './coches-usuario/coches-usuario.component';
+import { FavoritosUsuarioComponent } from './favoritos-usuario/favoritos-usuario.component';
 export const routes: Routes = [
   { path: '', component: InicioComponent },
   {
@@ -44,6 +46,8 @@ export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'registrarse', component: RegistroComponent },
   { path: 'perfil', component: PerfilComponent },
+  { path: 'cochesUsuario', component: CochesUsuarioComponent },
+  { path: 'favoritosUsuario', component: FavoritosUsuarioComponent },
   { path: 'modificarUsuario', component: ModificarUsuarioComponent },
   { path: 'modificarCorrecto', component: ModificarUsuarioCorrectoComponent },
   {

@@ -1,11 +1,12 @@
 body {
   background-color: #f4f4f4;
-  padding: 50px;
 }
 
 .container {
   background-color: white;
   padding: 50px;
+  margin-top: 50px;
+  margin-bottom: 50px;
 }
 
 /* Datos principales debajo de imagen */
@@ -93,4 +94,54 @@ body {
 .accion-link p {
   margin: 0; /* Eliminamos el margen del párrafo */
   display: inline; /* Alineamos el texto en línea */
+}
+
+/* Estilos para la ventana de compartir */
+.ventana-compartir {
+  position: relative;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  margin-top: 10px;
+}
+
+.ventana-compartir input {
+  width: calc(
+    100% - 40px
+  ); /* Ancho del campo de texto menos el ancho de los botones */
+  margin-bottom: 10px;
+}
+
+/* Estilos para los botones de compartir */
+.ventana-compartir button {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  font-size: 24px;
+  margin-right: 5px;
+}
+
+/* Estilos específicos para los iconos de redes sociales */
+.ventana-compartir .btn-whatsapp {
+  color: #25d366; /* Color verde de WhatsApp */
+}
+
+.ventana-compartir .btn-facebook {
+  color: #3b5998; /* Color azul de Facebook */
+}
+
+.ventana-compartir .btn-email {
+  color: #ff4500; /* Color naranja de Email */
+}
+
+.ventana-compartir .btn-cerrar {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 24px;
+  color: #000000; /* Color gris oscuro */
 }

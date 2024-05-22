@@ -31,9 +31,15 @@ export class VerCocheComponent implements OnInit {
   numero: number = 0;
   mensaje: string = '';
 
+  // Contacto
   mostrarTelefono: boolean = true;
   mostrarEmail: boolean = false;
   textoBoton: string = 'Mostar TLF/EMAIL';
+
+  // Nueva variable para mostrar u ocultar la ventana de compartir
+  mostrarCompartir: boolean = false;
+  // URL del coche
+  urlCoche: string = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -122,5 +128,24 @@ export class VerCocheComponent implements OnInit {
   // Borra un coche por su id
   eliminarCoche(id: number) {
     this.cocheHijo.eliminarCoche(id);
+  }
+
+  // Función para mostrar u ocultar la ventana de compartir
+  mostrarVentanaCompartir() {
+    this.mostrarCompartir = !this.mostrarCompartir;
+    if (this.mostrarCompartir) {
+      // Generar el URL del coche cuando se muestra la ventana de compartir
+      this.urlCoche = this.generarURLCoche();
+    }
+  }
+
+  // Función para generar el URL del coche
+  generarURLCoche(): string {
+    return 'http://localhost:4200/verCoche/' + this.id;
+  }
+
+  // Función para cerrar la ventana de compartir
+  cerrarVentanaCompartir() {
+    this.mostrarCompartir = false;
   }
 }

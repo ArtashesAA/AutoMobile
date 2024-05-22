@@ -7,18 +7,15 @@
         <div class="sidebar">
           <ul class="nav nav-pills flex-column mb-auto">
             <li class="nav-item">
-              <a [routerLink]="'/perfil'" class="nav-link link-dark">
-                Perfil
-              </a>
+              <a [routerLink]="'/perfil'" class="nav-link link-dark">Perfil</a>
             </li>
             <li>
               <a
                 [routerLink]="'/gestionUsuarios'"
                 class="nav-link active"
                 aria-current="page"
+                >Gestión de Usuarios</a
               >
-                Gestión de Usuarios
-              </a>
             </li>
           </ul>
         </div>
@@ -38,7 +35,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let usuario of usuarios">
+            <tr *ngFor="let usuario of usuariosPaginados">
               <td>{{ usuario.id }}</td>
               <td>
                 <img
@@ -62,8 +59,9 @@
                   [routerLink]="['/actualizaUsuario', usuario.id]"
                   class="btn btn-warning"
                 >
-                  Editar</button
-                ><br />
+                  Editar
+                </button>
+                <br />
                 <button
                   (click)="eliminarUsuario(usuario.id)"
                   class="btn btn-danger"
@@ -74,6 +72,25 @@
             </tr>
           </tbody>
         </table>
+
+        <!-- Controles de Paginación -->
+        <div *ngIf="usuarios.length > 0" class="paginacion">
+          <button
+            class="btn btn-light"
+            (click)="anteriorPag()"
+            [disabled]="paginaActual === 1"
+          >
+            Anterior
+          </button>
+          <span>{{ paginaActual }}</span>
+          <button
+            class="btn btn-light"
+            (click)="siguientePag()"
+            [disabled]="paginaActual === totalPaginas"
+          >
+            Siguiente
+          </button>
+        </div>
       </div>
     </div>
   </div>
