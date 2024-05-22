@@ -53,6 +53,19 @@ public class FavoritoControlador {
 	}
 
 	/*
+	 * Recupera los favoritos por id del usuario. Puede acceder admin o usuario
+	 * 
+	 * @Parameter id de usuario del cual se quiere recuperar los favoritos
+	 * 
+	 * @return recupera los favoritos por id del usuario
+	 */
+	@GetMapping("/adminuser/favorito/usuario/{idUsuario}")
+	public ResponseEntity<List<Favorito>> obtenerFavoritosPorIdUsuario(@PathVariable Long idUsuario) {
+		List<Favorito> favoritos = favoritoServicio.obtenerFavoritosPorIdUsuario(idUsuario);
+		return ResponseEntity.ok(favoritos);
+	}
+
+	/*
 	 * Añade un favorito a la bbdd. Puede acceder admin o usuario
 	 * 
 	 * @Parameter Favorito que se va a crear

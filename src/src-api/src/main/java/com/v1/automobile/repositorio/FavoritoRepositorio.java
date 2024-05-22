@@ -10,4 +10,6 @@ import com.v1.automobile.entidad.Favorito;
 @Repository
 public interface FavoritoRepositorio extends JpaRepository<Favorito, Long> {
 	List<Favorito> findByCocheId(Long cocheId);
+
+	List<Favorito> findByUsuarioId(Long idUsuario);
 }

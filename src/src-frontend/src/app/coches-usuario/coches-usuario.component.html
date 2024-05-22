@@ -43,5 +43,25 @@
         </div>
       </div>
     </div>
+    <div class="row">
+      <div *ngIf="coches.length === 0" class="col-12">
+        <div class="coches-no-encontrados">
+          <h4>
+            No se encontraron coches que coincidan con los filtros
+            seleccionados.
+          </h4>
+          <button
+            class="btn btn-primary"
+            id="boton-volver-inicio"
+            (click)="volverAInicio()"
+          >
+            Volver a Inicio
+          </button>
+        </div>
+      </div>
+      <div class="col-md-6" *ngFor="let coche of cochesPaginados">
+        <app-coche-hijo [cochedelista]="coche"></app-coche-hijo>
+      </div>
+    </div>
   </div>
 </body>

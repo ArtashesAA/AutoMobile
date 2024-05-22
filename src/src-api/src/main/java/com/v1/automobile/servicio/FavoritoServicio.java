@@ -25,6 +25,10 @@ public class FavoritoServicio {
 		return favoritoRepositorio.findAll();
 	}
 
+	public List<Favorito> obtenerFavoritosPorIdUsuario(Long idUsuario) {
+		return favoritoRepositorio.findByUsuarioId(idUsuario);
+	}
+	
 	public Favorito crearFavorito(Favorito favorito) {
 		return favoritoRepositorio.save(favorito);
 	}

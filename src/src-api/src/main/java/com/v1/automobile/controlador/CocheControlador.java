@@ -53,6 +53,20 @@ public class CocheControlador {
 	}
 
 	/*
+	 * Recupera los coches por id del usuario. Puede acceder admin o usuario
+	 * 
+	 * @Parameter id de usuario del cual se quiere recuperar los coches
+	 * 
+	 * @return recupera los coches por id del usuario
+	 */
+	@GetMapping("/adminuser/coche/usuario/{idUsuario}")
+	public ResponseEntity<List<Coche>> obtenerCochesPorIdUsuario(@PathVariable Long idUsuario) {
+	    List<Coche> coches = cocheServicio.obtenerCochesPorIdUsuario(idUsuario);
+	    return ResponseEntity.ok(coches);
+	}
+
+	
+	/*
 	 * Añade un coche a la bbdd. Puede acceder un admin o usuario
 	 * 
 	 * @Parameter coche que se va a añadir
