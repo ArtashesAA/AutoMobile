@@ -36,8 +36,12 @@ export class ServicioCocheService {
   }
 
   cargarCochesPorIdUsuario(idUsuario: number): Observable<Coche[]> {
+    const headers = this.getHeaders();
+
     const url = `http://localhost:8080/api/v1/adminuser/coche/usuario/${idUsuario}`;
-    return this.http.get<Coche[]>(url);
+    return this.http.get<Coche[]>(url, {
+      headers,
+    });
   }
 
   // Crea un coche

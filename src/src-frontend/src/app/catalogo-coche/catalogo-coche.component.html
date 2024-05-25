@@ -47,20 +47,21 @@
 
         <div *ngIf="cochesFiltrados.length > 0" class="paginacion">
           <button
-            class="btn btn-light"
+            class="btn"
             id="boton-pagina-anterior"
             (click)="anteriorPag()"
             [disabled]="paginaActual === 1"
           >
+            <i class="bi bi-chevron-left"></i>
             Anterior
           </button>
           <span>{{ paginaActual }}</span>
           <button
-            class="btn btn-light"
+            class="btn"
             (click)="siguientePag()"
             [disabled]="paginaActual === totalPaginas"
           >
-            Siguiente
+            Siguiente <i class="bi bi-chevron-right"></i>
           </button>
         </div>
       </div>

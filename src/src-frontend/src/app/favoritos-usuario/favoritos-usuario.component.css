@@ -9,15 +9,20 @@ body {
 
 /* Sidebar */
 .sidebar {
-  position: relative;
-  padding-top: 20px;
   background-color: white;
-  border-radius: 10px;
   padding: 10px;
+  border-radius: 10px;
+  position: fixed;
+  top: 20%;
 }
 
 .nav {
   width: 100%;
+}
+
+.coches-no-encontrados {
+  text-align: center;
+  margin-top: 50px;
 }
 
 /* Título */

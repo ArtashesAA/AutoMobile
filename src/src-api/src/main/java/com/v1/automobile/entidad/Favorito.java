@@ -24,14 +24,15 @@ public class Favorito {
 	@Column(name = "id")
 	private Long id;
 
-	@NotNull(message = "La fecha no puede estar nula")
-	@Column(name = "fecha", nullable = false, columnDefinition = "TIMESTAMP")
+	@Column(name = "fecha", columnDefinition = "TIMESTAMP")
 	private Date fecha;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "usuario_id", referencedColumnName = "id", nullable = false)
 	@JsonBackReference("usuario-favoritos")
 	private Usuario usuario;
+	
+	private Long coche_id_recuperado;
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "coche_id", referencedColumnName = "id", nullable = false)
@@ -80,6 +81,14 @@ public class Favorito {
 
 	public void setFecha(Date fecha) {
 		this.fecha = fecha;
+	}
+
+	public Long getCoche_id_recuperado() {
+		return coche.getId();
+	}
+
+	public void setCoche_id_recuperado(Long coche_id_recuperado) {
+		this.coche_id_recuperado = coche.getId();
 	}
 
 	@Override

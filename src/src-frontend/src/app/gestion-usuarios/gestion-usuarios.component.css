@@ -4,9 +4,11 @@ body {
 
 /* Sidebar */
 .sidebar {
+  position: fixed;
+  top: 20%;
   background-color: white;
-  border-radius: 10px;
   padding: 10px;
+  border-radius: 10px;
 }
 
 /* Imagen de usuario */
@@ -45,4 +47,6 @@ button {
 .paginacion button {
   margin-left: 15px;
   margin-right: 15px;
+  background-color: white;
+  width: 120px;
 }

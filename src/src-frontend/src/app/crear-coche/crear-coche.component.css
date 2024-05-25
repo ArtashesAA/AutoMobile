@@ -1,22 +1,40 @@
 body {
   background-color: #f4f4f4;
-  padding: 50px;
 }
 
+/* Contenedor general */
 .container {
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+/* Creación de coche */
+.crear-coche {
   background-color: white;
   padding: 50px;
 }
 
+/* Sidebar de navegación */
+.sidebar {
+  padding: 50px;
+}
+
+/* Color de inputs */
 .form-group input,
 select {
   border: 1px solid #949494;
+}
+
+/* Separacion entre inputs */
+.form-group {
+  margin-top: 10px;
 }
 
 .titulo {
   text-align: center;
 }
 
+/* Botones */
 #boton-crear {
   margin-top: 20px;
   margin-right: 40px;

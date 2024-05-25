@@ -17,6 +17,24 @@
                 >Gestión de Usuarios</a
               >
             </li>
+            <li class="nav-item">
+              <a
+                [routerLink]="'/cochesUsuario'"
+                class="nav-link link-dark"
+                aria-current="page"
+              >
+                Coches Publicados
+              </a>
+            </li>
+            <li class="nav-item">
+              <a
+                [routerLink]="'/favoritosUsuario'"
+                class="nav-link link-dark"
+                aria-current="page"
+              >
+                Favoritos
+              </a>
+            </li>
           </ul>
         </div>
       </div>
@@ -76,19 +94,20 @@
         <!-- Controles de Paginación -->
         <div *ngIf="usuarios.length > 0" class="paginacion">
           <button
-            class="btn btn-light"
+            class="btn"
             (click)="anteriorPag()"
             [disabled]="paginaActual === 1"
           >
+            <i class="bi bi-chevron-left"></i>
             Anterior
           </button>
           <span>{{ paginaActual }}</span>
           <button
-            class="btn btn-light"
+            class="btn"
             (click)="siguientePag()"
             [disabled]="paginaActual === totalPaginas"
           >
-            Siguiente
+            Siguiente <i class="bi bi-chevron-right"></i>
           </button>
         </div>
       </div>

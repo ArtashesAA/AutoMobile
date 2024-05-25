@@ -91,6 +91,31 @@ body {
   color: white;
 }
 
+.acciones .accion-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.acciones .accion-link:hover {
+  background-color: #007bff;
+  color: white;
+}
+
+.acciones .accion-link i {
+  margin-right: 8px;
+  transition: transform 0.3s;
+}
+
+.acciones .accion-link.aniadir i {
+  transform: scale(1.2);
+}
+
+.acciones .accion-link.eliminar i {
+  transform: scale(0.8);
+}
+
 .accion-link p {
   margin: 0; /* Eliminamos el margen del párrafo */
   display: inline; /* Alineamos el texto en línea */

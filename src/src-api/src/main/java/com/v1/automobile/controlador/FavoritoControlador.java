@@ -60,10 +60,10 @@ public class FavoritoControlador {
 	 * @return recupera los favoritos por id del usuario
 	 */
 	@GetMapping("/adminuser/favorito/usuario/{idUsuario}")
-	public ResponseEntity<List<Favorito>> obtenerFavoritosPorIdUsuario(@PathVariable Long idUsuario) {
-		List<Favorito> favoritos = favoritoServicio.obtenerFavoritosPorIdUsuario(idUsuario);
-		return ResponseEntity.ok(favoritos);
-	}
+    public ResponseEntity<List<Favorito>> obtenerFavoritosPorIdUsuario(@PathVariable Long idUsuario) {
+        List<Favorito> favoritos = favoritoServicio.obtenerFavoritosPorIdUsuario(idUsuario);
+        return ResponseEntity.ok(favoritos);
+    }
 
 	/*
 	 * Añade un favorito a la bbdd. Puede acceder admin o usuario
@@ -83,7 +83,7 @@ public class FavoritoControlador {
 	 * 
 	 * @Parameter id de la noticia que se quiere borrar
 	 */
-	@DeleteMapping("/admin/favorito/{id}")
+	@DeleteMapping("/adminuser/favorito/{id}")
 	public ResponseEntity<String> borrarFavoritoPorId(@PathVariable Long id) {
 		return favoritoServicio.borrarFavoritoPorId(id);
 	}

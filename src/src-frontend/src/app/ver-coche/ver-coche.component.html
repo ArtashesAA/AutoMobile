@@ -22,9 +22,19 @@
           <div class="row">
             <div class="col-6">
               <div class="acciones">
-                <a class="accion-link btn btn-outline-primary"
-                  ><p><i class="bi bi-star"></i> Añadir a favoritos</p></a
+                <a
+                  class="accion-link btn btn-outline-primary"
+                  (click)="toggleFavorito()"
                 >
+                  <p>
+                    <i
+                      [class]="esFavorito ? 'bi bi-star-fill' : 'bi bi-star'"
+                    ></i>
+                    {{
+                      esFavorito ? "Añadido a favoritos" : "Añadir a favoritos"
+                    }}
+                  </p>
+                </a>
               </div>
             </div>
             <div class="col-6">

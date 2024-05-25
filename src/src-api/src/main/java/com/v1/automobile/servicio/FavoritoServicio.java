@@ -27,8 +27,9 @@ public class FavoritoServicio {
 
 	public List<Favorito> obtenerFavoritosPorIdUsuario(Long idUsuario) {
 		return favoritoRepositorio.findByUsuarioId(idUsuario);
+
 	}
-	
+
 	public Favorito crearFavorito(Favorito favorito) {
 		return favoritoRepositorio.save(favorito);
 	}
@@ -42,4 +43,5 @@ public class FavoritoServicio {
 		}
 
 	}
+
 }

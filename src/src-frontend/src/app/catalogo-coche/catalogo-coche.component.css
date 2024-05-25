@@ -38,4 +38,6 @@ body {
 .paginacion button {
   margin-left: 15px;
   margin-right: 15px;
+  width: 120px;
+  background-color: white;
 }
