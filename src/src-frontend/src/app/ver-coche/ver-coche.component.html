@@ -1,4 +1,5 @@
 <body>
+  <div class="titulo"></div>
   <div class="container">
     <div *ngIf="coche" class="coche-info-container">
       <!-- Imagen del coche -->
@@ -20,7 +21,7 @@
         <div class="col-4">
           <!-- Favoritos - compartir -->
           <div class="row">
-            <div class="col-6">
+            <div class="col-7">
               <div class="acciones">
                 <a
                   class="accion-link btn btn-outline-primary"
@@ -37,7 +38,7 @@
                 </a>
               </div>
             </div>
-            <div class="col-6">
+            <div class="col-5">
               <div class="acciones">
                 <a
                   class="accion-link btn btn-outline-primary"
@@ -196,14 +197,14 @@
                   <h5>Potencia</h5>
                   <p>
                     <i class="bi bi-speedometer"></i>
-                    {{ coche.potencia }}
+                    {{ coche.potencia }} CV
                   </p>
                 </div>
                 <div class="col-4" id="kilometraje">
                   <h5>Kilometraje</h5>
                   <p>
                     <i class="bi bi-car-front"></i>
-                    {{ coche.kilometraje }}
+                    {{ coche.kilometraje }} km
                   </p>
                 </div>
               </div>

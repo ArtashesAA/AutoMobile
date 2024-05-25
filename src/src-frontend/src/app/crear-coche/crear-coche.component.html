@@ -1,7 +1,8 @@
 <body>
   <div class="container">
+    <div class="titulo"></div>
     <div class="row">
-      <div class="sidebar col-4">
+      <div class="sidebar col-3">
         <nav>
           <ul class="list-group">
             <li class="list-group-item">
@@ -34,7 +35,7 @@
           </ul>
         </nav>
       </div>
-      <form class="crear-coche form-group col-8" (ngSubmit)="crearCoche()">
+      <form class="crear-coche form-group col-9" (ngSubmit)="crearCoche()">
         <h4>Datos del vehículo</h4>
         <div class="form-group col-4">
           <label for="marca">Marca</label>
@@ -45,7 +46,7 @@
             [(ngModel)]="cuadroMarca"
             (change)="onMarcaChange()"
           >
-            <option value="">Selecciar</option>
+            <option value="">Seleccionar</option>
             <option *ngFor="let marca of marcas" [value]="marca.id">
               {{ marca.label }}
             </option>
@@ -512,5 +513,6 @@
         </div>
       </form>
     </div>
+    <div class="titulo"></div>
   </div>
 </body>

@@ -10,10 +10,10 @@ body {
 /* Sidebar */
 .sidebar {
   position: fixed;
-  top: 20%;
   background-color: white;
   padding: 10px;
   border-radius: 10px;
+  border: 1px solid #ccc;
 }
 
 .nav {

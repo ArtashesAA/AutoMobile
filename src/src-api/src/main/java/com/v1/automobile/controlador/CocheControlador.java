@@ -61,11 +61,24 @@ public class CocheControlador {
 	 */
 	@GetMapping("/adminuser/coche/usuario/{idUsuario}")
 	public ResponseEntity<List<Coche>> obtenerCochesPorIdUsuario(@PathVariable Long idUsuario) {
-	    List<Coche> coches = cocheServicio.obtenerCochesPorIdUsuario(idUsuario);
-	    return ResponseEntity.ok(coches);
+		List<Coche> coches = cocheServicio.obtenerCochesPorIdUsuario(idUsuario);
+		return ResponseEntity.ok(coches);
 	}
 
-	
+	/*
+	 * Recupera los coches favoritos del usuario por su id. Puede acceder admin o
+	 * usuario
+	 * 
+	 * @Parameter id de usuario del cual se quiere recuperar los coches
+	 * 
+	 * @return recupera los coches favoritos por id del usuario
+	 */
+	@GetMapping("/adminuser/coche/favorito/usuario/{idUsuario}")
+	public ResponseEntity<List<Coche>> obtenerCochesFavoritosPorIdUsuario(@PathVariable Long idUsuario) {
+		List<Coche> coches = cocheServicio.obtenerCochesFavoritosPorIdUsuario(idUsuario);
+		return ResponseEntity.ok(coches);
+	}
+
 	/*
 	 * Añade un coche a la bbdd. Puede acceder un admin o usuario
 	 * 

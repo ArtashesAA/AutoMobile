@@ -12,4 +12,6 @@ public interface CocheRepositorio extends JpaRepository<Coche, Long> {
 
 	List<Coche> findByUsuarioId(Long idUsuario);
 
+	List<Coche> findByFavoritosUsuarioId(Long idUsuario);
+
 }

@@ -35,10 +35,21 @@ export class ServicioCocheService {
     return this.http.get<Coche>(url);
   }
 
+  // Recupera los coches que ha publicado un usuario
   cargarCochesPorIdUsuario(idUsuario: number): Observable<Coche[]> {
     const headers = this.getHeaders();
 
     const url = `http://localhost:8080/api/v1/adminuser/coche/usuario/${idUsuario}`;
+    return this.http.get<Coche[]>(url, {
+      headers,
+    });
+  }
+
+  // Recupera los coches que tiene en favoritos un usuario
+  cargarCochesFavoritosPorIdUsuario(idUsuario: number): Observable<Coche[]> {
+    const headers = this.getHeaders();
+
+    const url = `http://localhost:8080/api/v1/adminuser/coche/favorito/usuario/${idUsuario}`;
     return this.http.get<Coche[]>(url, {
       headers,
     });

@@ -6,7 +6,6 @@ import { AutenticacionService } from '../servicio-autenticacion/autenticacion.se
 import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { CocheHijoComponent } from '../coche-hijo/coche-hijo.component';
-import { ServicioFavoritoService } from '../servicio-favorito/servicio-favorito.service';
 import { Favorito } from '../entidad/favorito.model';
 import { ServicioCocheService } from '../servicio-coche/servicio-coche.service';
 
@@ -25,7 +24,6 @@ export class FavoritosUsuarioComponent {
   esAdmin: boolean = false;
 
   constructor(
-    private servicioFavorito: ServicioFavoritoService,
     private servicioAutenticacion: AutenticacionService,
     private servicioCoche: ServicioCocheService,
     private router: Router
@@ -54,31 +52,14 @@ export class FavoritosUsuarioComponent {
   }
 
   cargarCochesFavoritosPorIdUsuario(idUsuario: number): void {
-    this.servicioFavorito.cargarFavoritosPorIdUsuario(idUsuario).subscribe(
-      (favoritos: Favorito[]) => {
-        this.favoritos = favoritos;
-        this.obtenerCochesPorFavoritos();
+    this.servicioCoche.cargarCochesFavoritosPorIdUsuario(idUsuario).subscribe(
+      (coches: Coche[]) => {
+        this.cochesFavoritos = coches;
       },
       (error) => {
         console.error('Error al cargar coches favoritos del usuario:', error);
       }
     );
-  }
-
-  obtenerCochesPorFavoritos(): void {
-    // Iterar sobre cada favorito y obtener el coche por su ID
-    this.favoritos.forEach((favorito) => {
-      if (favorito.coche?.id) {
-        this.servicioCoche.cargarCochePorId(favorito.coche.id).subscribe(
-          (coche: Coche) => {
-            this.cochesFavoritos.push(coche);
-          },
-          (error) => {
-            console.error('Error al cargar coche por ID:', error);
-          }
-        );
-      }
-    });
   }
 
   irACatalogo(): void {

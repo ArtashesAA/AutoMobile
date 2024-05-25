@@ -1,309 +1,522 @@
-<h1 class="titulo">Actualizar coche</h1>
-
-<div class="container">
-  <form class="form-group row" (ngSubmit)="actualizaCoche()">
-    <div class="form-group col-md-3">
-      <label for="marca">Marca:</label>
-      <input
-        type="text"
-        name="marca"
-        id="marca"
-        placeholder="Marca"
-        class="form-control"
-        [(ngModel)]="cuadroMarca"
-        required
-      />
-    </div>
-    <div class="form-group col-md-3">
-      <label for="modelo">Modelo:</label>
-      <input
-        type="text"
-        name="modelo"
-        id="modelo"
-        placeholder="Modelo"
-        class="form-control"
-        [(ngModel)]="cuadroModelo"
-        required
-      />
-    </div>
-    <div class="form-group col-md-3">
-      <label for="imagen_principal">Imagen Principal:</label>
-      <input
-        type="text"
-        name="imagen_principal"
-        id="imagen_principal"
-        placeholder="URL de la imagen principal"
-        class="form-control"
-        [(ngModel)]="cuadroImagenPrincipal"
-        required
-      />
-    </div>
-    <!-- Agregar los campos restantes aquí -->
-    <div class="form-group col-md-3">
-      <label for="precio">Precio:</label>
-      <input
-        type="number"
-        name="precio"
-        id="precio"
-        placeholder="Precio"
-        class="form-control"
-        [(ngModel)]="cuadroPrecio"
-        required
-      />
-    </div>
-    <div class="form-group col-md-3">
-      <label for="anyo">Año:</label>
-      <input
-        type="number"
-        name="anyo"
-        id="anyo"
-        placeholder="Año"
-        class="form-control"
-        [(ngModel)]="cuadroAnyo"
-        required
-      />
-    </div>
-    <div class="form-group col-md-3">
-      <label for="potencia">Potencia:</label>
-      <input
-        type="number"
-        name="potencia"
-        id="potencia"
-        placeholder="Potencia"
-        class="form-control"
-        [(ngModel)]="cuadroPotencia"
-        required
-      />
-    </div>
-    <div class="form-group col-md-3">
-      <label for="kilometraje">Kilometraje:</label>
-      <input
-        type="number"
-        name="kilometraje"
-        id="kilometraje"
-        placeholder="Kilometraje"
-        class="form-control"
-        [(ngModel)]="cuadroKilometraje"
-        required
-      />
-    </div>
-    <div class="form-group col-md-3">
-      <label for="combustible">Combustible:</label>
-      <input
-        type="text"
-        name="combustible"
-        id="combustible"
-        placeholder="Combustible"
-        class="form-control"
-        [(ngModel)]="cuadroCombustible"
-        required
-      />
-    </div>
-    <div class="form-group col-md-3">
-      <label for="consumo">Consumo:</label>
-      <input
-        type="text"
-        name="consumo"
-        id="consumo"
-        placeholder="Consumo"
-        class="form-control"
-        [(ngModel)]="cuadroConsumo"
-        required
-      />
-    </div>
-    <div class="form-group col-md-3">
-      <label for="tipoCambio">Tipo de cambio:</label>
-      <input
-        type="text"
-        name="tipoCambio"
-        id="tipoCambio"
-        placeholder="Tipo de cambio"
-        class="form-control"
-        [(ngModel)]="cuadroTipoCambio"
-        required
-      />
-    </div>
-    <div class="form-group col-md-3">
-      <label for="categoria">Categoría:</label>
-      <input
-        type="text"
-        name="categoria"
-        id="categoria"
-        placeholder="Categoría"
-        class="form-control"
-        [(ngModel)]="cuadroCategoria"
-        required
-      />
-    </div>
-    <div class="form-group col-md-3">
-      <label for="tipoVehiculo">Tipo de vehículo:</label>
-      <input
-        type="text"
-        name="tipoVehiculo"
-        id="tipoVehiculo"
-        placeholder="Tipo de vehículo"
-        class="form-control"
-        [(ngModel)]="cuadroTipoVehiculo"
-        required
-      />
-    </div>
-    <div class="form-group col-md-3">
-      <label for="traccion">Tracción:</label>
-      <input
-        type="text"
-        name="traccion"
-        id="traccion"
-        placeholder="Tracción"
-        class="form-control"
-        [(ngModel)]="cuadroTraccion"
-        required
-      />
-    </div>
-    <div class="form-group col-md-3">
-      <label for="plazas">Plazas:</label>
-      <input
-        type="number"
-        name="plazas"
-        id="plazas"
-        placeholder="Plazas"
-        class="form-control"
-        [(ngModel)]="cuadroPlazas"
-        required
-      />
-    </div>
-    <div class="form-group col-md-3">
-      <label for="puertas">Puertas:</label>
-      <input
-        type="number"
-        name="puertas"
-        id="puertas"
-        placeholder="Puertas"
-        class="form-control"
-        [(ngModel)]="cuadroPuertas"
-        required
-      />
-    </div>
-    <div class="form-group col-md-3">
-      <label for="garantia">Garantía:</label>
-      <input
-        type="text"
-        name="garantia"
-        id="garantia"
-        placeholder="Garantía"
-        class="form-control"
-        [(ngModel)]="cuadroGarantia"
-        required
-      />
-    </div>
-    <div class="form-group col-md-3">
-      <label for="peso">Peso:</label>
-      <input
-        type="number"
-        name="peso"
-        id="peso"
-        placeholder="Peso"
-        class="form-control"
-        [(ngModel)]="cuadroPeso"
-        required
-      />
-    </div>
-    <div class="form-group col-md-3">
-      <label for="color">Color:</label>
-      <input
-        type="text"
-        name="color"
-        id="color"
-        placeholder="Color"
-        class="form-control"
-        [(ngModel)]="cuadroColor"
-        required
-      />
-    </div>
-    <div class="form-group col-md-3">
-      <label for="numeroMarchas">Número de marchas:</label>
-      <input
-        type="number"
-        name="numeroMarchas"
-        id="numeroMarchas"
-        placeholder="Número de marchas"
-        class="form-control"
-        [(ngModel)]="cuadroNumeroMarchas"
-        required
-      />
-    </div>
-    <div class="form-group col-md-3">
-      <label for="numeroCilindros">Número de cilindros:</label>
-      <input
-        type="number"
-        name="numeroCilindros"
-        id="numeroCilindros"
-        placeholder="Número de cilindros"
-        class="form-control"
-        [(ngModel)]="cuadroNumeroCilindros"
-        required
-      />
-    </div>
-    <div class="form-group col-md-3">
-      <label for="ciudad">Ciudad:</label>
-      <input
-        type="text"
-        name="ciudad"
-        id="ciudad"
-        placeholder="Ciudad"
-        class="form-control"
-        [(ngModel)]="cuadroCiudad"
-        required
-      />
-    </div>
-    <div class="form-group col-md-12">
-      <label for="descripcion">Descripción:</label>
-      <textarea
-        name="descripcion"
-        id="descripcion"
-        placeholder="Descripción"
-        class="form-control"
-        [(ngModel)]="cuadroDescripcion"
-        required
-      ></textarea>
-    </div>
-    <div class="form-group col-md-3">
-      <label for="telefonoAdjunto">Teléfono Adjunto:</label>
-      <input
-        type="number"
-        name="telefonoAdjunto"
-        id="telefonoAdjunto"
-        placeholder="Teléfono Adjunto"
-        class="form-control"
-        [(ngModel)]="cuadroTelefonoAdjunto"
-        required
-      />
-    </div>
-    <div class="form-group col-md-3">
-      <label for="emailAdjunto">Email Adjunto:</label>
-      <input
-        type="email"
-        name="emailAdjunto"
-        id="emailAdjunto"
-        placeholder="Email Adjunto"
-        class="form-control"
-        [(ngModel)]="cuadroEmailAdjunto"
-        required
-      />
-    </div>
-    <div class="botones">
-      <!-- Botón para actualizar -->
-      <button type="submit" id="boton-actualizar" class="btn btn-primary">
-        Actualizar
-      </button>
-
-      <!-- Botón para volver al catálogo -->
-      <button
-        class="btn btn-light"
-        id="boton-volver-catalogo"
-        (click)="volverACatalogo()"
+<body>
+  <div class="container">
+    <div class="titulo"></div>
+    <div class="row">
+      <div class="sidebar col-3">
+        <nav>
+          <ul class="list-group">
+            <li class="list-group-item">
+              <a href="#datos-vehiculo">Datos del vehículo</a>
+            </li>
+            <li class="list-group-item">
+              <a href="#caracteristicas">Características</a>
+            </li>
+            <li class="list-group-item">
+              <a href="#estado-vehiculo">Estado del vehículo</a>
+            </li>
+            <li class="list-group-item">
+              <a href="#transmision">Transmisión</a>
+            </li>
+            <li class="list-group-item">
+              <a href="#motor">Motor</a>
+            </li>
+            <li class="list-group-item">
+              <a href="#fotos">Fotos</a>
+            </li>
+            <li class="list-group-item">
+              <a href="#descripcion-vehiculo">Descripción del vehículo</a>
+            </li>
+            <li class="list-group-item">
+              <a href="#precio">Precio</a>
+            </li>
+            <li class="list-group-item">
+              <a href="#contacto">Contacto</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+      <form
+        class="form-group actualizar-coche col-9"
+        (ngSubmit)="actualizaCoche()"
       >
-        Volver
-      </button>
+        <h4 id="datos-vehiculo">Datos del vehículo</h4>
+        <div class="form-group col-4">
+          <label for="marca">Marca</label>
+          <select
+            name="marca"
+            id="marca"
+            class="form-control"
+            [(ngModel)]="cuadroMarca"
+            (change)="onMarcaChange()"
+          >
+            <option value="">Seleccionar</option>
+            <option *ngFor="let marca of marcas" [value]="marca.id">
+              {{ marca.label }}
+            </option>
+          </select>
+        </div>
+        <div class="form-group col-4">
+          <label for="modelo">Modelo</label>
+          <select
+            name="modelo"
+            id="modelo"
+            class="form-control"
+            [(ngModel)]="cuadroModelo"
+          >
+            <option value="">Seleccionar</option>
+            <option *ngFor="let modelo of modelos" [value]="modelo">
+              {{ modelo }}
+            </option>
+          </select>
+        </div>
+
+        <hr />
+        <h4 id="caracteristicas">Características</h4>
+        <div class="form-group col-4">
+          <label for="tipoVehiculo">Tipo de carrocería</label>
+          <select
+            name="tipoVehiculo"
+            id="tipoVehiculo"
+            class="form-control"
+            [(ngModel)]="cuadroTipoVehiculo"
+          >
+            <option value="Sedan">Sedán</option>
+            <option value="Cabrio">Cabrio</option>
+            <option value="Coche Pequeno">Coche Pequeño</option>
+            <option value="Coupe">Coupé</option>
+            <option value="Familiar">Familiar</option>
+            <option value="Furgoneta">Furgoneta</option>
+            <option value="SUV">SUV</option>
+            <option value="Otros">Otros</option>
+          </select>
+        </div>
+
+        <div class="form-group col-4">
+          <label for="plazas">Plazas</label>
+          <div class="col-4 input-group">
+            <div class="input-group-prepend">
+              <button
+                class="btn btn-outline-secondary"
+                type="button"
+                (click)="restarPlaza()"
+              >
+                -
+              </button>
+            </div>
+            <input
+              type="number"
+              name="plazas"
+              id="plazas"
+              placeholder="Plazas"
+              class="form-control text-center"
+              [(ngModel)]="cuadroPlazas"
+            />
+            <div class="input-group-append">
+              <button
+                class="btn btn-outline-secondary"
+                type="button"
+                (click)="sumarPlaza()"
+              >
+                +
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="form-group col-4">
+          <label for="plazas">Puertas</label>
+          <div class="col-4 input-group">
+            <div class="input-group-prepend">
+              <button
+                class="btn btn-outline-secondary"
+                type="button"
+                (click)="restarPuerta()"
+              >
+                -
+              </button>
+            </div>
+            <input
+              type="number"
+              name="puertas"
+              id="puertas"
+              placeholder="Puertas"
+              class="form-control text-center"
+              [(ngModel)]="cuadroPuertas"
+            />
+            <div class="input-group-append">
+              <button
+                class="btn btn-outline-secondary"
+                type="button"
+                (click)="sumarPuerta()"
+              >
+                +
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group col-4">
+          <label for="color">Color</label>
+          <select
+            name="color"
+            id="color"
+            class="form-control"
+            [(ngModel)]="cuadroColor"
+          >
+            <option value="">Seleccionar</option>
+            <option value="Negro">Negro</option>
+            <option value="Gris">Gris</option>
+            <option value="Plateado">Plateado</option>
+            <option value="Blanco">Blanco</option>
+            <option value="Azul">Azul</option>
+            <option value="Verde">Verde</option>
+            <option value="Rojo">Rojo</option>
+            <option value="Amarillo">Amarillo</option>
+            <option value="Naranja">Naranja</option>
+          </select>
+        </div>
+        <div class="form-group col-4">
+          <label for="peso">Peso</label>
+          <input
+            type="text"
+            name="peso"
+            id="peso"
+            placeholder="Peso"
+            class="form-control"
+            [(ngModel)]="cuadroPeso"
+          />
+        </div>
+
+        <hr />
+        <h4 id="estado-vehiculo">Estado del vehículo</h4>
+        <div class="form-group col-4">
+          <label for="kilometraje">Kilometraje</label>
+          <input
+            type="text"
+            name="kilometraje"
+            id="kilometraje"
+            placeholder="Introduce un valor"
+            class="form-control"
+            [(ngModel)]="cuadroKilometraje"
+          />
+        </div>
+
+        <div class="form-group col-4">
+          <label for="anyo">Primera matriculación</label>
+          <select
+            name="anyo"
+            id="anyo"
+            class="form-control"
+            [(ngModel)]="cuadroAnyo"
+          >
+            <option value="2024">2024</option>
+            <option value="2023">2023</option>
+            <option value="2022">2022</option>
+            <option value="2021">2021</option>
+            <option value="2020">2020</option>
+            <option value="2019">2019</option>
+            <option value="2018">2018</option>
+            <option value="2017">2017</option>
+            <option value="2016">2016</option>
+            <option value="2015">2015</option>
+            <option value="2014">2014</option>
+            <option value="2013">2013</option>
+            <option value="2012">2012</option>
+            <option value="2011">2011</option>
+            <option value="2010">2010</option>
+          </select>
+        </div>
+
+        <div class="form-group col-4">
+          <label for="garantia">Garantía</label>
+          <select
+            name="garantia"
+            id="garantia"
+            class="form-control"
+            [(ngModel)]="cuadroGarantia"
+          >
+            <option value="Sin Garantia">Sin Garantía</option>
+            <option value="1 Año">1 Año</option>
+            <option value="2 Años">2 Años</option>
+            <option value="3 Años">3 Años</option>
+            <option value="4 Años">4 Años</option>
+            <option value="5 Años">5 Años</option>
+            <option value="6 Años">6 Años</option>
+            <option value="7 Años">7 Años</option>
+          </select>
+        </div>
+
+        <hr />
+        <h4 id="transmision">Transmisión</h4>
+        <div class="form-group col-4">
+          <label for="traccion">Tracción</label>
+          <select
+            name="traccion"
+            id="traccion"
+            class="form-control"
+            [(ngModel)]="cuadroTraccion"
+          >
+            <option value="">Seleccionar</option>
+            <option value="Trasera">Trasera</option>
+            <option value="Delantera">Delantera</option>
+            <option value="Total">Total</option>
+          </select>
+        </div>
+
+        <div class="form-group col-4">
+          <label for="tipoCambio">Caja de cambios</label>
+          <select
+            name="tipoCambio"
+            id="tipoCambio"
+            class="form-control"
+            [(ngModel)]="cuadroTipoCambio"
+          >
+            <option value="Manual">Manual</option>
+            <option value="Automatico">Automático</option>
+            <option value="SemiAutomatico">Semiautomático</option>
+          </select>
+        </div>
+
+        <div class="form-group col-4">
+          <label for="numeroMarchas">Número de Marchas</label>
+          <div class="col-4 input-group">
+            <div class="input-group-prepend">
+              <button
+                class="btn btn-outline-secondary"
+                type="button"
+                (click)="restarMarchas()"
+              >
+                -
+              </button>
+            </div>
+            <input
+              type="number"
+              name="numeroMarchas"
+              id="numeroMarchas"
+              placeholder="Número de Marchas"
+              class="form-control text-center"
+              [(ngModel)]="cuadroNumeroMarchas"
+            />
+            <div class="input-group-append">
+              <button
+                class="btn btn-outline-secondary"
+                type="button"
+                (click)="sumarMarchas()"
+              >
+                +
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <hr />
+        <h4 id="motor">Motor</h4>
+        <div class="form-group col-4">
+          <label for="potencia">Potencia</label>
+          <input
+            type="text"
+            name="potencia"
+            id="potencia"
+            placeholder="Potencia"
+            class="form-control"
+            [(ngModel)]="cuadroPotencia"
+          />
+        </div>
+
+        <div class="form-group col-4">
+          <label for="cilindros">Número de Cilindros</label>
+          <div class="col-4 input-group">
+            <div class="input-group-prepend">
+              <button
+                class="btn btn-outline-secondary"
+                type="button"
+                (click)="restarCilindros()"
+              >
+                -
+              </button>
+            </div>
+            <input
+              type="number"
+              name="cilindros"
+              id="cilindros"
+              placeholder="Número de Cilindros"
+              class="form-control text-center"
+              [(ngModel)]="cuadroNumeroCilindros"
+            />
+            <div class="input-group-append">
+              <button
+                class="btn btn-outline-secondary"
+                type="button"
+                (click)="sumarCilindros()"
+              >
+                +
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="form-group col-4">
+          <label for="combustible">Combustible</label>
+          <select
+            name="combustible"
+            id="combustible"
+            class="form-control"
+            [(ngModel)]="cuadroCombustible"
+          >
+            <option value="">Seleccionar</option>
+            <option value="Gasolina">Gasolina</option>
+            <option value="Diesel">Diesel</option>
+            <option value="Gas Licuado">Gas Licuado</option>
+            <option value="Gas Natural">Gas Natural</option>
+            <option value="Eletro/Gasolina">Eletro/Gasolina</option>
+            <option value="Electro/Diesel">Electro/Diesel</option>
+            <option value="Etanol">Etanol</option>
+            <option value="Electrico">Eléctrico</option>
+            <option value="Hidrogeno">Hidrógeno</option>
+            <option value="Otros">Otros</option>
+          </select>
+        </div>
+
+        <div class="form-group col-4">
+          <label for="consumo">Consumo Medio</label>
+          <select
+            name="consumo"
+            id="consumo"
+            class="form-control"
+            [(ngModel)]="cuadroConsumo"
+          >
+            <option value="">Seleccionar</option>
+            <option value="1 l/100 km">1 l/100 km</option>
+            <option value="2 l/100 km">2 l/100 km</option>
+            <option value="3 l/100 km">3 l/100 km</option>
+            <option value="4 l/100 km">4 l/100 km</option>
+            <option value="5 l/100 km">5 l/100 km</option>
+            <option value="6 l/100 km">6 l/100 km</option>
+            <option value="7 l/100 km">7 l/100 km</option>
+            <option value="8 l/100 km">8 l/100 km</option>
+            <option value="9 l/100 km">9 l/100 km</option>
+            <option value="10 l/100 km">10 l/100 km</option>
+            <option value="11 l/100 km">11 l/100 km</option>
+            <option value="12 l/100 km">12 l/100 km</option>
+            <option value="13 l/100 km">13 l/100 km</option>
+            <option value="14 l/100 km">14 l/100 km</option>
+            <option value="15 l/100 km">15 l/100 km</option>
+            <option value="16 l/100 km">16 l/100 km</option>
+            <option value="17 l/100 km">17 l/100 km</option>
+            <option value="18 l/100 km">18 l/100 km</option>
+            <option value="19 l/100 km">19 l/100 km</option>
+            <option value="20 l/100 km">20 l/100 km</option>
+          </select>
+        </div>
+
+        <hr />
+        <h4 id="fotos">Fotos</h4>
+        <div class="form-group col-4">
+          <label for="imagen">Imagen</label>
+          <input
+            type="text"
+            name="imagen"
+            id="imagen"
+            placeholder="Imagen"
+            class="form-control"
+            [(ngModel)]="cuadroImagenPrincipal"
+          />
+        </div>
+
+        <div class="form-group col-4">
+          <label for="imagenes">Imágenes</label>
+          <div *ngFor="let imagen of cuadroImagenes; let i = index">
+            <input
+              type="text"
+              name="imagenes"
+              [id]="'imagen' + i"
+              placeholder="URL de la imagen"
+              class="form-control mb-2"
+              [(ngModel)]="cuadroImagenes[i].imagen_url"
+            />
+            <button
+              type="button"
+              class="btn btn-danger"
+              (click)="eliminarImagen(i)"
+            >
+              Eliminar
+            </button>
+          </div>
+          <button
+            type="button"
+            class="btn btn-secondary mt-2"
+            (click)="agregarImagen()"
+          >
+            Agregar Imagen
+          </button>
+        </div>
+
+        <hr />
+        <h4 id="descripcion">Descripción del vehículo</h4>
+        <div class="form-group col-4">
+          <textarea
+            name="descripcion"
+            id="descripcion"
+            placeholder="Descripción"
+            class="form-control"
+            [(ngModel)]="cuadroDescripcion"
+          ></textarea>
+        </div>
+
+        <hr />
+        <h4 id="precio">Precio</h4>
+        <div class="form-group col-4">
+          <label for="precio">Precio final (IVA incluido)</label>
+          <input
+            type="text"
+            name="precio"
+            id="precio"
+            placeholder="Introduce un valor"
+            class="form-control"
+            [(ngModel)]="cuadroPrecio"
+          />
+        </div>
+        <hr />
+        <h4 id="contacto">Contacto</h4>
+        <div class="form-group col-4">
+          <label for="email">Email</label>
+          <input
+            type="email"
+            name="email"
+            id="email"
+            placeholder="Introduce un valor"
+            class="form-control"
+            [(ngModel)]="cuadroEmailAdjunto"
+          />
+        </div>
+        <div class="form-group col-4">
+          <label for="telefono">Teléfono</label>
+          <input
+            type="tel"
+            name="telefono"
+            id="telefono"
+            placeholder="Introduce un valor"
+            class="form-control"
+            [(ngModel)]="cuadroTelefonoAdjunto"
+          />
+        </div>
+        <div class="form-group col-4">
+          <label for="ciudad">Ciudad</label>
+          <input
+            type="text"
+            name="ciudad"
+            id="ciudad"
+            placeholder="Ciudad"
+            class="form-control"
+            [(ngModel)]="cuadroCiudad"
+          />
+        </div>
+
+        <div class="form-group col-4">
+          <button type="submit" class="btn btn-primary" id="boton-actualizar">
+            Guardar
+          </button>
+        </div>
+      </form>
     </div>
-  </form>
-</div>
+    <div class="titulo"></div>
+  </div>
+</body>

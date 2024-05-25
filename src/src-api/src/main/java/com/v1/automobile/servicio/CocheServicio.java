@@ -39,9 +39,13 @@ public class CocheServicio {
 			return ResponseEntity.notFound().build();
 		}
 	}
-	
+
 	public List<Coche> obtenerCochesPorIdUsuario(Long idUsuario) {
-	    return cocheRepositorio.findByUsuarioId(idUsuario);
+		return cocheRepositorio.findByUsuarioId(idUsuario);
+	}
+
+	public List<Coche> obtenerCochesFavoritosPorIdUsuario(Long idUsuario) {
+		return cocheRepositorio.findByFavoritosUsuarioId(idUsuario);
 	}
 
 	public ResponseEntity<String> crearCoche(Coche coche) {

@@ -164,15 +164,12 @@ export class VerCocheComponent implements OnInit {
   cargarFavoritosUsuario(idUsuario: number) {
     this.favoritoService.cargarFavoritosPorIdUsuario(idUsuario).subscribe(
       (favoritos: Favorito[]) => {
-        // Comprueba si coche está definido y tiene un id
-        if (this.coche && this.coche.id !== undefined) {
-          // Comprueba si el coche está en la lista de favoritos del usuario
+        if (favoritos && this.coche && this.coche.id !== undefined) {
           const encontrado = favoritos.find(
-            (favorito) => favorito.coche.id === this.coche.id
+            (favorito) => favorito.coche_id_recuperado === this.coche.id
           );
           if (encontrado) {
             this.esFavorito = true;
-            // Guarda el ID del favorito para eliminarlo posteriormente si es necesario
             this.favoritoId = encontrado.id;
           }
         }
@@ -186,7 +183,9 @@ export class VerCocheComponent implements OnInit {
   // Alterna el estado de favorito
   toggleFavorito() {
     if (this.esFavorito) {
-      this.eliminarFavorito();
+      if (this.favoritoId !== undefined) {
+        this.eliminarFavorito();
+      }
     } else {
       this.crearFavorito();
     }

@@ -2,18 +2,13 @@ body {
   background-color: #f4f4f4;
 }
 
-.container {
-  display: flex;
-  justify-content: space-between;
-}
-
 /* Sidebar */
 .sidebar {
   position: fixed;
-  top: 20%;
   background-color: white;
   padding: 10px;
   border-radius: 10px;
+  border: 1px solid #ccc;
 }
 
 .nav {
