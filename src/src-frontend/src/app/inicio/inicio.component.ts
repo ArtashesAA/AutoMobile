@@ -72,6 +72,21 @@ export class InicioComponent implements OnInit {
       }
       this.marcasModelos[marca].push(modelo);
     });
+
+    // Ordenar marcas alfabéticamente
+    const marcasOrdenadas = Object.keys(this.marcasModelos).sort((a, b) =>
+      a.localeCompare(b)
+    );
+
+    // Crear un nuevo objeto con las marcas ordenadas
+    const marcasModelosOrdenados: any = {};
+    marcasOrdenadas.forEach((marca) => {
+      marcasModelosOrdenados[marca] = this.marcasModelos[marca];
+    });
+
+    this.marcasModelos = marcasModelosOrdenados;
+
+    // Ordenar años en orden descendente
     this.anyos = this.coches
       .map((coche) => coche.anyo.toString())
       .filter((value, index, self) => self.indexOf(value) === index)
