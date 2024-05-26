@@ -33,12 +33,12 @@ public class Favorito {
 	@JsonBackReference("usuario-favoritos")
 	private Usuario usuario;
 
-	private Long coche_id_recuperado;
-
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "coche_id", referencedColumnName = "id", nullable = false)
 	@JsonBackReference("coche-favoritos")
 	private Coche coche;
+
+	private Long coche_id_recuperado;
 
 	public Favorito() {
 
