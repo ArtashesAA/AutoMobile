@@ -22,10 +22,12 @@ a {
 
 /* Caja de imagen + datos */
 .caja {
+  background-color: white;
   border: 1px solid #ccc;
   border-radius: 8px;
-  height: 570px;
+  height: 520px;
   margin-bottom: 50px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 /* Datos coche */
@@ -61,6 +63,7 @@ a {
 
 /* Datos coche */
 .coche-actions button {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
   font-size: 14px;
   margin-right: 10px;
   padding: 7px;

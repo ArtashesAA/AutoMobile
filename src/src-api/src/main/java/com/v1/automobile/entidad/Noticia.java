@@ -1,6 +1,7 @@
 package com.v1.automobile.entidad;
 
-import java.sql.Date;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
@@ -12,6 +13,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 
 @Entity
@@ -22,8 +24,8 @@ public class Noticia {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(name = "fecha", nullable = false)
-	private Date fecha;
+	@Column(name = "fecha", columnDefinition = "TIMESTAMP")
+	private Timestamp fecha;
 
 	@Column(name = "titulo", nullable = false)
 	private String titulo;
@@ -46,7 +48,7 @@ public class Noticia {
 
 	}
 
-	public Noticia(Long id, Date fecha, String titulo, String contenido, String url_imagen, String url_video,
+	public Noticia(Long id, Timestamp fecha, String titulo, String contenido, String url_imagen, String url_video,
 			Usuario usuario) {
 		this.id = id;
 		this.fecha = fecha;
@@ -57,6 +59,13 @@ public class Noticia {
 		this.usuario = usuario;
 	}
 
+	@PrePersist
+	public void prePersist() {
+		if (this.fecha == null) {
+			this.fecha = Timestamp.valueOf(LocalDateTime.now());
+		}
+	}
+
 	public Long getId() {
 		return id;
 	}
@@ -65,11 +74,11 @@ public class Noticia {
 		this.id = id;
 	}
 
-	public Date getFecha() {
+	public Timestamp getFecha() {
 		return fecha;
 	}
 
-	public void setFecha(Date fecha) {
+	public void setFecha(Timestamp fecha) {
 		this.fecha = fecha;
 	}
 

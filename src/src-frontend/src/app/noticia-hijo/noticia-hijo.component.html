@@ -1,20 +1,22 @@
-<div class="container">
-  <div class="caja">
-    <a [routerLink]="['/verNoticia', noticiadelista.id]" class="coche-link">
-      <!-- Contenedor de la imagen del noticia -->
-      <div class="noticia-imagen-container">
-        <img
-          [src]="noticiadelista.url_imagen"
-          alt="Imagen de noticia"
-          class="noticia-imagen"
-        />
-      </div>
-      <!-- Contenido del texto -->
-      <div class="noticia-texto">
-        <h4>{{ noticiadelista.titulo }}</h4>
-      </div>
-    </a>
-  </div>
+<body>
+  <div class="container">
+    <div class="caja">
+      <a [routerLink]="['/verNoticia', noticiadelista.id]" class="coche-link">
+        <!-- Contenedor de la imagen del noticia -->
+        <div class="noticia-imagen-container">
+          <img
+            [src]="noticiadelista.url_imagen"
+            alt="Imagen de noticia"
+            class="noticia-imagen"
+          />
+        </div>
+        <!-- Contenido del texto -->
+        <div class="noticia-texto">
+          <h4>{{ noticiadelista.titulo }}</h4>
+        </div>
+      </a>
+    </div>
 
-  <br />
-</div>
+    <br />
+  </div>
+</body>

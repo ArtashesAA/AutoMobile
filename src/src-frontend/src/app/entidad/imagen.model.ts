@@ -1,11 +1,11 @@
 import { Coche } from './coche.model';
 
 export class Imagen {
-  id: number;
+  id?: number;
   imagen_url: string;
-  coche: Coche;
+  coche?: Coche;
 
-  constructor(id: number, coche: Coche, imagen_url: string) {
+  constructor(imagen_url: string, id?: number, coche?: Coche) {
     this.id = id;
     this.coche = coche;
     this.imagen_url = imagen_url;

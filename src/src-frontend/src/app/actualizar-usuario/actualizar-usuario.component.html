@@ -1,23 +1,33 @@
-<head>
-  <title>Actualizar datos</title>
-</head>
 <body>
-  <h1 class="titulo">Actualizar datos</h1>
+  <h2 class="titulo">Actualizar datos</h2>
 
   <div class="container">
     <form class="form-group row" (ngSubmit)="actualizaUsuario()">
-      <div class="form-group col-md-12">
+      <div class="form-group col-md-12 mb3">
         <label for="nombreDeUsuario">Nombre de usuario:</label>
         <input
           type="text"
-          name="nombreDeUsuario"
-          id="nombreDeUsuario"
+          name="nombreUsuario"
+          id="nombreUsuario"
           placeholder="Nombre de usuario"
           class="form-control"
+          required
+          pattern="^[a-zA-Z0-9._]{3,10}$"
           [(ngModel)]="cuadroNombreUsuario"
+          #nombreUsuario="ngModel"
         />
+        <div
+          *ngIf="
+            nombreUsuario.invalid &&
+            (nombreUsuario.dirty || nombreUsuario.touched)
+          "
+          class="text-danger"
+        >
+          El nombre de usuario debe tener entre 3 y 10 caracteres y puede
+          incluir letras, números, puntos y guiones bajos.
+        </div>
       </div>
-      <div class="form-group col-md-12">
+      <div class="form-group col-md-12 mb3">
         <label for="email">Email:</label>
         <input
           type="text"
@@ -26,7 +36,16 @@
           placeholder="Email"
           class="form-control"
           [(ngModel)]="cuadroEmail"
+          required
+          pattern="^[a-zA-Z0-9._%+-]{3,}@gmail\.com$"
+          #email="ngModel"
         />
+        <div
+          *ngIf="email.invalid && (email.dirty || email.touched)"
+          class="text-danger"
+        >
+          El email debe tener al menos 3 letras seguido de 'gmail.com'.
+        </div>
       </div>
       <div class="form-group col-md-12">
         <label for="role">Rol:</label>
@@ -40,19 +59,52 @@
           <option [ngValue]="'ADMIN'">Administrador</option>
         </select>
       </div>
+      <div class="mb-3">
+        <label for="contrasena" class="form-label">Contraseña</label>
+        <div class="input-group">
+          <input
+            type="password"
+            class="form-control"
+            id="contrasena"
+            name="contrasena"
+            [(ngModel)]="nuevaContrasena"
+            [disabled]="!editarContrasena"
+            pattern="^[a-zA-Z0-9&!._]{4,12}$"
+            #contrasena="ngModel"
+          />
+
+          <button
+            type="button"
+            class="btn btn-outline-secondary"
+            (click)="toggleEdicionContrasena()"
+          >
+            {{ editarContrasena ? "Cancelar" : "Modificar" }}
+          </button>
+          <div
+            *ngIf="
+              contrasena.invalid && (contrasena.dirty || contrasena.touched)
+            "
+            class="text-danger"
+          >
+            La contraseña debe tener entre 4 y 12 caracteres y puede incluir
+            letras, números y los caracteres &!._.
+          </div>
+        </div>
+      </div>
 
       <!-- Botón de submit -->
       <div class="col">
         <button type="submit" class="btn btn-primary" id="boton-actualizar">
-          Acción
+          Actualizar
+        </button>
+        <button
+          type="button"
+          class="boton-volver btn btn-light"
+          (click)="volverAGestionDeUsuarios()"
+        >
+          Volver
         </button>
       </div>
     </form>
-  </div>
-
-  <div class="boton-volver">
-    <button class="btn btn-light" id="boton-volver-gestion-usuarios">
-      Volver
-    </button>
   </div>
 </body>

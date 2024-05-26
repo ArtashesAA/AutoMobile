@@ -1,12 +1,24 @@
+body {
+  background-color: #f4f4f4;
+}
+
+.container {
+  background-color: white;
+  padding: 50px;
+  margin-bottom: 50px;
+}
+
 .titulo {
   text-align: center;
+  padding: 50px;
 }
 
 #boton-actualizar {
   margin-top: 20px;
-  margin-right: 40px;
+  margin-right: 10px;
 }
 
 .boton-volver {
+  margin-top: 20px;
   text-align: center;
 }

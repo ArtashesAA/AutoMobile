@@ -1,5 +1,18 @@
+body {
+  background-color: #f4f4f4;
+}
+
 .titulo {
-  text-align: center;
+  padding: 30px;
+}
+
+/* Contenido */
+.coches {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100vh; /* Para que ocupe todo el alto de la ventana */
 }
 
 /* Texto al no encontrar coches despues de filtrar */
@@ -11,15 +24,20 @@
 /* Boton para volver al inicio al no encontrar coches despues de filtrar */
 .coches-no-encontrados button {
   margin-top: 200px;
+  margin-bottom: 20px; /* Añade margen inferior para separar del footer */
 }
 
 /* Estilos para el contenedor de paginación */
 .paginacion {
+  margin-top: 50px;
   text-align: center;
+  margin-bottom: 20px; /* Añade margen inferior para separar del footer */
 }
 
 /* Estilos para los botones de paginación */
 .paginacion button {
   margin-left: 15px;
   margin-right: 15px;
+  width: 120px;
+  background-color: white;
 }

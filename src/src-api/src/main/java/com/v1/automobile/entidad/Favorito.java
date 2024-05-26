@@ -1,6 +1,6 @@
 package com.v1.automobile.entidad;
 
-import java.sql.Date;
+import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
@@ -12,8 +12,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotNull;
+import java.sql.Timestamp;
 
 @Entity
 @Table(name = "favorito")
@@ -24,10 +25,9 @@ public class Favorito {
 	@Column(name = "id")
 	private Long id;
 
-	@NotNull(message = "La fecha no puede estar nula")
-	@Column(name = "fecha", nullable = false, columnDefinition = "TIMESTAMP")
-	private Date fecha;
-	
+	@Column(name = "fecha", columnDefinition = "TIMESTAMP")
+	private Timestamp fecha;
+
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "usuario_id", referencedColumnName = "id", nullable = false)
 	@JsonBackReference("usuario-favoritos")
@@ -38,16 +38,24 @@ public class Favorito {
 	@JsonBackReference("coche-favoritos")
 	private Coche coche;
 
+	private Long coche_id_recuperado;
+
 	public Favorito() {
 
 	}
 
-	public Favorito(Long id, Usuario usuario, Coche coche,
-			@NotNull(message = "La fecha no puede estar nula") Date fecha) {
+	public Favorito(Long id, Usuario usuario, Coche coche, Timestamp fecha) {
 		this.id = id;
 		this.usuario = usuario;
 		this.coche = coche;
 		this.fecha = fecha;
+	}
+
+	@PrePersist
+	public void prePersist() {
+		if (this.fecha == null) {
+			this.fecha = Timestamp.valueOf(LocalDateTime.now());
+		}
 	}
 
 	public Long getId() {
@@ -74,12 +82,20 @@ public class Favorito {
 		this.coche = coche;
 	}
 
-	public Date getFecha() {
+	public Timestamp getFecha() {
 		return fecha;
 	}
 
-	public void setFecha(Date fecha) {
+	public void setFecha(Timestamp fecha) {
 		this.fecha = fecha;
+	}
+
+	public Long getCoche_id_recuperado() {
+		return coche.getId();
+	}
+
+	public void setCoche_id_recuperado(Long coche_id_recuperado) {
+		this.coche_id_recuperado = coche.getId();
 	}
 
 	@Override

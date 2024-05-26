@@ -52,6 +52,7 @@
         <button
           class="btn btn-primary mr-3"
           [routerLink]="['/verCoche', cochedelista.id]"
+          *ngIf="esAdmin"
         >
           Ver Coche
         </button>
@@ -59,13 +60,13 @@
         <button
           class="btn btn-warning"
           [routerLink]="['/actualiza', cochedelista.id]"
-          *ngIf="estaLogueado()"
+          *ngIf="estaLogueado && esAdmin"
         >
           Actualizar
         </button>
         <button
           class="btn btn-danger ml-3"
-          *ngIf="cochedelista.id !== undefined && estaLogueado()"
+          *ngIf="cochedelista.id !== undefined && estaLogueado && esAdmin"
           (click)="eliminarCoche(cochedelista.id)"
         >
           Eliminar

@@ -35,69 +35,43 @@ export class ServicioCocheService {
     return this.http.get<Coche>(url);
   }
 
-  cochesTodosFiltros(filtros: any): Observable<Coche[]> {
-    // Construye los parámetros de búsqueda
-    let params = new HttpParams();
-    for (let key in filtros) {
-      if (filtros.hasOwnProperty(key)) {
-        params = params.set(key, filtros[key]);
-      }
-    }
+  // Recupera los coches que ha publicado un usuario
+  cargarCochesPorIdUsuario(idUsuario: number): Observable<Coche[]> {
+    const headers = this.getHeaders();
 
-    // Realiza la solicitud HTTP al backend con los parámetros de búsqueda
-    return this.http.get<Coche[]>(
-      'http://localhost:8080/api/v1/public/coche/filtroTodos',
-      { params }
-    );
+    const url = `http://localhost:8080/api/v1/adminuser/coche/usuario/${idUsuario}`;
+    return this.http.get<Coche[]>(url, {
+      headers,
+    });
   }
 
-  cochesPorMarca(filtros: any): Observable<Coche[]> {
-    // Construye los parámetros de búsqueda
-    let params = new HttpParams();
-    for (let key in filtros) {
-      if (filtros.hasOwnProperty(key)) {
-        params = params.set(key, filtros[key]);
-      }
-    }
+  // Recupera los coches que tiene en favoritos un usuario
+  cargarCochesFavoritosPorIdUsuario(idUsuario: number): Observable<Coche[]> {
+    const headers = this.getHeaders();
 
-    // Realiza la solicitud HTTP al backend con los parámetros de búsqueda
-    return this.http.get<Coche[]>(
-      'http://localhost:8080/api/v1/public/cochesMarca',
-      { params }
-    );
-  }
-
-  cochesPorMarcaModelo(filtros: any): Observable<Coche[]> {
-    // Construye los parámetros de búsqueda
-    let params = new HttpParams();
-    for (let key in filtros) {
-      if (filtros.hasOwnProperty(key)) {
-        params = params.set(key, filtros[key]);
-      }
-    }
-
-    // Realiza la solicitud HTTP al backend con los parámetros de búsqueda
-    return this.http.get<Coche[]>(
-      'http://localhost:8080/api/v1/public/cochesMarcaModelo',
-      { params }
-    );
+    const url = `http://localhost:8080/api/v1/adminuser/coche/favorito/usuario/${idUsuario}`;
+    return this.http.get<Coche[]>(url, {
+      headers,
+    });
   }
 
   // Crea un coche
   crearCoche(coche: Coche): Observable<any> {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-    });
+    const headers = this.getHeaders();
 
-    return this.http.post('http://localhost:8080/api/v1/admin/coche', coche, {
-      headers,
-    });
+    return this.http.post(
+      'http://localhost:8080/api/v1/adminuser/coche',
+      coche,
+      {
+        headers,
+      }
+    );
   }
 
   //Actualiza un coche por su id, y los nuevos datos del coche
   actualizarCoche(id: number, coche: Coche): Observable<any> {
     const headers = this.getHeaders();
-    const url = `http://localhost:8080/api/v1/admin/coche/${id}`;
+    const url = `http://localhost:8080/api/v1/adminuser/coche/${id}`;
 
     return this.http.put(url, coche, {
       headers,
@@ -107,7 +81,7 @@ export class ServicioCocheService {
   // Elimina un coche por su id
   eliminarCoche(id: number): Observable<any> {
     const headers = this.getHeaders();
-    const url = `http://localhost:8080/api/v1/admin/coche/${id}`;
+    const url = `http://localhost:8080/api/v1/adminuser/coche/${id}`;
 
     return this.http.delete(url, {
       headers,

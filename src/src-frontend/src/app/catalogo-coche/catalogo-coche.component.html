@@ -1,53 +1,71 @@
-<div class="container">
-  <div class="titulo"></div>
+<body>
+  <div class="container">
+    <div class="titulo"></div>
+    <div class="row">
+      <!-- Sidebar -->
+      <div class="sidebar col-md-3">
+        <app-sidebar [filtros]="filtros"></app-sidebar>
+      </div>
 
-  <div class="row">
-    <!-- Sidebar -->
-    <div class="col-md-2">
-      <app-sidebar [filtros]="filtros"></app-sidebar>
-    </div>
+      <div class="coches col-md-9">
+        <!-- Ordenar coches -->
+        <div class="ordenar-coches mb-3 col-4">
+          <label for="ordenar" class="form-label">Ordenar por</label>
+          <select
+            id="ordenar"
+            class="form-select"
+            (change)="ordenarCoches($event)"
+          >
+            <option value="" disabled selected>Seleccionar</option>
+            <option value="precio-asc">Precio: Menor a Mayor</option>
+            <option value="precio-desc">Precio: Mayor a Menor</option>
+            <option value="kilometraje-asc">Kilometraje: Menor a Mayor</option>
+            <option value="kilometraje-desc">Kilometraje: Mayor a Menor</option>
+          </select>
+        </div>
 
-    <!-- Resultados de la búsqueda -->
-    <div class="col-md-10">
-      <div class="row">
-        <div *ngIf="cochesFiltrados.length === 0" class="col-12">
-          <div class="coches-no-encontrados">
-            <h4>
-              No se encontraron coches que coincidan con los filtros
-              seleccionados.
-            </h4>
-            <button
-              class="btn btn-primary"
-              id="boton-volver-inicio"
-              (click)="volverAInicio()"
-            >
-              Volver a Inicio
-            </button>
+        <!-- Resultados de la búsqueda -->
+        <div class="row">
+          <div *ngIf="cochesFiltrados.length === 0" class="col-12">
+            <div class="coches-no-encontrados">
+              <h4>
+                No se encontraron coches que coincidan con los filtros
+                seleccionados.
+              </h4>
+              <button
+                class="btn btn-primary"
+                id="boton-volver-inicio"
+                (click)="volverAInicio()"
+              >
+                Volver a Inicio
+              </button>
+            </div>
+          </div>
+          <div class="col-md-6" *ngFor="let coche of cochesPaginados">
+            <app-coche-hijo [cochedelista]="coche"></app-coche-hijo>
           </div>
         </div>
-        <div class="col-md-6" *ngFor="let coche of cochesPaginados">
-          <app-coche-hijo [cochedelista]="coche"></app-coche-hijo>
+
+        <div *ngIf="cochesFiltrados.length > 0" class="paginacion">
+          <button
+            class="btn"
+            id="boton-pagina-anterior"
+            (click)="anteriorPag()"
+            [disabled]="paginaActual === 1"
+          >
+            <i class="bi bi-chevron-left"></i>
+            Anterior
+          </button>
+          <span>{{ paginaActual }}</span>
+          <button
+            class="btn"
+            (click)="siguientePag()"
+            [disabled]="paginaActual === totalPaginas"
+          >
+            Siguiente <i class="bi bi-chevron-right"></i>
+          </button>
         </div>
       </div>
     </div>
   </div>
-
-  <div class="paginacion">
-    <button
-      class="btn btn-light"
-      id="boton-pagina-anterior"
-      (click)="anteriorPag()"
-      [disabled]="paginaActual === 1"
-    >
-      Anterior
-    </button>
-    <span>{{ paginaActual }}</span>
-    <button
-      class="btn btn-light"
-      (click)="siguientePag()"
-      [disabled]="paginaActual === totalPaginas"
-    >
-      Siguiente
-    </button>
-  </div>
-</div>
+</body>

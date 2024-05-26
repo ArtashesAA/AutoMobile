@@ -1,12 +1,75 @@
+body {
+  background-color: #f4f4f4;
+}
+
+/* Formulario de datos de coche */
+form {
+  position: relative;
+  margin-left: 350px;
+}
+
+/* Sidebar */
+.sidebar {
+  position: fixed;
+  padding: 20px;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  width: 300px;
+}
+
 .titulo {
   text-align: center;
+  padding: 30px;
 }
 
-#boton-crear {
-  margin-top: 20px;
-  margin-right: 40px;
+/* Creación de coche */
+.crear-coche {
+  background-color: white;
+  padding: 50px;
+  border: 1px solid #ccc;
 }
 
-#boton-volver {
-  text-align: center;
+/* Color de inputs */
+.form-group input,
+select {
+  border: 1px solid #949494;
+}
+
+.botones {
+  display: flex;
+  margin-top: 10px;
+  height: 50px; /* Alto fijo para el contenedor de los botones */
+  margin-bottom: 50px;
+}
+
+.botones button {
+  height: 20px;
+}
+
+.sidebar nav ul li {
+  list-style: none;
+  margin-bottom: 5px;
+}
+
+.sidebar nav ul li a {
+  text-decoration: none;
+  color: #333;
+}
+
+.sidebar .list-group {
+  border: none;
+}
+
+.sidebar .list-group-item {
+  background-color: transparent;
+  border: none;
+}
+
+.sidebar .list-group-item:hover {
+  background-color: #f4f4f4;
+}
+
+.sidebar .list-group-item.active {
+  color: #fff;
 }

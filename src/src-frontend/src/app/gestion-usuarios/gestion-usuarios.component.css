@@ -1,3 +1,17 @@
+body {
+  background-color: #f4f4f4;
+}
+
+/* Sidebar */
+.sidebar {
+  position: fixed;
+  background-color: white;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+}
+
+/* Imagen de usuario */
 .avatar {
   max-width: 80px;
   height: 80px;
@@ -5,19 +19,34 @@
   margin-top: 10px;
 }
 
+/* Título */
 .titulo {
   text-align: center;
+  margin-top: 50px;
   margin-bottom: 40px;
 }
 
-.tabla-usuarios {
-  margin-top: 40px;
-}
-
-.btn {
+/* Separa los botones verticalmente */
+td .btn {
   margin-bottom: 10px;
 }
 
+/* Anchura botones */
 button {
   width: 90px;
+}
+
+/* Estilos para el contenedor de paginación */
+.paginacion {
+  text-align: center;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+/* Estilos para los botones de paginación */
+.paginacion button {
+  margin-left: 15px;
+  margin-right: 15px;
+  background-color: white;
+  width: 120px;
 }

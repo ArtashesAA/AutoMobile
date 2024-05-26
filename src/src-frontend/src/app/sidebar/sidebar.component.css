@@ -1,3 +1,25 @@
+/* Sidebar */
 .sidebar {
-  width: 200px;
+  background-color: white;
+  border-radius: 10px;
+  margin-bottom: 50px;
+  padding: 15px; /* Añade padding para separar el contenido de los bordes */
+  border: 1px solid #ccc;
+}
+h4 {
+  /* Ajusta este selector para el título específico */
+  margin-bottom: 20px;
+}
+
+.btn {
+  display: block;
+  margin: 0 auto;
+}
+
+form label {
+  margin-top: 10px; /* Añade margen superior para separar del filtro anterior */
+}
+
+form .form-select {
+  margin-top: 5px; /* Añade margen superior para separar del label */
 }

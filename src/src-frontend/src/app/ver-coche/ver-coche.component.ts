@@ -6,6 +6,9 @@ import { CommonModule } from '@angular/common';
 import { CocheHijoComponent } from '../coche-hijo/coche-hijo.component';
 import { AutenticacionService } from '../servicio-autenticacion/autenticacion.service';
 import { FormsModule } from '@angular/forms';
+import { Usuario } from '../entidad/usuario.model';
+import { ServicioFavoritoService } from '../servicio-favorito/servicio-favorito.service';
+import { Favorito } from '../entidad/favorito.model';
 
 @Component({
   selector: 'app-ver-coche',
@@ -18,6 +21,11 @@ import { FormsModule } from '@angular/forms';
 export class VerCocheComponent implements OnInit {
   coche!: Coche;
   id!: number;
+  usuario: Usuario | undefined;
+
+  estaLogueado: boolean = false;
+  esAdmin: boolean = false;
+  esFavorito: boolean = false;
 
   // Mensaje
   mostrar: boolean = false;
@@ -26,15 +34,23 @@ export class VerCocheComponent implements OnInit {
   numero: number = 0;
   mensaje: string = '';
 
+  // Contacto
   mostrarTelefono: boolean = true;
   mostrarEmail: boolean = false;
   textoBoton: string = 'Mostar TLF/EMAIL';
+
+  // Nueva variable para mostrar u ocultar la ventana de compartir
+  mostrarCompartir: boolean = false;
+  // URL del coche
+  urlCoche: string = '';
+  favoritoId: number = 0;
 
   constructor(
     private route: ActivatedRoute,
     private servicioCoche: ServicioCocheService,
     private servicioAutenticacion: AutenticacionService,
-    private cocheHijo: CocheHijoComponent
+    private cocheHijo: CocheHijoComponent,
+    private favoritoService: ServicioFavoritoService
   ) {}
 
   ngOnInit(): void {
@@ -45,6 +61,10 @@ export class VerCocheComponent implements OnInit {
         this.servicioCoche.cargarCochePorId(this.id).subscribe(
           (coche: Coche) => {
             this.coche = coche;
+            // Comprueba si el coche ya está en favoritos
+            if (this.usuario) {
+              this.cargarFavoritosUsuario(this.usuario.id);
+            }
           },
           (error) => {
             console.error('Error al cargar coche:', error);
@@ -54,10 +74,27 @@ export class VerCocheComponent implements OnInit {
         console.error('Índice inválido:', this.id);
       }
     });
-  }
 
-  estaLogueado() {
-    return this.servicioAutenticacion.estaAutenticado();
+    this.estaLogueado = this.servicioAutenticacion.estaAutenticado();
+
+    if (this.estaLogueado) {
+      this.servicioAutenticacion.cargarUsuarioActual().subscribe(
+        (usuario: Usuario) => {
+          this.usuario = usuario;
+
+          // Carga los favoritos del usuario actual
+          this.cargarFavoritosUsuario(this.usuario.id);
+
+          // Comprueba si el usuario es administrador
+          this.servicioAutenticacion.esAdmin().subscribe((isAdmin: boolean) => {
+            this.esAdmin = isAdmin;
+          });
+        },
+        (error) => {
+          console.error('Error al obtener el usuario:', error);
+        }
+      );
+    }
   }
 
   // ------- Formulario Contactar y Telefono ----------
@@ -103,5 +140,101 @@ export class VerCocheComponent implements OnInit {
   // Borra un coche por su id
   eliminarCoche(id: number) {
     this.cocheHijo.eliminarCoche(id);
+  }
+
+  // Función para mostrar u ocultar la ventana de compartir
+  mostrarVentanaCompartir() {
+    this.mostrarCompartir = !this.mostrarCompartir;
+    if (this.mostrarCompartir) {
+      // Generar el URL del coche cuando se muestra la ventana de compartir
+      this.urlCoche = this.generarURLCoche();
+    }
+  }
+
+  // Función para generar el URL del coche
+  generarURLCoche(): string {
+    return 'http://localhost:4200/verCoche/' + this.id;
+  }
+
+  // Función para cerrar la ventana de compartir
+  cerrarVentanaCompartir() {
+    this.mostrarCompartir = false;
+  }
+
+  cargarFavoritosUsuario(idUsuario: number) {
+    this.favoritoService.cargarFavoritosPorIdUsuario(idUsuario).subscribe(
+      (favoritos: Favorito[]) => {
+        if (favoritos && this.coche && this.coche.id !== undefined) {
+          const encontrado = favoritos.find(
+            (favorito) => favorito.coche_id_recuperado === this.coche.id
+          );
+          if (encontrado) {
+            this.esFavorito = true;
+            this.favoritoId = encontrado.id;
+          }
+        }
+      },
+      (error) => {
+        console.error('Error al cargar los favoritos del usuario:', error);
+      }
+    );
+  }
+
+  // Alterna el estado de favorito
+  toggleFavorito() {
+    if (this.esFavorito) {
+      if (this.favoritoId !== undefined) {
+        this.eliminarFavorito();
+      }
+    } else {
+      this.crearFavorito();
+    }
+  }
+
+  // Añade el coche a favoritos
+  crearFavorito() {
+    if (this.usuario && this.coche) {
+      const favoritoData = {
+        usuario: { id: this.usuario.id },
+        coche: { id: this.coche.id },
+      };
+
+      this.favoritoService.crearFavorito(favoritoData).subscribe(
+        (favorito: Favorito) => {
+          this.esFavorito = true;
+          this.favoritoId = favorito.id;
+        },
+        (error) => {
+          console.error('Error al añadir a favoritos:', error);
+        }
+      );
+    }
+  }
+
+  // Elimina el coche de favoritos
+  eliminarFavorito() {
+    if (this.favoritoId !== undefined) {
+      this.favoritoService.eliminarFavorito(this.favoritoId).subscribe(
+        (response) => {
+          if (response.status === 200) {
+            this.esFavorito = false;
+            console.log('Eliminado de favoritos con éxito');
+            // Opcional: Mostrar una animación o mensaje de éxito
+          } else {
+            console.error('Error al eliminar de favoritos: ', response.status);
+          }
+        },
+        (error) => {
+          // Manejar el caso donde el error tiene un estado 200 pero aún se considera un error
+          if (error.status === 200) {
+            this.esFavorito = false;
+            console.log('Eliminado de favoritos con éxito');
+            // Opcional: Mostrar una animación o mensaje de éxito
+          } else {
+            console.error('Error al eliminar de favoritos:', error);
+          }
+        }
+      );
+    }
   }
 }
