@@ -35,8 +35,11 @@
           </ul>
         </nav>
       </div>
-      <form class="crear-coche form-group col-9" (ngSubmit)="crearCoche()">
-        <h4>Datos del vehículo</h4>
+      <form
+        class="form-group actualizar-coche col-9"
+        (ngSubmit)="actualizaCoche()"
+      >
+        <h4 id="datos-vehiculo">Datos del vehículo</h4>
         <div class="form-group col-4">
           <label for="marca">Marca</label>
           <select
@@ -68,7 +71,7 @@
         </div>
 
         <hr />
-        <h4>Características</h4>
+        <h4 id="caracteristicas">Características</h4>
         <div class="form-group col-4">
           <label for="tipoVehiculo">Tipo de carrocería</label>
           <select
@@ -168,6 +171,7 @@
             <option value="Verde">Verde</option>
             <option value="Rojo">Rojo</option>
             <option value="Amarillo">Amarillo</option>
+            <option value="Naranja">Naranja</option>
           </select>
         </div>
         <div class="form-group col-4">
@@ -183,7 +187,7 @@
         </div>
 
         <hr />
-        <h4>Estado del vehículo</h4>
+        <h4 id="estado-vehiculo">Estado del vehículo</h4>
         <div class="form-group col-4">
           <label for="kilometraje">Kilometraje</label>
           <input
@@ -242,7 +246,7 @@
         </div>
 
         <hr />
-        <h4>Transmisión</h4>
+        <h4 id="transmision">Transmisión</h4>
         <div class="form-group col-4">
           <label for="traccion">Tracción</label>
           <select
@@ -305,7 +309,7 @@
         </div>
 
         <hr />
-        <h4>Motor</h4>
+        <h4 id="motor">Motor</h4>
         <div class="form-group col-4">
           <label for="potencia">Potencia</label>
           <input
@@ -404,9 +408,9 @@
         </div>
 
         <hr />
-        <h4 id="imagenes">Imágenes</h4>
+        <h4 id="fotos">Fotos</h4>
         <div class="form-group col-4">
-          <label for="imagen">Url Imagen Principal</label>
+          <label for="imagen">Imagen</label>
           <input
             type="text"
             name="imagen"
@@ -418,7 +422,7 @@
         </div>
 
         <div class="form-group col-4">
-          <label for="imagenes">Url Imágenes</label>
+          <label for="imagenes">Imágenes</label>
           <div *ngFor="let imagen of cuadroImagenes; let i = index">
             <input
               type="text"
@@ -430,7 +434,7 @@
             />
             <button
               type="button"
-              class="eliminar-imagen btn btn-danger"
+              class="btn btn-danger"
               (click)="eliminarImagen(i)"
             >
               Eliminar
@@ -438,7 +442,7 @@
           </div>
           <button
             type="button"
-            class="agregar-imagen btn btn-secondary mt-2"
+            class="btn btn-secondary mt-2"
             (click)="agregarImagen()"
           >
             Agregar Imagen
@@ -446,7 +450,7 @@
         </div>
 
         <hr />
-        <h4>Descripción del vehículo</h4>
+        <h4 id="descripcion">Descripción del vehículo</h4>
         <div class="form-group col-4">
           <textarea
             name="descripcion"
@@ -458,7 +462,7 @@
         </div>
 
         <hr />
-        <h4>Precio</h4>
+        <h4 id="precio">Precio</h4>
         <div class="form-group col-4">
           <label for="precio">Precio final (IVA incluido)</label>
           <input
@@ -471,7 +475,7 @@
           />
         </div>
         <hr />
-        <h4>Contacto</h4>
+        <h4 id="contacto">Contacto</h4>
         <div class="form-group col-4">
           <label for="email">Email</label>
           <input
@@ -507,8 +511,8 @@
         </div>
 
         <div class="form-group col-4">
-          <button type="submit" class="btn btn-primary" id="boton-crear">
-            Publicar coche
+          <button type="submit" class="btn btn-primary" id="boton-actualizar">
+            Guardar
           </button>
         </div>
       </form>

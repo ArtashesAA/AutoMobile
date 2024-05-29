@@ -16,7 +16,7 @@ import jakarta.validation.constraints.NotNull;
 @Table(name = "imagen")
 public class Imagen {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id")
 	private Long id;
 

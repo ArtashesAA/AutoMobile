@@ -38,7 +38,7 @@ export class CrearCocheComponent implements OnInit {
   cuadroCombustible: string = '';
   cuadroConsumo: string = '';
   cuadroTipoCambio: string = 'Manual';
-  cuadroCategoria: string = '';
+  cuadroCategoria: string = 'Sedan';
   cuadroTipoVehiculo: string = 'Sedan';
   cuadroTraccion: string = '';
   cuadroPlazas: number = 5;
@@ -95,7 +95,8 @@ export class CrearCocheComponent implements OnInit {
   crearCoche() {
     this.servicioUsuario.getUsuarioActual().subscribe(
       (usuario: Usuario) => {
-        this.cuadroUsuario = usuario;
+        // Obtener solo el ID del usuario
+        const usuarioId = usuario.id;
 
         const marcaId = Number(this.cuadroMarca);
         const nombreMarca =
@@ -106,39 +107,10 @@ export class CrearCocheComponent implements OnInit {
           ? this.cuadroImagenes.map((imagen) => new Imagen(imagen.imagen_url))
           : [];
 
-        this.coche = new Coche(
-          nombreMarca,
-          this.cuadroModelo,
-          this.cuadroImagenPrincipal,
-          this.cuadroPrecio,
-          this.cuadroAnyo,
-          this.cuadroPotencia,
-          this.cuadroKilometraje,
-          this.cuadroCombustible,
-          this.cuadroConsumo,
-          this.cuadroTipoCambio,
-          this.cuadroCategoria,
-          this.cuadroTipoVehiculo,
-          this.cuadroTraccion,
-          this.cuadroPlazas,
-          this.cuadroPuertas,
-          this.cuadroGarantia,
-          this.cuadroPeso,
-          this.cuadroColor,
-          this.cuadroNumeroMarchas,
-          this.cuadroNumeroCilindros,
-          this.cuadroCiudad,
-          this.cuadroDescripcion,
-          this.cuadroTelefonoAdjunto,
-          this.cuadroEmailAdjunto,
-          this.cuadroUsuario,
-          imagenes
-        );
-
         const cocheData = {
           marca: nombreMarca,
           modelo: this.cuadroModelo,
-          imagen_principal: this.cuadroImagenPrincipal,
+          imagenPrincipal: this.cuadroImagenPrincipal,
           precio: this.cuadroPrecio,
           anyo: this.cuadroAnyo,
           potencia: this.cuadroPotencia,
@@ -160,21 +132,29 @@ export class CrearCocheComponent implements OnInit {
           descripcion: this.cuadroDescripcion,
           telefonoAdjunto: this.cuadroTelefonoAdjunto,
           emailAdjunto: this.cuadroEmailAdjunto,
-          imagenes: this.cuadroImagenes,
+          imagenes: imagenes,
         };
+
+        console.log('Coche que se va a crear:', cocheData);
 
         this.servicioCoche.crearCoche(cocheData).subscribe(
           (response) => {
             if (response.status === 200 || response.status === 201) {
               alert('Coche creado con éxito.');
-              this.router.navigate(['/catalogo']);
+              // Redirigir a la página de creación correcta
+              this.router.navigate(['/venderCorrecto']);
             } else {
               alert('Error al crear el coche.');
             }
           },
           (error) => {
-            console.error('Error al crear el coche:', error);
-            alert('Error al crear el coche.');
+            if (error.status === 201) {
+              // Si la respuesta es 201 (creación exitosa), redirigir a la página de creación correcta
+              this.router.navigate(['/venderCorrecto']);
+            } else {
+              console.error('Error al crear el coche:', error);
+              alert('Error al crear el coche.');
+            }
           }
         );
       },

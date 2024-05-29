@@ -408,9 +408,9 @@
         </div>
 
         <hr />
-        <h4 id="fotos">Fotos</h4>
+        <h4 id="imagenes">Imágenes</h4>
         <div class="form-group col-4">
-          <label for="imagen">Imagen</label>
+          <label for="imagen">Url Imagen Principal</label>
           <input
             type="text"
             name="imagen"
@@ -422,19 +422,22 @@
         </div>
 
         <div class="form-group col-4">
-          <label for="imagenes">Imágenes</label>
-          <div *ngFor="let imagen of cuadroImagenes; let i = index">
+          <label for="imagenes">Url Imágenes</label>
+          <div
+            *ngFor="let imagen of cuadroImagenes; let i = index"
+            class="imagen-input-container"
+          >
             <input
               type="text"
               name="imagenes"
               [id]="'imagen' + i"
               placeholder="URL de la imagen"
-              class="form-control mb-2"
+              class="form-control mb-2 imagen-input"
               [(ngModel)]="cuadroImagenes[i].imagen_url"
             />
             <button
               type="button"
-              class="btn btn-danger"
+              class="eliminar-imagen btn btn-danger"
               (click)="eliminarImagen(i)"
             >
               Eliminar
@@ -442,7 +445,7 @@
           </div>
           <button
             type="button"
-            class="btn btn-secondary mt-2"
+            class="agregar-imagen btn btn-secondary mt-2"
             (click)="agregarImagen()"
           >
             Agregar Imagen

@@ -30,6 +30,10 @@ form {
   border: 1px solid #ccc;
 }
 
+.form-group {
+  margin-top: 10px;
+}
+
 /* Color de inputs */
 .form-group input,
 select {
@@ -47,6 +51,32 @@ select {
   height: 20px;
 }
 
+.agregar-imagen {
+  margin-left: 20px;
+}
+
+.eliminar-imagen {
+  margin-bottom: 5px;
+}
+
+/* Botones imágenes */
+#boton-actualizar {
+  margin-top: 100px;
+  margin-bottom: 100px;
+}
+
+.imagen-input-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.imagen-input {
+  flex-grow: 1;
+  margin-right: 10px; /* Ajusta el margen entre el input y el botón Eliminar */
+}
+
+/* Sidebar */
 .sidebar nav ul li {
   list-style: none;
   margin-bottom: 5px;

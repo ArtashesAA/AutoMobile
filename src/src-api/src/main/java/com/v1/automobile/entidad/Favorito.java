@@ -21,19 +21,19 @@ import java.sql.Timestamp;
 public class Favorito {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id")
 	private Long id;
 
 	@Column(name = "fecha", columnDefinition = "TIMESTAMP")
 	private Timestamp fecha;
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "usuario_id", referencedColumnName = "id", nullable = false)
 	@JsonBackReference("usuario-favoritos")
 	private Usuario usuario;
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "coche_id", referencedColumnName = "id", nullable = false)
 	@JsonBackReference("coche-favoritos")
 	private Coche coche;

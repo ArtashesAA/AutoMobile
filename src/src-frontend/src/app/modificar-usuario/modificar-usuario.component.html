@@ -1,4 +1,5 @@
 <body>
+  <div class="titulo"></div>
   <div *ngIf="usuario" class="container">
     <div class="row">
       <h2 class="titulo">Modificar Usuario</h2>
@@ -15,7 +16,7 @@
               name="nombreUsuario"
               [(ngModel)]="usuario.nombre_usuario"
               required
-              pattern="^[a-zA-Z0-9._]{3,10}$"
+              pattern="^[a-zA-Z0-9._]{3,20}$"
               #nombreUsuario="ngModel"
             />
             <div
@@ -25,7 +26,7 @@
               "
               class="text-danger"
             >
-              El nombre de usuario debe tener entre 3 y 10 caracteres y puede
+              El nombre de usuario debe tener entre 3 y 20 caracteres y puede
               incluir letras, números, puntos y guiones bajos.
             </div>
           </div>
@@ -61,7 +62,6 @@
                 pattern="^[a-zA-Z0-9&!._]{4,12}$"
                 #contrasena="ngModel"
               />
-
               <button
                 type="button"
                 class="btn btn-outline-secondary"
@@ -96,4 +96,5 @@
       </div>
     </div>
   </div>
+  <div class="titulo"></div>
 </body>

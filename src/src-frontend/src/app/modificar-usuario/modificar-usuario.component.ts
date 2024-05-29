@@ -37,6 +37,13 @@ export class ModificarUsuarioComponent implements OnInit {
   }
 
   guardarCambios(): void {
+    if (this.usuario == null || this.nuevaContrasena == '') {
+      alert(
+        'Por favor, completa todos los campos correctamente antes de guardar.'
+      );
+      return;
+    }
+
     if (this.usuario) {
       const usuarioActualizado: any = {
         nombre_usuario: this.usuario.nombre_usuario,
@@ -50,7 +57,7 @@ export class ModificarUsuarioComponent implements OnInit {
 
       // Lógica para guardar los cambios del usuario
       this.servicioUsuario
-        .actualizarUsuario(this.usuario.id, usuarioActualizado)
+        .actualizarPerfil(this.usuario.id, usuarioActualizado)
         .subscribe(
           () => {
             console.log('Usuario actualizado correctamente');
@@ -62,6 +69,7 @@ export class ModificarUsuarioComponent implements OnInit {
               this.router.navigate(['/modificarCorrecto']);
             } else {
               console.error('Error al actualizar usuario:', error);
+              alert('Error al actualizar usuario.');
             }
           }
         );
@@ -75,7 +83,7 @@ export class ModificarUsuarioComponent implements OnInit {
     }
   }
 
-  volver() {
+  volver(): void {
     this.router.navigate(['perfil']);
   }
 }
