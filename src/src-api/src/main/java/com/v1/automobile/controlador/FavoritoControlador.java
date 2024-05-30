@@ -59,7 +59,7 @@ public class FavoritoControlador {
 	 * 
 	 * @return recupera los favoritos por id del usuario
 	 */
-	@GetMapping("/admin/favorito/usuario/{idUsuario}")
+	@GetMapping("/adminuser/favorito/usuario/{idUsuario}")
     public ResponseEntity<List<Favorito>> obtenerFavoritosPorIdUsuario(@PathVariable Long idUsuario) {
         List<Favorito> favoritos = favoritoServicio.obtenerFavoritosPorIdUsuario(idUsuario);
         return ResponseEntity.ok(favoritos);

@@ -19,13 +19,21 @@ import { Favorito } from '../entidad/favorito.model';
   styleUrl: './ver-coche.component.css',
 })
 export class VerCocheComponent implements OnInit {
+  // Coches que pertenecen al usuario
+  cochesUsuario: Coche[] = [];
+
+  // Coche que se va a mostrar
   coche!: Coche;
   id!: number;
+
+  // Usuario actual
   usuario: Usuario | undefined;
 
+  // Comprobaciones
   estaLogueado: boolean = false;
   esAdmin: boolean = false;
   esFavorito: boolean = false;
+  esDelUsuario: boolean = false;
 
   // Mensaje
   mostrar: boolean = false;
@@ -65,6 +73,11 @@ export class VerCocheComponent implements OnInit {
             if (this.usuario) {
               this.cargarFavoritosUsuario(this.usuario.id);
             }
+
+            // Comprobar si el coche pertenece al usuario
+            if (this.cochesUsuario.find((c) => c.id === this.coche.id)) {
+              this.esDelUsuario = true;
+            }
           },
           (error) => {
             console.error('Error al cargar coche:', error);
@@ -89,12 +102,35 @@ export class VerCocheComponent implements OnInit {
           this.servicioAutenticacion.esAdmin().subscribe((isAdmin: boolean) => {
             this.esAdmin = isAdmin;
           });
+
+          // Cargar coches del usuario actual
+          this.cargarCochesPorIdUsuario(this.usuario.id);
         },
         (error) => {
           console.error('Error al obtener el usuario:', error);
         }
       );
     }
+  }
+
+  // Carga todos los coches del usuario
+  cargarCochesPorIdUsuario(idUsuario: number): void {
+    this.servicioCoche.cargarCochesPorIdUsuario(idUsuario).subscribe(
+      (coches: Coche[]) => {
+        this.cochesUsuario = coches;
+
+        // Comprobar si el coche actual pertenece al usuario
+        if (
+          this.coche &&
+          this.cochesUsuario.find((c) => c.id === this.coche.id)
+        ) {
+          this.esDelUsuario = true;
+        }
+      },
+      (error) => {
+        console.error('Error al cargar coches del usuario:', error);
+      }
+    );
   }
 
   // ------- Formulario Contactar y Telefono ----------
@@ -140,6 +176,11 @@ export class VerCocheComponent implements OnInit {
   // Borra un coche por su id
   eliminarCoche(id: number) {
     this.cocheHijo.eliminarCoche(id);
+  }
+
+  // Borra un coche por su id solo si pertenece a este usuario
+  eliminarCochePropio(id: number) {
+    this.cocheHijo.eliminarCochePropio(id);
   }
 
   // Función para mostrar u ocultar la ventana de compartir

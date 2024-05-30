@@ -31,6 +31,7 @@
             name="modelo"
             id="modelo"
             [(ngModel)]="modeloSeleccionado"
+            [disabled]="!marcaSeleccionada"
           >
             <option value="" disabled selected>Modelo</option>
             <option *ngFor="let modelo of modelos" [value]="modelo">

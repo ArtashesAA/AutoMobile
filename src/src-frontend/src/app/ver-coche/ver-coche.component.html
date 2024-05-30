@@ -323,7 +323,7 @@
           </div>
         </div>
 
-        <!-- Botones de acción -->
+        <!-- Botones de acción en caso de que sea admin-->
         <div class="botones-accion">
           <div class="col-12">
             <div class="coche-actions mt-3">
@@ -338,6 +338,28 @@
                 class="btn btn-danger"
                 (click)="eliminarCoche(id)"
                 *ngIf="estaLogueado && esAdmin"
+              >
+                Eliminar
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Botones de acción en caso de que el coche pertenezca al usuario -->
+        <div class="botones-accion">
+          <div class="col-12">
+            <div class="coche-actions mt-3">
+              <button
+                class="btn btn-warning mr-3"
+                [routerLink]="['/actualiza', id]"
+                *ngIf="estaLogueado && esDelUsuario"
+              >
+                Editar
+              </button>
+              <button
+                class="btn btn-danger"
+                (click)="eliminarCochePropio(id)"
+                *ngIf="estaLogueado && esDelUsuario"
               >
                 Eliminar
               </button>
