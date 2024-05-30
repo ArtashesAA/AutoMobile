@@ -301,4 +301,41 @@ export class ActualizarCocheComponent implements OnInit {
   volverACatalogo() {
     this.router.navigate(['catalogo']);
   }
+
+  /* Navegación */
+  irDatosVehiculo() {
+    window.scrollTo({ top: window.innerHeight * 0.1, behavior: 'smooth' });
+  }
+
+  irCaractristicas() {
+    window.scrollTo({ top: window.innerHeight * 0.4, behavior: 'smooth' });
+  }
+
+  irEstadoVehiculo() {
+    window.scrollTo({ top: window.innerHeight * 0.85, behavior: 'smooth' });
+  }
+
+  irTransmision() {
+    window.scrollTo({ top: window.innerHeight * 1.15, behavior: 'smooth' });
+  }
+
+  irMotor() {
+    window.scrollTo({ top: window.innerHeight * 1.45, behavior: 'smooth' });
+  }
+
+  irImagenes() {
+    window.scrollTo({ top: window.innerHeight * 1.8, behavior: 'smooth' });
+  }
+
+  irDescripcion() {
+    window.scrollTo({ top: window.innerHeight * 2, behavior: 'smooth' });
+  }
+
+  irPrecio() {
+    window.scrollTo({ top: window.innerHeight * 2.3, behavior: 'smooth' });
+  }
+
+  irContacto() {
+    window.scrollTo({ top: window.innerHeight * 2.6, behavior: 'smooth' });
+  }
 }

@@ -5,33 +5,51 @@
       <div class="sidebar col-3">
         <nav>
           <ul class="list-group">
-            <li class="list-group-item">
-              <a href="#datos-vehiculo">Datos del vehículo</a>
-            </li>
-            <li class="list-group-item">
-              <a href="#caracteristicas">Características</a>
-            </li>
-            <li class="list-group-item">
-              <a href="#estado-vehiculo">Estado del vehículo</a>
-            </li>
-            <li class="list-group-item">
-              <a href="#transmision">Transmisión</a>
-            </li>
-            <li class="list-group-item">
-              <a href="#motor">Motor</a>
-            </li>
-            <li class="list-group-item">
-              <a href="#fotos">Fotos</a>
-            </li>
-            <li class="list-group-item">
-              <a href="#descripcion-vehiculo">Descripción del vehículo</a>
-            </li>
-            <li class="list-group-item">
-              <a href="#precio">Precio</a>
-            </li>
-            <li class="list-group-item">
-              <a href="#contacto">Contacto</a>
-            </li>
+            <a (click)="irDatosVehiculo()">
+              <li class="list-group-item">
+                <h5>Datos del vehículo</h5>
+              </li>
+            </a>
+            <a (click)="irCaractristicas()">
+              <li class="list-group-item">
+                <h5>Características</h5>
+              </li>
+            </a>
+            <a (click)="irEstadoVehiculo()">
+              <li class="list-group-item">
+                <h5>Estado del vehículo</h5>
+              </li>
+            </a>
+            <a (click)="irTransmision()">
+              <li class="list-group-item">
+                <h5>Transmisión</h5>
+              </li>
+            </a>
+            <a (click)="irMotor()">
+              <li class="list-group-item">
+                <h5>Motor</h5>
+              </li>
+            </a>
+            <a (click)="irImagenes()">
+              <li class="list-group-item">
+                <h5>Imágenes</h5>
+              </li>
+            </a>
+            <a (click)="irDescripcion()">
+              <li class="list-group-item">
+                <h5>Descripción del vehículo</h5>
+              </li>
+            </a>
+            <a (click)="irPrecio()">
+              <li class="list-group-item">
+                <h5>Precio</h5>
+              </li>
+            </a>
+            <a (click)="irContacto()">
+              <li class="list-group-item">
+                <h5>Contacto</h5>
+              </li>
+            </a>
           </ul>
         </nav>
       </div>

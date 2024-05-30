@@ -171,7 +171,7 @@ public class DataInitializer implements CommandLineRunner {
 							"Delantera", 5, 4, "2 Años", 1200, "Blanco", 7, 4, "Sevilla",
 							"Coche compacto versátil y confiable.", 324234432, "ejemplo1@gmail.com", usuarios.get(5),
 							new ArrayList<Imagen>(), new ArrayList<Favorito>()),
-					new Coche(6L, "Mercedes-Benz", "E-Class",
+					new Coche(6L, "Mercedes-Benz", "E 220",
 							"https://assets.newatlas.com/dims4/default/6f51b09/2147483647/strip/true/crop/4032x2272+0+0/resize/2880x1623!/quality/90/?url=http%3A%2F%2Fnewatlas-brightspot.s3.amazonaws.com%2Fa2%2Fda%2F65700dd24d619365b4270fa796ce%2F2021-mercedes-benz-e450-1.jpg",
 							40000, 2021, 200, 15000, "Gasolina", "8 l/100 km", "Automatico", "Sedan", "Sedan",
 							"Trasera", 5, 4, "2 Años", 1800, "Rojo", 9, 6, "Madrid",

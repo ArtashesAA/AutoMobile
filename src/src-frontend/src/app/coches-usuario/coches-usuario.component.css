@@ -23,8 +23,7 @@ body {
 /* Título */
 .titulo {
   text-align: center;
-  margin-bottom: 40px;
-  margin-top: 50px;
+  padding: 50px;
 }
 
 .coches-no-encontrados {

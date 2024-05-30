@@ -19,34 +19,62 @@
         </div>
 
         <div class="col-4">
-          <!-- Favoritos - compartir -->
+          <!-- Favoritos - compartir o Editar - Eliminar -->
           <div class="row">
-            <div class="col-7">
-              <div class="acciones">
-                <a
-                  class="accion-link btn btn-outline-primary"
-                  (click)="toggleFavorito()"
-                >
-                  <p>
-                    <i
-                      [class]="esFavorito ? 'bi bi-star-fill' : 'bi bi-star'"
-                    ></i>
-                    {{
-                      esFavorito ? "Añadido a favoritos" : "Añadir a favoritos"
-                    }}
-                  </p>
-                </a>
+            <div *ngIf="estaLogueado && esDelUsuario; else accionLinks">
+              <div class="row">
+                <div class="col-7">
+                  <div class="acciones">
+                    <a
+                      class="accion-link btn btn-outline-primary"
+                      [routerLink]="['/actualiza', id]"
+                    >
+                      <p><i class="bi bi-pencil"></i> Editar</p>
+                    </a>
+                  </div>
+                </div>
+                <div class="col-5">
+                  <div class="acciones">
+                    <a
+                      class="accion-link btn btn-outline-primary"
+                      (click)="eliminarCochePropio(id)"
+                    >
+                      <p><i class="bi bi-trash"></i> Eliminar</p>
+                    </a>
+                  </div>
+                </div>
               </div>
             </div>
-            <div class="col-5">
-              <div class="acciones">
-                <a
-                  class="accion-link btn btn-outline-primary"
-                  (click)="mostrarVentanaCompartir()"
-                  ><p><i class="bi bi-share"></i> Compartir</p></a
-                >
+            <ng-template #accionLinks>
+              <div class="col-7">
+                <div class="acciones">
+                  <a
+                    class="accion-link btn btn-outline-primary"
+                    (click)="toggleFavorito()"
+                  >
+                    <p>
+                      <i
+                        [class]="esFavorito ? 'bi bi-star-fill' : 'bi bi-star'"
+                      ></i>
+                      {{
+                        esFavorito
+                          ? "Añadido a favoritos"
+                          : "Añadir a favoritos"
+                      }}
+                    </p>
+                  </a>
+                </div>
               </div>
-            </div>
+              <div class="col-5">
+                <div class="acciones">
+                  <a
+                    class="accion-link btn btn-outline-primary"
+                    (click)="mostrarVentanaCompartir()"
+                    ><p><i class="bi bi-share"></i> Compartir</p></a
+                  >
+                </div>
+              </div>
+            </ng-template>
 
             <!-- Ventana de compartir (inicialmente oculta) -->
             <div class="ventana-compartir" *ngIf="mostrarCompartir">
@@ -338,28 +366,6 @@
                 class="btn btn-danger"
                 (click)="eliminarCoche(id)"
                 *ngIf="estaLogueado && esAdmin"
-              >
-                Eliminar
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <!-- Botones de acción en caso de que el coche pertenezca al usuario -->
-        <div class="botones-accion">
-          <div class="col-12">
-            <div class="coche-actions mt-3">
-              <button
-                class="btn btn-warning mr-3"
-                [routerLink]="['/actualiza', id]"
-                *ngIf="estaLogueado && esDelUsuario"
-              >
-                Editar
-              </button>
-              <button
-                class="btn btn-danger"
-                (click)="eliminarCochePropio(id)"
-                *ngIf="estaLogueado && esDelUsuario"
               >
                 Eliminar
               </button>
