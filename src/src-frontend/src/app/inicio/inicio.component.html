@@ -8,8 +8,8 @@
 
     <div class="contenedor">
       <img src="../../assets/icono.svg" alt="Icono" id="icono-contenedor" />
-      <div class="select-container">
-        <div *ngIf="!cargandoCoches">
+      <div class="select-container row">
+        <div class="col-12 col-md-6 col-lg-3 mb-3" *ngIf="!cargandoCoches">
           <select
             class="form-select"
             name="marca"
@@ -25,7 +25,7 @@
           </select>
         </div>
 
-        <div *ngIf="!cargandoCoches">
+        <div class="col-12 col-md-6 col-lg-3 mb-3" *ngIf="!cargandoCoches">
           <select
             class="form-select"
             name="modelo"
@@ -40,27 +40,33 @@
           </select>
         </div>
 
-        <select
-          class="form-select"
-          name="Anyo"
-          id="Anyo"
-          [(ngModel)]="anyoSeleccionado"
-          required
-        >
-          <option value="" selected disabled>Año</option>
-          <option *ngFor="let anyo of anyos" [value]="anyo">{{ anyo }}</option>
-        </select>
+        <div class="col-12 col-md-6 col-lg-3 mb-3">
+          <select
+            class="form-select"
+            name="Anyo"
+            id="Anyo"
+            [(ngModel)]="anyoSeleccionado"
+            required
+          >
+            <option value="" selected disabled>Año</option>
+            <option *ngFor="let anyo of anyos" [value]="anyo">
+              {{ anyo }}
+            </option>
+          </select>
+        </div>
 
-        <select
-          class="form-select"
-          name="Precio"
-          id="Precio"
-          [(ngModel)]="precioMaxSeleccionado"
-          required
-        >
-          <option value="" selected disabled>Precio hasta (€)</option>
-          <option *ngFor="let precio of precios">{{ precio }}</option>
-        </select>
+        <div class="col-12 col-md-6 col-lg-3 mb-3">
+          <select
+            class="form-select"
+            name="Precio"
+            id="Precio"
+            [(ngModel)]="precioMaxSeleccionado"
+            required
+          >
+            <option value="" selected disabled>Precio hasta (€)</option>
+            <option *ngFor="let precio of precios">{{ precio }}</option>
+          </select>
+        </div>
       </div>
 
       <div class="btn-container" id="boton-buscar">

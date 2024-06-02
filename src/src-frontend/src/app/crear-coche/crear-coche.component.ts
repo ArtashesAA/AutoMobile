@@ -93,6 +93,35 @@ export class CrearCocheComponent implements OnInit {
 
   // Crea un coche con los datos del formulario
   crearCoche() {
+    // Verificar que todos los campos estén completos
+    if (
+      !this.cuadroMarca ||
+      !this.cuadroModelo ||
+      !this.cuadroTipoVehiculo ||
+      !this.cuadroPlazas ||
+      !this.cuadroPuertas ||
+      !this.cuadroColor ||
+      !this.cuadroPeso ||
+      !this.cuadroKilometraje ||
+      !this.cuadroAnyo ||
+      !this.cuadroGarantia ||
+      !this.cuadroTraccion ||
+      !this.cuadroTipoCambio ||
+      !this.cuadroNumeroMarchas ||
+      !this.cuadroPotencia ||
+      !this.cuadroNumeroCilindros ||
+      !this.cuadroCombustible ||
+      !this.cuadroConsumo ||
+      !this.cuadroImagenPrincipal ||
+      !this.cuadroPrecio ||
+      !this.cuadroEmailAdjunto ||
+      !this.cuadroTelefonoAdjunto ||
+      !this.cuadroCiudad
+    ) {
+      alert('Debe rellenar todos los datos.');
+      return;
+    }
+
     this.servicioUsuario.getUsuarioActual().subscribe(
       (usuario: Usuario) => {
         // Obtener solo el ID del usuario

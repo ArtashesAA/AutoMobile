@@ -41,3 +41,55 @@ body {
   width: 120px;
   background-color: white;
 }
+
+/* Media queries para asegurar que se vean en una fila en pantallas pequeñas */
+@media (max-width: 1150px) {
+  .sidebar {
+    order: 1;
+  }
+
+  .coches {
+    order: 2;
+    width: 70%;
+  }
+
+  .ordenar-coches {
+    width: 100%;
+  }
+
+  .coches .row > div {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .paginacion button {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+}
+
+/* Media queries para asegurar que se vean en una fila en pantallas pequeñas */
+@media (max-width: 850px) {
+  .sidebar {
+    display: none; /* Oculta la barra lateral en pantallas pequeñas */
+  }
+
+  .coches {
+    order: 1;
+    width: 100%;
+  }
+
+  .ordenar-coches {
+    width: 100%;
+  }
+
+  .coches .row > div {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .paginacion button {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+}

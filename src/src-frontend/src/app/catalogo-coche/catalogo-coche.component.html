@@ -9,7 +9,7 @@
 
       <div class="coches col-md-9">
         <!-- Ordenar coches -->
-        <div class="ordenar-coches mb-3 col-4">
+        <div class="ordenar-coches mb-3 col-12 col-md-4">
           <label for="ordenar" class="form-label">Ordenar por</label>
           <select
             id="ordenar"
@@ -41,7 +41,7 @@
               </button>
             </div>
           </div>
-          <div class="col-md-6" *ngFor="let coche of cochesPaginados">
+          <div class="col-12 col-md-6" *ngFor="let coche of cochesPaginados">
             <app-coche-hijo [cochedelista]="coche"></app-coche-hijo>
           </div>
         </div>

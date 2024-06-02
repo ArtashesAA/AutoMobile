@@ -103,3 +103,15 @@ select {
 .sidebar .list-group-item.active {
   color: #fff;
 }
+
+/* Media queries */
+@media screen and (max-width: 1400px) {
+  .sidebar {
+    display: none;
+  }
+
+  .crear-coche {
+    margin-left: 0;
+    width: 100%;
+  }
+}

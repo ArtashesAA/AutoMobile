@@ -141,6 +141,35 @@ export class ActualizarCocheComponent implements OnInit {
       ? this.cuadroImagenes.map((imagen) => new Imagen(imagen.imagen_url))
       : [];
 
+    // Verificar que todos los campos estén completos
+    if (
+      !this.cuadroMarca ||
+      !this.cuadroModelo ||
+      !this.cuadroTipoVehiculo ||
+      !this.cuadroPlazas ||
+      !this.cuadroPuertas ||
+      !this.cuadroColor ||
+      !this.cuadroPeso ||
+      !this.cuadroKilometraje ||
+      !this.cuadroAnyo ||
+      !this.cuadroGarantia ||
+      !this.cuadroTraccion ||
+      !this.cuadroTipoCambio ||
+      !this.cuadroNumeroMarchas ||
+      !this.cuadroPotencia ||
+      !this.cuadroNumeroCilindros ||
+      !this.cuadroCombustible ||
+      !this.cuadroConsumo ||
+      !this.cuadroImagenPrincipal ||
+      !this.cuadroPrecio ||
+      !this.cuadroEmailAdjunto ||
+      !this.cuadroTelefonoAdjunto ||
+      !this.cuadroCiudad
+    ) {
+      alert('Debe rellenar todos los datos.');
+      return;
+    }
+
     if (
       this.cuadroMarca &&
       this.cuadroModelo &&

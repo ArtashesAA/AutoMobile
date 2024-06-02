@@ -63,6 +63,7 @@
             class="form-control"
             [(ngModel)]="cuadroMarca"
             (change)="onMarcaChange()"
+            required
           >
             <option value="">Seleccionar</option>
             <option *ngFor="let marca of marcas" [value]="marca.id">
@@ -77,6 +78,7 @@
             id="modelo"
             class="form-control"
             [(ngModel)]="cuadroModelo"
+            required
           >
             <option value="">Seleccionar</option>
             <option *ngFor="let modelo of modelos" [value]="modelo">
@@ -94,6 +96,7 @@
             id="tipoVehiculo"
             class="form-control"
             [(ngModel)]="cuadroTipoVehiculo"
+            required
           >
             <option value="Sedan">Sedán</option>
             <option value="Cabrio">Cabrio</option>
@@ -125,6 +128,10 @@
               placeholder="Plazas"
               class="form-control text-center"
               [(ngModel)]="cuadroPlazas"
+              pattern="^[0-9]{1,2}$"
+              min="0"
+              max="20"
+              required
             />
             <div class="input-group-append">
               <button
@@ -156,6 +163,10 @@
               placeholder="Puertas"
               class="form-control text-center"
               [(ngModel)]="cuadroPuertas"
+              pattern="^[0-9]{1,2}$"
+              min="0"
+              max="10"
+              required
             />
             <div class="input-group-append">
               <button
@@ -176,6 +187,7 @@
             id="color"
             class="form-control"
             [(ngModel)]="cuadroColor"
+            required
           >
             <option value="">Seleccionar</option>
             <option value="Negro">Negro</option>
@@ -197,6 +209,10 @@
             placeholder="Peso"
             class="form-control"
             [(ngModel)]="cuadroPeso"
+            pattern="^[0-9]{1,5}$"
+            min="0"
+            max="90000"
+            required
           />
         </div>
 
@@ -211,6 +227,10 @@
             placeholder="Introduce un valor"
             class="form-control"
             [(ngModel)]="cuadroKilometraje"
+            pattern="^[0-9]{1,7}$"
+            min="0"
+            max="1500000"
+            required
           />
         </div>
 
@@ -221,6 +241,7 @@
             id="anyo"
             class="form-control"
             [(ngModel)]="cuadroAnyo"
+            required
           >
             <option value="2024">2024</option>
             <option value="2023">2023</option>
@@ -237,6 +258,26 @@
             <option value="2012">2012</option>
             <option value="2011">2011</option>
             <option value="2010">2010</option>
+            <option value="2009">2009</option>
+            <option value="2008">2008</option>
+            <option value="2007">2007</option>
+            <option value="2006">2006</option>
+            <option value="2005">2005</option>
+            <option value="2004">2004</option>
+            <option value="2003">2003</option>
+            <option value="2002">2002</option>
+            <option value="2001">2001</option>
+            <option value="2000">2000</option>
+            <option value="1999">1999</option>
+            <option value="1998">1998</option>
+            <option value="1997">1997</option>
+            <option value="1996">1996</option>
+            <option value="1995">1995</option>
+            <option value="1994">1994</option>
+            <option value="1993">1993</option>
+            <option value="1992">1992</option>
+            <option value="1991">1991</option>
+            <option value="1990">1990</option>
           </select>
         </div>
 
@@ -247,6 +288,7 @@
             id="garantia"
             class="form-control"
             [(ngModel)]="cuadroGarantia"
+            required
           >
             <option value="Sin Garantia">Sin Garantía</option>
             <option value="1 Año">1 Año</option>
@@ -268,6 +310,7 @@
             id="traccion"
             class="form-control"
             [(ngModel)]="cuadroTraccion"
+            required
           >
             <option value="">Seleccionar</option>
             <option value="Trasera">Trasera</option>
@@ -283,6 +326,7 @@
             id="tipoCambio"
             class="form-control"
             [(ngModel)]="cuadroTipoCambio"
+            required
           >
             <option value="Manual">Manual</option>
             <option value="Automatico">Automático</option>
@@ -309,6 +353,7 @@
               placeholder="Número de Marchas"
               class="form-control text-center"
               [(ngModel)]="cuadroNumeroMarchas"
+              required
             />
             <div class="input-group-append">
               <button
@@ -333,6 +378,10 @@
             placeholder="Potencia"
             class="form-control"
             [(ngModel)]="cuadroPotencia"
+            pattern="^[0-9]{1,4}$"
+            min="0"
+            max="2000"
+            required
           />
         </div>
 
@@ -355,6 +404,7 @@
               placeholder="Número de Cilindros"
               class="form-control text-center"
               [(ngModel)]="cuadroNumeroCilindros"
+              required
             />
             <div class="input-group-append">
               <button
@@ -374,6 +424,7 @@
             id="combustible"
             class="form-control"
             [(ngModel)]="cuadroCombustible"
+            required
           >
             <option value="">Seleccionar</option>
             <option value="Gasolina">Gasolina</option>
@@ -396,6 +447,7 @@
             id="consumo"
             class="form-control"
             [(ngModel)]="cuadroConsumo"
+            required
           >
             <option value="">Seleccionar</option>
             <option value="1 l/100 km">1 l/100 km</option>
@@ -432,11 +484,12 @@
             placeholder="Imagen"
             class="form-control"
             [(ngModel)]="cuadroImagenPrincipal"
+            required
           />
         </div>
 
         <div class="form-group col-4">
-          <label for="imagenes">Url Imágenes</label>
+          <label for="imagenes">Subir Imágenes</label>
           <div *ngFor="let imagen of cuadroImagenes; let i = index">
             <input
               type="text"
@@ -486,6 +539,10 @@
             placeholder="Introduce un valor"
             class="form-control"
             [(ngModel)]="cuadroPrecio"
+            pattern="^[0-9]{1,7}$"
+            min="0"
+            max="1000000"
+            required
           />
         </div>
         <hr />
@@ -499,7 +556,16 @@
             placeholder="Introduce un valor"
             class="form-control"
             [(ngModel)]="cuadroEmailAdjunto"
+            required
+            pattern="^[a-zA-Z0-9._%+-]{3,}@gmail\.com$"
+            #email="ngModel"
           />
+          <div
+            *ngIf="email.invalid && (email.dirty || email.touched)"
+            class="text-danger"
+          >
+            El email debe tener al menos 3 letras seguido de 'gmail.com'.
+          </div>
         </div>
         <div class="form-group col-4">
           <label for="telefono">Teléfono</label>
@@ -510,6 +576,7 @@
             placeholder="Introduce un valor"
             class="form-control"
             [(ngModel)]="cuadroTelefonoAdjunto"
+            required
           />
         </div>
         <div class="form-group col-4">
@@ -521,6 +588,7 @@
             placeholder="Ciudad"
             class="form-control"
             [(ngModel)]="cuadroCiudad"
+            required
           />
         </div>
 
