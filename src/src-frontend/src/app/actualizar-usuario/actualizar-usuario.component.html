@@ -12,7 +12,7 @@
           placeholder="Nombre de usuario"
           class="form-control"
           required
-          pattern="^[a-zA-Z0-9._]{3,20}$"
+          pattern="^[a-zA-Z0-9._%!-]{3,20}$"
           [(ngModel)]="cuadroNombreUsuario"
           #nombreUsuario="ngModel"
         />
@@ -37,7 +37,7 @@
           class="form-control"
           [(ngModel)]="cuadroEmail"
           required
-          pattern="^[a-zA-Z0-9._%+-]{3,}@gmail\.com$"
+          pattern="^[a-zA-Z0-9._%!-]{3,30}@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
           #email="ngModel"
         />
         <div
@@ -54,6 +54,7 @@
           [(ngModel)]="cuadroRole"
           id="role"
           name="role"
+          required
         >
           <option value="USER">Usuario</option>
           <option value="ADMIN">Administrador</option>
@@ -69,7 +70,7 @@
             name="contrasena"
             [(ngModel)]="nuevaContrasena"
             [disabled]="!editarContrasena"
-            pattern="^[a-zA-Z0-9&!._]{4,12}$"
+            pattern="^[a-zA-Z0-9._%!-]{3,20}$"
             #contrasena="ngModel"
           />
 

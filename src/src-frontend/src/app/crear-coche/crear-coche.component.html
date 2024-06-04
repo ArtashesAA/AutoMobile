@@ -132,6 +132,7 @@
               min="0"
               max="20"
               required
+              #plazas="ngModel"
             />
             <div class="input-group-append">
               <button
@@ -142,6 +143,12 @@
                 +
               </button>
             </div>
+          </div>
+          <div
+            *ngIf="plazas.invalid && (plazas.dirty || plazas.touched)"
+            class="text-danger"
+          >
+            Selecciona plazas entre 0 y 20.
           </div>
         </div>
         <div class="form-group col-4">
@@ -167,6 +174,7 @@
               min="0"
               max="10"
               required
+              #puertas="ngModel"
             />
             <div class="input-group-append">
               <button
@@ -177,6 +185,12 @@
                 +
               </button>
             </div>
+          </div>
+          <div
+            *ngIf="puertas.invalid && (puertas.dirty || puertas.touched)"
+            class="text-danger"
+          >
+            Selecciona puertas entre 0 y 10.
           </div>
         </div>
 
@@ -213,7 +227,14 @@
             min="0"
             max="90000"
             required
+            #peso="ngModel"
           />
+          <div
+            *ngIf="peso.invalid && (peso.dirty || peso.touched)"
+            class="text-danger"
+          >
+            Selecciona peso entre 0 y 90000.
+          </div>
         </div>
 
         <hr />
@@ -229,9 +250,18 @@
             [(ngModel)]="cuadroKilometraje"
             pattern="^[0-9]{1,7}$"
             min="0"
-            max="1500000"
+            max="2000000"
             required
+            #kilometraje="ngModel"
           />
+          <div
+            *ngIf="
+              kilometraje.invalid && (kilometraje.dirty || kilometraje.touched)
+            "
+            class="text-danger"
+          >
+            Selecciona kilometraje entre 0 y 2000000.
+          </div>
         </div>
 
         <div class="form-group col-4">
@@ -354,6 +384,10 @@
               class="form-control text-center"
               [(ngModel)]="cuadroNumeroMarchas"
               required
+              pattern="^[0-9]{1,2}$"
+              min="0"
+              max="20"
+              #numeroMarchas="ngModel"
             />
             <div class="input-group-append">
               <button
@@ -364,6 +398,15 @@
                 +
               </button>
             </div>
+          </div>
+          <div
+            *ngIf="
+              numeroMarchas.invalid &&
+              (numeroMarchas.dirty || numeroMarchas.touched)
+            "
+            class="text-danger"
+          >
+            Selecciona un número de marchas entre 0 y 20.
           </div>
         </div>
 
@@ -382,7 +425,14 @@
             min="0"
             max="2000"
             required
+            #potencia="ngModel"
           />
+          <div
+            *ngIf="potencia.invalid && (potencia.dirty || potencia.touched)"
+            class="text-danger"
+          >
+            Indica un número de marchas entre 0 y 2000.
+          </div>
         </div>
 
         <div class="form-group col-4">
@@ -405,6 +455,10 @@
               class="form-control text-center"
               [(ngModel)]="cuadroNumeroCilindros"
               required
+              pattern="^[0-9]{1,2}$"
+              min="0"
+              max="20"
+              #cilindros="ngModel"
             />
             <div class="input-group-append">
               <button
@@ -415,6 +469,12 @@
                 +
               </button>
             </div>
+          </div>
+          <div
+            *ngIf="cilindros.invalid && (cilindros.dirty || cilindros.touched)"
+            class="text-danger"
+          >
+            Indica el número de cilindros entre 0 y 20.
           </div>
         </div>
         <div class="form-group col-4">
@@ -543,7 +603,14 @@
             min="0"
             max="1000000"
             required
+            #precio="ngModel"
           />
+          <div
+            *ngIf="precio.invalid && (precio.dirty || precio.touched)"
+            class="text-danger"
+          >
+            El precio debe estar entre 0 y 1000000.
+          </div>
         </div>
         <hr />
         <h4>Contacto</h4>
@@ -557,7 +624,7 @@
             class="form-control"
             [(ngModel)]="cuadroEmailAdjunto"
             required
-            pattern="^[a-zA-Z0-9._%+-]{3,}@gmail\.com$"
+            pattern="^[a-zA-Z0-9._%!-]{3,30}@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
             #email="ngModel"
           />
           <div
@@ -577,7 +644,15 @@
             class="form-control"
             [(ngModel)]="cuadroTelefonoAdjunto"
             required
+            pattern="^[0-9]{6,9}$"
+            #telefono="ngModel"
           />
+          <div
+            *ngIf="telefono.invalid && (telefono.dirty || telefono.touched)"
+            class="text-danger"
+          >
+            Introduce un formato de telefono correcto.
+          </div>
         </div>
         <div class="form-group col-4">
           <label for="ciudad">Ciudad</label>

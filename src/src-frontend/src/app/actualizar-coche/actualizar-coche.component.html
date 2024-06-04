@@ -57,7 +57,7 @@
         class="form-group actualizar-coche col-9"
         (ngSubmit)="actualizaCoche()"
       >
-        <h4 id="datos-vehiculo">Datos del vehículo</h4>
+        <h4>Datos del vehículo</h4>
         <div class="form-group col-4">
           <label for="marca">Marca</label>
           <select
@@ -65,8 +65,8 @@
             id="marca"
             class="form-control"
             [(ngModel)]="cuadroMarca"
-            required
             (change)="onMarcaChange()"
+            required
           >
             <option value="">Seleccionar</option>
             <option *ngFor="let marca of marcas" [value]="marca.id">
@@ -91,7 +91,7 @@
         </div>
 
         <hr />
-        <h4 id="caracteristicas">Características</h4>
+        <h4>Características</h4>
         <div class="form-group col-4">
           <label for="tipoVehiculo">Tipo de carrocería</label>
           <select
@@ -135,6 +135,7 @@
               min="0"
               max="20"
               required
+              #plazas="ngModel"
             />
             <div class="input-group-append">
               <button
@@ -145,6 +146,12 @@
                 +
               </button>
             </div>
+          </div>
+          <div
+            *ngIf="plazas.invalid && (plazas.dirty || plazas.touched)"
+            class="text-danger"
+          >
+            Selecciona plazas entre 0 y 20.
           </div>
         </div>
         <div class="form-group col-4">
@@ -170,6 +177,7 @@
               min="0"
               max="10"
               required
+              #puertas="ngModel"
             />
             <div class="input-group-append">
               <button
@@ -180,6 +188,12 @@
                 +
               </button>
             </div>
+          </div>
+          <div
+            *ngIf="puertas.invalid && (puertas.dirty || puertas.touched)"
+            class="text-danger"
+          >
+            Selecciona puertas entre 0 y 10.
           </div>
         </div>
 
@@ -201,7 +215,6 @@
             <option value="Verde">Verde</option>
             <option value="Rojo">Rojo</option>
             <option value="Amarillo">Amarillo</option>
-            <option value="Naranja">Naranja</option>
           </select>
         </div>
         <div class="form-group col-4">
@@ -217,11 +230,18 @@
             min="0"
             max="90000"
             required
+            #peso="ngModel"
           />
+          <div
+            *ngIf="peso.invalid && (peso.dirty || peso.touched)"
+            class="text-danger"
+          >
+            Selecciona peso entre 0 y 90000.
+          </div>
         </div>
 
         <hr />
-        <h4 id="estado-vehiculo">Estado del vehículo</h4>
+        <h4>Estado del vehículo</h4>
         <div class="form-group col-4">
           <label for="kilometraje">Kilometraje</label>
           <input
@@ -233,9 +253,18 @@
             [(ngModel)]="cuadroKilometraje"
             pattern="^[0-9]{1,7}$"
             min="0"
-            max="1500000"
+            max="2000000"
             required
+            #kilometraje="ngModel"
           />
+          <div
+            *ngIf="
+              kilometraje.invalid && (kilometraje.dirty || kilometraje.touched)
+            "
+            class="text-danger"
+          >
+            Selecciona kilometraje entre 0 y 2000000.
+          </div>
         </div>
 
         <div class="form-group col-4">
@@ -262,6 +291,26 @@
             <option value="2012">2012</option>
             <option value="2011">2011</option>
             <option value="2010">2010</option>
+            <option value="2009">2009</option>
+            <option value="2008">2008</option>
+            <option value="2007">2007</option>
+            <option value="2006">2006</option>
+            <option value="2005">2005</option>
+            <option value="2004">2004</option>
+            <option value="2003">2003</option>
+            <option value="2002">2002</option>
+            <option value="2001">2001</option>
+            <option value="2000">2000</option>
+            <option value="1999">1999</option>
+            <option value="1998">1998</option>
+            <option value="1997">1997</option>
+            <option value="1996">1996</option>
+            <option value="1995">1995</option>
+            <option value="1994">1994</option>
+            <option value="1993">1993</option>
+            <option value="1992">1992</option>
+            <option value="1991">1991</option>
+            <option value="1990">1990</option>
           </select>
         </div>
 
@@ -286,7 +335,7 @@
         </div>
 
         <hr />
-        <h4 id="transmision">Transmisión</h4>
+        <h4>Transmisión</h4>
         <div class="form-group col-4">
           <label for="traccion">Tracción</label>
           <select
@@ -338,6 +387,10 @@
               class="form-control text-center"
               [(ngModel)]="cuadroNumeroMarchas"
               required
+              pattern="^[0-9]{1,2}$"
+              min="0"
+              max="20"
+              #numeroMarchas="ngModel"
             />
             <div class="input-group-append">
               <button
@@ -349,10 +402,19 @@
               </button>
             </div>
           </div>
+          <div
+            *ngIf="
+              numeroMarchas.invalid &&
+              (numeroMarchas.dirty || numeroMarchas.touched)
+            "
+            class="text-danger"
+          >
+            Selecciona un número de marchas entre 0 y 20.
+          </div>
         </div>
 
         <hr />
-        <h4 id="motor">Motor</h4>
+        <h4>Motor</h4>
         <div class="form-group col-4">
           <label for="potencia">Potencia</label>
           <input
@@ -366,7 +428,14 @@
             min="0"
             max="2000"
             required
+            #potencia="ngModel"
           />
+          <div
+            *ngIf="potencia.invalid && (potencia.dirty || potencia.touched)"
+            class="text-danger"
+          >
+            Indica un número de marchas entre 0 y 2000.
+          </div>
         </div>
 
         <div class="form-group col-4">
@@ -389,6 +458,10 @@
               class="form-control text-center"
               [(ngModel)]="cuadroNumeroCilindros"
               required
+              pattern="^[0-9]{1,2}$"
+              min="0"
+              max="20"
+              #cilindros="ngModel"
             />
             <div class="input-group-append">
               <button
@@ -399,6 +472,12 @@
                 +
               </button>
             </div>
+          </div>
+          <div
+            *ngIf="cilindros.invalid && (cilindros.dirty || cilindros.touched)"
+            class="text-danger"
+          >
+            Indica el número de cilindros entre 0 y 20.
           </div>
         </div>
         <div class="form-group col-4">
@@ -458,9 +537,9 @@
         </div>
 
         <hr />
-        <h4 id="fotos">Fotos</h4>
+        <h4 id="imagenes">Imágenes</h4>
         <div class="form-group col-4">
-          <label for="imagen">Imagen</label>
+          <label for="imagen">Url Imagen Principal</label>
           <input
             type="text"
             name="imagen"
@@ -485,7 +564,7 @@
             />
             <button
               type="button"
-              class="btn btn-danger"
+              class="eliminar-imagen btn btn-danger"
               (click)="eliminarImagen(i)"
             >
               Eliminar
@@ -493,7 +572,7 @@
           </div>
           <button
             type="button"
-            class="btn btn-secondary mt-2"
+            class="agregar-imagen btn btn-secondary mt-2"
             (click)="agregarImagen()"
           >
             Agregar Imagen
@@ -501,7 +580,7 @@
         </div>
 
         <hr />
-        <h4 id="descripcion">Descripción del vehículo</h4>
+        <h4>Descripción del vehículo</h4>
         <div class="form-group col-4">
           <textarea
             name="descripcion"
@@ -513,7 +592,7 @@
         </div>
 
         <hr />
-        <h4 id="precio">Precio</h4>
+        <h4>Precio</h4>
         <div class="form-group col-4">
           <label for="precio">Precio final (IVA incluido)</label>
           <input
@@ -527,10 +606,17 @@
             min="0"
             max="1000000"
             required
+            #precio="ngModel"
           />
+          <div
+            *ngIf="precio.invalid && (precio.dirty || precio.touched)"
+            class="text-danger"
+          >
+            El precio debe estar entre 0 y 1000000.
+          </div>
         </div>
         <hr />
-        <h4 id="contacto">Contacto</h4>
+        <h4>Contacto</h4>
         <div class="form-group col-4">
           <label for="email">Email</label>
           <input
@@ -541,7 +627,7 @@
             class="form-control"
             [(ngModel)]="cuadroEmailAdjunto"
             required
-            pattern="^[a-zA-Z0-9._%+-]{3,}@gmail\.com$"
+            pattern="^[a-zA-Z0-9._%!-]{3,30}@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
             #email="ngModel"
           />
           <div
@@ -561,7 +647,15 @@
             class="form-control"
             [(ngModel)]="cuadroTelefonoAdjunto"
             required
+            pattern="^[0-9]{6,9}$"
+            #telefono="ngModel"
           />
+          <div
+            *ngIf="telefono.invalid && (telefono.dirty || telefono.touched)"
+            class="text-danger"
+          >
+            Introduce un formato de telefono correcto.
+          </div>
         </div>
         <div class="form-group col-4">
           <label for="ciudad">Ciudad</label>
@@ -577,8 +671,8 @@
         </div>
 
         <div class="form-group col-4">
-          <button type="submit" class="btn btn-primary" id="boton-actualizar">
-            Guardar
+          <button type="submit" class="btn btn-primary" id="boton-crear">
+            Publicar coche
           </button>
         </div>
       </form>
