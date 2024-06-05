@@ -7,6 +7,14 @@ body {
   justify-content: space-between;
 }
 
+.row {
+  width: 100%;
+}
+
+.coche-favorito {
+  min-width: 300px;
+}
+
 /* Sidebar */
 .sidebar {
   position: fixed;
@@ -26,17 +34,9 @@ body {
   padding: 50px;
 }
 
-.coches-no-encontrados {
-  text-align: center;
-  margin-top: 50px;
-}
-
-/* Estilo para el contenido dinámico */
-.col-md-9 {
-  position: relative;
-  right: 1;
-  margin-left: 200px;
-  padding-left: 20px; /* Añade espacio a la izquierda para evitar el sidebar */
+/* Estilo para el contenido no encontrado */
+.coches * {
+  margin: 20px auto;
 }
 
 #boton-ir-vender {

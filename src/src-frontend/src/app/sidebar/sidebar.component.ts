@@ -32,7 +32,7 @@ export class SidebarComponent {
   kilometrajeMax: number | null = null;
   potenciaMin: number | null = null;
   potenciaMax: number | null = null;
-  tipo_cambio: string = '';
+  tipoCambio: string = '';
   plazasMin: number | null = null;
   plazasMax: number | null = null;
   cargandoCoches: boolean = true;
@@ -67,7 +67,7 @@ export class SidebarComponent {
       this.kilometrajeMax = this.filtros.kilometrajeMax;
     if (this.filtros.potenciaMin) this.potenciaMin = this.filtros.potenciaMin;
     if (this.filtros.potenciaMax) this.potenciaMax = this.filtros.potenciaMax;
-    if (this.filtros.tipo_cambio) this.tipo_cambio = this.filtros.tipo_cambio;
+    if (this.filtros.tipoCambio) this.tipoCambio = this.filtros.tipoCambio;
     if (this.filtros.plazasMin) this.plazasMin = this.filtros.plazasMin;
     if (this.filtros.plazasMax) this.plazasMax = this.filtros.plazasMax;
   }
@@ -106,7 +106,7 @@ export class SidebarComponent {
     if (this.kilometrajeMax) filtros.kilometrajeMax = this.kilometrajeMax;
     if (this.potenciaMin) filtros.potenciaMin = this.potenciaMin;
     if (this.potenciaMax) filtros.potenciaMax = this.potenciaMax;
-    if (this.tipo_cambio) filtros.tipo_cambio = this.tipo_cambio;
+    if (this.tipoCambio) filtros.tipoCambio = this.tipoCambio;
     if (this.plazasMin) filtros.plazasMin = this.plazasMin;
     if (this.plazasMax) filtros.plazasMax = this.plazasMax;
 

@@ -16,6 +16,7 @@ import { AutenticacionService } from '../servicio-autenticacion/autenticacion.se
 export class HeaderComponent implements OnInit {
   estaLogueado: boolean = false;
   usuario: Usuario | undefined;
+  manuNavegacion = false;
 
   constructor(
     private router: Router,
@@ -50,5 +51,9 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(['login']).then(() => {
       window.location.reload();
     });
+  }
+
+  menuNavegacion() {
+    this.manuNavegacion = !this.manuNavegacion;
   }
 }

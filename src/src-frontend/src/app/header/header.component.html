@@ -11,41 +11,55 @@
       </a>
     </div>
 
-    <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-      <li class="nav-item">
-        <a [routerLink]="'/'" class="nav-link px-3 btn btn-outline-primary"
-          ><b>Inicio</b></a
-        >
-      </li>
-      <li class="nav-item">
-        <a
-          [routerLink]="'/catalogo'"
-          class="nav-link px-3 btn btn-outline-primary"
-          ><b>Catálogo</b></a
-        >
-      </li>
-      <li class="nav-item">
-        <a
-          [routerLink]="'/explorar'"
-          class="nav-link px-3 btn btn-outline-primary"
-          ><b>Explorar</b></a
-        >
-      </li>
-      <li class="nav-item">
-        <a
-          [routerLink]="'/vender'"
-          class="nav-link px-3 btn btn-outline-primary"
-          ><b>Vender</b></a
-        >
-      </li>
-    </ul>
+    <nav class="navbar navbar-expand-lg navbar-light">
+      <button
+        class="navbar-toggler"
+        type="button"
+        (click)="menuNavegacion()"
+        aria-controls="navbarText"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a [routerLink]="'/'" class="nav-link px-3 btn btn-outline-primary"
+              ><b>Inicio</b></a
+            >
+          </li>
+          <li class="nav-item">
+            <a
+              [routerLink]="'/catalogo'"
+              class="nav-link px-3 btn btn-outline-primary"
+              ><b>Catálogo</b></a
+            >
+          </li>
+          <li class="nav-item">
+            <a
+              [routerLink]="'/explorar'"
+              class="nav-link px-3 btn btn-outline-primary"
+              ><b>Explorar</b></a
+            >
+          </li>
+          <li class="nav-item">
+            <a
+              [routerLink]="'/vender'"
+              class="nav-link px-3 btn btn-outline-primary"
+              ><b>Vender</b></a
+            >
+          </li>
+        </ul>
+      </div>
+    </nav>
 
-    <div class="col-md-3 text-end">
+    <div class="botones-login col-md-3 text-end">
       <ng-container *ngIf="estaLogueado; else loginButtons">
         <!-- Perfil -->
-        <a class="perfil btn btn-outline-primary" [routerLink]="'/perfil'"
-          ><span class="me-2">{{ usuario?.nombre_usuario }}</span></a
-        >
+        <a class="perfil btn btn-outline-primary" [routerLink]="'/perfil'">
+          <span class="me-2">{{ usuario?.nombre_usuario }}</span>
+        </a>
         <!-- Mostrar botón de Logout si está logueado -->
         <button type="button" class="btn btn-primary me-2" (click)="logout()">
           Logout
@@ -70,4 +84,43 @@
       </ng-template>
     </div>
   </header>
+
+  <!-- Menú desplegable a pantalla completa -->
+  <div class="desplegable-menu" [class.show]="manuNavegacion">
+    <button class="cerrar-menu-btn" (click)="menuNavegacion()">&times;</button>
+    <ul class="navbar-nav text-center">
+      <li class="nav-item">
+        <a
+          [routerLink]="'/'"
+          class="nav-link px-3 btn btn-outline-primary"
+          (click)="menuNavegacion()"
+          ><b>Inicio</b></a
+        >
+      </li>
+      <li class="nav-item">
+        <a
+          [routerLink]="'/catalogo'"
+          class="nav-link px-3 btn btn-outline-primary"
+          (click)="menuNavegacion()"
+          ><b>Catálogo</b></a
+        >
+      </li>
+      <li class="nav-item">
+        <a
+          [routerLink]="'/explorar'"
+          class="nav-link px-3 btn btn-outline-primary"
+          (click)="menuNavegacion()"
+          ><b>Explorar</b></a
+        >
+      </li>
+      <li class="nav-item">
+        <a
+          [routerLink]="'/vender'"
+          class="nav-link px-3 btn btn-outline-primary"
+          (click)="menuNavegacion()"
+          ><b>Vender</b></a
+        >
+      </li>
+    </ul>
+  </div>
 </body>

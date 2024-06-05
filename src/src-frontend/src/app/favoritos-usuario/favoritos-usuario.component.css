@@ -20,23 +20,16 @@ body {
   width: 100%;
 }
 
-.coches-no-encontrados {
-  text-align: center;
-  margin-top: 50px;
-}
-
 /* Título */
 .titulo {
   text-align: center;
   padding: 50px;
 }
 
-/* Estilo para el contenido dinámico */
-.col-md-9 {
-  position: relative;
-  right: 1;
-  margin-left: 200px;
-  padding-left: 20px; /* Añade espacio a la izquierda para evitar el sidebar */
+/* Estilo para el coches no encontrados */
+.coches * {
+  margin: 20px auto;
+  margin-left: 50px;
 }
 
 #boton-ir-catalogo {
