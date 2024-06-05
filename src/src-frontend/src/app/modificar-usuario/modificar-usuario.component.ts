@@ -37,7 +37,10 @@ export class ModificarUsuarioComponent implements OnInit {
   }
 
   guardarCambios(): void {
-    if (this.usuario == null || this.nuevaContrasena == '') {
+    if (
+      this.usuario == null ||
+      (this.editarContrasena && this.nuevaContrasena == '')
+    ) {
       alert(
         'Por favor, completa todos los campos correctamente antes de guardar.'
       );
@@ -61,7 +64,25 @@ export class ModificarUsuarioComponent implements OnInit {
         .subscribe(
           () => {
             console.log('Usuario actualizado correctamente');
-            this.router.navigate(['/modificarCorrecto']);
+
+            if (this.editarContrasena && this.nuevaContrasena) {
+              this.servicioAutenticacion.eliminarToken();
+              // Realizar un nuevo login si la contraseña ha sido cambiada
+              this.servicioAutenticacion
+                .login(this.usuario.email, this.nuevaContrasena)
+                .subscribe(
+                  () => {
+                    console.log('Re-autenticación exitosa');
+                    this.router.navigate(['/modificarCorrecto']);
+                  },
+                  (error) => {
+                    console.error('Error en la re-autenticación:', error);
+                    alert('Error en la re-autenticación.');
+                  }
+                );
+            } else {
+              this.router.navigate(['/modificarCorrecto']);
+            }
           },
           (error) => {
             if (error.status === 200) {
@@ -73,6 +94,8 @@ export class ModificarUsuarioComponent implements OnInit {
             }
           }
         );
+
+      this.servicioAutenticacion.eliminarToken();
     }
   }
 
