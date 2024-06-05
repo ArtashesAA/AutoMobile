@@ -51,7 +51,10 @@
           </button>
         </div>
         <div class="row" *ngIf="cochesFavoritos.length > 0">
-          <div class="col-md-6" *ngFor="let coche of cochesFavoritos">
+          <div
+            class="coche-favorito col-md-6"
+            *ngFor="let coche of cochesFavoritos"
+          >
             <app-coche-hijo [cochedelista]="coche"></app-coche-hijo>
           </div>
         </div>

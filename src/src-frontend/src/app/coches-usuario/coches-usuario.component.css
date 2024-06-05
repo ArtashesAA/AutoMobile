@@ -2,16 +2,11 @@ body {
   background-color: #f4f4f4;
 }
 
-.container {
-  display: flex;
-  justify-content: space-between;
-}
-
 .row {
   width: 100%;
 }
 
-.coche-favorito {
+.coche {
   min-width: 300px;
 }
 
@@ -32,11 +27,6 @@ body {
 .titulo {
   text-align: center;
   padding: 50px;
-}
-
-/* Estilo para el contenido no encontrado */
-.coches * {
-  margin: 20px auto;
 }
 
 #boton-ir-vender {
