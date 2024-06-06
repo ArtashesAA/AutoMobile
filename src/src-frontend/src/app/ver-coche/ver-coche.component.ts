@@ -26,6 +26,8 @@ export class VerCocheComponent implements OnInit {
   coche!: Coche;
   id!: number;
 
+  chunkedImages: any[] = [];
+
   // Usuario actual
   usuario: Usuario | undefined;
 
@@ -45,7 +47,7 @@ export class VerCocheComponent implements OnInit {
   // Contacto
   mostrarTelefono: boolean = true;
   mostrarEmail: boolean = false;
-  textoBoton: string = 'Mostar TLF/EMAIL';
+  textoBoton: string = 'Mostrar TLF/EMAIL';
 
   // Nueva variable para mostrar u ocultar la ventana de compartir
   mostrarCompartir: boolean = false;
@@ -64,6 +66,7 @@ export class VerCocheComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
       this.id = params['id'];
+      this.getCoche(this.id);
 
       if (!isNaN(this.id)) {
         this.servicioCoche.cargarCochePorId(this.id).subscribe(
@@ -110,6 +113,26 @@ export class VerCocheComponent implements OnInit {
           console.error('Error al obtener el usuario:', error);
         }
       );
+    }
+  }
+
+  cambiarImagenPrincipal(imagen: string): void {
+    this.coche.imagenPrincipal = imagen;
+  }
+
+  getCoche(id: number): void {
+    this.servicioCoche.cargarCochePorId(id).subscribe((coche) => {
+      this.coche = coche;
+      this.chunkImages();
+    });
+  }
+
+  chunkImages(): void {
+    const chunkSize = 4;
+    if (this.coche && this.coche.imagenes) {
+      for (let i = 0; i < this.coche.imagenes.length; i += chunkSize) {
+        this.chunkedImages.push(this.coche.imagenes.slice(i, i + chunkSize));
+      }
     }
   }
 
@@ -168,7 +191,7 @@ export class VerCocheComponent implements OnInit {
       this.textoBoton = this.coche.emailAdjunto;
       this.mostrarEmail = false;
     } else {
-      this.textoBoton = 'Mostar TLF/EMAIL';
+      this.textoBoton = 'Mostrar TLF/EMAIL';
       this.mostrarTelefono = true;
     }
   }

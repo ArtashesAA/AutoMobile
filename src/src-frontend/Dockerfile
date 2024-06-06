@@ -5,12 +5,13 @@ COPY package*.json ./
 RUN npm ci
 RUN npm install -g @angular/cli
 COPY . .
-RUN npm run build --configuration=prod
+RUN npm run build --configuration=production
 
-# Etapa 2: Servir la aplicación Angular con Nginx
-FROM nginx:latest
+# Etapa 2: Ejecutar la aplicación Angular localmente
+FROM node:18
+WORKDIR /app
+COPY --from=build /app /app
+RUN npm install -g @angular/cli
 
-COPY nginx.conf /etc/nginx/conf.d/default.conf
-COPY --from=build /app/dist/auto-mobile /usr/share/nginx/html
-
-EXPOSE 80
+EXPOSE 4200
+CMD ["ng", "serve", "--host", "0.0.0.0"]
