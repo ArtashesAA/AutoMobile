@@ -101,9 +101,25 @@ public class CocheControlador {
 	 * 
 	 * @return actualiza el coche pasado por parámetro
 	 */
-	@PutMapping("/adminuser/coche/{id}")
+	@PutMapping("/admin/coche/{id}")
 	public ResponseEntity<String> actualizarCoche(@PathVariable Long id, @RequestBody Coche nuevoCoche) {
 		return cocheServicio.actualizarCoche(id, nuevoCoche);
+	}
+
+	/*
+	 * Actualiza un coche de la bbdd. Este coche debe ser creado por el usuario que
+	 * lo actualiza. Puede acceder admin o usuario
+	 * 
+	 * @Parameter id del coche que se quiere actualizar
+	 * 
+	 * @Parameter nuevoCoche que contiene los datos del coche nuevo que va a
+	 * sustituir al otro
+	 * 
+	 * @return actualiza el coche pasado por parámetro
+	 */
+	@PutMapping("/adminuser/coche/{id}")
+	public ResponseEntity<String> actualizarCochePropio(@PathVariable Long id, @RequestBody Coche nuevoCoche) {
+		return cocheServicio.actualizarCochePropio(id, nuevoCoche);
 	}
 
 	/*
@@ -111,10 +127,22 @@ public class CocheControlador {
 	 * 
 	 * @Parameter id del coche que se quiere borrar
 	 */
-	@DeleteMapping("/adminuser/coche/{id}")
+	@DeleteMapping("/admin/coche/{id}")
 	public ResponseEntity<String> borrarCoche(@PathVariable Long id) {
 		System.out.println("Eliminando");
 		return cocheServicio.borrarCoche(id);
+	}
+
+	/*
+	 * Borra un coche a la bbdd. Este coche debe ser creado por el usuario que lo
+	 * borra. Puede acceder admin o usuario
+	 * 
+	 * @Parameter id del coche que se quiere borrar
+	 */
+	@DeleteMapping("/adminuser/coche/{id}")
+	public ResponseEntity<String> borrarCochePropio(@PathVariable Long id) {
+		System.out.println("Eliminando");
+		return cocheServicio.borrarCochePropio(id);
 	}
 
 //-------------------------------------------------- Imagenes ---------------------------------------------------------
@@ -178,9 +206,28 @@ public class CocheControlador {
 	 * @return ResponseEntity con la imagen actualizada o un mensaje de error si no
 	 * se encuentra la imagen.
 	 */
-	@PutMapping("/adminuser/imagen/{imagenId}")
+	@PutMapping("/admin/imagen/{imagenId}")
 	public ResponseEntity<String> actualizarImagen(@PathVariable Long imagenId, @RequestBody Imagen nuevaImagen) {
 		return imagenServicio.actualizarImagen(imagenId, nuevaImagen);
+	}
+
+	/*
+	 * Actualiza una imagen asociada a un coche por su ID. Solo podrá actualizar si
+	 * la imagen pertenece al usuario que lo actualiza. Puede acceder admin o
+	 * usuario.
+	 *
+	 * @param cocheId ID del coche al que está asociada la imagen.
+	 * 
+	 * @param imagenId ID de la imagen que se desea actualizar.
+	 * 
+	 * @param nuevaImagen Nuevos datos de la imagen a actualizar.
+	 * 
+	 * @return ResponseEntity con la imagen actualizada o un mensaje de error si no
+	 * se encuentra la imagen.
+	 */
+	@PutMapping("/adminuser/imagen/{imagenId}")
+	public ResponseEntity<String> actualizarImagenPropio(@PathVariable Long imagenId, @RequestBody Imagen nuevaImagen) {
+		return imagenServicio.actualizarImagenPropio(imagenId, nuevaImagen);
 	}
 
 	/*
@@ -190,9 +237,22 @@ public class CocheControlador {
 	 * 
 	 * @Parameter id de la imagen que se quiere borrar
 	 */
-	@DeleteMapping("/adminuser/imagen/{imagenId}")
+	@DeleteMapping("/admin/imagen/{imagenId}")
 	public ResponseEntity<String> borrarImagen(@PathVariable Long imagenId) {
 		return imagenServicio.borrarImagen(imagenId);
+	}
+
+	/*
+	 * Borra una imagen de un coche. Solo podrá borrar si la imagen pertenece al
+	 * usuario que lo borra. Puede acceder admin o usuario.
+	 * 
+	 * @Parameter id del coche al que pertenece la imagen
+	 * 
+	 * @Parameter id de la imagen que se quiere borrar
+	 */
+	@DeleteMapping("/adminuser/imagen/{imagenId}")
+	public ResponseEntity<String> borrarImagenPropio(@PathVariable Long imagenId) {
+		return imagenServicio.borrarImagenPropio(imagenId);
 	}
 
 }

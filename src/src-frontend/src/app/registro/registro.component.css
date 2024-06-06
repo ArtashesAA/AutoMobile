@@ -1,14 +1,32 @@
-body {
-  background-color: #f4f4f4;
+.imagen-principal img {
+  position: relative;
+  width: 100%;
+  height: auto;
+  max-height: 900px; /* Ajusta esta altura para que la imagen sea más pequeña */
+  object-fit: cover;
+}
+
+#icono-contenedor {
+  margin-bottom: 50px;
+  width: 100px;
+  height: auto;
+  margin: 20px auto;
 }
 
 .container {
+  position: absolute; /* Para superponer sobre la imagen */
+  top: 200px; /* Ajusta esta distancia para controlar cuánto se superpone */
+  left: 50%;
+  transform: translateX(-50%);
   background-color: white;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.5);
   border-radius: 10px;
   padding: 50px;
-  margin-top: 100px;
   width: 600px;
-  height: 500px;
-  margin: "auto";
+  height: 700px;
   margin-bottom: 100px;
+}
+
+.container h4 {
+  text-align: center;
 }

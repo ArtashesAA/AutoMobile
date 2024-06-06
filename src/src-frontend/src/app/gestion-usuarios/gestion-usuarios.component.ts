@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Usuario } from '../entidad/usuario.model';
 import { ServicioUsuarioService } from '../servicio-usuario/servicio-usuario.service';
 import { CommonModule } from '@angular/common';
@@ -13,7 +13,7 @@ import { AutenticacionService } from '../servicio-autenticacion/autenticacion.se
   templateUrl: './gestion-usuarios.component.html',
   styleUrl: './gestion-usuarios.component.css',
 })
-export class GestionUsuariosComponent {
+export class GestionUsuariosComponent implements OnInit {
   usuarios: Usuario[] = [];
   estaLogueado: boolean = false;
 

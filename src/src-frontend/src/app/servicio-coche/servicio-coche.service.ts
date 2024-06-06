@@ -71,6 +71,16 @@ export class ServicioCocheService {
   //Actualiza un coche por su id, y los nuevos datos del coche
   actualizarCoche(id: number, coche: Coche): Observable<any> {
     const headers = this.getHeaders();
+    const url = `http://localhost:8080/api/v1/admin/coche/${id}`;
+
+    return this.http.put(url, coche, {
+      headers,
+    });
+  }
+
+  //Actualiza un coche por su id si este coche pertenece al usuario iniciado, y los nuevos datos del coche
+  actualizarCochePropio(id: number, coche: Coche): Observable<any> {
+    const headers = this.getHeaders();
     const url = `http://localhost:8080/api/v1/adminuser/coche/${id}`;
 
     return this.http.put(url, coche, {
@@ -80,6 +90,16 @@ export class ServicioCocheService {
 
   // Elimina un coche por su id
   eliminarCoche(id: number): Observable<any> {
+    const headers = this.getHeaders();
+    const url = `http://localhost:8080/api/v1/admin/coche/${id}`;
+
+    return this.http.delete(url, {
+      headers,
+    });
+  }
+
+  // Elimina un coche por su id si pertenece al usuario iniciado
+  eliminarCochePropio(id: number): Observable<any> {
     const headers = this.getHeaders();
     const url = `http://localhost:8080/api/v1/adminuser/coche/${id}`;
 

@@ -5,8 +5,10 @@ body {
 .container {
   background-color: white;
   padding: 50px;
-  margin-top: 50px;
-  margin-bottom: 50px;
+}
+
+.titulo {
+  padding: 30px;
 }
 
 .boton-guardar {

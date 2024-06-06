@@ -69,6 +69,19 @@ export class ActualizarUsuarioComponent implements OnInit {
       this.cuadroRole
     );
 
+    if (
+      !this.cuadroNombreUsuario.match(/^[a-zA-Z0-9._]{3,20}$/) ||
+      !this.cuadroEmail.match(/^[a-zA-Z0-9._%+-]{3,}@gmail\.com$/) ||
+      (this.editarContrasena &&
+        !this.nuevaContrasena.match(/^[a-zA-Z0-9&!._]{4,12}$/)) ||
+      !this.cuadroRole
+    ) {
+      alert(
+        'Por favor, completa todos los campos correctamente antes de guardar.'
+      );
+      return;
+    }
+
     // Cargar el usuario por su ID
     this.miServicio.cargarUsuarioPorId(this.indice).subscribe(
       (usuario: Usuario) => {

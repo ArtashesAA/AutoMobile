@@ -1,25 +1,24 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Router } from '@angular/router';
-import { Coche } from '../entidad/coche.model';
-import { ServicioCocheService } from '../servicio-coche/servicio-coche.service';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 import { CocheHijoComponent } from '../coche-hijo/coche-hijo.component';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { ServicioCocheService } from '../servicio-coche/servicio-coche.service';
 import { Usuario } from '../entidad/usuario.model';
+import { Coche } from '../entidad/coche.model';
+import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { MarcasService } from '../servicio-marcas/marcas.service';
 import { Imagen } from '../entidad/imagen.model';
+import { MarcasService } from '../servicio-marcas/marcas.service';
 
 @Component({
-  selector: 'app-actualizar-coche',
+  selector: 'app-actualizar-coche-propio',
   standalone: true,
   imports: [CommonModule, FormsModule, CocheHijoComponent],
   providers: [ServicioCocheService],
-  templateUrl: './actualizar-coche.component.html',
-  styleUrl: './actualizar-coche.component.css',
+  templateUrl: './actualizar-coche-propio.component.html',
+  styleUrl: './actualizar-coche-propio.component.css',
 })
-export class ActualizarCocheComponent implements OnInit {
+export class ActualizarCochePropioComponent implements OnInit {
   // Array para almacenar las marcas que se obtendrán del servicio marcas
   marcas: any[] = [];
 
@@ -237,24 +236,26 @@ export class ActualizarCocheComponent implements OnInit {
             // Si el coche confirma la actualización
             if (confirmacion) {
               // Actualizar el coche
-              this.miServicio.actualizarCoche(this.indice, miCoche).subscribe(
-                () => {
-                  alert('Coche actualizado correctamente');
-                  // Vuelve a la página de gestión
-                  this.volverACatalogo();
-                  window.scrollTo({ top: 0, behavior: 'smooth' });
-                },
-                (error) => {
-                  if (error.status === 200) {
+              this.miServicio
+                .actualizarCochePropio(this.indice, miCoche)
+                .subscribe(
+                  () => {
                     alert('Coche actualizado correctamente');
                     // Vuelve a la página de gestión
                     this.volverACatalogo();
                     window.scrollTo({ top: 0, behavior: 'smooth' });
-                  } else {
-                    console.error('Error al eliminar coche:', error);
+                  },
+                  (error) => {
+                    if (error.status === 200) {
+                      alert('Coche actualizado correctamente');
+                      // Vuelve a la página de gestión
+                      this.volverACatalogo();
+                      window.scrollTo({ top: 0, behavior: 'smooth' });
+                    } else {
+                      console.error('Error al eliminar coche:', error);
+                    }
                   }
-                }
-              );
+                );
             }
           } else {
             alert('Error al actualizar el coche');
@@ -271,6 +272,7 @@ export class ActualizarCocheComponent implements OnInit {
     }
   }
 
+  /* Campos numéricos con + y - */
   sumarPlaza() {
     if (this.cuadroPlazas < 20) {
       this.cuadroPlazas++;

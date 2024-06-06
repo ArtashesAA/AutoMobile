@@ -25,7 +25,7 @@ import jakarta.validation.constraints.NotNull;
 public class Coche {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id")
 	private Long id;
 
@@ -38,7 +38,7 @@ public class Coche {
 	private String modelo;
 
 	@Column(name = "imagen_principal")
-	private String imagen_principal;
+	private String imagenPrincipal;
 
 	@NotNull(message = "El precio no puede ser nulo")
 	@Column(name = "precio", nullable = false)
@@ -124,16 +124,16 @@ public class Coche {
 	@Column(name = "emailAdjunto")
 	private String emailAdjunto;
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "usuario_id", referencedColumnName = "id", nullable = false)
 	@JsonBackReference(value = "usuario-coches")
 	private Usuario usuario;
 
-	@OneToMany(mappedBy = "coche", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "coche", cascade = CascadeType.ALL, orphanRemoval = true)
 	@JsonManagedReference(value = "coche-imagenes")
 	private List<Imagen> imagenes = new ArrayList<>();
 
-	@OneToMany(mappedBy = "coche", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "coche", cascade = CascadeType.ALL, orphanRemoval = true)
 	@JsonManagedReference(value = "coche-favoritos")
 	private List<Favorito> favoritos = new ArrayList<>();
 
@@ -142,7 +142,7 @@ public class Coche {
 	}
 
 	public Coche(Long id, @NotBlank(message = "La marca no puede estar en blanco") String marca,
-			@NotBlank(message = "El modelo no puede estar en blanco") String modelo, String imagen_principal,
+			@NotBlank(message = "El modelo no puede estar en blanco") String modelo, String imagenPrincipal,
 			@NotNull(message = "El precio no puede ser nulo") Integer precio,
 			@NotNull(message = "El año no puede ser nulo") Integer anyo,
 			@NotNull(message = "La potencia no puede ser nula") Integer potencia,
@@ -168,7 +168,7 @@ public class Coche {
 		this.id = id;
 		this.marca = marca;
 		this.modelo = modelo;
-		this.imagen_principal = imagen_principal;
+		this.imagenPrincipal = imagenPrincipal;
 		this.precio = precio;
 		this.anyo = anyo;
 		this.potencia = potencia;
@@ -219,12 +219,12 @@ public class Coche {
 		this.modelo = modelo;
 	}
 
-	public String getImagen_principal() {
-		return imagen_principal;
+	public String getImagenPrincipal() {
+		return imagenPrincipal;
 	}
 
-	public void setImagen_principal(String imagen_principal) {
-		this.imagen_principal = imagen_principal;
+	public void setImagenPrincipal(String imagenPrincipal) {
+		this.imagenPrincipal = imagenPrincipal;
 	}
 
 	public Integer getPrecio() {
@@ -422,7 +422,7 @@ public class Coche {
 	@Override
 	public String toString() {
 		return "Coche [getId()=" + getId() + ", getMarca()=" + getMarca() + ", getModelo()=" + getModelo()
-				+ ", getImagen_principal()=" + getImagen_principal() + ", getPrecio()=" + getPrecio() + ", getAnyo()="
+				+ ", getImagen_principal()=" + getImagenPrincipal() + ", getPrecio()=" + getPrecio() + ", getAnyo()="
 				+ getAnyo() + ", getPotencia()=" + getPotencia() + ", getKilometraje()=" + getKilometraje()
 				+ ", getCombustible()=" + getCombustible() + ", getConsumo()=" + getConsumo() + ", getTipoCambio()="
 				+ getTipoCambio() + ", getCategoria()=" + getCategoria() + ", getTipoVehiculo()=" + getTipoVehiculo()

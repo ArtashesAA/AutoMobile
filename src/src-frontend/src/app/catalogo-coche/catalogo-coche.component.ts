@@ -68,6 +68,9 @@ export class CatalogoCocheComponent implements OnInit {
         (!params.plazasMax || coche.plazas <= +params.plazasMax)
       );
     });
+
+    // Reiniciar la paginación al aplicar nuevos filtros
+    this.paginaActual = 1;
   }
 
   // Ordena los coches según el criterio seleccionado
@@ -83,31 +86,37 @@ export class CatalogoCocheComponent implements OnInit {
     } else if (criterio === 'kilometraje-desc') {
       this.cochesFiltrados.sort((a, b) => b.kilometraje - a.kilometraje);
     }
+
+    // Reiniciar la paginación al aplicar orden
+    this.paginaActual = 1;
   }
 
   // Paginación
   get cochesPaginados(): any[] {
-    const primero = (this.paginaActual - 1) * 20;
-    const ultimo = Math.min(primero + 10, this.cochesFiltrados.length);
+    const primero = (this.paginaActual - 1) * 10; // Coches por página
+    const ultimo = primero + 10; // Coches por página
     return this.cochesFiltrados.slice(primero, ultimo);
   }
 
   // Para a la página anterior
   anteriorPag() {
-    this.paginaActual--;
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (this.paginaActual > 1) {
+      this.paginaActual--;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
   }
 
   // Para a la siguiente página
   siguientePag() {
-    this.paginaActual++;
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (this.paginaActual < this.totalPaginas) {
+      this.paginaActual++;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
   }
 
   // Obtiene el total de paginas dependiendo de los coches que se mostrarán en la página
   get totalPaginas(): number {
-    // En este caso serían 20 coches por pag.
-    return Math.ceil(this.cochesFiltrados.length / 20);
+    return Math.ceil(this.cochesFiltrados.length / 10); // Coches por página
   }
 
   volverAInicio() {

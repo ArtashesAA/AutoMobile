@@ -19,6 +19,8 @@ import { ModificarUsuarioCorrectoComponent } from './modificar-usuario-correcto/
 import { ErrorComponent } from './error/error.component';
 import { CochesUsuarioComponent } from './coches-usuario/coches-usuario.component';
 import { FavoritosUsuarioComponent } from './favoritos-usuario/favoritos-usuario.component';
+import { CrearCocheCorrectoComponent } from './crear-coche-correcto/crear-coche-correcto.component';
+import { ActualizarCochePropioComponent } from './actualizar-coche-propio/actualizar-coche-propio.component';
 export const routes: Routes = [
   { path: '', component: InicioComponent },
   {
@@ -35,7 +37,9 @@ export const routes: Routes = [
     component: CrearCocheComponent,
     canActivate: [guardianGuard],
   },
+  { path: 'venderCorrecto', component: CrearCocheCorrectoComponent },
   { path: 'actualiza/:id', component: ActualizarCocheComponent },
+  { path: 'actualizar/:id', component: ActualizarCochePropioComponent },
   {
     path: 'actualizaUsuario/:id',
     component: ActualizarUsuarioComponent,
