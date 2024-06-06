@@ -6,6 +6,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.v1.automobile.entidad.Coche;
@@ -51,18 +53,14 @@ public class CocheServicio {
 	public ResponseEntity<String> crearCoche(Coche coche) {
 		try {
 			// Obtener el usuario desde el coche
-			Usuario usuario = coche.getUsuario();
-			if (usuario == null || usuario.getId() == null) {
-				return new ResponseEntity<>("Usuario no proporcionado o ID de usuario no proporcionado",
-						HttpStatus.BAD_REQUEST);
-			}
-
-			// Verificar que el usuario existe en la base de datos
-			Usuario usuarioExistente = usuarioRepositorio.findById(usuario.getId())
-					.orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
-
-			// Asignar el usuario existente al coche
-			coche.setUsuario(usuarioExistente);
+			// Obtener el usuario actualmente autenticado
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            String email = authentication.getName();
+            Usuario usuario = usuarioRepositorio.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("Usuario no autenticado o no encontrado"));
+            
+            // Asignar el usuario al coche
+            coche.setUsuario(usuario);
 
 			// Guardar el coche en la base de datos
 			Coche savedCoche = cocheRepositorio.save(coche);
@@ -85,7 +83,7 @@ public class CocheServicio {
 			// Actualizar los campos del coche existente con los datos del nuevo coche
 			cocheExistente.setMarca(nuevoCoche.getMarca());
 			cocheExistente.setModelo(nuevoCoche.getModelo());
-			cocheExistente.setImagen_principal(nuevoCoche.getImagen_principal());
+			cocheExistente.setImagenPrincipal(nuevoCoche.getImagenPrincipal());
 			cocheExistente.setPrecio(nuevoCoche.getPrecio());
 			cocheExistente.setAnyo(nuevoCoche.getAnyo());
 			cocheExistente.setPotencia(nuevoCoche.getPotencia());
@@ -117,6 +115,65 @@ public class CocheServicio {
 		}
 	}
 
+	public ResponseEntity<String> actualizarCochePropio(Long idCoche, Coche nuevoCoche) {
+		// Obtener el usuario actualmente autenticado
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		if (authentication != null && authentication.isAuthenticated()) {
+			String username = authentication.getName();
+			Usuario usuario = usuarioRepositorio.findByEmail(username).orElse(null);
+			if (usuario != null) {
+				// Verificar si el coche con el ID proporcionado existe
+				Optional<Coche> optionalCoche = cocheRepositorio.findById(idCoche);
+				if (optionalCoche.isPresent()) {
+					Coche cocheExistente = optionalCoche.get();
+
+					// Verificar si el coche pertenece al usuario
+					if (cocheExistente.getUsuario().getId().equals(usuario.getId())) {
+						// Actualizar los campos del coche existente con los datos del nuevo coche
+						cocheExistente.setMarca(nuevoCoche.getMarca());
+						cocheExistente.setModelo(nuevoCoche.getModelo());
+						cocheExistente.setImagenPrincipal(nuevoCoche.getImagenPrincipal());
+						cocheExistente.setPrecio(nuevoCoche.getPrecio());
+						cocheExistente.setAnyo(nuevoCoche.getAnyo());
+						cocheExistente.setPotencia(nuevoCoche.getPotencia());
+						cocheExistente.setKilometraje(nuevoCoche.getKilometraje());
+						cocheExistente.setCombustible(nuevoCoche.getCombustible());
+						cocheExistente.setConsumo(nuevoCoche.getConsumo());
+						cocheExistente.setTipoCambio(nuevoCoche.getTipoCambio());
+						cocheExistente.setCategoria(nuevoCoche.getCategoria());
+						cocheExistente.setTipoVehiculo(nuevoCoche.getTipoVehiculo());
+						cocheExistente.setTraccion(nuevoCoche.getTraccion());
+						cocheExistente.setPlazas(nuevoCoche.getPlazas());
+						cocheExistente.setPuertas(nuevoCoche.getPuertas());
+						cocheExistente.setGarantia(nuevoCoche.getGarantia());
+						cocheExistente.setPeso(nuevoCoche.getPeso());
+						cocheExistente.setColor(nuevoCoche.getColor());
+						cocheExistente.setNumeroMarchas(nuevoCoche.getNumeroMarchas());
+						cocheExistente.setNumeroCilindros(nuevoCoche.getNumeroCilindros());
+						cocheExistente.setCiudad(nuevoCoche.getCiudad());
+						cocheExistente.setDescripcion(nuevoCoche.getDescripcion());
+						cocheExistente.setTelefonoAdjunto(nuevoCoche.getTelefonoAdjunto());
+						cocheExistente.setEmailAdjunto(nuevoCoche.getEmailAdjunto());
+
+						// Guardar el coche actualizado
+						cocheRepositorio.save(cocheExistente);
+
+						return ResponseEntity.ok().body("Coche con ID " + idCoche + " actualizado correctamente");
+					} else {
+						return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+								.body("No tienes permiso para actualizar este coche");
+					}
+				} else {
+					return ResponseEntity.notFound().build();
+				}
+			} else {
+				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Usuario no autenticado o no encontrado");
+			}
+		} else {
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Debes iniciar sesión para actualizar un coche");
+		}
+	}
+
 	public ResponseEntity<String> borrarCoche(Long cocheId) {
 		try {
 			// Verificar si el coche con el ID proporcionado existe
@@ -131,6 +188,39 @@ public class CocheServicio {
 			return new ResponseEntity<>("Coche eliminado correctamente", HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>("Error al eliminar el coche", HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	public ResponseEntity<String> borrarCochePropio(Long idCoche) {
+		// Obtener el usuario actualmente autenticado
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		if (authentication != null && authentication.isAuthenticated()) {
+			String username = authentication.getName();
+			Usuario usuario = usuarioRepositorio.findByEmail(username).orElse(null);
+			if (usuario != null) {
+				// Verificar si el coche con el ID proporcionado existe
+				Optional<Coche> optionalCoche = cocheRepositorio.findById(idCoche);
+				if (optionalCoche.isPresent()) {
+					Coche cocheExistente = optionalCoche.get();
+
+					// Verificar si el coche pertenece al usuario
+					if (cocheExistente.getUsuario().getId().equals(usuario.getId())) {
+						// Eliminar el coche
+						cocheRepositorio.deleteById(idCoche);
+
+						return new ResponseEntity<>("Coche eliminado correctamente", HttpStatus.OK);
+					} else {
+						return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+								.body("No tienes permiso para eliminar este coche");
+					}
+				} else {
+					return ResponseEntity.notFound().build();
+				}
+			} else {
+				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Usuario no autenticado o no encontrado");
+			}
+		} else {
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Debes iniciar sesión para eliminar un coche");
 		}
 	}
 }

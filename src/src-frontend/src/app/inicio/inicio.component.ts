@@ -111,5 +111,6 @@ export class InicioComponent implements OnInit {
       queryParams.precio = this.precioMaxSeleccionado;
 
     this.router.navigate(['/catalogo'], { queryParams });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 }

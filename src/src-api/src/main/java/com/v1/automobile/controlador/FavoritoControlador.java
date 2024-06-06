@@ -25,24 +25,24 @@ public class FavoritoControlador {
 	private FavoritoServicio favoritoServicio;
 
 	/*
-	 * Recupera todos los favoritos. Puede acceder un admin o usuario
+	 * Recupera todos los favoritos. Puede acceder un admin
 	 * 
 	 * @return recupera todos los favoritos
 	 */
-	@GetMapping("/adminuser/favorito")
+	@GetMapping("/admin/favorito")
 	public ResponseEntity<List<Favorito>> obtenerFavoritos() {
 		List<Favorito> favoritos = (List<Favorito>) favoritoServicio.obtenerFavoritos();
 		return ResponseEntity.ok().body(favoritos);
 	}
 
 	/*
-	 * Recupera un favorito por id. Puede acceder un admin o usuario
+	 * Recupera un favorito por id. Puede acceder un admin
 	 * 
 	 * @Parameter id de favorito que se va a buscar
 	 * 
 	 * @return recupera el Favorito
 	 */
-	@GetMapping("/adminuser/favorito/{id}")
+	@GetMapping("/admin/favorito/{id}")
 	public ResponseEntity<Optional<Favorito>> obtenerFavoritoPorId(@PathVariable Long id) {
 		Optional<Favorito> favorito = favoritoServicio.obtenerFavoritoPorId(id);
 		if (favorito != null) {
@@ -53,7 +53,7 @@ public class FavoritoControlador {
 	}
 
 	/*
-	 * Recupera los favoritos por id del usuario. Puede acceder admin o usuario
+	 * Recupera los favoritos por id del usuario. Puede acceder admin
 	 * 
 	 * @Parameter id de usuario del cual se quiere recuperar los favoritos
 	 * 
@@ -79,12 +79,22 @@ public class FavoritoControlador {
 	}
 
 	/*
-	 * Borra un favorito de la bbdd. Puede acceder admin o usuario
+	 * Borra un favorito de la bbdd. Puede acceder admin
+	 * 
+	 * @Parameter id de la noticia que se quiere borrar
+	 */
+	@DeleteMapping("/admin/favorito/{id}")
+	public ResponseEntity<String> borrarFavoritoPorId(@PathVariable Long id) {
+		return favoritoServicio.borrarFavoritoPorId(id);
+	}
+	
+	/*
+	 * Borra un favorito de la bbdd. Puede acceder admin
 	 * 
 	 * @Parameter id de la noticia que se quiere borrar
 	 */
 	@DeleteMapping("/adminuser/favorito/{id}")
-	public ResponseEntity<String> borrarFavoritoPorId(@PathVariable Long id) {
-		return favoritoServicio.borrarFavoritoPorId(id);
+	public ResponseEntity<String> borrarFavoritoPropioPorId(@PathVariable Long id) {
+		return favoritoServicio.borrarFavoritoPropioPorId(id);
 	}
 }

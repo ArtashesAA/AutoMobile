@@ -90,4 +90,49 @@ export class CocheHijoComponent {
       alert('Error al eliminar coche');
     }
   }
+
+  // Borra un coche por su id si este pertenece al usuario
+  eliminarCochePropio(id: number) {
+    if (id != null) {
+      // Cargar el coche por su ID
+      this.servicioCoche.cargarCochePorId(id).subscribe((coche: Coche) => {
+        if (coche) {
+          // Mostrar alerta de confirmación
+          const confirmacion = window.confirm(
+            `¿Estás seguro que quieres eliminar el coche ${coche.marca} ${coche.modelo}?`
+          );
+
+          // Si el usuario confirma la eliminación
+          if (confirmacion) {
+            // Eliminar el coche
+            this.servicioCoche.eliminarCochePropio(id).subscribe(
+              () => {
+                alert('Coche eliminado correctamente');
+                // Refrescar la página
+                this.router.navigate(['/catalogo']);
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              },
+              (error) => {
+                if (error.status === 200) {
+                  alert('Coche eliminado correctamente');
+                  // Refrescar la página
+                  this.router.navigate(['/catalogo']);
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                } else {
+                  console.error('Error al eliminar coche:', error);
+                  alert('Error al eliminar coche');
+                }
+              }
+            );
+          }
+        } else {
+          console.error('El coche con ID', id, 'no fue encontrado.');
+          alert('Error al eliminar coche');
+        }
+      });
+    } else {
+      console.error('Error al obtener el ID del coche.');
+      alert('Error al eliminar coche');
+    }
+  }
 }

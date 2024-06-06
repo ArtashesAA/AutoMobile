@@ -37,6 +37,16 @@ export class ModificarUsuarioComponent implements OnInit {
   }
 
   guardarCambios(): void {
+    if (
+      this.usuario == null ||
+      (this.editarContrasena && this.nuevaContrasena == '')
+    ) {
+      alert(
+        'Por favor, completa todos los campos correctamente antes de guardar.'
+      );
+      return;
+    }
+
     if (this.usuario) {
       const usuarioActualizado: any = {
         nombre_usuario: this.usuario.nombre_usuario,
@@ -50,11 +60,29 @@ export class ModificarUsuarioComponent implements OnInit {
 
       // Lógica para guardar los cambios del usuario
       this.servicioUsuario
-        .actualizarUsuario(this.usuario.id, usuarioActualizado)
+        .actualizarPerfil(this.usuario.id, usuarioActualizado)
         .subscribe(
           () => {
             console.log('Usuario actualizado correctamente');
-            this.router.navigate(['/modificarCorrecto']);
+
+            if (this.editarContrasena && this.nuevaContrasena) {
+              this.servicioAutenticacion.eliminarToken();
+              // Realizar un nuevo login si la contraseña ha sido cambiada
+              this.servicioAutenticacion
+                .login(this.usuario.email, this.nuevaContrasena)
+                .subscribe(
+                  () => {
+                    console.log('Re-autenticación exitosa');
+                    this.router.navigate(['/modificarCorrecto']);
+                  },
+                  (error) => {
+                    console.error('Error en la re-autenticación:', error);
+                    alert('Error en la re-autenticación.');
+                  }
+                );
+            } else {
+              this.router.navigate(['/modificarCorrecto']);
+            }
           },
           (error) => {
             if (error.status === 200) {
@@ -62,9 +90,12 @@ export class ModificarUsuarioComponent implements OnInit {
               this.router.navigate(['/modificarCorrecto']);
             } else {
               console.error('Error al actualizar usuario:', error);
+              alert('Error al actualizar usuario.');
             }
           }
         );
+
+      this.servicioAutenticacion.eliminarToken();
     }
   }
 
@@ -75,7 +106,7 @@ export class ModificarUsuarioComponent implements OnInit {
     }
   }
 
-  volver() {
+  volver(): void {
     this.router.navigate(['perfil']);
   }
 }

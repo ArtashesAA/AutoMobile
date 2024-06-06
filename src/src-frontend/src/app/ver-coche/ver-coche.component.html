@@ -8,45 +8,127 @@
           <div class="coche-image">
             <img
               [src]="
-                coche.imagen_principal
-                  ? coche.imagen_principal
+                coche.imagenPrincipal
+                  ? coche.imagenPrincipal
                   : 'https://i.pinimg.com/736x/50/e8/ae/50e8ae16afb7509d86da75259ba6a154.jpg'
               "
               alt="Imagen de coche"
               class="coche-imagen"
             />
           </div>
+
+          <!-- Imágenes adicionales del coche -->
+          <div class="row mt-3">
+            <div class="col-12">
+              <div
+                id="carouselExampleControls"
+                class="carousel slide"
+                data-bs-ride="carousel"
+              >
+                <div class="carousel-inner">
+                  <div
+                    *ngFor="let chunk of chunkedImages; let i = index"
+                    class="carousel-item"
+                    [ngClass]="{ active: i === 0 }"
+                  >
+                    <div class="row">
+                      <div *ngFor="let imagen of chunk" class="col-3 mb-2">
+                        <img
+                          [src]="imagen.imagen_url"
+                          alt="Imagenes adicionales"
+                          class="img-thumbnail"
+                          (click)="cambiarImagenPrincipal(imagen.imagen_url)"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <button
+                  class="carousel-control-prev"
+                  type="button"
+                  data-bs-target="#carouselExampleControls"
+                  data-bs-slide="prev"
+                >
+                  <span
+                    class="carousel-control-prev-icon"
+                    aria-hidden="true"
+                  ></span>
+                  <span class="visually-hidden">Previo</span>
+                </button>
+                <button
+                  class="carousel-control-next"
+                  type="button"
+                  data-bs-target="#carouselExampleControls"
+                  data-bs-slide="next"
+                >
+                  <span
+                    class="carousel-control-next-icon"
+                    aria-hidden="true"
+                  ></span>
+                  <span class="visually-hidden">Siguiente</span>
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
 
         <div class="col-4">
-          <!-- Favoritos - compartir -->
+          <!-- Favoritos - compartir o Editar - Eliminar -->
           <div class="row">
-            <div class="col-7">
-              <div class="acciones">
-                <a
-                  class="accion-link btn btn-outline-primary"
-                  (click)="toggleFavorito()"
-                >
-                  <p>
-                    <i
-                      [class]="esFavorito ? 'bi bi-star-fill' : 'bi bi-star'"
-                    ></i>
-                    {{
-                      esFavorito ? "Añadido a favoritos" : "Añadir a favoritos"
-                    }}
-                  </p>
-                </a>
+            <div *ngIf="estaLogueado && esDelUsuario; else accionLinks">
+              <div class="row">
+                <div class="col-7">
+                  <div class="acciones">
+                    <a
+                      class="accion-link btn btn-outline-primary"
+                      [routerLink]="['/actualizar', id]"
+                    >
+                      <p><i class="bi bi-pencil"></i> Editar</p>
+                    </a>
+                  </div>
+                </div>
+                <div class="col-5">
+                  <div class="acciones">
+                    <a
+                      class="accion-link btn btn-outline-primary"
+                      (click)="eliminarCochePropio(id)"
+                    >
+                      <p><i class="bi bi-trash"></i> Eliminar</p>
+                    </a>
+                  </div>
+                </div>
               </div>
             </div>
-            <div class="col-5">
-              <div class="acciones">
-                <a
-                  class="accion-link btn btn-outline-primary"
-                  (click)="mostrarVentanaCompartir()"
-                  ><p><i class="bi bi-share"></i> Compartir</p></a
-                >
+            <ng-template #accionLinks>
+              <div class="col-7">
+                <div class="acciones">
+                  <a
+                    class="accion-link btn btn-outline-primary"
+                    (click)="toggleFavorito()"
+                  >
+                    <p>
+                      <i
+                        [class]="esFavorito ? 'bi bi-star-fill' : 'bi bi-star'"
+                      ></i>
+                      {{
+                        esFavorito
+                          ? "Añadido a favoritos"
+                          : "Añadir a favoritos"
+                      }}
+                    </p>
+                  </a>
+                </div>
               </div>
-            </div>
+              <div class="col-5">
+                <div class="acciones">
+                  <a
+                    class="accion-link btn btn-outline-primary"
+                    (click)="mostrarVentanaCompartir()"
+                    ><p><i class="bi bi-share"></i> Compartir</p></a
+                  >
+                </div>
+              </div>
+            </ng-template>
 
             <!-- Ventana de compartir (inicialmente oculta) -->
             <div class="ventana-compartir" *ngIf="mostrarCompartir">
@@ -101,15 +183,17 @@
                   <div class="modal-dialog" role="document">
                     <div class="modal-content">
                       <div class="modal-header">
-                        <h5 class="modal-title">Contactar con el vendedor</h5>
+                        <h5 class="modal-title col-11">
+                          Contactar con el vendedor
+                        </h5>
                         <button
-                          class="btn btn-danger"
+                          class="btn btn-danger col-1"
                           id="cerrarFormulario"
                           data-dismiss="modal"
                           aria-label="Cerrar"
                           (click)="ocultarModal()"
                         >
-                          <span aria-hidden="true">&times;</span>
+                          <i class="bi bi-x"></i>
                         </button>
                       </div>
                       <div class="modal-body">
@@ -323,7 +407,7 @@
           </div>
         </div>
 
-        <!-- Botones de acción -->
+        <!-- Botones de acción en caso de que sea admin-->
         <div class="botones-accion">
           <div class="col-12">
             <div class="coche-actions mt-3">

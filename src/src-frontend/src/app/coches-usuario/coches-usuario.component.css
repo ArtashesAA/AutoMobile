@@ -2,9 +2,12 @@ body {
   background-color: #f4f4f4;
 }
 
-.container {
-  display: flex;
-  justify-content: space-between;
+.row {
+  width: 100%;
+}
+
+.coche {
+  min-width: 300px;
 }
 
 /* Sidebar */
@@ -23,21 +26,7 @@ body {
 /* Título */
 .titulo {
   text-align: center;
-  margin-bottom: 40px;
-  margin-top: 50px;
-}
-
-.coches-no-encontrados {
-  text-align: center;
-  margin-top: 50px;
-}
-
-/* Estilo para el contenido dinámico */
-.col-md-9 {
-  position: relative;
-  right: 1;
-  margin-left: 200px;
-  padding-left: 20px; /* Añade espacio a la izquierda para evitar el sidebar */
+  padding: 50px;
 }
 
 #boton-ir-vender {

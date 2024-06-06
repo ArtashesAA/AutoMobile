@@ -6,7 +6,7 @@ export class Coche {
   id?: number;
   marca: string;
   modelo: string;
-  imagen_principal: string;
+  imagenPrincipal: string;
   precio: number;
   anyo: number;
   potencia: number;
@@ -35,7 +35,7 @@ export class Coche {
   constructor(
     marca: string,
     modelo: string,
-    imagen_principal: string,
+    imagenPrincipal: string,
     precio: number,
     anyo: number,
     potencia: number,
@@ -63,7 +63,7 @@ export class Coche {
   ) {
     this.marca = marca;
     this.modelo = modelo;
-    this.imagen_principal = imagen_principal;
+    this.imagenPrincipal = imagenPrincipal;
     this.precio = precio;
     this.anyo = anyo;
     this.potencia = potencia;

@@ -1,55 +1,73 @@
 <body>
-  <div class="container">
-    <form class="form-group row" (ngSubmit)="register()">
-      <!-- Nombre de usuario -->
-      <label class="form-label" for="form2Example1">Nombre de usuario</label>
-      <div class="form-outline mb-4">
-        <input
-          type="nombre_usuario"
-          name="nombre_usuario"
-          placeholder="Nombre de usuario"
-          class="form-control"
-          [(ngModel)]="nombre_usuario"
-        />
-      </div>
+  <div class="col">
+    <div class="imagen-principal col-12">
+      <img
+        src="https://mir-s3-cdn-cf.behance.net/project_modules/max_3840/25ec6b15678641.5629596a8daec.jpg"
+      />
+    </div>
+    <div class="container">
+      <form class="form-group row" (ngSubmit)="register()">
+        <img src="../../assets/icono.svg" alt="Icono" id="icono-contenedor" />
+        <h4>Registrarse</h4>
 
-      <!-- Email -->
-      <label class="form-label" for="form2Example1">Email</label>
-      <div class="form-outline mb-4">
-        <input
-          type="email"
-          name="email"
-          placeholder="Email"
-          class="form-control"
-          [(ngModel)]="email"
-        />
-      </div>
+        <!-- Nombre de usuario -->
+        <label class="form-label" for="form2Example1">Nombre de usuario</label>
+        <div class="form-outline mb-4">
+          <input
+            type="nombre_usuario"
+            name="nombre_usuario"
+            placeholder="Nombre de usuario"
+            class="form-control"
+            [(ngModel)]="nombre_usuario"
+            required
+            pattern="^[a-zA-Z0-9._%!-]{3,20}$"
+          />
+        </div>
 
-      <!-- Password  -->
-      <label class="form-label" for="form2Example2">Contraseña</label>
-      <div class="form-outline mb-4">
-        <input
-          type="password"
-          name="password"
-          placeholder="Contraseña"
-          class="form-control"
-          [(ngModel)]="password"
-        />
-      </div>
+        <!-- Email -->
+        <label class="form-label" for="form2Example1">Email</label>
+        <div class="form-outline mb-4">
+          <input
+            type="email"
+            name="email"
+            placeholder="Email"
+            class="form-control"
+            [(ngModel)]="email"
+            required
+            pattern="^[a-zA-Z0-9._%!-]{3,30}@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+          />
+        </div>
 
-      <!-- Submit -->
-      <button type="submit" class="btn btn-primary btn-block mb-4">
-        Registrarte
-      </button>
+        <!-- Password  -->
+        <label class="form-label" for="form2Example2">Contraseña</label>
+        <div class="form-outline mb-4">
+          <input
+            type="password"
+            name="password"
+            placeholder="Contraseña"
+            class="form-control"
+            [(ngModel)]="password"
+            required
+            pattern="^[a-zA-Z0-9._%!-]{3,20}$"
+          />
+        </div>
 
-      <div *ngIf="errorMessage" class="alert alert-danger text-center">
-        {{ errorMessage }}
-      </div>
+        <!-- Submit -->
+        <button type="submit" class="btn btn-primary btn-block mb-4">
+          Registrarte
+        </button>
 
-      <!-- Registro -->
-      <div class="text-center">
-        <p>Ya estas registrado? <a [routerLink]="'/login'">Inicia sesión</a></p>
-      </div>
-    </form>
+        <div *ngIf="errorMessage" class="alert alert-danger text-center">
+          {{ errorMessage }}
+        </div>
+
+        <!-- Registro -->
+        <div class="text-center">
+          <p>
+            Ya estas registrado? <a [routerLink]="'/login'">Inicia sesión</a>
+          </p>
+        </div>
+      </form>
+    </div>
   </div>
 </body>

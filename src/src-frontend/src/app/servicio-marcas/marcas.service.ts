@@ -31,6 +31,7 @@ export class MarcasService {
     15643: 'Austin',
     51901: 'Austin-Healey',
     15644: 'Autobianchi',
+    13: 'BMW',
     51774: 'BAIC',
     16400: 'Bedford',
     16416: 'Bellier',

@@ -21,7 +21,7 @@ import jakarta.persistence.Table;
 public class Noticia {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
 	@Column(name = "fecha", columnDefinition = "TIMESTAMP")
@@ -39,7 +39,7 @@ public class Noticia {
 	@Column(name = "url_video")
 	private String url_video;
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_usuario", referencedColumnName = "id", nullable = false)
 	@JsonBackReference(value = "usuario-noticias")
 	private Usuario usuario;

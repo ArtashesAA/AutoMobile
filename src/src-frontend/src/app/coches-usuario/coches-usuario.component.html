@@ -1,7 +1,7 @@
 <body>
+  <h2 class="titulo">Publicados</h2>
   <div class="container">
     <div class="row">
-      <h2 class="titulo">Coches Publicados</h2>
       <!-- Sidebar -->
       <div class="col-md-3">
         <div class="sidebar">
@@ -39,7 +39,7 @@
         </div>
       </div>
 
-      <div class="col-md-9 offset-md-3">
+      <div class="coches col-md-9 offset-md-3">
         <div *ngIf="cochesUsuario.length === 0" class="coches-no-encontrados">
           <h4>No tienes coches publicados</h4>
           <button
@@ -51,7 +51,7 @@
           </button>
         </div>
         <div class="row" *ngIf="cochesUsuario.length > 0">
-          <div class="col-md-6" *ngFor="let coche of cochesUsuario">
+          <div class="coche col-md-6" *ngFor="let coche of cochesUsuario">
             <app-coche-hijo [cochedelista]="coche"></app-coche-hijo>
           </div>
         </div>

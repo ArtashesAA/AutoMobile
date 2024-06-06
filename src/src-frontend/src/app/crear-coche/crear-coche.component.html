@@ -5,33 +5,51 @@
       <div class="sidebar col-3">
         <nav>
           <ul class="list-group">
-            <li class="list-group-item">
-              <a href="#datos-vehiculo">Datos del vehículo</a>
-            </li>
-            <li class="list-group-item">
-              <a href="#caracteristicas">Características</a>
-            </li>
-            <li class="list-group-item">
-              <a href="#estado-vehiculo">Estado del vehículo</a>
-            </li>
-            <li class="list-group-item">
-              <a href="#transmision">Transmisión</a>
-            </li>
-            <li class="list-group-item">
-              <a href="#motor">Motor</a>
-            </li>
-            <li class="list-group-item">
-              <a href="#fotos">Fotos</a>
-            </li>
-            <li class="list-group-item">
-              <a href="#descripcion-vehiculo">Descripción del vehículo</a>
-            </li>
-            <li class="list-group-item">
-              <a href="#precio">Precio</a>
-            </li>
-            <li class="list-group-item">
-              <a href="#contacto">Contacto</a>
-            </li>
+            <a (click)="irDatosVehiculo()">
+              <li class="list-group-item">
+                <h5>Datos del vehículo</h5>
+              </li>
+            </a>
+            <a (click)="irCaractristicas()">
+              <li class="list-group-item">
+                <h5>Características</h5>
+              </li>
+            </a>
+            <a (click)="irEstadoVehiculo()">
+              <li class="list-group-item">
+                <h5>Estado del vehículo</h5>
+              </li>
+            </a>
+            <a (click)="irTransmision()">
+              <li class="list-group-item">
+                <h5>Transmisión</h5>
+              </li>
+            </a>
+            <a (click)="irMotor()">
+              <li class="list-group-item">
+                <h5>Motor</h5>
+              </li>
+            </a>
+            <a (click)="irImagenes()">
+              <li class="list-group-item">
+                <h5>Imágenes</h5>
+              </li>
+            </a>
+            <a (click)="irDescripcion()">
+              <li class="list-group-item">
+                <h5>Descripción del vehículo</h5>
+              </li>
+            </a>
+            <a (click)="irPrecio()">
+              <li class="list-group-item">
+                <h5>Precio</h5>
+              </li>
+            </a>
+            <a (click)="irContacto()">
+              <li class="list-group-item">
+                <h5>Contacto</h5>
+              </li>
+            </a>
           </ul>
         </nav>
       </div>
@@ -45,6 +63,7 @@
             class="form-control"
             [(ngModel)]="cuadroMarca"
             (change)="onMarcaChange()"
+            required
           >
             <option value="">Seleccionar</option>
             <option *ngFor="let marca of marcas" [value]="marca.id">
@@ -59,6 +78,7 @@
             id="modelo"
             class="form-control"
             [(ngModel)]="cuadroModelo"
+            required
           >
             <option value="">Seleccionar</option>
             <option *ngFor="let modelo of modelos" [value]="modelo">
@@ -76,6 +96,7 @@
             id="tipoVehiculo"
             class="form-control"
             [(ngModel)]="cuadroTipoVehiculo"
+            required
           >
             <option value="Sedan">Sedán</option>
             <option value="Cabrio">Cabrio</option>
@@ -107,6 +128,11 @@
               placeholder="Plazas"
               class="form-control text-center"
               [(ngModel)]="cuadroPlazas"
+              pattern="^[0-9]{1,2}$"
+              min="0"
+              max="20"
+              required
+              #plazas="ngModel"
             />
             <div class="input-group-append">
               <button
@@ -117,6 +143,12 @@
                 +
               </button>
             </div>
+          </div>
+          <div
+            *ngIf="plazas.invalid && (plazas.dirty || plazas.touched)"
+            class="text-danger"
+          >
+            Selecciona plazas entre 0 y 20.
           </div>
         </div>
         <div class="form-group col-4">
@@ -138,6 +170,11 @@
               placeholder="Puertas"
               class="form-control text-center"
               [(ngModel)]="cuadroPuertas"
+              pattern="^[0-9]{1,2}$"
+              min="0"
+              max="10"
+              required
+              #puertas="ngModel"
             />
             <div class="input-group-append">
               <button
@@ -149,6 +186,12 @@
               </button>
             </div>
           </div>
+          <div
+            *ngIf="puertas.invalid && (puertas.dirty || puertas.touched)"
+            class="text-danger"
+          >
+            Selecciona puertas entre 0 y 10.
+          </div>
         </div>
 
         <div class="form-group col-4">
@@ -158,6 +201,7 @@
             id="color"
             class="form-control"
             [(ngModel)]="cuadroColor"
+            required
           >
             <option value="">Seleccionar</option>
             <option value="Negro">Negro</option>
@@ -179,7 +223,18 @@
             placeholder="Peso"
             class="form-control"
             [(ngModel)]="cuadroPeso"
+            pattern="^[0-9]{1,5}$"
+            min="0"
+            max="90000"
+            required
+            #peso="ngModel"
           />
+          <div
+            *ngIf="peso.invalid && (peso.dirty || peso.touched)"
+            class="text-danger"
+          >
+            Selecciona peso entre 0 y 90000.
+          </div>
         </div>
 
         <hr />
@@ -193,7 +248,20 @@
             placeholder="Introduce un valor"
             class="form-control"
             [(ngModel)]="cuadroKilometraje"
+            pattern="^[0-9]{1,7}$"
+            min="0"
+            max="2000000"
+            required
+            #kilometraje="ngModel"
           />
+          <div
+            *ngIf="
+              kilometraje.invalid && (kilometraje.dirty || kilometraje.touched)
+            "
+            class="text-danger"
+          >
+            Selecciona kilometraje entre 0 y 2000000.
+          </div>
         </div>
 
         <div class="form-group col-4">
@@ -203,6 +271,7 @@
             id="anyo"
             class="form-control"
             [(ngModel)]="cuadroAnyo"
+            required
           >
             <option value="2024">2024</option>
             <option value="2023">2023</option>
@@ -219,6 +288,26 @@
             <option value="2012">2012</option>
             <option value="2011">2011</option>
             <option value="2010">2010</option>
+            <option value="2009">2009</option>
+            <option value="2008">2008</option>
+            <option value="2007">2007</option>
+            <option value="2006">2006</option>
+            <option value="2005">2005</option>
+            <option value="2004">2004</option>
+            <option value="2003">2003</option>
+            <option value="2002">2002</option>
+            <option value="2001">2001</option>
+            <option value="2000">2000</option>
+            <option value="1999">1999</option>
+            <option value="1998">1998</option>
+            <option value="1997">1997</option>
+            <option value="1996">1996</option>
+            <option value="1995">1995</option>
+            <option value="1994">1994</option>
+            <option value="1993">1993</option>
+            <option value="1992">1992</option>
+            <option value="1991">1991</option>
+            <option value="1990">1990</option>
           </select>
         </div>
 
@@ -229,6 +318,7 @@
             id="garantia"
             class="form-control"
             [(ngModel)]="cuadroGarantia"
+            required
           >
             <option value="Sin Garantia">Sin Garantía</option>
             <option value="1 Año">1 Año</option>
@@ -250,6 +340,7 @@
             id="traccion"
             class="form-control"
             [(ngModel)]="cuadroTraccion"
+            required
           >
             <option value="">Seleccionar</option>
             <option value="Trasera">Trasera</option>
@@ -265,6 +356,7 @@
             id="tipoCambio"
             class="form-control"
             [(ngModel)]="cuadroTipoCambio"
+            required
           >
             <option value="Manual">Manual</option>
             <option value="Automatico">Automático</option>
@@ -291,6 +383,11 @@
               placeholder="Número de Marchas"
               class="form-control text-center"
               [(ngModel)]="cuadroNumeroMarchas"
+              required
+              pattern="^[0-9]{1,2}$"
+              min="0"
+              max="20"
+              #numeroMarchas="ngModel"
             />
             <div class="input-group-append">
               <button
@@ -301,6 +398,15 @@
                 +
               </button>
             </div>
+          </div>
+          <div
+            *ngIf="
+              numeroMarchas.invalid &&
+              (numeroMarchas.dirty || numeroMarchas.touched)
+            "
+            class="text-danger"
+          >
+            Selecciona un número de marchas entre 0 y 20.
           </div>
         </div>
 
@@ -315,7 +421,18 @@
             placeholder="Potencia"
             class="form-control"
             [(ngModel)]="cuadroPotencia"
+            pattern="^[0-9]{1,4}$"
+            min="0"
+            max="2000"
+            required
+            #potencia="ngModel"
           />
+          <div
+            *ngIf="potencia.invalid && (potencia.dirty || potencia.touched)"
+            class="text-danger"
+          >
+            Indica un número de marchas entre 0 y 2000.
+          </div>
         </div>
 
         <div class="form-group col-4">
@@ -337,6 +454,11 @@
               placeholder="Número de Cilindros"
               class="form-control text-center"
               [(ngModel)]="cuadroNumeroCilindros"
+              required
+              pattern="^[0-9]{1,2}$"
+              min="0"
+              max="20"
+              #cilindros="ngModel"
             />
             <div class="input-group-append">
               <button
@@ -348,6 +470,12 @@
               </button>
             </div>
           </div>
+          <div
+            *ngIf="cilindros.invalid && (cilindros.dirty || cilindros.touched)"
+            class="text-danger"
+          >
+            Indica el número de cilindros entre 0 y 20.
+          </div>
         </div>
         <div class="form-group col-4">
           <label for="combustible">Combustible</label>
@@ -356,6 +484,7 @@
             id="combustible"
             class="form-control"
             [(ngModel)]="cuadroCombustible"
+            required
           >
             <option value="">Seleccionar</option>
             <option value="Gasolina">Gasolina</option>
@@ -378,6 +507,7 @@
             id="consumo"
             class="form-control"
             [(ngModel)]="cuadroConsumo"
+            required
           >
             <option value="">Seleccionar</option>
             <option value="1 l/100 km">1 l/100 km</option>
@@ -404,9 +534,9 @@
         </div>
 
         <hr />
-        <h4>Fotos</h4>
+        <h4 id="imagenes">Imágenes</h4>
         <div class="form-group col-4">
-          <label for="imagen">Imagen</label>
+          <label for="imagen">Url Imagen Principal</label>
           <input
             type="text"
             name="imagen"
@@ -414,11 +544,12 @@
             placeholder="Imagen"
             class="form-control"
             [(ngModel)]="cuadroImagenPrincipal"
+            required
           />
         </div>
 
         <div class="form-group col-4">
-          <label for="imagenes">Imágenes</label>
+          <label for="imagenes">Subir Imágenes</label>
           <div *ngFor="let imagen of cuadroImagenes; let i = index">
             <input
               type="text"
@@ -430,7 +561,7 @@
             />
             <button
               type="button"
-              class="btn btn-danger"
+              class="eliminar-imagen btn btn-danger"
               (click)="eliminarImagen(i)"
             >
               Eliminar
@@ -438,7 +569,7 @@
           </div>
           <button
             type="button"
-            class="btn btn-secondary mt-2"
+            class="agregar-imagen btn btn-secondary mt-2"
             (click)="agregarImagen()"
           >
             Agregar Imagen
@@ -468,7 +599,18 @@
             placeholder="Introduce un valor"
             class="form-control"
             [(ngModel)]="cuadroPrecio"
+            pattern="^[0-9]{1,7}$"
+            min="0"
+            max="1000000"
+            required
+            #precio="ngModel"
           />
+          <div
+            *ngIf="precio.invalid && (precio.dirty || precio.touched)"
+            class="text-danger"
+          >
+            El precio debe estar entre 0 y 1000000.
+          </div>
         </div>
         <hr />
         <h4>Contacto</h4>
@@ -481,7 +623,16 @@
             placeholder="Introduce un valor"
             class="form-control"
             [(ngModel)]="cuadroEmailAdjunto"
+            required
+            pattern="^[a-zA-Z0-9._%!-]{3,30}@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+            #email="ngModel"
           />
+          <div
+            *ngIf="email.invalid && (email.dirty || email.touched)"
+            class="text-danger"
+          >
+            El email debe tener al menos 3 letras seguido de 'gmail.com'.
+          </div>
         </div>
         <div class="form-group col-4">
           <label for="telefono">Teléfono</label>
@@ -492,7 +643,16 @@
             placeholder="Introduce un valor"
             class="form-control"
             [(ngModel)]="cuadroTelefonoAdjunto"
+            required
+            pattern="^[0-9]{6,9}$"
+            #telefono="ngModel"
           />
+          <div
+            *ngIf="telefono.invalid && (telefono.dirty || telefono.touched)"
+            class="text-danger"
+          >
+            Introduce un formato de telefono correcto.
+          </div>
         </div>
         <div class="form-group col-4">
           <label for="ciudad">Ciudad</label>
@@ -503,6 +663,7 @@
             placeholder="Ciudad"
             class="form-control"
             [(ngModel)]="cuadroCiudad"
+            required
           />
         </div>
 

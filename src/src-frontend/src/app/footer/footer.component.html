@@ -1,21 +1,16 @@
 <footer class="text-white text-center text-lg-start bg-secondary">
-  <!-- Grid container -->
   <div class="container p-4">
-    <!--Grid row-->
     <div class="row mt-4">
-      <!--Grid column-->
+      <!-- Sección sobre nosotros -->
       <div class="col-lg-4 col-md-12 mb-4 mb-md-0">
         <h5 class="text-uppercase mb-4 text-dark">Sobre nosotros</h5>
-
         <p class="text-dark">
           Navega por AutoMobile y encontrarás el coche que tanto deseas.
         </p>
-
         <p class="text-dark">
           Somos una empresa que buscamos ofrecerte las mejores ofertas de coches
           al mejor precio.
         </p>
-
         <div class="mt-4 text-dark">
           <a type="button" class="btn btn-floating btn-light btn-lg me-1"
             ><i class="bi bi-facebook"></i
@@ -34,12 +29,10 @@
           ></a>
         </div>
       </div>
-      <!--Grid column-->
 
-      <!--Grid column-->
+      <!-- Sección navegar -->
       <div class="col-lg-4 col-md-6 mb-4 mb-md-0">
         <h5 class="text-uppercase mb-4 pb-1 text-dark">Navegar</h5>
-
         <ul class="fa-ul list-unstyled text-dark" style="margin-left: 1.65em">
           <li class="mb-3">
             <span class="fa-li"><i class="bi bi-house"></i></span
@@ -59,7 +52,7 @@
               ></span
             >
           </li>
-          <li class="mb-3">
+          <li class="mb-3" *ngIf="!estaLogueado">
             <span class="fa-li"><i class="bi bi-box-arrow-right"></i></span
             ><span class="ms-2"
               ><a [routerLink]="'/login'" class="text-dark text-decoration-none"
@@ -67,7 +60,7 @@
               ></span
             >
           </li>
-          <li class="mb-3">
+          <li class="mb-3" *ngIf="!estaLogueado">
             <span class="fa-li"><i class="bi bi-box-arrow-in-right"></i></span
             ><span class="ms-2"
               ><a
@@ -77,16 +70,34 @@
               ></span
             >
           </li>
+          <li class="mb-3" *ngIf="estaLogueado">
+            <span class="fa-li"><i class="bi bi-box-arrow-right"></i></span
+            ><span class="ms-2"
+              ><a
+                [routerLink]="'/explorar'"
+                class="text-dark text-decoration-none"
+                >Explorar</a
+              ></span
+            >
+          </li>
+          <li class="mb-3" *ngIf="estaLogueado">
+            <span class="fa-li"><i class="bi bi-box-arrow-in-right"></i></span
+            ><span class="ms-2"
+              ><a
+                [routerLink]="'/vender'"
+                class="text-dark text-decoration-none"
+                >Vender</a
+              ></span
+            >
+          </li>
         </ul>
       </div>
 
-      <!--Grid column-->
-
-      <!--Grid column-->
+      <!-- Sección Suscribirse en AutoMobile -->
       <div class="col-lg-4 col-md-6 mb-4 mb-md-0">
         <form>
-          <h5 class="text-dark">Subscribirse en AutoMobile</h5>
-          <p class="text-dark">Subscribirse para recibir nuestras noticias.</p>
+          <h5 class="text-dark">Suscribirse en AutoMobile</h5>
+          <p class="text-dark">Suscribirse para recibir nuestras noticias.</p>
           <div class="d-flex flex-column flex-sm-row w-100 gap-2">
             <label for="newsletter1" class="visually-hidden">Email</label>
             <input

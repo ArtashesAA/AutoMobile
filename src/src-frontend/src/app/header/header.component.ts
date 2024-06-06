@@ -14,8 +14,11 @@ import { AutenticacionService } from '../servicio-autenticacion/autenticacion.se
   styleUrl: './header.component.css',
 })
 export class HeaderComponent implements OnInit {
+  // Almacena si esta logueado o no
   estaLogueado: boolean = false;
+  // Almacena el usuario logado, sino no almacena nada
   usuario: Usuario | undefined;
+  manuNavegacion = false;
 
   constructor(
     private router: Router,
@@ -50,5 +53,9 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(['login']).then(() => {
       window.location.reload();
     });
+  }
+
+  menuNavegacion() {
+    this.manuNavegacion = !this.manuNavegacion;
   }
 }
