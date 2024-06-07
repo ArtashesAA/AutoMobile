@@ -4,17 +4,34 @@
 
 Para ejecutar el proyecto, se debe seguir los siguientes pasos:
 
-- Levantar la base de datos MySQL. El archivo del script: docs/MySQL.txt.
-- Ejecutar la api de Spring en Spring Tool Suite: src/src-api.
-- Ejecutar el proyecto Angular: src-frontend.
+- Iniciar Docker.
+- Abrir un Terminal/Símbolo del sistema.
+- Dirigirse al directorio src del repositorio en la terminal (donde se
+  encuentra el archivo docker-compose.yml).
+- Ejecutar el comando:
+  docker-compose build
+- Ejecutar el comando: docker-compose up
+  docker-compose up
+- Comprobamos que en la sección Containers, el contenedor se está
+  ejecutando.
 
-## Descripción
+## Introducción
 
-La página web de compra-venta de coches ofrece a los usuarios una plataforma completa y confiable para explorar una amplia variedad de vehículos disponibles para la venta, así como acceder a información valiosa sobre el mundo automotriz. Los usuarios pueden navegar por los listados de coches publicados por otros usuarios sin necesidad de registrarse, pero para disfrutar de funciones adicionales como publicar anuncios o guardar coches favoritos, se requiere un registro.
+La página web de compra-venta de coches ofrece a los usuarios una
+plataforma completa y confiable para explorar una amplia variedad de
+vehículos disponibles para la venta, así como acceder a información valiosa
+sobre el mundo automotriz.
 
-## Motivación
+Los usuarios pueden navegar por los listados de coches publicados por otros
+usuarios sin necesidad de registrarse, pero se necesita un registro para
+disfrutar de funciones adicionales como ver anuncios, publicar coches,
+añadir otros a favoritos.
 
-La falta de páginas serias y confiables en el mercado de compra-venta de coches me ha llevado a desarrollar esta idea. Como entusiasta del mundo automotriz, deseo una plataforma que no solo ofrezca una amplia variedad de vehículos, sino que también garantice seguridad.
+Se podrá hacer un filtro de los coches para encontrar el coche adecuado
+para cada persona, y ordenarlos según el precio o kilometraje.
+
+Permitimos contactar con los vendedores para adquirir un coche, y la
+modificación del perfil para personalizar el usuario a sus gustos.
 
 ## Funciones
 
@@ -44,4 +61,4 @@ Para el back-end se va a utilizar Spring Framework combinado con la base de dato
 
 ### Front-End:
 
-Para el front-end se va a utilizar el framework Angular (HTML, CSS y TypeScript).
+Para el front-end se ha utilizado el framework Angular (HTML + Bootstrap, CSS + SCSS y TypeScript).
