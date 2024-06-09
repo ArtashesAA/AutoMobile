@@ -43,9 +43,8 @@
         </button>
         <button
           class="btn btn-danger"
-          [routerLink]="['/actualizaNoticia', id]"
-          [queryParams]="{ accion: '2' }"
           *ngIf="estaLogueado && esAdmin"
+          (click)="eliminarNoticia()"
         >
           Eliminar
         </button>
