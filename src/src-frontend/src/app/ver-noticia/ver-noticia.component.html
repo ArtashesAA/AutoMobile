@@ -24,7 +24,7 @@
       </div>
       <hr />
       <!-- Video del noticia -->
-      <div class="noticia-video mt-3">
+      <div class="noticia-video mt-3" *ngIf="noticia.url_video">
         <video width="100%" controls>
           <source [src]="noticia.url_video" type="video/mp4" />
           Tu navegador no soporta la reproducción de videos.
@@ -36,7 +36,6 @@
         <button
           class="btn btn-secondary mr-3"
           [routerLink]="['/actualizaNoticia', id]"
-          [queryParams]="{ accion: '1' }"
           *ngIf="estaLogueado && esAdmin"
         >
           Editar

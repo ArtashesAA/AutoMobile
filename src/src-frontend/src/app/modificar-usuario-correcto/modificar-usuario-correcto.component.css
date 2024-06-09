@@ -11,5 +11,8 @@ h4 {
   margin-top: 100px;
   text-align: center;
   padding: 50px;
-  margin-bottom: 200px;
+}
+
+.final {
+  padding: 200px;
 }

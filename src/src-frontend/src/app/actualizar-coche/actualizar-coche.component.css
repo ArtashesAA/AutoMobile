@@ -40,19 +40,12 @@ select {
   border: 1px solid #949494;
 }
 
-.boton-volver {
-  text-align: center;
+/* Botones guardar */
+.botones-finales {
+  margin-top: 50px;
 }
-
-.botones {
-  display: flex;
-  margin-top: 10px;
-  height: 50px; /* Alto fijo para el contenedor de los botones */
-  margin-bottom: 50px;
-}
-
-.botones button {
-  height: 20px;
+.guardar {
+  width: 150px;
 }
 
 /* Botones apartado imagenes */
@@ -62,23 +55,6 @@ select {
 
 .eliminar-imagen {
   margin-bottom: 5px;
-}
-
-/* Botones imágenes */
-#boton-actualizar {
-  margin-top: 100px;
-  margin-bottom: 100px;
-}
-
-.imagen-input-container {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.imagen-input {
-  flex-grow: 1;
-  margin-right: 10px; /* Ajusta el margen entre el input y el botón Eliminar */
 }
 
 /* Sidebar */

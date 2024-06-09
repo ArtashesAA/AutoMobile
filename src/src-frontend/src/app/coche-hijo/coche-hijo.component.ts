@@ -15,9 +15,13 @@ import { Usuario } from '../entidad/usuario.model';
 })
 export class CocheHijoComponent {
   @Input() cochedelista!: Coche;
+
+  // Almacena el usuario actual
   usuario: Usuario | undefined;
 
+  // Almacena si esta logueado o no
   estaLogueado: boolean = false;
+  // Almacena si es admin o no
   esAdmin: boolean = false;
 
   constructor(

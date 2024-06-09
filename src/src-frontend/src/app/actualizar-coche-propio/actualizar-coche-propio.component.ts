@@ -95,16 +95,6 @@ export class ActualizarCochePropioComponent implements OnInit {
       this.cuadroEmailAdjunto = coche.emailAdjunto;
     });
 
-    const botonVolverCatalogo = document.getElementById(
-      'boton-volver-catalogo'
-    );
-    if (botonVolverCatalogo) {
-      botonVolverCatalogo.addEventListener(
-        'click',
-        this.volverACatalogo.bind(this)
-      );
-    }
-
     this.marcas = this.servicioMarcas.obtenerMarcas();
   }
 

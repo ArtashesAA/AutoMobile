@@ -11,7 +11,7 @@ import { Usuario } from '../entidad/usuario.model';
   selector: 'app-ver-noticia',
   standalone: true,
   imports: [CommonModule, RouterModule, NoticiaHijoComponent],
-  providers: [ServicioNoticiaService],
+  providers: [ServicioNoticiaService, NoticiaHijoComponent],
   templateUrl: './ver-noticia.component.html',
   styleUrl: './ver-noticia.component.css',
 })
@@ -27,7 +27,8 @@ export class VerNoticiaComponent {
   constructor(
     private route: ActivatedRoute,
     private servicioNoticia: ServicioNoticiaService,
-    private servicioAutenticacion: AutenticacionService
+    private servicioAutenticacion: AutenticacionService,
+    private noticiaHijo: NoticiaHijoComponent
   ) {}
 
   // Carga la noticia por id y almacena esAdmin y estaLogueado

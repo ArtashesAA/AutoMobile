@@ -56,11 +56,11 @@ public class DataInitializer implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 
 		try {
+			favoritoRepositorio.deleteAll();
+			imagenRepositorio.deleteAll();
+			noticiaRepositorio.deleteAll();
 			cocheRepositorio.deleteAll();
 			usuarioRepositorio.deleteAll();
-			noticiaRepositorio.deleteAll();
-			imagenRepositorio.deleteAll();
-			favoritoRepositorio.deleteAll();
 
 			// Usuarios
 			List<Usuario> usuarios = List.of(
@@ -74,8 +74,7 @@ public class DataInitializer implements CommandLineRunner {
 					new Usuario(6, "Burgo Car", "burgocar@gmail.com", "", passwordEncoder.encode("password"), "USER"),
 					new Usuario(7, "DMA Automocion", "dmautomocion@gmail.com", "", passwordEncoder.encode("password"),
 							"USER"),
-					new Usuario(8, "V8 Motors", "v8motors@gmail.com", "", passwordEncoder.encode("password"),
-							"USER"),
+					new Usuario(8, "V8 Motors", "v8motors@gmail.com", "", passwordEncoder.encode("password"), "USER"),
 					new Usuario(9, "Autos Madrid", "autosmadrid@gmail.com", "", passwordEncoder.encode("password"),
 							"USER"),
 					new Usuario(10, "lily_garcia", "lily.garcia@gmail.com", "", passwordEncoder.encode("password"),
@@ -118,7 +117,7 @@ public class DataInitializer implements CommandLineRunner {
 							"USER"),
 					new Usuario(30, "daniel_gonzalez", "daniel.gonzalez@gmail.com", "",
 							passwordEncoder.encode("password"), "USER"));
-					
+
 			usuarioRepositorio.saveAll(usuarios);
 
 			// Coches
@@ -127,11 +126,13 @@ public class DataInitializer implements CommandLineRunner {
 					42000, 2020, 258, 75000, "Gasolina", "8 l/100 km", "Automatico", "Sedan", "Sedan", "Trasera", 5, 5,
 					"1 Año", 1505, "Naranja", 8, 4, "Madrid", "\r\n" + "BMW SERIE 330i 258CV M SPORT AUT.", 919379134,
 					"mdsmotors@gmail.com", usuarios.get(4), new ArrayList<Imagen>(), new ArrayList<Favorito>()),
-					new Coche(2L, "Toyota", "Corolla", "https://prod.pictures.autoscout24.net/listing-images/6307983c-ec56-44fb-8117-5a4ff78ace32_267e74de-b27d-4ddd-ba54-429e6229b3d2.jpg/720x540.webp",
+					new Coche(2L, "Toyota", "Corolla",
+							"https://prod.pictures.autoscout24.net/listing-images/6307983c-ec56-44fb-8117-5a4ff78ace32_267e74de-b27d-4ddd-ba54-429e6229b3d2.jpg/720x540.webp",
 							18490, 2020, 122, 32737, "Electro/Gasolina", "4 l/100 km", "Automatico", "Sedan", "Sedan",
 							"Delantera", 5, 5, "1 Año", 1450, "Gris", 6, 4, "Leganes",
-							"Coche compacto muy popular con bajo consumo de combustible.", 919379178, "autosmadrid@gmail.com",
-							usuarios.get(8), new ArrayList<Imagen>(), new ArrayList<Favorito>()),
+							"Coche compacto muy popular con bajo consumo de combustible.", 919379178,
+							"autosmadrid@gmail.com", usuarios.get(8), new ArrayList<Imagen>(),
+							new ArrayList<Favorito>()),
 					new Coche(3L, "BMW", "X5",
 							"https://prod.pictures.autoscout24.net/listing-images/1c286ddc-844e-4309-86b8-7f9f7a9d7f1a_7a6707fe-4b54-48f7-93f0-0675ae42fb51.jpg/720x540.webp",
 							35901, 2018, 265, 152500, "Diesel", "7 l/100 km", "Automatico", "SUV", "SUV", "Total", 5, 5,
@@ -143,7 +144,7 @@ public class DataInitializer implements CommandLineRunner {
 							"https://prod.pictures.autoscout24.net/listing-images/5bc415f1-9bd0-4ea5-8673-73882b1d07dd_c84719b0-9aea-4b3b-9098-1a303b81b383.jpg/720x540.webp",
 							43900, 2017, 367, 56999, "Gasolina", "10 l/100 km", "Automatico", "Sedan", "Sedan", "Total",
 							5, 5, "1 Año", 1705, "Blanco", 9, 6, "Barcelona", "Deportivo MERCEDES-BENZ C43 AMG",
-							936163633, "dmautomocion@gmail.com", usuarios.get(6), new ArrayList<Imagen>(),
+							936163633, "dmautomocion@gmail.com", usuarios.get(0), new ArrayList<Imagen>(),
 							new ArrayList<Favorito>()),
 
 					new Coche(5L, "Volkswagen", "Golf",
@@ -152,7 +153,7 @@ public class DataInitializer implements CommandLineRunner {
 							"Delantera", 5, 5, "2 Años", 1460, "Gris", 7, 4, "Valencia",
 							"Coche compacto versátil y confiable.", 864871318, "v8motors@gmail.com", usuarios.get(7),
 							new ArrayList<Imagen>(), new ArrayList<Favorito>()),
-					
+
 					new Coche(6L, "Mercedes-Benz", "E 250",
 							"https://assets.newatlas.com/dims4/default/6f51b09/2147483647/strip/true/crop/4032x2272+0+0/resize/2880x1623!/quality/90/?url=http%3A%2F%2Fnewatlas-brightspot.s3.amazonaws.com%2Fa2%2Fda%2F65700dd24d619365b4270fa796ce%2F2021-mercedes-benz-e450-1.jpg",
 							40000, 2021, 200, 15000, "Gasolina", "8 l/100 km", "Automatico", "Sedan", "Sedan",
@@ -228,7 +229,8 @@ public class DataInitializer implements CommandLineRunner {
 			Optional<Coche> cocheOptional4 = cocheRepositorio.findById(cocheId4);
 			Optional<Coche> cocheOptional5 = cocheRepositorio.findById(cocheId5);
 
-			if (cocheOptional1.isPresent() && cocheOptional2.isPresent() && cocheOptional3.isPresent() && cocheOptional4.isPresent() && cocheOptional5.isPresent()) {
+			if (cocheOptional1.isPresent() && cocheOptional2.isPresent() && cocheOptional3.isPresent()
+					&& cocheOptional4.isPresent() && cocheOptional5.isPresent()) {
 				Coche coche1 = cocheOptional1.get();
 				Coche coche2 = cocheOptional2.get();
 				Coche coche3 = cocheOptional3.get();
@@ -264,40 +266,100 @@ public class DataInitializer implements CommandLineRunner {
 				Imagen imagenCoche9 = new Imagen(8L,
 						"https://prod.pictures.autoscout24.net/listing-images/1c286ddc-844e-4309-86b8-7f9f7a9d7f1a_c87f894a-1983-43d8-a464-5dd18cf8f609.jpg/720x540.webp",
 						coche3);
-				Imagen imagenCoche10 = new Imagen(9L, "https://prod.pictures.autoscout24.net/listing-images/1c286ddc-844e-4309-86b8-7f9f7a9d7f1a_8597f699-e3f9-4374-ad02-e63b8023bdff.jpg/720x540.webp", coche3);
-				Imagen imagenCoche11 = new Imagen(10L, "https://prod.pictures.autoscout24.net/listing-images/1c286ddc-844e-4309-86b8-7f9f7a9d7f1a_b1763d85-0f79-486c-885e-306de2a358b9.jpg/720x540.webp", coche3);
-				Imagen imagenCoche12 = new Imagen(11L, "https://prod.pictures.autoscout24.net/listing-images/1c286ddc-844e-4309-86b8-7f9f7a9d7f1a_9c51ce5d-cd8e-40dd-82c3-7d83b468e4c5.jpg/720x540.webp", coche3);
-				Imagen imagenCoche13 = new Imagen(12L, "https://prod.pictures.autoscout24.net/listing-images/1c286ddc-844e-4309-86b8-7f9f7a9d7f1a_d84527a9-6e1e-44df-94a6-760044bf66af.jpg/720x540.webp", coche3);
-				Imagen imagenCoche14 = new Imagen(13L, "https://prod.pictures.autoscout24.net/listing-images/1c286ddc-844e-4309-86b8-7f9f7a9d7f1a_d6be6f34-ee87-4fb9-b7b1-ca665d324a5b.jpg/720x540.webp", coche3);
-				
-				Imagen imagenCoche15 = new Imagen(14L, "https://prod.pictures.autoscout24.net/listing-images/5bc415f1-9bd0-4ea5-8673-73882b1d07dd_c84719b0-9aea-4b3b-9098-1a303b81b383.jpg/1920x1080.webp", coche4);
-				Imagen imagenCoche16 = new Imagen(15L, "https://prod.pictures.autoscout24.net/listing-images/5bc415f1-9bd0-4ea5-8673-73882b1d07dd_d7da9843-b76d-4e82-b97e-68ab676b0825.jpg/720x540.webp", coche4);
-				Imagen imagenCoche17 = new Imagen(16L, "https://prod.pictures.autoscout24.net/listing-images/5bc415f1-9bd0-4ea5-8673-73882b1d07dd_755bc9c1-c912-4dd1-8ae0-c82e6bd5a16c.jpg/720x540.webp", coche4);
-				Imagen imagenCoche18 = new Imagen(17L, "https://prod.pictures.autoscout24.net/listing-images/5bc415f1-9bd0-4ea5-8673-73882b1d07dd_bd438958-9e89-4f1b-93c7-877da6472369.jpg/720x540.webp", coche4);
-				Imagen imagenCoche19 = new Imagen(18L, "https://prod.pictures.autoscout24.net/listing-images/5bc415f1-9bd0-4ea5-8673-73882b1d07dd_dc67ad55-fc07-4d6d-bdce-d2c5f7757966.jpg/720x540.webp", coche4);
-				Imagen imagenCoche20 = new Imagen(19L, "https://prod.pictures.autoscout24.net/listing-images/5bc415f1-9bd0-4ea5-8673-73882b1d07dd_4cbcb19d-b7b1-4f28-ba30-1f6f3bf85e26.jpg/720x540.webp", coche4);
-				Imagen imagenCoche21 = new Imagen(20L, "https://prod.pictures.autoscout24.net/listing-images/5bc415f1-9bd0-4ea5-8673-73882b1d07dd_53aa853f-decc-4469-ab6c-220b95e00b25.jpg/720x540.webp", coche4);
-				Imagen imagenCoche22 = new Imagen(21L, "https://prod.pictures.autoscout24.net/listing-images/5bc415f1-9bd0-4ea5-8673-73882b1d07dd_de82acf2-9b0a-4e80-9ec0-83904d3991c6.jpg/720x540.webp", coche4);
-				Imagen imagenCoche23 = new Imagen(22L, "https://prod.pictures.autoscout24.net/listing-images/5bc415f1-9bd0-4ea5-8673-73882b1d07dd_000bd132-f2e8-42ff-bb09-8851185d1fbc.jpg/720x540.webp", coche4);
-				Imagen imagenCoche24 = new Imagen(23L, "https://prod.pictures.autoscout24.net/listing-images/5bc415f1-9bd0-4ea5-8673-73882b1d07dd_27c502b3-7906-4b87-929d-0ba000509d09.jpg/720x540.webp", coche4);
-				
-				Imagen imagenCoche25 = new Imagen(24L, "https://prod.pictures.autoscout24.net/listing-images/37549ba1-c7d8-4517-95da-e25dbe6f7510_614aa216-7201-4410-bf55-b73c129e186e.jpg/720x540.webp", coche5);
-				Imagen imagenCoche26 = new Imagen(25L, "https://prod.pictures.autoscout24.net/listing-images/37549ba1-c7d8-4517-95da-e25dbe6f7510_86ef198c-d2ba-4a20-a494-80be8b655b14.jpg/720x540.webp", coche5);
-				Imagen imagenCoche27 = new Imagen(26L, "https://prod.pictures.autoscout24.net/listing-images/37549ba1-c7d8-4517-95da-e25dbe6f7510_d0430fe5-d9fe-4ef9-b855-8712211212ac.jpg/720x540.webp", coche5);
-				Imagen imagenCoche28 = new Imagen(27L, "https://prod.pictures.autoscout24.net/listing-images/37549ba1-c7d8-4517-95da-e25dbe6f7510_30095f19-d87f-40c1-8e23-8f8d58e07a55.jpg/720x540.webp", coche5);
-				Imagen imagenCoche29 = new Imagen(28L, "https://prod.pictures.autoscout24.net/listing-images/37549ba1-c7d8-4517-95da-e25dbe6f7510_92fb1582-3a1f-4b8b-968b-27aa06cf3d9b.jpg/720x540.webp", coche5);
-				Imagen imagenCoche30 = new Imagen(29L, "https://prod.pictures.autoscout24.net/listing-images/37549ba1-c7d8-4517-95da-e25dbe6f7510_c4328d70-a432-4ec7-8767-835da3cb3d56.jpg/720x540.webp", coche5);
+				Imagen imagenCoche10 = new Imagen(9L,
+						"https://prod.pictures.autoscout24.net/listing-images/1c286ddc-844e-4309-86b8-7f9f7a9d7f1a_8597f699-e3f9-4374-ad02-e63b8023bdff.jpg/720x540.webp",
+						coche3);
+				Imagen imagenCoche11 = new Imagen(10L,
+						"https://prod.pictures.autoscout24.net/listing-images/1c286ddc-844e-4309-86b8-7f9f7a9d7f1a_b1763d85-0f79-486c-885e-306de2a358b9.jpg/720x540.webp",
+						coche3);
+				Imagen imagenCoche12 = new Imagen(11L,
+						"https://prod.pictures.autoscout24.net/listing-images/1c286ddc-844e-4309-86b8-7f9f7a9d7f1a_9c51ce5d-cd8e-40dd-82c3-7d83b468e4c5.jpg/720x540.webp",
+						coche3);
+				Imagen imagenCoche13 = new Imagen(12L,
+						"https://prod.pictures.autoscout24.net/listing-images/1c286ddc-844e-4309-86b8-7f9f7a9d7f1a_d84527a9-6e1e-44df-94a6-760044bf66af.jpg/720x540.webp",
+						coche3);
+				Imagen imagenCoche14 = new Imagen(13L,
+						"https://prod.pictures.autoscout24.net/listing-images/1c286ddc-844e-4309-86b8-7f9f7a9d7f1a_d6be6f34-ee87-4fb9-b7b1-ca665d324a5b.jpg/720x540.webp",
+						coche3);
 
-				Imagen imagenCoche31 = new Imagen(9L, "https://prod.pictures.autoscout24.net/listing-images/1c286ddc-844e-4309-86b8-7f9f7a9d7f1a_8597f699-e3f9-4374-ad02-e63b8023bdff.jpg/720x540.webp", coche3);
-				Imagen imagenCoche32 = new Imagen(11L, "https://prod.pictures.autoscout24.net/listing-images/1c286ddc-844e-4309-86b8-7f9f7a9d7f1a_9c51ce5d-cd8e-40dd-82c3-7d83b468e4c5.jpg/720x540.webp", coche3);
-				Imagen imagenCoche33 = new Imagen(12L, "https://prod.pictures.autoscout24.net/listing-images/1c286ddc-844e-4309-86b8-7f9f7a9d7f1a_d84527a9-6e1e-44df-94a6-760044bf66af.jpg/720x540.webp", coche3);
-				Imagen imagenCoche34 = new Imagen(13L, "https://prod.pictures.autoscout24.net/listing-images/1c286ddc-844e-4309-86b8-7f9f7a9d7f1a_d6be6f34-ee87-4fb9-b7b1-ca665d324a5b.jpg/720x540.webp", coche3);
-				
-				Imagen imagenCoche35 = new Imagen(24L, "https://prod.pictures.autoscout24.net/listing-images/6307983c-ec56-44fb-8117-5a4ff78ace32_664ffeea-56ab-4d03-8be8-e2f7eace3d0d.jpg/720x540.webp", coche2);
-				Imagen imagenCoche36 = new Imagen(25L, "https://prod.pictures.autoscout24.net/listing-images/6307983c-ec56-44fb-8117-5a4ff78ace32_7244afc7-b98a-49dd-9c83-880b2a688ddf.jpg/720x540.webp", coche2);
-				Imagen imagenCoche37 = new Imagen(26L, "https://prod.pictures.autoscout24.net/listing-images/6307983c-ec56-44fb-8117-5a4ff78ace32_678291a1-aea2-4e64-9b57-b9a05cf46e2d.jpg/720x540.webp", coche2);
-				Imagen imagenCoche38 = new Imagen(27L, "https://prod.pictures.autoscout24.net/listing-images/6307983c-ec56-44fb-8117-5a4ff78ace32_7e92f1dd-c3a4-4d21-bbcd-2ad65232c362.jpg/720x540.webp", coche2);
-				Imagen imagenCoche39 = new Imagen(28L, "https://prod.pictures.autoscout24.net/listing-images/6307983c-ec56-44fb-8117-5a4ff78ace32_c2e3abd6-6e6b-4c16-95c8-8d5d8675b5e2.jpg/720x540.webp", coche2);
+				Imagen imagenCoche15 = new Imagen(14L,
+						"https://prod.pictures.autoscout24.net/listing-images/5bc415f1-9bd0-4ea5-8673-73882b1d07dd_c84719b0-9aea-4b3b-9098-1a303b81b383.jpg/1920x1080.webp",
+						coche4);
+				Imagen imagenCoche16 = new Imagen(15L,
+						"https://prod.pictures.autoscout24.net/listing-images/5bc415f1-9bd0-4ea5-8673-73882b1d07dd_d7da9843-b76d-4e82-b97e-68ab676b0825.jpg/720x540.webp",
+						coche4);
+				Imagen imagenCoche17 = new Imagen(16L,
+						"https://prod.pictures.autoscout24.net/listing-images/5bc415f1-9bd0-4ea5-8673-73882b1d07dd_755bc9c1-c912-4dd1-8ae0-c82e6bd5a16c.jpg/720x540.webp",
+						coche4);
+				Imagen imagenCoche18 = new Imagen(17L,
+						"https://prod.pictures.autoscout24.net/listing-images/5bc415f1-9bd0-4ea5-8673-73882b1d07dd_bd438958-9e89-4f1b-93c7-877da6472369.jpg/720x540.webp",
+						coche4);
+				Imagen imagenCoche19 = new Imagen(18L,
+						"https://prod.pictures.autoscout24.net/listing-images/5bc415f1-9bd0-4ea5-8673-73882b1d07dd_dc67ad55-fc07-4d6d-bdce-d2c5f7757966.jpg/720x540.webp",
+						coche4);
+				Imagen imagenCoche20 = new Imagen(19L,
+						"https://prod.pictures.autoscout24.net/listing-images/5bc415f1-9bd0-4ea5-8673-73882b1d07dd_4cbcb19d-b7b1-4f28-ba30-1f6f3bf85e26.jpg/720x540.webp",
+						coche4);
+				Imagen imagenCoche21 = new Imagen(20L,
+						"https://prod.pictures.autoscout24.net/listing-images/5bc415f1-9bd0-4ea5-8673-73882b1d07dd_53aa853f-decc-4469-ab6c-220b95e00b25.jpg/720x540.webp",
+						coche4);
+				Imagen imagenCoche22 = new Imagen(21L,
+						"https://prod.pictures.autoscout24.net/listing-images/5bc415f1-9bd0-4ea5-8673-73882b1d07dd_de82acf2-9b0a-4e80-9ec0-83904d3991c6.jpg/720x540.webp",
+						coche4);
+				Imagen imagenCoche23 = new Imagen(22L,
+						"https://prod.pictures.autoscout24.net/listing-images/5bc415f1-9bd0-4ea5-8673-73882b1d07dd_000bd132-f2e8-42ff-bb09-8851185d1fbc.jpg/720x540.webp",
+						coche4);
+				Imagen imagenCoche24 = new Imagen(23L,
+						"https://prod.pictures.autoscout24.net/listing-images/5bc415f1-9bd0-4ea5-8673-73882b1d07dd_27c502b3-7906-4b87-929d-0ba000509d09.jpg/720x540.webp",
+						coche4);
+
+				Imagen imagenCoche25 = new Imagen(24L,
+						"https://prod.pictures.autoscout24.net/listing-images/37549ba1-c7d8-4517-95da-e25dbe6f7510_614aa216-7201-4410-bf55-b73c129e186e.jpg/720x540.webp",
+						coche5);
+				Imagen imagenCoche26 = new Imagen(25L,
+						"https://prod.pictures.autoscout24.net/listing-images/37549ba1-c7d8-4517-95da-e25dbe6f7510_86ef198c-d2ba-4a20-a494-80be8b655b14.jpg/720x540.webp",
+						coche5);
+				Imagen imagenCoche27 = new Imagen(26L,
+						"https://prod.pictures.autoscout24.net/listing-images/37549ba1-c7d8-4517-95da-e25dbe6f7510_d0430fe5-d9fe-4ef9-b855-8712211212ac.jpg/720x540.webp",
+						coche5);
+				Imagen imagenCoche28 = new Imagen(27L,
+						"https://prod.pictures.autoscout24.net/listing-images/37549ba1-c7d8-4517-95da-e25dbe6f7510_30095f19-d87f-40c1-8e23-8f8d58e07a55.jpg/720x540.webp",
+						coche5);
+				Imagen imagenCoche29 = new Imagen(28L,
+						"https://prod.pictures.autoscout24.net/listing-images/37549ba1-c7d8-4517-95da-e25dbe6f7510_92fb1582-3a1f-4b8b-968b-27aa06cf3d9b.jpg/720x540.webp",
+						coche5);
+				Imagen imagenCoche30 = new Imagen(29L,
+						"https://prod.pictures.autoscout24.net/listing-images/37549ba1-c7d8-4517-95da-e25dbe6f7510_c4328d70-a432-4ec7-8767-835da3cb3d56.jpg/720x540.webp",
+						coche5);
+
+				Imagen imagenCoche31 = new Imagen(9L,
+						"https://prod.pictures.autoscout24.net/listing-images/1c286ddc-844e-4309-86b8-7f9f7a9d7f1a_8597f699-e3f9-4374-ad02-e63b8023bdff.jpg/720x540.webp",
+						coche3);
+				Imagen imagenCoche32 = new Imagen(11L,
+						"https://prod.pictures.autoscout24.net/listing-images/1c286ddc-844e-4309-86b8-7f9f7a9d7f1a_9c51ce5d-cd8e-40dd-82c3-7d83b468e4c5.jpg/720x540.webp",
+						coche3);
+				Imagen imagenCoche33 = new Imagen(12L,
+						"https://prod.pictures.autoscout24.net/listing-images/1c286ddc-844e-4309-86b8-7f9f7a9d7f1a_d84527a9-6e1e-44df-94a6-760044bf66af.jpg/720x540.webp",
+						coche3);
+				Imagen imagenCoche34 = new Imagen(13L,
+						"https://prod.pictures.autoscout24.net/listing-images/1c286ddc-844e-4309-86b8-7f9f7a9d7f1a_d6be6f34-ee87-4fb9-b7b1-ca665d324a5b.jpg/720x540.webp",
+						coche3);
+
+				Imagen imagenCoche35 = new Imagen(24L,
+						"https://prod.pictures.autoscout24.net/listing-images/6307983c-ec56-44fb-8117-5a4ff78ace32_664ffeea-56ab-4d03-8be8-e2f7eace3d0d.jpg/720x540.webp",
+						coche2);
+				Imagen imagenCoche36 = new Imagen(25L,
+						"https://prod.pictures.autoscout24.net/listing-images/6307983c-ec56-44fb-8117-5a4ff78ace32_7244afc7-b98a-49dd-9c83-880b2a688ddf.jpg/720x540.webp",
+						coche2);
+				Imagen imagenCoche37 = new Imagen(26L,
+						"https://prod.pictures.autoscout24.net/listing-images/6307983c-ec56-44fb-8117-5a4ff78ace32_678291a1-aea2-4e64-9b57-b9a05cf46e2d.jpg/720x540.webp",
+						coche2);
+				Imagen imagenCoche38 = new Imagen(27L,
+						"https://prod.pictures.autoscout24.net/listing-images/6307983c-ec56-44fb-8117-5a4ff78ace32_7e92f1dd-c3a4-4d21-bbcd-2ad65232c362.jpg/720x540.webp",
+						coche2);
+				Imagen imagenCoche39 = new Imagen(28L,
+						"https://prod.pictures.autoscout24.net/listing-images/6307983c-ec56-44fb-8117-5a4ff78ace32_c2e3abd6-6e6b-4c16-95c8-8d5d8675b5e2.jpg/720x540.webp",
+						coche2);
 
 				// Guardar las imágenes en la base de datos
 				imagenRepositorio.save(imagenCoche1);
@@ -307,7 +369,7 @@ public class DataInitializer implements CommandLineRunner {
 				imagenRepositorio.save(imagenCoche5);
 				imagenRepositorio.save(imagenCoche6);
 				imagenRepositorio.save(imagenCoche7);
-				
+
 				imagenRepositorio.save(imagenCoche8);
 				imagenRepositorio.save(imagenCoche9);
 				imagenRepositorio.save(imagenCoche10);
@@ -315,7 +377,7 @@ public class DataInitializer implements CommandLineRunner {
 				imagenRepositorio.save(imagenCoche12);
 				imagenRepositorio.save(imagenCoche13);
 				imagenRepositorio.save(imagenCoche14);
-				
+
 				imagenRepositorio.save(imagenCoche15);
 				imagenRepositorio.save(imagenCoche16);
 				imagenRepositorio.save(imagenCoche17);
@@ -333,7 +395,7 @@ public class DataInitializer implements CommandLineRunner {
 				imagenRepositorio.save(imagenCoche28);
 				imagenRepositorio.save(imagenCoche29);
 				imagenRepositorio.save(imagenCoche30);
-				
+
 				imagenRepositorio.save(imagenCoche31);
 				imagenRepositorio.save(imagenCoche32);
 				imagenRepositorio.save(imagenCoche33);

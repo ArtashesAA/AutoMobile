@@ -21,6 +21,9 @@ import { CochesUsuarioComponent } from './coches-usuario/coches-usuario.componen
 import { FavoritosUsuarioComponent } from './favoritos-usuario/favoritos-usuario.component';
 import { CrearCocheCorrectoComponent } from './crear-coche-correcto/crear-coche-correcto.component';
 import { ActualizarCochePropioComponent } from './actualizar-coche-propio/actualizar-coche-propio.component';
+import { ActualizarNoticiaComponent } from './actualizar-noticia/actualizar-noticia.component';
+import { PublicarNoticiaComponent } from './publicar-noticia/publicar-noticia.component';
+import { PublicarNoticiaCorrectoComponent } from './publicar-noticia-correcto/publicar-noticia-correcto.component';
 export const routes: Routes = [
   { path: '', component: InicioComponent },
   {
@@ -33,13 +36,23 @@ export const routes: Routes = [
     canActivate: [guardianGuard],
   },
   {
-    path: 'vender',
+    path: 'publicarNoticia',
+    component: PublicarNoticiaComponent,
+    canActivate: [guardianGuard, adminGuard],
+  },
+  {
+    path: 'publicarNoticiaCorrecto',
+    component: PublicarNoticiaCorrectoComponent,
+  },
+  {
+    path: 'publicar',
     component: CrearCocheComponent,
     canActivate: [guardianGuard],
   },
-  { path: 'venderCorrecto', component: CrearCocheCorrectoComponent },
+  { path: 'publicarCorrecto', component: CrearCocheCorrectoComponent },
   { path: 'actualiza/:id', component: ActualizarCocheComponent },
   { path: 'actualizar/:id', component: ActualizarCochePropioComponent },
+  { path: 'actualizaNoticia/:id', component: ActualizarNoticiaComponent },
   {
     path: 'actualizaUsuario/:id',
     component: ActualizarUsuarioComponent,

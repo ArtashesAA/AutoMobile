@@ -62,7 +62,7 @@ export class CochesUsuarioComponent {
     );
   }
 
-  irAVender() {
-    this.router.navigate(['/vender']);
+  irAPublicar() {
+    this.router.navigate(['/publicar']);
   }
 }

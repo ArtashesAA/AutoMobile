@@ -26,7 +26,9 @@ export class VerCocheComponent implements OnInit {
   coche!: Coche;
   id!: number;
 
+  // Navegar imágenes
   chunkedImages: any[] = [];
+  currentImageIndex: number = 0;
 
   // Usuario actual
   usuario: Usuario | undefined;
@@ -127,11 +129,33 @@ export class VerCocheComponent implements OnInit {
     });
   }
 
+  navegarImagen(direction: number): void {
+    if (this.coche && this.coche.imagenes) {
+      this.currentImageIndex += direction;
+      if (this.currentImageIndex < 0) {
+        this.currentImageIndex = this.coche.imagenes.length - 1;
+      } else if (this.currentImageIndex >= this.coche.imagenes.length) {
+        this.currentImageIndex = 0;
+      }
+      this.cambiarImagenPrincipal(
+        this.coche.imagenes[this.currentImageIndex].imagen_url
+      );
+    }
+  }
+
   chunkImages(): void {
     const chunkSize = 4;
+    this.chunkedImages = []; // Limpiar el array de chunks
     if (this.coche && this.coche.imagenes) {
-      for (let i = 0; i < this.coche.imagenes.length; i += chunkSize) {
-        this.chunkedImages.push(this.coche.imagenes.slice(i, i + chunkSize));
+      // Inserta la imagen principal al inicio del array de imágenes
+      const imagenesConPrincipal = [
+        { imagen_url: this.coche.imagenPrincipal },
+        ...this.coche.imagenes,
+      ];
+
+      // Divide las imágenes en chunks
+      for (let i = 0; i < imagenesConPrincipal.length; i += chunkSize) {
+        this.chunkedImages.push(imagenesConPrincipal.slice(i, i + chunkSize));
       }
     }
   }

@@ -12,6 +12,7 @@ export class ServicioCocheService {
 
   constructor(private http: HttpClient) {}
 
+  // Token para los urls que lo requieran
   private getHeaders(): HttpHeaders {
     const token = localStorage.getItem(this.token);
     if (token) {

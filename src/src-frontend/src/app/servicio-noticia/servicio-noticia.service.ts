@@ -48,9 +48,7 @@ export class ServicioNoticiaService {
 
   // Crea una noticia
   crearNoticia(noticia: Noticia): Observable<any> {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-    });
+    const headers = this.getHeaders();
 
     return this.httpClient.post(
       'http://localhost:8080/api/v1/admin/noticia',

@@ -5,7 +5,8 @@ body {
 .imagen-principal img {
   position: relative;
   width: 100%;
-  max-height: 1000px;
+  height: auto;
+  max-height: 900px;
   object-fit: cover;
 }
 
@@ -94,7 +95,6 @@ body {
   }
 
   .imagen-principal img {
-    position: relative;
     width: auto;
     height: 100%;
   }

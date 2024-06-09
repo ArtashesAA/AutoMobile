@@ -6,16 +6,23 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.v1.automobile.entidad.Noticia;
+import com.v1.automobile.entidad.Usuario;
 import com.v1.automobile.repositorio.NoticiaRepositorio;
+import com.v1.automobile.repositorio.UsuarioRepositorio;
 
 @Service
 public class NoticiaServicio {
 
 	@Autowired
 	private NoticiaRepositorio noticiaRepositorio;
+
+	@Autowired
+	private UsuarioRepositorio usuarioRepositorio;
 
 	public Optional<Noticia> obtenerNoticiaPorId(Long id) {
 		return noticiaRepositorio.findById(id);
@@ -25,8 +32,24 @@ public class NoticiaServicio {
 		return noticiaRepositorio.findAll();
 	}
 
-	public Noticia crearNoticia(Noticia noticia) {
-		return noticiaRepositorio.save(noticia);
+	public ResponseEntity<String> crearNoticia(Noticia noticia) {
+		try {
+			// Obtener el usuario actualmente autenticado
+			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+			String email = authentication.getName();
+			Usuario usuario = usuarioRepositorio.findByEmail(email)
+					.orElseThrow(() -> new RuntimeException("Usuario no autenticado o no encontrado"));
+
+			// Asignar el usuario a la noticia
+			noticia.setUsuario(usuario);
+
+			noticiaRepositorio.save(noticia);
+
+			return new ResponseEntity<>("Noticia creada correctamente", HttpStatus.CREATED);
+		} catch (Exception e) {
+			return new ResponseEntity<>("Error al crear la noticia: " + e.getMessage(),
+					HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
 
 	public ResponseEntity<String> actualizarNoticia(Long id, Noticia noticiaActualizada) {

@@ -33,6 +33,10 @@ body {
   margin-top: 30px;
 }
 
+.coche-image {
+  position: relative;
+}
+
 /* Imagen principal del coche */
 .coche-imagen {
   width: 100%;
@@ -171,4 +175,37 @@ body {
   cursor: pointer;
   font-size: 24px;
   color: #000000; /* Color gris oscuro */
+}
+
+/* Flechas */
+.arrow-button {
+  position: absolute;
+  top: 50%;
+  background: rgba(0, 0, 0, 0.1);
+  border: none;
+  color: white;
+  padding: 10px;
+  cursor: pointer;
+  z-index: 10;
+  transition: background-color 0.3s;
+  display: flex;
+  align-items: center;
+}
+
+.arrow-button.left {
+  left: 0;
+}
+
+.arrow-button.right {
+  right: 0;
+}
+
+/* Fondo más oscuro al poner el ratón encima */
+.arrow-button:hover {
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+/* Tamaño del ícono */
+.arrow-button i {
+  font-size: 30px;
 }
