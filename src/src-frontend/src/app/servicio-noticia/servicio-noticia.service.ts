@@ -58,9 +58,9 @@ export class ServicioNoticiaService {
   }
 
   // Actualiza una noticia por una id y los nuevos datos de la noticia
-  actualizarNoticia(indice: number, noticia: any): Observable<any> {
+  actualizarNoticia(id: number, noticia: any): Observable<any> {
     const headers = this.getHeaders();
-    const url = `http://localhost:8080/api/v1/admin/noticia/${indice}`;
+    const url = `http://localhost:8080/api/v1/admin/noticia/${id}`;
 
     return this.httpClient.put(url, noticia, { headers });
   }
