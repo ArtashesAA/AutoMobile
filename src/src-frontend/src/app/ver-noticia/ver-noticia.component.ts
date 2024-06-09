@@ -70,7 +70,11 @@ export class VerNoticiaComponent {
   }
 
   // Borra una noticia por su id
-  eliminarNoticia(id: number) {
-    this.noticiaHijo.eliminarNoticia(id);
+  eliminarNoticia() {
+    if (this.id !== undefined) {
+      this.noticiaHijo.eliminarNoticia(this.id);
+    } else {
+      console.error('El ID de la noticia es indefinido.');
+    }
   }
 }

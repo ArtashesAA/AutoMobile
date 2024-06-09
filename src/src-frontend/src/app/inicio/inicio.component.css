@@ -6,7 +6,7 @@ body {
   position: relative;
   width: 100%;
   height: auto;
-  max-height: 900px; /* Ajusta esta altura para que la imagen sea más pequeña */
+  max-height: 900px;
   object-fit: cover;
 }
 
@@ -92,5 +92,10 @@ body {
 
   .col-12 {
     width: 100%;
+  }
+
+  .imagen-principal img {
+    width: auto;
+    height: 100%;
   }
 }
