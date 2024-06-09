@@ -144,7 +144,7 @@ public class DataInitializer implements CommandLineRunner {
 							"https://prod.pictures.autoscout24.net/listing-images/5bc415f1-9bd0-4ea5-8673-73882b1d07dd_c84719b0-9aea-4b3b-9098-1a303b81b383.jpg/720x540.webp",
 							43900, 2017, 367, 56999, "Gasolina", "10 l/100 km", "Automatico", "Sedan", "Sedan", "Total",
 							5, 5, "1 Año", 1705, "Blanco", 9, 6, "Barcelona", "Deportivo MERCEDES-BENZ C43 AMG",
-							936163633, "dmautomocion@gmail.com", usuarios.get(6), new ArrayList<Imagen>(),
+							936163633, "dmautomocion@gmail.com", usuarios.get(0), new ArrayList<Imagen>(),
 							new ArrayList<Favorito>()),
 
 					new Coche(5L, "Volkswagen", "Golf",

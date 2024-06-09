@@ -23,11 +23,6 @@ form {
   padding: 30px;
 }
 
-#boton-actualizar {
-  margin-top: 100px;
-  margin-bottom: 100px;
-}
-
 /* Actualización de coche */
 .actualizar-coche {
   background-color: white;
@@ -41,19 +36,12 @@ select {
   border: 1px solid #949494;
 }
 
-.boton-volver {
-  text-align: center;
+/* Botones guardar */
+.botones-finales {
+  margin-top: 50px;
 }
-
-.botones {
-  display: flex;
-  margin-top: 10px;
-  height: 50px; /* Alto fijo para el contenedor de los botones */
-  margin-bottom: 50px;
-}
-
-.botones button {
-  height: 20px;
+.guardar {
+  width: 150px;
 }
 
 .sidebar nav ul li {

@@ -1,0 +1,82 @@
+<body>
+  <div class="container">
+    <div class="titulo"></div>
+    <div class="row">
+      <form
+        class="form-group actualizar-noticia col-12"
+        (ngSubmit)="actualizaNoticia()"
+      >
+        <h4>Datos de noticia</h4>
+        <!-- Título -->
+        <div class="form-group col-12">
+          <label for="titulo">Título</label>
+          <input
+            type="text"
+            class="form-control"
+            id="titulo"
+            name="titulo"
+            [(ngModel)]="cuadroTitulo"
+            required
+          />
+        </div>
+
+        <!-- Contenido -->
+        <div class="form-group col-12">
+          <label for="contenido">Contenido</label>
+          <textarea
+            class="form-control"
+            id="contenido"
+            name="contenido"
+            rows="5"
+            [(ngModel)]="cuadroContenido"
+            required
+          ></textarea>
+        </div>
+
+        <!-- Imágen y Video -->
+        <div class="form-group col-12">
+          <label for="imagen">URL de la Imágen</label>
+          <input
+            type="url"
+            class="form-control"
+            id="imagen"
+            name="imagen"
+            [(ngModel)]="cuadroUrlImagen"
+            required
+          />
+        </div>
+
+        <div class="form-group col-12">
+          <label for="video">URL del Video</label>
+          <input
+            type="url"
+            class="form-control"
+            id="video"
+            name="video"
+            [(ngModel)]="cuadroUrlVideo"
+            required
+          />
+        </div>
+
+        <!-- Botónes -->
+        <div class="botones-finales row">
+          <div class="form-group col-2">
+            <button type="submit" class="guardar btn btn-primary">
+              Guardar
+            </button>
+          </div>
+          <div class="form-group col-2">
+            <button
+              type="button"
+              class="btn btn-danger"
+              (click)="volverAExplorar()"
+            >
+              Cancelar
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="titulo"></div>
+  </div>
+</body>

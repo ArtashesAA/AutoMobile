@@ -36,16 +36,14 @@
         <button
           class="btn btn-secondary mr-3"
           [routerLink]="['/actualizaNoticia', id]"
-          [queryParams]="{ accion: '1' }"
           *ngIf="estaLogueado && esAdmin"
         >
           Editar
         </button>
         <button
           class="btn btn-danger"
-          [routerLink]="['/actualizaNoticia', id]"
-          [queryParams]="{ accion: '2' }"
           *ngIf="estaLogueado && esAdmin"
+          (click)="eliminarNoticia(noticia.id)"
         >
           Eliminar
         </button>

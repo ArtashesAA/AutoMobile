@@ -171,7 +171,7 @@ export class CrearCocheComponent implements OnInit {
             if (response.status === 200 || response.status === 201) {
               alert('Coche creado con éxito.');
               // Redirigir a la página de creación correcta
-              this.router.navigate(['/venderCorrecto']);
+              this.router.navigate(['/publicarCorrecto']);
             } else {
               alert('Error al crear el coche.');
             }
@@ -179,7 +179,7 @@ export class CrearCocheComponent implements OnInit {
           (error) => {
             if (error.status === 201) {
               // Si la respuesta es 201 (creación exitosa), redirigir a la página de creación correcta
-              this.router.navigate(['/venderCorrecto']);
+              this.router.navigate(['/publicarCorrecto']);
             } else {
               console.error('Error al crear el coche:', error);
               alert('Error al crear el coche.');

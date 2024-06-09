@@ -95,17 +95,6 @@ export class ActualizarCocheComponent implements OnInit {
       this.cuadroTelefonoAdjunto = coche.telefonoAdjunto;
       this.cuadroEmailAdjunto = coche.emailAdjunto;
     });
-
-    const botonVolverCatalogo = document.getElementById(
-      'boton-volver-catalogo'
-    );
-    if (botonVolverCatalogo) {
-      botonVolverCatalogo.addEventListener(
-        'click',
-        this.volverACatalogo.bind(this)
-      );
-    }
-
     this.marcas = this.servicioMarcas.obtenerMarcas();
   }
 
@@ -265,7 +254,6 @@ export class ActualizarCocheComponent implements OnInit {
           // Si ocurre un error al cargar el coche por su ID, se captura aquí
           alert('Error al actualizar el coche');
           console.error('Error al cargar el coche:', error);
-          // Aquí puedes agregar más lógica para manejar el error, como mostrar un mensaje al coche
         }
       );
     }

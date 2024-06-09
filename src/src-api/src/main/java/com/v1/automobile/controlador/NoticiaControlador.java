@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -60,9 +59,8 @@ public class NoticiaControlador {
 	 * @return recupera la noticia guardada
 	 */
 	@PostMapping("/admin/noticia")
-	public ResponseEntity<Noticia> crearNoticia(@RequestBody Noticia noticia) {
-		Noticia nuevaNoticia = noticiaServicio.crearNoticia(noticia);
-		return ResponseEntity.status(HttpStatus.CREATED).body(nuevaNoticia);
+	public ResponseEntity<String> crearNoticia(@RequestBody Noticia noticia) {
+		return noticiaServicio.crearNoticia(noticia);
 	}
 
 	/*

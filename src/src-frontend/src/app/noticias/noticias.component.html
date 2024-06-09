@@ -11,5 +11,11 @@
         <app-noticia-hijo [noticiadelista]="noticia"></app-noticia-hijo>
       </div>
     </div>
+
+    <div *ngIf="estaLogueado && esAdmin">
+      <button class="btn btn-primary" [routerLink]="'/publicarNoticia'">
+        Publicar
+      </button>
+    </div>
   </div>
 </body>
