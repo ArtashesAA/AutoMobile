@@ -30,3 +30,11 @@
 .container h4 {
   text-align: center;
 }
+
+/* Media queries */
+@media screen and (max-width: 850px) {
+  .imagen-principal img {
+    width: auto;
+    height: 100%;
+  }
+}
