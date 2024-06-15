@@ -65,9 +65,9 @@ public class DataInitializer implements CommandLineRunner {
 			// Usuarios
 			List<Usuario> usuarios = List.of(
 					new Usuario(1, "admin", "admin@gmail.com", "", passwordEncoder.encode("admin"), "ADMIN"),
-					new Usuario(2, "john_doe", "john.doe@gmail.com", "", passwordEncoder.encode("password"), "USER"),
+					new Usuario(2, "john_doe", "john.doe@gmail.com", "", passwordEncoder.encode("password"), "ADMIN"),
 					new Usuario(3, "emma_smith", "emma.smith@gmail.com", "", passwordEncoder.encode("password"),
-							"USER"),
+							"ADMIN"),
 					new Usuario(4, "michael_williams", "michael.williams@gmail.com", "",
 							passwordEncoder.encode("password"), "USER"),
 					new Usuario(5, "MDS Motors", "mdsmotors@gmail.com", "", passwordEncoder.encode("password"), "USER"),
