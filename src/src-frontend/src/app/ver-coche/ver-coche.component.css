@@ -209,3 +209,20 @@ body {
 .arrow-button i {
   font-size: 30px;
 }
+
+/* Media queries */
+@media screen and (max-width: 850px) {
+  .col-8 {
+    width: 100%;
+  }
+
+  .datos-principales {
+    width: 100%;
+    margin-top: 20px;
+  }
+
+  .coche-image {
+    width: 100%; /* Aseguramos que ocupe el 100% */
+    margin: 0; /* Eliminamos el margen */
+  }
+}

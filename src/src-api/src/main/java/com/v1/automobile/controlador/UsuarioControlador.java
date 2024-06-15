@@ -176,9 +176,6 @@ public class UsuarioControlador {
 	 */
 	@DeleteMapping("/admin/usuario/{id}")
 	public ResponseEntity<String> eliminarUsuario(@PathVariable Integer id) {
-		if (!usuarioRepositorio.existsById(id)) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
 		usuarioRepositorio.deleteById(id);
 		return new ResponseEntity<>("Usuario con id " + id + " eliminado correctamente", HttpStatus.OK);
 	}

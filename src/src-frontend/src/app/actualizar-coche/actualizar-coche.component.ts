@@ -98,6 +98,7 @@ export class ActualizarCocheComponent implements OnInit {
     this.marcas = this.servicioMarcas.obtenerMarcas();
   }
 
+  // Al cambiar la marca
   onMarcaChange() {
     // Si no se ha seleccionado ninguna marca, reinicia los modelos
     if (!this.cuadroMarca) {
@@ -121,6 +122,7 @@ export class ActualizarCocheComponent implements OnInit {
     );
   }
 
+  // Actualizar coche
   actualizaCoche() {
     const marcaId = Number(this.cuadroMarca);
     const nombreMarca = this.servicioMarcas.obtenerNombreMarcaPorId(marcaId);
@@ -259,6 +261,7 @@ export class ActualizarCocheComponent implements OnInit {
     }
   }
 
+  // Modificar datos con botones
   sumarPlaza() {
     if (this.cuadroPlazas < 20) {
       this.cuadroPlazas++;
@@ -315,6 +318,7 @@ export class ActualizarCocheComponent implements OnInit {
     this.cuadroImagenes.splice(index, 1);
   }
 
+  // Volver a catálogo
   volverACatalogo() {
     this.router.navigate(['catalogo']);
   }

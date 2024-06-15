@@ -118,10 +118,12 @@ export class VerCocheComponent implements OnInit {
     }
   }
 
+  // Cambia la imagen grande por otra pasado por parámetro
   cambiarImagenPrincipal(imagen: string): void {
     this.coche.imagenPrincipal = imagen;
   }
 
+  // Obtiene el coche por el id pasado
   getCoche(id: number): void {
     this.servicioCoche.cargarCochePorId(id).subscribe((coche) => {
       this.coche = coche;
@@ -129,6 +131,7 @@ export class VerCocheComponent implements OnInit {
     });
   }
 
+  // Cambia la imagen
   navegarImagen(direction: number): void {
     if (this.coche && this.coche.imagenes) {
       this.currentImageIndex += direction;
@@ -143,6 +146,7 @@ export class VerCocheComponent implements OnInit {
     }
   }
 
+  // Obtiene las imagenes de un coche y las almacena
   chunkImages(): void {
     const chunkSize = 4;
     this.chunkedImages = []; // Limpiar el array de chunks
@@ -194,16 +198,23 @@ export class VerCocheComponent implements OnInit {
 
   // Envia el mensaje
   enviarMensaje() {
-    console.log('Mensaje enviado:', this.mensaje);
-    // También puedes restablecer los campos del formulario después de enviar el mensaje
+    // Verifica que todos los campos obligatorios estén completos
+    if (!this.nombre || !this.email || !this.mensaje) {
+      alert('Debe rellenar todos los datos.');
+      return;
+    }
+
+    alert('Mensaje enviado.');
+    // Oculta el modal después de enviar el mensaje
+    this.ocultarModal();
+    // Resetea el form
     this.nombre = '';
     this.email = '';
     this.numero = 0;
     this.mensaje = '';
-    // Ocultar el modal después de enviar el mensaje
-    this.ocultarModal();
   }
 
+  // Cambia el texto al pulsar en el botón de Contacto
   cambiarTexto() {
     if (this.mostrarTelefono) {
       // Si se está mostrando el número de teléfono, cambia el texto al correo electrónico

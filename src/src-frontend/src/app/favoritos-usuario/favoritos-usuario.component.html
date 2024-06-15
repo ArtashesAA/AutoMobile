@@ -11,12 +11,12 @@
                 [routerLink]="'/perfil'"
                 class="nav-link link-dark"
                 aria-current="page"
-                >Perfil</a
+                ><i class="bi bi-person-fill"></i>Perfil</a
               >
             </li>
             <li *ngIf="esAdmin">
               <a [routerLink]="'/gestionUsuarios'" class="nav-link link-dark"
-                >Gestión de Usuarios</a
+                ><i class="bi bi-pencil-square"></i> Gestión de Usuarios</a
               >
             </li>
             <li class="nav-item">
@@ -24,7 +24,7 @@
                 [routerLink]="'/cochesUsuario'"
                 class="nav-link link-dark"
                 aria-current="page"
-                >Coches Publicados</a
+                ><i class="bi bi-car-front-fill"></i> Coches Publicados</a
               >
             </li>
             <li class="nav-item">
@@ -32,7 +32,7 @@
                 [routerLink]="'/favoritosUsuario'"
                 class="nav-link active"
                 aria-current="page"
-                >Favoritos</a
+                ><i class="bi bi-star-fill"></i> Favoritos</a
               >
             </li>
           </ul>

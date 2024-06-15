@@ -3,7 +3,7 @@
   <div class="container">
     <div *ngIf="coche" class="coche-info-container">
       <!-- Imagen del coche -->
-      <div class="row justify-content-start">
+      <div class="row justify-content-start imagenes-coche">
         <div class="col-8">
           <div class="coche-image">
             <button class="arrow-button left" (click)="navegarImagen(-1)">
@@ -78,7 +78,7 @@
           </div>
         </div>
 
-        <div class="col-4">
+        <div class="col-4 datos-principales">
           <!-- Favoritos - compartir o Editar - Eliminar -->
           <div class="row">
             <div *ngIf="estaLogueado && esDelUsuario; else accionLinks">
@@ -182,7 +182,7 @@
                 <!-- Modal del formulario -->
                 <div
                   class="modal"
-                  [class.d-block]="mostrar"
+                  [ngClass]="{ 'd-block': mostrar }"
                   tabindex="-1"
                   role="dialog"
                 >
@@ -195,7 +195,6 @@
                         <button
                           class="btn btn-danger col-1"
                           id="cerrarFormulario"
-                          data-dismiss="modal"
                           aria-label="Cerrar"
                           (click)="ocultarModal()"
                         >
@@ -204,7 +203,10 @@
                       </div>
                       <div class="modal-body">
                         <!-- Aquí va tu formulario -->
-                        <form (ngSubmit)="enviarMensaje()">
+                        <form
+                          #contactForm="ngForm"
+                          (ngSubmit)="enviarMensaje()"
+                        >
                           <div class="form-group">
                             <label for="nombre">Nombre</label>
                             <input
@@ -215,6 +217,7 @@
                               placeholder="Tu nombre"
                               [(ngModel)]="nombre"
                               required
+                              pattern="^[a-zA-Z0-9._%!-]{3,20}$"
                             />
                           </div>
                           <div class="form-group">
@@ -227,7 +230,19 @@
                               placeholder="Tu email"
                               [(ngModel)]="email"
                               required
+                              pattern="^[a-zA-Z0-9._%!-]{3,30}@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+                              #emailform="ngModel"
                             />
+                            <div
+                              *ngIf="
+                                emailform.invalid &&
+                                (emailform.dirty || emailform.touched)
+                              "
+                              class="text-danger"
+                            >
+                              El email debe tener al menos 3 letras seguido de
+                              'gmail.com'.
+                            </div>
                           </div>
                           <div class="form-group">
                             <label for="telefono">Teléfono (opcional)</label>
@@ -237,9 +252,19 @@
                               id="telefono"
                               name="telefono"
                               placeholder="Tu telefono"
-                              [(ngModel)]="numero"
-                              required
+                              [(ngModel)]="telefono"
+                              pattern="^[0-9]{6,9}$"
+                              #telefono="ngModel"
                             />
+                            <div
+                              *ngIf="
+                                telefono.invalid &&
+                                (telefono.dirty || telefono.touched)
+                              "
+                              class="text-danger"
+                            >
+                              Introduce un formato de telefono correcto.
+                            </div>
                           </div>
                           <div class="form-group">
                             <label for="mensaje">Mensaje</label>
@@ -251,9 +276,23 @@
                               placeholder="Tu mensaje"
                               [(ngModel)]="mensaje"
                               required
+                              #mensajeform="ngModel"
                             ></textarea>
+                            <div
+                              *ngIf="
+                                mensajeform.invalid &&
+                                (mensajeform.dirty || mensajeform.touched)
+                              "
+                              class="text-danger"
+                            >
+                              Introduce un formato de mensaje correcto.
+                            </div>
                           </div>
-                          <button type="submit" class="btn btn-primary">
+                          <button
+                            type="submit"
+                            class="btn btn-primary"
+                            [disabled]="contactForm.invalid"
+                          >
                             Enviar
                           </button>
                         </form>
@@ -306,6 +345,7 @@
                     {{ coche.combustible }}
                   </p>
                 </div>
+                <div class="col-4" id="vacio"></div>
                 <div class="col-4" id="color">
                   <h5>Color</h5>
                   <p>

@@ -61,3 +61,14 @@ body {
 .modificar {
   margin-bottom: 50px;
 }
+
+/* Media queries */
+@media screen and (max-width: 850px) {
+  .sidebar {
+    width: 160px; /* Ajusta el ancho del sidebar para solo mostrar los íconos */
+  }
+
+  .sidebar .nav-link span {
+    display: none; /* Oculta el texto del título */
+  }
+}

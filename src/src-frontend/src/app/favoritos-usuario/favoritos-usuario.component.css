@@ -34,3 +34,9 @@ body {
   margin-top: 50px;
   margin-bottom: 400px;
 }
+
+@media screen and (max-width: 850px) {
+  .coche-favorito {
+    margin-bottom: 50px;
+  }
+}
